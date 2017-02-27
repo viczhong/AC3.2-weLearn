@@ -13,7 +13,6 @@
 		9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */; };
 		9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
-		9EECFE891E64C83D00503F7F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE881E64C83D00503F7F /* ViewController.swift */; };
 		9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8A1E64C83D00503F7F /* Main.storyboard */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
@@ -36,7 +35,6 @@
 		9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldAnnouncementTableViewController.swift; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9EECFE881E64C83D00503F7F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9EECFE8B1E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EECFE901E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
 				9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */,
 				9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */,
-				9EECFE881E64C83D00503F7F /* ViewController.swift */,
 				9EECFE8A1E64C83D00503F7F /* Main.storyboard */,
 				9EECFE8D1E64C83D00503F7F /* Assets.xcassets */,
 				9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */,
@@ -254,16 +251,13 @@
 			files = (
 				D337DA331E64CB4A00DEE7B5 /* StyleMananger.swift in Sources */,
 				D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */,
-				9EECFE891E64C83D00503F7F /* ViewController.swift in Sources */,
 				D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */,
-
 				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
-				9EECFE891E64C83D00503F7F /* ViewController.swift in Sources */,
 				9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */,
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
