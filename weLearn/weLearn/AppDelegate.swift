@@ -19,8 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
-        window?.backgroundColor = UIColor.weLearnWarmWhite
-        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = InitialViewController()
+        self.window?.makeKeyAndVisible()
+        self.window?.backgroundColor = UIColor.weLearnWarmWhite
+
         return true
     }
 
