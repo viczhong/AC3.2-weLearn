@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+
         viewHiearchy()
         configureConstraints()
         tableview.register(UITableViewCell.self, forCellReuseIdentifier: "agendaCell")
@@ -62,10 +62,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "agendaCell", for: indexPath)
         cell.textLabel?.text = "DO THIS YOU LAZY FUCK"
-        cell.backgroundColor = .white
         return cell
     }
     
@@ -88,19 +88,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var announcementButton: UIButton = {
-        let button = UIButton()
+    lazy var announcementButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
         button.setTitle("ANNOUNCEMENT", for: .normal)
         //button.addTarget(self, action: #selector(buttonWasPressed(button: button)), for: .touchUpInside)
         return button
     }()
-    lazy var LinksButton: UIButton = {
-        let button = UIButton()
+    lazy var LinksButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
         button.setTitle("Links", for: .normal)
         return button
     }()
-    lazy var homeworkButton: UIButton = {
-        let button = UIButton()
+    lazy var homeworkButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
         button.setTitle("Homework", for: .normal)
         return button
     }()

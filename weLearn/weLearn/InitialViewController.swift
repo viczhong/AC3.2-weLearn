@@ -12,7 +12,7 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .clear
         viewHiearchy()
         configureConstraints()
     }
@@ -23,8 +23,8 @@ class InitialViewController: UIViewController {
         self.view.addSubview(passwordTextField)
         self.view.addSubview(loginButton)
     }
+    
     func configureConstraints() {
-        
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -53,18 +53,16 @@ class InitialViewController: UIViewController {
     
     lazy var usernameTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
         return textField
     }()
     
     lazy var passwordTextField: UITextField = {
         let secondTextField = UITextField()
-        secondTextField.backgroundColor = .blue
         return secondTextField
     }()
     
-    lazy var loginButton: UIButton = {
-        let button = UIButton()
+    lazy var loginButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
         button.setTitle("Login", for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         return button
