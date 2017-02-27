@@ -95,8 +95,8 @@
 		D337DA2B1E64CA3600DEE7B5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */,
 				D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */,
+				D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */,
 				D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */,
 				D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */,
 				D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */,
