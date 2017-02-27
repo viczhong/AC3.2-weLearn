@@ -12,6 +12,11 @@
 		9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8A1E64C83D00503F7F /* Main.storyboard */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
+		D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */; };
+		D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */; };
+		D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */; };
+		D337DA331E64CB4A00DEE7B5 /* StyleMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */; };
+		D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */; };
 		EA9815AA4403842200BFCA50 /* Pods_weLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F35F447069D852D8DD870A /* Pods_weLearn.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +30,11 @@
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EECFE901E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EECFE921E64C83D00503F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NavBar.swift"; sourceTree = "<group>"; };
+		D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleMananger.swift; sourceTree = "<group>"; };
+		D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlinedText.swift; sourceTree = "<group>"; };
 		E98E141D62FC8335A693C086 /* Pods-weLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weLearn.release.xcconfig"; path = "Pods/Target Support Files/Pods-weLearn/Pods-weLearn.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +79,7 @@
 		9EECFE851E64C83D00503F7F /* weLearn */ = {
 			isa = PBXGroup;
 			children = (
+				D337DA2B1E64CA3600DEE7B5 /* UI */,
 				9EECFE861E64C83D00503F7F /* AppDelegate.swift */,
 				9EECFE881E64C83D00503F7F /* ViewController.swift */,
 				9EECFE8A1E64C83D00503F7F /* Main.storyboard */,
@@ -77,6 +88,18 @@
 				9EECFE921E64C83D00503F7F /* Info.plist */,
 			);
 			path = weLearn;
+			sourceTree = "<group>";
+		};
+		D337DA2B1E64CA3600DEE7B5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */,
+				D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */,
+				D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */,
+				D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */,
+				D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		E28EAC27D3937C3FD0D891AF /* Pods */ = {
@@ -211,8 +234,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D337DA331E64CB4A00DEE7B5 /* StyleMananger.swift in Sources */,
 				9EECFE891E64C83D00503F7F /* ViewController.swift in Sources */,
+				D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */,
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
+				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
+				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
+				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +404,7 @@
 				9EECFE971E64C83D00503F7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
