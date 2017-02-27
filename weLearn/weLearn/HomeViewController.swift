@@ -16,16 +16,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         viewHiearchy()
         configureConstraints()
+        
         tableview.register(UITableViewCell.self, forCellReuseIdentifier: "agendaCell")
         
         announcementButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         homeworkButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-        LinksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+        linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
     }
     
     func viewHiearchy() {
         self.view.addSubview(tableview)
-        self.view.addSubview(LinksButton)
+        self.view.addSubview(linksButton)
         self.view.addSubview(homeworkButton)
         self.view.addSubview(announcementButton)
         
@@ -37,8 +38,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableview.translatesAutoresizingMaskIntoConstraints = false
         announcementButton.translatesAutoresizingMaskIntoConstraints = false
         homeworkButton.translatesAutoresizingMaskIntoConstraints = false
-        LinksButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        linksButton.translatesAutoresizingMaskIntoConstraints = false
         
         tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -47,14 +47,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         announcementButton.topAnchor.constraint(equalTo: tableview.bottomAnchor, constant: 16.0).isActive = true
         announcementButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        announcementButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         
         homeworkButton.topAnchor.constraint(equalTo: announcementButton.bottomAnchor, constant: 8.0).isActive = true
         homeworkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        homeworkButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
-        
-        LinksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        LinksButton.topAnchor.constraint(equalTo: homeworkButton.bottomAnchor, constant: 8.0).isActive = true
+    
+        linksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        linksButton.topAnchor.constraint(equalTo: homeworkButton.bottomAnchor, constant: 8.0).isActive = true
+        linksButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
     // MARK: - TableView DataSource Methods
@@ -77,7 +80,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
         case homeworkButton:
             navigationController?.pushViewController(HomeworkTableViewController(), animated: true)
-        case LinksButton:
+        case linksButton:
             navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
             
         default:
@@ -90,20 +93,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     lazy var announcementButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
-        button.setTitle("ANNOUNCEMENT", for: .normal)
+        button.setTitle("Announcements", for: .normal)
         //button.addTarget(self, action: #selector(buttonWasPressed(button: button)), for: .touchUpInside)
         return button
     }()
-    lazy var LinksButton: ShinyOvalButton = {
+    
+    lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Links", for: .normal)
         return button
     }()
+    
     lazy var homeworkButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Homework", for: .normal)
         return button
     }()
+    
     lazy var tableview: UITableView = {
         let tableView = UITableView()
         

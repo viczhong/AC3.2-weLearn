@@ -45,7 +45,7 @@ class StyleManager {
         // top bar styling
         proxyNavBar.tintColor = UIColor.weLearnCoolWhite
         proxyNavBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.weLearnCoolWhite, NSFontAttributeName: UIFont(name: boldFont, size: 21)!]
-        proxyNavBar.apply(gradient: [UIColor.weLearnCoolAccent.withAlphaComponent(0.1), UIColor.weLearnGreen])
+        proxyNavBar.apply(gradient: [UIColor.weLearnCoolAccent.withAlphaComponent(0.5), UIColor.weLearnGreen])
         
         // detail & text styling
         proxyLabel.font = UIFont(name: semiboldFont, size: 20)

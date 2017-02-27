@@ -17,7 +17,6 @@ class InitialViewController: UIViewController {
         configureConstraints()
     }
     
-    
     func viewHiearchy() {
         self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)

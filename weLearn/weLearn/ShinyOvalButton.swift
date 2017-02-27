@@ -14,23 +14,12 @@ class ShinyOvalButton: UIButton {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        let shadowContainerView: UIView = {
-            let containerView = UIView()
-            containerView.layer.shadowColor = UIColor.weLearnBlack.cgColor
-            containerView.layer.shadowOpacity = 0.8
-            containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
-            containerView.layer.shadowRadius = 5
-            containerView.layer.cornerRadius = 15
-            return containerView
-        }()
-        
-        self.addSubview(shadowContainerView)
-        
         self.clipsToBounds = true
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 15
-        self.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.01), UIColor.weLearnWarmHighlight])
-        self.layer.borderColor = UIColor.weLearnGrey.cgColor
-        self.setTitleColor(UIColor.weLearnBlack, for: .normal)
+        self.apply(gradient: [UIColor.weLearnWarmHighlight.withAlphaComponent(0.5), UIColor.weLearnOrange])
+        self.layer.borderColor = UIColor.weLearnWarmHighlight.cgColor
+        self.setTitleColor(UIColor.weLearnBlack.withAlphaComponent(0.5), for: .normal)
+        self.titleLabel?.font = UIFont(name: "Avenir-Black", size: 16)
     }
 }
