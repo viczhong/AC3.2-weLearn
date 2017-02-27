@@ -11,7 +11,7 @@ import UIKit
 
 class UIOutlinedLabel: UILabel {
     var outlineWidth: CGFloat = 5
-    var outlineColor: UIColor = UIColor.hackathonBlue.withAlphaComponent(0.5)
+    var outlineColor: UIColor = UIColor.weLearnBlack
     
     override func drawText(in rect: CGRect) {
         
