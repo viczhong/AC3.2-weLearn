@@ -19,6 +19,7 @@ class StyleManager {
         let regularFont = "Avenir-Roman"
         let italicFont = "Avenir-Oblique"
         let lightFont = "Avenir-LightOblique"
+        let lightItalicFont = "Avenir-LightOblique"
         
         // top bar
         let proxyNavBar = UINavigationBar.appearance()
@@ -26,7 +27,7 @@ class StyleManager {
         // details & text
         let proxyImageView = UIImageView.appearance()
         let proxyLabel = UILabel.appearance()
-        let proxyTextField = UITextField.appearance()
+        let proxyTextField = PaddedTextField.appearance()
         let proxyTextView = UITextView.appearance()
         let proxyPlaceholder = UILabel.appearance(whenContainedInInstancesOf: [UITextField.self])
         let proxyButtonLabel = UILabel.appearance(whenContainedInInstancesOf: [UIButton.self])
@@ -54,18 +55,21 @@ class StyleManager {
         proxyTextView.textColor = UIColor.weLearnBlack
         proxyTextView.backgroundColor = .clear
         
-        proxyTextField.backgroundColor = UIColor.weLearnWarmWhite
+        proxyTextField.backgroundColor = UIColor.white
+        proxyTextField.layer.borderColor = UIColor.weLearnGrey.cgColor
+        proxyTextField.layer.borderWidth = 0.75
         proxyTextField.textColor = UIColor.weLearnBlack
-        proxyTextField.font = UIFont(name: semiboldFont, size: 20)
+        proxyTextField.font = UIFont(name: semiboldFont, size: 16)
         proxyTextField.layer.cornerRadius = 3.0
-        proxyTextField.placeholder = "Enter your zipcode"
-        proxyPlaceholder.font = UIFont(name: italicFont, size: 20)
-        proxyPlaceholder.textAlignment = .center
+        proxyPlaceholder.font = UIFont(name: lightItalicFont, size: 20)
+        proxyPlaceholder.textAlignment = .left
         proxyPlaceholder.backgroundColor = proxyTextField.backgroundColor
         proxyPlaceholder.textColor = UIColor.weLearnGrey
         
         proxyButtonLabel.font = UIFont(name: boldFont, size: 20)
         proxyButton.titleEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        proxyButtonLabel.allowsDefaultTighteningForTruncation = true
+        proxyButton.tintColor = UIColor.weLearnBlack
         
         // generalized info styling
         proxyWebView.scalesPageToFit = true

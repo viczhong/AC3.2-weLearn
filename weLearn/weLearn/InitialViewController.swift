@@ -31,19 +31,17 @@ class InitialViewController: UIViewController {
         
         usernameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        usernameTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        usernameTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 16.0).isActive = true
-        
-        
-        passwordTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        passwordTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16.0).isActive = true
-        
-        
+        loginButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
+    
     func loginButtonWasPressed() {
         present( UINavigationController(rootViewController: HomeViewController()), animated: true) {
             print("It worked")
@@ -51,13 +49,15 @@ class InitialViewController: UIViewController {
     }
     
     
-    lazy var usernameTextField: UITextField = {
-        let textField = UITextField()
+    lazy var usernameTextField: PaddedTextField = {
+        let textField = PaddedTextField()
+        textField.placeholder = "UserName@email.com"
         return textField
     }()
     
-    lazy var passwordTextField: UITextField = {
-        let secondTextField = UITextField()
+    lazy var passwordTextField: PaddedTextField = {
+        let secondTextField = PaddedTextField()
+        secondTextField.placeholder = "password"
         return secondTextField
     }()
     
