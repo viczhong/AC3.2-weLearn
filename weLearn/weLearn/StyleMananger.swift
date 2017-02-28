@@ -14,7 +14,7 @@ class StyleManager {
     private init() {}
     
     func prettify() {
-        let displayFont = "Thirtysix"
+        //let displayFont = "Thirtysix"
         let boldFont = "Avenir-Black"
         let regularFont = "Avenir-Roman"
         let italicFont = "Avenir-Oblique"

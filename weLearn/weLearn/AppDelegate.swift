@@ -16,21 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        for family: String in UIFont.familyNames
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNames(forFamilyName: family)
-            {
-                print("== \(names)")
-            }
-        }
-        
         UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = InitialViewController()
         self.window?.makeKeyAndVisible()
-        self.window?.backgroundColor = UIColor.white
+        self.window?.backgroundColor = UIColor.weLearnCoolAccent
 
         return true
     }
