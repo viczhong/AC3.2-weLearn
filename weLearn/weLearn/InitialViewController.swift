@@ -33,8 +33,8 @@ class InitialViewController: UIViewController {
     func configureConstraints() {
         logoHeader.snp.makeConstraints { label in
             label.top.equalToSuperview().offset(40)
-            label.leading.equalToSuperview().offset(15)
-            label.trailing.equalToSuperview().inset(15)
+            label.leading.equalToSuperview().offset(25)
+            label.trailing.equalToSuperview().inset(25)
         }
         
         box.snp.makeConstraints { view in
@@ -64,7 +64,7 @@ class InitialViewController: UIViewController {
             view.top.equalTo(usernameTextField)
             view.bottom.equalTo(usernameTextField)
             view.width.equalTo(2)
-            view.leading.equalTo(usernameTextField)
+            view.trailing.equalTo(usernameTextField.snp.trailing)
         }
         
         passwordTextField.snp.makeConstraints { view in
@@ -86,7 +86,7 @@ class InitialViewController: UIViewController {
             view.top.equalTo(passwordTextField)
             view.bottom.equalTo(passwordTextField)
             view.width.equalTo(2)
-            view.leading.equalTo(passwordTextField)
+            view.trailing.equalTo(passwordTextField.snp.trailing)
         }
         
         loginButton.snp.makeConstraints { button in
@@ -113,7 +113,7 @@ class InitialViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.textColor = UIColor.white
         label.shadowColor = UIColor.weLearnGreen
-        label.shadowOffset = CGSize(width: -10, height: 10)
+        label.shadowOffset = CGSize(width: 10, height: 10)
         return label
     }()
     
