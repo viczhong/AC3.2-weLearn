@@ -13,9 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        StyleManager.styler.prettify()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = InitialViewController()
+        self.window?.makeKeyAndVisible()
+        self.window?.backgroundColor = UIColor.white
+
         return true
     }
 
