@@ -24,21 +24,7 @@ class InitialViewController: UIViewController {
     }
     
     func configureConstraints() {
-        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        usernameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        usernameTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 16.0).isActive = true
-        passwordTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16.0).isActive = true
-        loginButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    
     }
     
     func loginButtonWasPressed() {
