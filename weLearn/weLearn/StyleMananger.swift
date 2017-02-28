@@ -53,9 +53,9 @@ class StyleManager {
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
-        proxyTextView.backgroundColor = .clear
+        //proxyTextView.backgroundColor = .clear
         
-        proxyTextField.backgroundColor = UIColor.white
+        proxyTextField.backgroundColor = UIColor.weLearnCoolWhite
         proxyTextField.layer.borderColor = UIColor.weLearnGrey.cgColor
         proxyTextField.layer.borderWidth = 0.75
         proxyTextField.textColor = UIColor.weLearnBlack

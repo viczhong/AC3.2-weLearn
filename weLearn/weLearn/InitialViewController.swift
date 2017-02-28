@@ -12,7 +12,7 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = UIColor.white
         viewHiearchy()
         configureConstraints()
     }
