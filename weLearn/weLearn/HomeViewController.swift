@@ -68,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "agendaCell", for: indexPath)
-        cell.textLabel?.text = "DO THIS YOU LAZY FUCK"
+        cell.textLabel?.text = "YOU MUST DO THIS TODAY"
         return cell
     }
     
@@ -82,10 +82,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             navigationController?.pushViewController(HomeworkTableViewController(), animated: true)
         case linksButton:
             navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-            
         default:
             print("IDK BRUH")
-            
         }
     }
     
