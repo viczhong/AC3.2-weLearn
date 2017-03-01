@@ -23,6 +23,10 @@
 		D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */; };
 		D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */; };
 		D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */; };
+		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
+		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
+		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
+		D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F0E6341E6622DF00C5E594 /* HeaderLabel.swift */; };
 		EA9815AA4403842200BFCA50 /* Pods_weLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F35F447069D852D8DD870A /* Pods_weLearn.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +51,10 @@
 		D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlinedText.swift; sourceTree = "<group>"; };
 		D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShinyOvalButton.swift; sourceTree = "<group>"; };
 		D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
+		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
+		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
+		D3F0E6341E6622DF00C5E594 /* HeaderLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		E98E141D62FC8335A693C086 /* Pods-weLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weLearn.release.xcconfig"; path = "Pods/Target Support Files/Pods-weLearn/Pods-weLearn.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,12 +118,16 @@
 			isa = PBXGroup;
 			children = (
 				D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */,
+				D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */,
+				D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */,
+				D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */,
 				D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */,
 				D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */,
 				D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */,
 				D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */,
 				D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */,
 				D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */,
+				D3F0E6341E6622DF00C5E594 /* HeaderLabel.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -191,9 +203,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */,
+				D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */,
 				9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */,
 				9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */,
 				9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */,
+				D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +274,7 @@
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
+				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
