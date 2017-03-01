@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewHiearchy()
         configureConstraints()
         
@@ -29,8 +29,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addSubview(linksButton)
         self.view.addSubview(homeworkButton)
         self.view.addSubview(announcementButton)
-        
     }
+    
     func configureConstraints(){
         
         self.edgesForExtendedLayout = []
@@ -54,7 +54,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         homeworkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         homeworkButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
-    
+        
         linksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         linksButton.topAnchor.constraint(equalTo: homeworkButton.bottomAnchor, constant: 8.0).isActive = true
         linksButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -82,7 +82,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             navigationController?.pushViewController(HomeworkTableViewController(), animated: true)
         case linksButton:
             navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-            
         default:
             print("IDK BRUH")
             

@@ -100,7 +100,7 @@ class InitialViewController: UIViewController {
     }
     
     func loginButtonWasPressed() {
-        present( UINavigationController(rootViewController: HomeViewController()), animated: true) {
+        present(UINavigationController(rootViewController: HomeViewController()), animated: false) {
             print("It worked")
         }
     }
@@ -130,7 +130,10 @@ class InitialViewController: UIViewController {
     
     lazy var usernameTextField: PaddedTextField = {
         let textField = PaddedTextField()
-        textField.placeholder = "UserName@email.com"
+        textField.placeholder = "crisChavez@email.com"
+        textField.spellCheckingType = .no
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -141,27 +144,31 @@ class InitialViewController: UIViewController {
     }()
     
     lazy var usernameBar: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
-        return stripe
+        let bar = UIView()
+        bar.backgroundColor = UIColor.weLearnGreen
+        return bar
     }()
 
     lazy var passwordTextField: PaddedTextField = {
         let secondTextField = PaddedTextField()
         secondTextField.placeholder = "password"
+        secondTextField.isSecureTextEntry = true
+        secondTextField.spellCheckingType = .no
+        secondTextField.autocorrectionType = .no
+        secondTextField.autocapitalizationType = .none
         return secondTextField
     }()
     
     lazy var passwordStripe: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
-        return stripe
+        let secondStripe = UIView()
+        secondStripe.backgroundColor = UIColor.weLearnGreen
+        return secondStripe
     }()
     
     lazy var passwordBar: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
-        return stripe
+        let secondBar = UIView()
+        secondBar.backgroundColor = UIColor.weLearnGreen
+        return secondBar
     }()
     
     lazy var loginButton: UIButton = {
