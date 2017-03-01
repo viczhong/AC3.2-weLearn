@@ -13,12 +13,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let currentDate = Date()
     let calendar = Calendar.current
+    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewHiearchy()
         configureConstraints()
+        readAgenda()
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
@@ -32,6 +34,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
     }
     
+    
+    // MARK: - Layout Setup
     func viewHiearchy() {
         self.view.addSubview(tableview)
         self.view.addSubview(linksButton)
@@ -67,6 +71,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         linksButton.topAnchor.constraint(equalTo: homeworkButton.bottomAnchor, constant: 8.0).isActive = true
         linksButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
+    
+    // MARK: - Functions and Methods
+    
+    func readAgenda() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if let returnedData = data {
+                dump(returnedData)
+            }
+        }
+    }
+    
     
     // MARK: - TableView DataSource Methods
     
