@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = InitialViewController()
         self.window?.makeKeyAndVisible()
-        self.window?.backgroundColor = UIColor.white
+        self.window?.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white])
 
         return true
     }

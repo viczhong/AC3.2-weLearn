@@ -14,12 +14,15 @@ class StyleManager {
     private init() {}
     
     func prettify() {
+        //let displayFont = "Thirtysix"
         let boldFont = "Avenir-Black"
-        let semiboldFont = "Avenir-Heavy"
         let regularFont = "Avenir-Roman"
         let italicFont = "Avenir-Oblique"
         let lightFont = "Avenir-LightOblique"
         let lightItalicFont = "Avenir-LightOblique"
+        
+        let accessibilityFont = "TiresiasInfofont"
+        let accessibilityFontItalic = "TiresiasInfofont"
         
         // top bar
         let proxyNavBar = UINavigationBar.appearance()
@@ -27,7 +30,7 @@ class StyleManager {
         // details & text
         let proxyImageView = UIImageView.appearance()
         let proxyLabel = UILabel.appearance()
-        let proxyTextField = PaddedTextField.appearance()
+        let proxyTextField = UITextField.appearance()
         let proxyTextView = UITextView.appearance()
         let proxyPlaceholder = UILabel.appearance(whenContainedInInstancesOf: [UITextField.self])
         let proxyButtonLabel = UILabel.appearance(whenContainedInInstancesOf: [UIButton.self])
@@ -48,19 +51,17 @@ class StyleManager {
         proxyNavBar.apply(gradient: [UIColor.weLearnCoolAccent.withAlphaComponent(0.5), UIColor.weLearnGreen])
         
         // detail & text styling
-        proxyLabel.font = UIFont(name: semiboldFont, size: 20)
+        proxyLabel.font = UIFont(name: boldFont, size: 20)
         proxyLabel.textColor = UIColor.weLearnBlack
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
-        //proxyTextView.backgroundColor = .clear
+        proxyTextView.backgroundColor = UIColor.white
         
-        proxyTextField.backgroundColor = UIColor.weLearnCoolWhite
-        proxyTextField.layer.borderColor = UIColor.weLearnGrey.cgColor
-        proxyTextField.layer.borderWidth = 0.75
-        proxyTextField.textColor = UIColor.weLearnBlack
-        proxyTextField.font = UIFont(name: semiboldFont, size: 16)
-        proxyTextField.layer.cornerRadius = 3.0
+        proxyTextField.backgroundColor = UIColor.white
+        proxyTextField.textColor = UIColor.weLearnOrange
+        proxyTextField.font = UIFont(name: boldFont, size: 20)
+
         proxyPlaceholder.font = UIFont(name: lightItalicFont, size: 20)
         proxyPlaceholder.textAlignment = .left
         proxyPlaceholder.backgroundColor = proxyTextField.backgroundColor
