@@ -106,9 +106,7 @@ class InitialViewController: UIViewController {
     }
     
     func loginButtonWasPressed() {
-        present(UINavigationController(rootViewController: HomeViewController()), animated: false) {
-            print("Login button pressed")
-        }
+        present(UINavigationController(rootViewController: HomeViewController()), animated: false)
     }
     
     lazy var logoPic: UIImageView = {

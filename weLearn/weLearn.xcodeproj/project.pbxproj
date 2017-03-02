@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */; };
+		2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */; };
+		2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */; };
 		9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */; };
 		9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */; };
 		9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */; };
@@ -15,7 +18,6 @@
 		9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */; };
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
-		9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8A1E64C83D00503F7F /* Main.storyboard */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
 		D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */; };
@@ -34,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		01F35F447069D852D8DD870A /* Pods_weLearn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weLearn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableViewCell.swift; sourceTree = "<group>"; };
+		2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
+		2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDatesTableViewCell.swift; sourceTree = "<group>"; };
 		51E4D27866E49E336ED8D777 /* Pods-weLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weLearn.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weLearn/Pods-weLearn.debug.xcconfig"; sourceTree = "<group>"; };
 		9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +49,6 @@
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9EECFE8B1E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EECFE901E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EECFE921E64C83D00503F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,10 +129,12 @@
 				9EECFE861E64C83D00503F7F /* AppDelegate.swift */,
 				9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */,
 				9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */,
+				2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */,
+				2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */,
+				2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */,
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
 				9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */,
 				9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */,
-				9EECFE8A1E64C83D00503F7F /* Main.storyboard */,
 				9EECFE8D1E64C83D00503F7F /* Assets.xcassets */,
 				9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */,
 				9EECFE921E64C83D00503F7F /* Info.plist */,
@@ -229,7 +235,6 @@
 				D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */,
 				9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */,
 				9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */,
-				9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */,
 				D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,8 +301,11 @@
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
+				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
+				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
+				2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */,
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
@@ -311,14 +319,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9EECFE8A1E64C83D00503F7F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9EECFE8B1E64C83D00503F7F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

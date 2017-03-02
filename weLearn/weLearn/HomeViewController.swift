@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+fileprivate let announcementCellID = "AnnouncemntCell"
+fileprivate let agendaCellID = "AgendaCellID"
+fileprivate let dueDatesCellID = "DueDatesCellID"
+
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let currentDate = Date()
@@ -18,7 +22,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         
+        registerCell()
         viewHiearchy()
         configureConstraints()
         readAgenda()
@@ -28,49 +35,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.title = dateInTitle.string(from: currentDate)
         
-        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "agendaCell")
-        
-        announcementButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-        homeworkButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+        let rightButton = UIBarButtonItem(customView: linksButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
     }
-    
     
     // MARK: - Layout Setup
     func viewHiearchy() {
-        self.view.addSubview(tableview)
-        self.view.addSubview(linksButton)
-        self.view.addSubview(homeworkButton)
-        self.view.addSubview(announcementButton)
+        self.view.addSubview(tableView)
     }
     
     func configureConstraints(){
         
         self.edgesForExtendedLayout = []
-        
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        announcementButton.translatesAutoresizingMaskIntoConstraints = false
-        homeworkButton.translatesAutoresizingMaskIntoConstraints = false
-        linksButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableview.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.50).isActive = true
-        
-        announcementButton.topAnchor.constraint(equalTo: tableview.bottomAnchor, constant: 16.0).isActive = true
-        announcementButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        announcementButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        
-        homeworkButton.topAnchor.constraint(equalTo: announcementButton.bottomAnchor, constant: 8.0).isActive = true
-        homeworkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        homeworkButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        
-        linksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        linksButton.topAnchor.constraint(equalTo: homeworkButton.bottomAnchor, constant: 8.0).isActive = true
-        linksButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        tableView.snp.makeConstraints { (tV) in
+            tV.leading.trailing.bottom.top.equalToSuperview()
+        }
+    }
+    
+    func registerCell() {
+        tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: announcementCellID)
+        tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: agendaCellID)
+        tableView.register(DueDatesTableViewCell.self, forCellReuseIdentifier: dueDatesCellID)
     }
     
     // MARK: - Functions and Methods
@@ -82,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print("We've got contacts: \(returnedAgenda.count)")
                     self.agenda = returnedAgenda
                     DispatchQueue.main.async {
-                        self.tableview.reloadData()
+                        self.tableView.reloadData()
                     }
                 }
             }
@@ -90,63 +76,93 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - TableView DataSource Methods
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return agenda.count
+        switch section {
+        case 0:
+            //Announcement
+            return 1
+        case 1:
+            //Agenda
+            return agenda.count
+        case 2:
+            //DueDates
+            return 1
+        default:
+            break
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "agendaCell", for: indexPath)
+
+        var cell = UITableViewCell()
         
-        let agendaPost = agenda[indexPath.row]
-        
-        cell.textLabel?.text = agendaPost.lessonName
-        
+        switch indexPath.section {
+            
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
+            if let firstCell = cell as? AnnouncementTableViewCell {
+                firstCell.label.text = "This is one of your announcements"
+            }
+            
+        case 1:
+            cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
+            if let secondCell = cell as? AgendaTableViewCell {
+                secondCell.label.text = "This is your agenda"
+            }
+            
+        case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
+            if let thirdCell = cell as? DueDatesTableViewCell {
+                thirdCell.label.text = "This is what is due"
+            }
+            
+        default:
+            break
+        }
+
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
+        case 1: break
+            //Add the viewController to be presented
+        case 2: break
+            //Add the viewController to be presented
+        default:
+            break
+        }
+    }
+    
     
     // MARK: - Button Functions
     
     func buttonWasPressed(button: UIButton) {
-        switch button {
-        case announcementButton:
-            navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
-        case homeworkButton:
-            navigationController?.pushViewController(HomeworkTableViewController(), animated: true)
-        case linksButton:
-            navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-        default:
-            print("IDK BRUH")
-            
-        }
+//    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
     }
     
     // MARK: - UI Elements
     
-    lazy var announcementButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Announcements", for: .normal)
-        //button.addTarget(self, action: #selector(buttonWasPressed(button: button)), for: .touchUpInside)
-        return button
-    }()
-    
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Links", for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         return button
     }()
     
-    lazy var homeworkButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Homework", for: .normal)
-        return button
-    }()
-    
-    lazy var tableview: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 100
+//        tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
