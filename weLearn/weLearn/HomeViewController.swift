@@ -15,6 +15,11 @@ fileprivate let dueDatesCellID = "DueDatesCellID"
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let currentDate = Date()
+    let calendar = Calendar.current
+    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
+    var agenda = [Agenda]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -23,14 +28,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         registerCell()
         viewHiearchy()
         configureConstraints()
+        readAgenda()
+        
+        let dateInTitle = DateFormatter()
+        dateInTitle.dateFormat = "E, MMM dd"
+        
+        self.title = dateInTitle.string(from: currentDate)
         
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
     }
     
-    
-    
+    // MARK: - Layout Setup
     func viewHiearchy() {
         self.view.addSubview(tableView)
     }
@@ -49,16 +59,46 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(DueDatesTableViewCell.self, forCellReuseIdentifier: dueDatesCellID)
     }
     
+    // MARK: - Functions and Methods
+    
+    func readAgenda() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                if let returnedAgenda = Agenda.getAgenda(from: data!) {
+                    print("We've got contacts: \(returnedAgenda.count)")
+                    self.agenda = returnedAgenda
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - TableView DataSource Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        switch section {
+        case 0:
+            //Announcement
+            return 1
+        case 1:
+            //Agenda
+            return agenda.count
+        case 2:
+            //DueDates
+            return 1
+        default:
+            break
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         var cell = UITableViewCell()
         
         switch indexPath.section {
@@ -84,7 +124,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         default:
             break
         }
-        
+
         return cell
     }
     

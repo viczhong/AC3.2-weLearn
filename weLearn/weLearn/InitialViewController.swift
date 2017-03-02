@@ -19,6 +19,7 @@ class InitialViewController: UIViewController {
     }
     
     func viewHiearchy() {
+        self.view.addSubview(logoPic)
         self.view.addSubview(logoHeader)
         self.view.addSubview(box)
         self.view.addSubview(usernameTextField)
@@ -31,6 +32,11 @@ class InitialViewController: UIViewController {
     }
     
     func configureConstraints() {
+        logoPic.snp.makeConstraints { view in
+            view.top.equalToSuperview().offset(40)
+            view.trailing.equalToSuperview()
+        }
+        
         logoHeader.snp.makeConstraints { label in
             label.top.equalToSuperview().offset(40)
             label.leading.equalToSuperview().offset(25)
@@ -100,9 +106,14 @@ class InitialViewController: UIViewController {
     }
     
     func loginButtonWasPressed() {
-        present(UINavigationController(rootViewController: HomeViewController()), animated: false) {
-        }
+        present(UINavigationController(rootViewController: HomeViewController()), animated: false)
     }
+    
+    lazy var logoPic: UIImageView = {
+        let view = UIImageView()
+        view.image = #imageLiteral(resourceName: "logoForHeader")
+        return view
+    }()
     
     lazy var logoHeader: HeaderLabel = {
         let label = HeaderLabel()

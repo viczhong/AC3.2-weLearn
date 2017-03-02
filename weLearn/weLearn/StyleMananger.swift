@@ -14,7 +14,7 @@ class StyleManager {
     private init() {}
     
     func prettify() {
-        //let displayFont = "Thirtysix"
+        let displayFont = "Thirtysix"
         let boldFont = "Avenir-Black"
         let regularFont = "Avenir-Roman"
         let italicFont = "Avenir-Oblique"
@@ -46,9 +46,9 @@ class StyleManager {
         let proxyScrollView = UIScrollView.appearance()
         
         // top bar styling
-        proxyNavBar.tintColor = UIColor.weLearnCoolWhite
-        proxyNavBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.weLearnCoolWhite, NSFontAttributeName: UIFont(name: boldFont, size: 21)!]
-        proxyNavBar.apply(gradient: [UIColor.weLearnCoolAccent.withAlphaComponent(0.5), UIColor.weLearnGreen])
+        proxyNavBar.tintColor = UIColor.weLearnGreen
+        proxyNavBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.weLearnGreen, NSFontAttributeName: UIFont(name: boldFont, size: 21)!]
+        proxyNavBar.backgroundColor = UIColor.white
         
         // detail & text styling
         proxyLabel.font = UIFont(name: boldFont, size: 20)
