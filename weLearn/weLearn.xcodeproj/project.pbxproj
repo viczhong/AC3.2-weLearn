@@ -12,6 +12,8 @@
 		9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */; };
 		9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */; };
 		9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */; };
+		9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */; };
+		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8C1E64C83D00503F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8A1E64C83D00503F7F /* Main.storyboard */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 		9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksCollectionViewController.swift; sourceTree = "<group>"; };
 		9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkTableViewController.swift; sourceTree = "<group>"; };
 		9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldAnnouncementTableViewController.swift; sourceTree = "<group>"; };
+		9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
+		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EECFE8B1E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,6 +82,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9E6E911E1E677BA800DAE0D1 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		9E6E91211E67815C00DAE0D1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9E6E91221E67817000DAE0D1 /* Agenda.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		9EECFE7A1E64C83C00503F7F = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +119,8 @@
 		9EECFE851E64C83D00503F7F /* weLearn */ = {
 			isa = PBXGroup;
 			children = (
+				9E6E91211E67815C00DAE0D1 /* Models */,
+				9E6E911E1E677BA800DAE0D1 /* Networking */,
 				D337DA2B1E64CA3600DEE7B5 /* UI */,
 				9EECFE861E64C83D00503F7F /* AppDelegate.swift */,
 				9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */,
@@ -274,11 +296,13 @@
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
+				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
 				9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */,
+				9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */,
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
 			);

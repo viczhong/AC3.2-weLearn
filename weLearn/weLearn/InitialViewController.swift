@@ -101,7 +101,7 @@ class InitialViewController: UIViewController {
     
     func loginButtonWasPressed() {
         present(UINavigationController(rootViewController: HomeViewController()), animated: false) {
-            print("It worked")
+            print("Login button pressed")
         }
     }
     
