@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let currentDate = Date()
     let calendar = Calendar.current
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
+    var agenda = [Agenda]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,22 +77,31 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func readAgenda() {
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if let returnedData = data {
-                dump(returnedData)
+            if data != nil {
+                if let returnedAgenda = Agenda.getAgenda(from: data!) {
+                    print("We've got contacts: \(returnedAgenda.count)")
+                    self.agenda = returnedAgenda
+                    DispatchQueue.main.async {
+                        self.tableview.reloadData()
+                    }
+                }
             }
         }
     }
     
-    
     // MARK: - TableView DataSource Methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return agenda.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "agendaCell", for: indexPath)
-        cell.textLabel?.text = "DO THIS YOU LAZY FUCK"
+        
+        let agendaPost = agenda[indexPath.row]
+        
+        cell.textLabel?.text = agendaPost.lessonName
+        
         return cell
     }
     
