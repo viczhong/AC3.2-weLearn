@@ -17,8 +17,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let currentDate = Date()
     let calendar = Calendar.current
-    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
     var agenda = [Agenda]()
+    
+    // This will be variable based on the Student's Class, pending Firebase setup
+    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
