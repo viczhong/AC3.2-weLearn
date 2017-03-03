@@ -29,6 +29,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.title = dateInTitle.string(from: currentDate)
         
         tableview.register(UITableViewCell.self, forCellReuseIdentifier: "agendaCell")
+        tableview.separatorStyle = .none
         
         announcementButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         homeworkButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
@@ -99,6 +100,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "agendaCell", for: indexPath)
         
         let agendaPost = agenda[indexPath.row]
+        
+        let plainBullet = #imageLiteral(resourceName: "bullet")
+        let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
+        
+        cell.imageView?.image = tintedBullet
+        cell.imageView?.tintColor = UIColor.weLearnGreen
+        cell.backgroundColor = UIColor.white
         
         cell.textLabel?.text = agendaPost.lessonName
         
