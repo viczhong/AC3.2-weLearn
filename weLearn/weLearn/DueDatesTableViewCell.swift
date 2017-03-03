@@ -33,7 +33,8 @@ class DueDatesTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         label.snp.makeConstraints { (lbl) in
-            lbl.leading.trailing.equalToSuperview()
+            lbl.leading.equalToSuperview().offset(10)
+            lbl.trailing.equalToSuperview().inset(10)
             lbl.centerY.equalToSuperview()
         }
     }

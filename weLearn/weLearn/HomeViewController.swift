@@ -14,6 +14,12 @@ fileprivate let agendaCellID = "AgendaCellID"
 fileprivate let dueDatesCellID = "DueDatesCellID"
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // MARK: - Dummy timer created up here!
+    
+    /* dummy timer -- remove star and slash on this line to comment out */
+    var timeInSeconds = 1555200
+    var timer: Timer!
+    //*/
     
     let currentDate = Date()
     let calendar = Calendar.current
@@ -34,6 +40,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         dateInTitle.dateFormat = "E, MMM dd"
         
         self.title = dateInTitle.string(from: currentDate)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        
+        tableView.separatorStyle = .none
         
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
@@ -76,8 +85,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - TableView DataSource Methods
+    
+    // MARK: Section Code
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+//        case 0:
+//            return "Announcements"
+        case 1:
+            return "Agenda"
+//        case 2:
+//            return "Upcoming Due Dates"
+        default:
+            return ""
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,8 +122,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // MARK: Row Code
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0, 2:
+            return 134
+        default:
+            return UITableViewAutomaticDimension
+        }
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 15
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var cell = UITableViewCell()
         
         switch indexPath.section {
@@ -106,24 +148,62 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
-                firstCell.label.text = "This is one of your announcements"
+                firstCell.label.text = "You all got A's! Wow! \n- Ben"
+                firstCell.label.numberOfLines = 2
+                firstCell.label.font = UIFont(name: "Avenir-LightOblique", size: 24)
             }
+            
             
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
             if let secondCell = cell as? AgendaTableViewCell {
-                secondCell.label.text = "This is your agenda"
+                let agendaForCell = agenda[indexPath.row]
+                secondCell.label.text = agendaForCell.lessonName
+                secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
             }
             
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
-                thirdCell.label.text = "This is what is due"
+                thirdCell.label.text = "7 days until midterm..."
+                // MARK: - Dummy timer runs down here!
+                
+                /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+                guard self.timeInSeconds > 0  else {
+                    self.timer.invalidate()
+                    return
+                    }
+                    
+                    self.timeInSeconds -= 1
+                    let days = Int(self.timeInSeconds) / 86400
+                    let hours = Int(self.timeInSeconds) / 3600 % 24
+                    let minutes = Int(self.timeInSeconds) / 60 % 60
+                    let seconds = Int(self.timeInSeconds) % 60
+                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until Demo Day..."
+                }
+                
+                timer.fire()
+                 //*/
+                thirdCell.label.font = UIFont(name: "Thirtysix", size: 36)
+                thirdCell.label.textColor = UIColor.weLearnGreen
+                thirdCell.label.textAlignment = .center
+                thirdCell.label.layer.shadowColor = UIColor.weLearnBlack.cgColor
+                thirdCell.label.layer.shadowOffset = CGSize(width: -2, height: 3)
+                thirdCell.label.layer.shadowOpacity = 3
+                thirdCell.label.layer.shadowRadius = 1
+                thirdCell.label.layer.masksToBounds = false
+                thirdCell.label.numberOfLines = 2
             }
             
         default:
             break
         }
+        
+        cell.layer.shadowOffset = CGSize(width: 2, height: 3)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowRadius = 3
+        cell.layer.masksToBounds = false
 
         return cell
     }
@@ -150,18 +230,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var linksButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Links", for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+    lazy var linksButton: UIButton = {
+        let button = UIButton()
+        //button.setTitle("Links", for: .normal)
+        button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 20
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
         return button
     }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        
-//        tableView.estimatedRowHeight = 100
-//        tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.delegate = self
         tableView.dataSource = self

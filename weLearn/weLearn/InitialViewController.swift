@@ -33,14 +33,13 @@ class InitialViewController: UIViewController {
     
     func configureConstraints() {
         logoPic.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(40)
-            view.trailing.equalToSuperview()
+            view.top.equalToSuperview().offset(30)
+            view.leading.equalTo(logoHeader.snp.trailing).inset(10)
         }
         
         logoHeader.snp.makeConstraints { label in
             label.top.equalToSuperview().offset(40)
             label.leading.equalToSuperview().offset(25)
-            label.trailing.equalToSuperview().inset(25)
         }
         
         box.snp.makeConstraints { view in
@@ -112,29 +111,37 @@ class InitialViewController: UIViewController {
     lazy var logoPic: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "logoForHeader")
+        view.layer.shadowColor = UIColor.weLearnGreen.cgColor
+        view.layer.shadowOffset = CGSize(width: -10, height: 10)
+        view.layer.shadowOpacity = 1
+        view.layer.shadowRadius = 1
+        view.layer.masksToBounds = false
         return view
     }()
     
-    lazy var logoHeader: HeaderLabel = {
-        let label = HeaderLabel()
+    lazy var logoHeader: UIOutlinedLabel = {
+        let label = UIOutlinedLabel()
         label.text = "We \nLearn"
         label.font = UIFont(name: "Thirtysix", size: 72)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textColor = UIColor.white
-        label.shadowColor = UIColor.weLearnGreen
-        label.shadowOffset = CGSize(width: 10, height: 10)
+        label.layer.shadowColor = UIColor.weLearnGreen.cgColor
+        label.layer.shadowOffset = CGSize(width: -10, height: 10)
+        label.layer.shadowOpacity = 1
+        label.layer.shadowRadius = 1
+        label.layer.masksToBounds = false
         return label
     }()
     
     lazy var box: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.weLearnGreen.cgColor
         view.backgroundColor = UIColor.white
-        view.layer.shadowColor = UIColor.weLearnGreen.cgColor
-        view.layer.shadowOffset = CGSize(width: -10, height: 10)
-        view.layer.shadowRadius = 10
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
         return view
     }()
     
@@ -183,10 +190,12 @@ class InitialViewController: UIViewController {
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnGreen
-        button.layer.borderColor = UIColor.weLearnGrey.cgColor
+        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.layer.borderColor = UIColor.weLearnGreen.cgColor
         button.layer.borderWidth = 2
-        button.setTitle("Login", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitle("Login".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         return button
     }()

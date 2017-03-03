@@ -10,7 +10,7 @@ import UIKit
 // from http://stackoverflow.com/questions/1103148/how-do-i-make-uilabel-display-outlined-text
 
 class UIOutlinedLabel: UILabel {
-    var outlineWidth: CGFloat = 5
+    var outlineWidth: CGFloat = 3
     var outlineColor: UIColor = UIColor.weLearnBlack
     
     override func drawText(in rect: CGRect) {
