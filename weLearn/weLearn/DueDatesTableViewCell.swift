@@ -35,7 +35,7 @@ class DueDatesTableViewCell: UITableViewCell {
         label.snp.makeConstraints { (lbl) in
             lbl.leading.equalToSuperview().offset(10)
             lbl.trailing.equalToSuperview().inset(10)
-            lbl.bottom.equalToSuperview()
+            lbl.centerY.equalToSuperview()
         }
     }
 

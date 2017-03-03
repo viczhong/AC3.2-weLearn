@@ -16,9 +16,10 @@ class StyleManager {
     func prettify() {
         let displayFont = "Thirtysix"
         let boldFont = "Avenir-Black"
+        let semiboldFont = "Avenir-Medium"
         let regularFont = "Avenir-Roman"
         let italicFont = "Avenir-Oblique"
-        let lightFont = "Avenir-LightOblique"
+        let lightFont = "Avenir-Light"
         let lightItalicFont = "Avenir-LightOblique"
         
         let accessibilityFont = "TiresiasInfofont"
@@ -51,8 +52,8 @@ class StyleManager {
         proxyNavBar.backgroundColor = UIColor.white
         
         // detail & text styling
-        proxyLabel.font = UIFont(name: boldFont, size: 20)
-        proxyLabel.textColor = UIColor.white
+        proxyLabel.font = UIFont(name: boldFont, size: 24)
+        proxyLabel.textColor = UIColor.weLearnGreen
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
@@ -78,11 +79,12 @@ class StyleManager {
         proxyWebView.layer.borderWidth = 1.0
         
         proxyTableView.backgroundColor = UIColor.white
-        proxySectionHeader.tintColor = UIColor.weLearnGreen
+        proxyTableCell.backgroundColor = UIColor.weLearnCoolWhite
+        proxySectionHeader.tintColor = UIColor.white
         
         proxyScrollView.bounces = true
         //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
-        proxyScrollView.tintColor = UIColor.weLearnOrange
+        proxyScrollView.backgroundColor = UIColor.weLearnCoolWhite
         
         proxyCollectionView.backgroundColor = .clear
     }
