@@ -40,6 +40,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         dateInTitle.dateFormat = "E, MMM dd"
         
         self.title = dateInTitle.string(from: currentDate)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
         tableView.separatorStyle = .none
         

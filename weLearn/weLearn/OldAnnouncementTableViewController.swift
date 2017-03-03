@@ -10,8 +10,14 @@ import UIKit
 
 class OldAnnouncementsTableViewController: UITableViewController {
     
+    fileprivate let reuseIdentifier = "AnnouncemntCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Past Announcements"
+        
+        tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,23 +35,36 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 5
     }
     
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
+        // Configure the cell...
+        switch indexPath.row {
+        case 0:
+            cell.label.text = "You all got A's! Wow! - Ben"
+        case 1:
+            cell.label.text = "There is a workshop tonight. - Rina"
+        case 2:
+            cell.label.text = "TGIF. - Jason"
+        case 3:
+            cell.label.text = "We're making a Pokemon app. - Louis"
+        case 4:
+            cell.label.text = "You're all working for Google. - Liz"
+        default:
+            cell.label.text = "You all got A's! Wow! - Ben"
+        }
+        
+        return cell
+    }
+    
     
     /*
      // Override to support conditional editing of the table view.
