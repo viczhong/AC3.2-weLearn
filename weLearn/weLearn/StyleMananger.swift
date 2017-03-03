@@ -59,7 +59,7 @@ class StyleManager {
         proxyTextView.textColor = UIColor.weLearnBlack
         proxyTextView.backgroundColor = UIColor.white
         
-        proxyTextField.backgroundColor = UIColor.white
+        proxyTextField.backgroundColor = UIColor.weLearnCoolWhite
         proxyTextField.textColor = UIColor.weLearnGreen
         proxyTextField.font = UIFont(name: boldFont, size: 20)
 

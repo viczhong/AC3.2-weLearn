@@ -190,10 +190,12 @@ class InitialViewController: UIViewController {
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnGreen
-        button.layer.borderColor = UIColor.weLearnGrey.cgColor
+        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.layer.borderColor = UIColor.weLearnGreen.cgColor
         button.layer.borderWidth = 2
-        button.setTitle("Login", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitle("Login".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         return button
     }()
