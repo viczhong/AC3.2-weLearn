@@ -17,7 +17,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Dummy timer created up here!
     
     /* dummy timer -- remove star and slash on this line to comment out */
-    var timeInSeconds = 604800
+    var timeInSeconds = 1555200
     var timer: Timer!
     //*/
     
@@ -162,7 +162,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
                     let seconds = Int(self.timeInSeconds) % 60
-                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until midterm..."
+                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until Demo Day..."
                 }
                 
                 timer.fire()
