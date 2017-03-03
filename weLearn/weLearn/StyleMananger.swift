@@ -52,7 +52,7 @@ class StyleManager {
         
         // detail & text styling
         proxyLabel.font = UIFont(name: boldFont, size: 20)
-        proxyLabel.textColor = UIColor.weLearnBlack
+        proxyLabel.textColor = UIColor.white
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
@@ -78,7 +78,7 @@ class StyleManager {
         proxyWebView.layer.borderWidth = 1.0
         
         proxyTableView.backgroundColor = UIColor.white
-        proxySectionHeader.tintColor = UIColor.weLearnOrange
+        proxySectionHeader.tintColor = UIColor.weLearnGreen
         
         proxyScrollView.bounces = true
         //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
