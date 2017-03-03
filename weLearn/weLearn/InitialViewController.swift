@@ -119,8 +119,8 @@ class InitialViewController: UIViewController {
         return view
     }()
     
-    lazy var logoHeader: HeaderLabel = {
-        let label = HeaderLabel()
+    lazy var logoHeader: UIOutlinedLabel = {
+        let label = UIOutlinedLabel()
         label.text = "We \nLearn"
         label.font = UIFont(name: "Thirtysix", size: 72)
         label.numberOfLines = 0
