@@ -41,6 +41,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.title = dateInTitle.string(from: currentDate)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
         
@@ -125,15 +127,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Row Code
     
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0, 2:
-            return 134
-        default:
-            return UITableViewAutomaticDimension
-        }
-
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        switch indexPath.section {
+//        case 2:
+//            return 268
+//        default:
+//            return UITableViewAutomaticDimension
+//            self.tableView.estimatedRowHeight = 268.0
+//        }
+//
+//    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 15
@@ -148,9 +151,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
-                firstCell.label.text = "You all got A's! Wow! \n- Ben"
-                firstCell.label.numberOfLines = 2
-                firstCell.label.font = UIFont(name: "Avenir-LightOblique", size: 24)
+                firstCell.date.text = self.title
+                firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww"
+                firstCell.author.text = "- Ben"
             }
             
             

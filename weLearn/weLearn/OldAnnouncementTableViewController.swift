@@ -19,6 +19,9 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 268.0
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -49,18 +52,32 @@ class OldAnnouncementsTableViewController: UITableViewController {
         // Configure the cell...
         switch indexPath.row {
         case 0:
-            cell.label.text = "You all got A's! Wow! - Ben"
+            cell.date.text = "02/28/2017"
+            cell.quote.text = "You all got A's! Wow!"
+            cell.author.text = "- Ben"
         case 1:
-            cell.label.text = "There is a workshop tonight. - Rina"
+            cell.date.text = "02/12/2017"
+            cell.quote.text = "There will be pizza."
+            cell.author.text = "- Rina"
         case 2:
-            cell.label.text = "TGIF. - Jason"
+            cell.date.text = "02/10/2017"
+            cell.quote.text = "TGIF."
+            cell.author.text = "- Jason"
         case 3:
-            cell.label.text = "We're making a Pokemon app. - Louis"
+            cell.date.text = "02/07/2017"
+            cell.quote.text = "We're having a Yu-Gi-Oh duel."
+            cell.author.text = "- Louis"
         case 4:
-            cell.label.text = "You're all working for Google. - Liz"
+            cell.date.text = "02/06/2017"
+            cell.quote.text = "You're all working for Google."
+            cell.author.text = "- Liz"
         default:
-            cell.label.text = "You all got A's! Wow! - Ben"
+            cell.date.text = "02/14/2017"
+            cell.quote.text = "You all got A's! Wow!"
+            cell.author.text = "- Ben"
         }
+        
+        cell.bar.isHidden = true
         
         return cell
     }
