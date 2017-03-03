@@ -139,7 +139,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 15
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,7 +152,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
                 firstCell.date.text = self.title
-                firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww"
+                firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww gfhtftydtyc  tyfytfutfy yftfytf ytc yyt fyft ft ydydh fyjf uttuyk  yfyfitycfgccjcjf        fdgfdtxxgc  ytfy f  yt        c."
                 firstCell.author.text = "- Ben"
             }
             
@@ -168,7 +168,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
-                thirdCell.label.text = "7 days until midterm..."
+                thirdCell.timerLabel.text = "7 days"
+                thirdCell.assignmentLabel.text = "until midterm..."
                 // MARK: - Dummy timer runs down here!
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
@@ -183,20 +184,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
                     let seconds = Int(self.timeInSeconds) % 60
-                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until Demo Day..."
+                    thirdCell.timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
+                    thirdCell.assignmentLabel.text = " until Demo Day..."
                 }
                 
                 timer.fire()
                  //*/
-                thirdCell.label.font = UIFont(name: "Thirtysix", size: 36)
-                thirdCell.label.textColor = UIColor.weLearnGreen
-                thirdCell.label.textAlignment = .center
-                thirdCell.label.layer.shadowColor = UIColor.weLearnBlack.cgColor
-                thirdCell.label.layer.shadowOffset = CGSize(width: -2, height: 3)
-                thirdCell.label.layer.shadowOpacity = 3
-                thirdCell.label.layer.shadowRadius = 1
-                thirdCell.label.layer.masksToBounds = false
-                thirdCell.label.numberOfLines = 2
             }
             
         default:
