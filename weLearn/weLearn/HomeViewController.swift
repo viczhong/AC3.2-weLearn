@@ -14,6 +14,12 @@ fileprivate let agendaCellID = "AgendaCellID"
 fileprivate let dueDatesCellID = "DueDatesCellID"
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // MARK: - Dummy timer created up here!
+    
+    /* dummy timer -- remove star and slash on this line to comment out */
+    var timeInSeconds = 604800
+    var timer: Timer!
+    //*/
     
     let currentDate = Date()
     let calendar = Calendar.current
@@ -126,23 +132,42 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
-                firstCell.label.text = "This is one of your announcements"
+                firstCell.label.text = "Ben: You all get A's!"
+                firstCell.label.font = UIFont(name: "Avenir-Roman", size: 24)
             }
-            // let agendaPost = agenda[indexPath.row]
-            
-            // cell.textLabel?.text = agendaPost.lessonName
             
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
             if let secondCell = cell as? AgendaTableViewCell {
                 let agendaForCell = agenda[indexPath.row]
                 secondCell.label.text = agendaForCell.lessonName
+                secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
             }
             
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
-                thirdCell.label.text = "This is what is due"
+                thirdCell.label.text = "7 days until midterm..."
+                // MARK: - Dummy timer runs down here!
+                
+                /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+                guard self.timeInSeconds > 0  else {
+                    self.timer.invalidate()
+                    return
+                    }
+                    
+                    self.timeInSeconds -= 1
+                    let days = Int(self.timeInSeconds) / 86400
+                    let hours = Int(self.timeInSeconds) / 3600 % 24
+                    let minutes = Int(self.timeInSeconds) / 60 % 60
+                    let seconds = Int(self.timeInSeconds) % 60
+                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until midterm..."
+                }
+                
+                timer.fire()
+                 //*/
+                thirdCell.label.font = UIFont(name: "Thirtysix", size: 20)
             }
             
         default:
