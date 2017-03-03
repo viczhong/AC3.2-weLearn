@@ -52,18 +52,17 @@ class StyleManager {
         
         // detail & text styling
         proxyLabel.font = UIFont(name: boldFont, size: 20)
-        proxyLabel.textColor = UIColor.weLearnBlack
+        proxyLabel.textColor = UIColor.white
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
         proxyTextView.backgroundColor = UIColor.white
         
         proxyTextField.backgroundColor = UIColor.white
-        proxyTextField.textColor = UIColor.weLearnOrange
+        proxyTextField.textColor = UIColor.weLearnGreen
         proxyTextField.font = UIFont(name: boldFont, size: 20)
 
         proxyPlaceholder.font = UIFont(name: lightItalicFont, size: 20)
-        proxyPlaceholder.textAlignment = .left
         proxyPlaceholder.backgroundColor = proxyTextField.backgroundColor
         proxyPlaceholder.textColor = UIColor.weLearnGrey
         
@@ -78,11 +77,11 @@ class StyleManager {
         proxyWebView.layer.cornerRadius = 3.0
         proxyWebView.layer.borderWidth = 1.0
         
-        proxyTableView.backgroundColor = UIColor.weLearnWarmWhite
-        proxySectionHeader.tintColor = UIColor.weLearnOrange
+        proxyTableView.backgroundColor = UIColor.white
+        proxySectionHeader.tintColor = UIColor.weLearnGreen
         
         proxyScrollView.bounces = true
-        proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
+        //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
         proxyScrollView.tintColor = UIColor.weLearnOrange
         
         proxyCollectionView.backgroundColor = .clear

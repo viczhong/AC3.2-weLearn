@@ -35,6 +35,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.title = dateInTitle.string(from: currentDate)
         
+        tableView.separatorStyle = .none
+        
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
@@ -116,7 +118,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Row Code
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         var cell = UITableViewCell()
         
         switch indexPath.section {
@@ -126,6 +128,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let firstCell = cell as? AnnouncementTableViewCell {
                 firstCell.label.text = "This is one of your announcements"
             }
+            // let agendaPost = agenda[indexPath.row]
+            
+            // cell.textLabel?.text = agendaPost.lessonName
             
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
@@ -169,18 +174,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var linksButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Links", for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+    lazy var linksButton: UIButton = {
+        let button = UIButton()
+        //button.setTitle("Links", for: .normal)
+        button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 20
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
         return button
     }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        
-//        tableView.estimatedRowHeight = 100
-//        tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.delegate = self
         tableView.dataSource = self

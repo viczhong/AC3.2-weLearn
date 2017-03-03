@@ -15,6 +15,12 @@ class AgendaTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
         setupConstraints()
+        let plainBullet = #imageLiteral(resourceName: "bullet")
+        let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
+        
+        self.bulletView.image = tintedBullet
+        self.bulletView.tintColor = UIColor.weLearnGreen
+        self.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,12 +34,18 @@ class AgendaTableViewCell: UITableViewCell {
     }
     
     func setupHierarchy() {
+        self.contentView.addSubview(bulletView)
         self.contentView.addSubview(label)
     }
     
     func setupConstraints() {
+        bulletView.snp.makeConstraints { (pic) in
+            pic.leading.equalToSuperview()
+            pic.centerY.equalToSuperview()
+        }
+        
         label.snp.makeConstraints { (lbl) in
-            lbl.leading.trailing.equalToSuperview()
+            lbl.leading.leading.equalTo(bulletView.snp.trailing)
             lbl.centerY.equalToSuperview()
         }
     }
@@ -41,5 +53,10 @@ class AgendaTableViewCell: UITableViewCell {
     lazy var label: UILabel = {
         let lbl = UILabel()
         return lbl
+    }()
+    
+    lazy var bulletView: UIImageView = {
+        let pic = UIImageView()
+        return pic
     }()
 }
