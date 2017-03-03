@@ -20,7 +20,6 @@ class AgendaTableViewCell: UITableViewCell {
         
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnGreen
-        self.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +51,7 @@ class AgendaTableViewCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let lbl = UILabel()
+        lbl.textAlignment = .center
         return lbl
     }()
     

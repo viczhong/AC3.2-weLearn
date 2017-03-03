@@ -93,14 +93,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return "Announcements"
+//        case 0:
+//            return "Announcements"
         case 1:
             return "Agenda"
-        case 2:
-            return "Upcoming Due Dates"
+//        case 2:
+//            return "Upcoming Due Dates"
         default:
-            return "You don't want to see this"
+            return ""
         }
     }
     
@@ -123,6 +123,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Row Code
     
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0, 2:
+            return 134
+        default:
+            return UITableViewAutomaticDimension
+        }
+
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 15
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
@@ -132,9 +147,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
-                firstCell.label.text = "Ben: You all get A's!"
-                firstCell.label.font = UIFont(name: "Avenir-Roman", size: 24)
+                firstCell.label.text = "You all got A's! Wow! \n- Ben"
+                firstCell.label.numberOfLines = 2
+                firstCell.label.font = UIFont(name: "Avenir-LightOblique", size: 24)
             }
+            
             
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
@@ -167,12 +184,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 timer.fire()
                  //*/
-                thirdCell.label.font = UIFont(name: "Thirtysix", size: 20)
+                thirdCell.label.font = UIFont(name: "Thirtysix", size: 36)
+                thirdCell.label.textColor = UIColor.weLearnGreen
+                thirdCell.label.textAlignment = .center
+                thirdCell.label.layer.shadowColor = UIColor.weLearnBlack.cgColor
+                thirdCell.label.layer.shadowOffset = CGSize(width: -2, height: 3)
+                thirdCell.label.layer.shadowOpacity = 3
+                thirdCell.label.layer.shadowRadius = 1
+                thirdCell.label.layer.masksToBounds = false
+                thirdCell.label.numberOfLines = 2
             }
             
         default:
             break
         }
+        
+        cell.layer.shadowOffset = CGSize(width: 2, height: 3)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowRadius = 3
+        cell.layer.masksToBounds = false
 
         return cell
     }
