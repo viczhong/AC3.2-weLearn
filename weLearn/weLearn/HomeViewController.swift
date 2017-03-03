@@ -14,6 +14,8 @@ fileprivate let agendaCellID = "AgendaCellID"
 fileprivate let dueDatesCellID = "DueDatesCellID"
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // MARK: - Dummy timer created up here!
+    
     /* dummy timer -- remove star and slash on this line to comment out */
     var timeInSeconds = 604800
     var timer: Timer!
@@ -146,6 +148,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
                 thirdCell.label.text = "7 days until midterm..."
+                // MARK: - Dummy timer runs down here!
+                
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
                 guard self.timeInSeconds > 0  else {
