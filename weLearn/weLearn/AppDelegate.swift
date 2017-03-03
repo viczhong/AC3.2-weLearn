@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var cloudView: UIImageView?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,6 +24,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = InitialViewController()
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor =  UIColor.white
+        
+        if let window = self.window {
+            self.cloudView = UIImageView()
+            
+            self.cloudView?.contentMode = .center
+            self.cloudView?.backgroundColor = UIColor.weLearnCoolAccent
+            self.cloudView?.image = #imageLiteral(resourceName: "logoForSplash")
+            self.cloudView?.alpha = 1
+            let plainPic = #imageLiteral(resourceName: "logoForSplash")
+            let tintedPic = plainPic.withRenderingMode(.alwaysTemplate)
+            
+            self.cloudView?.image = tintedPic
+            self.cloudView?.tintColor = UIColor.white
+            
+            self.window?.addSubview(self.cloudView!)
+            
+            self.cloudView?.snp.makeConstraints { view in
+                view.center.equalToSuperview()
+                view.width.equalToSuperview()
+                view.height.equalToSuperview()
+            }
+            
+            UIView.animate(withDuration: 4.0) {
+                self.cloudView?.alpha = 0
+               // self.gradientView?.alpha = 0
+            }
+        }
 
         return true
     }
