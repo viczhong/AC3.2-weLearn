@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var cloudView: UIImageView?
-    var gradientView: UIView?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -28,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let window = self.window {
             self.cloudView = UIImageView()
-            self.gradientView = UIView()
-            self.gradientView?.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), .clear])
             
             self.cloudView?.contentMode = .center
             self.cloudView?.backgroundColor = UIColor.weLearnCoolAccent
@@ -42,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.cloudView?.tintColor = UIColor.white
             
             self.window?.addSubview(self.cloudView!)
-            self.window?.addSubview(self.gradientView!)
             
             self.cloudView?.snp.makeConstraints { view in
                 view.center.equalToSuperview()
@@ -50,15 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.height.equalToSuperview()
             }
             
-            self.gradientView?.snp.makeConstraints { view in
-                view.center.equalToSuperview()
-                view.width.equalToSuperview()
-                view.height.equalToSuperview()
-            }
-            
-            UIView.animate(withDuration: 3.0) {
+            UIView.animate(withDuration: 4.0) {
                 self.cloudView?.alpha = 0
-                self.gradientView?.alpha = 0
+               // self.gradientView?.alpha = 0
             }
         }
 
