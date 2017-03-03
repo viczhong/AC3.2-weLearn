@@ -78,8 +78,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - TableView DataSource Methods
+    
+    // MARK: Section Code
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Announcements"
+        case 1:
+            return "Agenda"
+        case 2:
+            return "Upcoming Due Dates"
+        default:
+            return "You don't want to see this"
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,6 +115,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 0
     }
     
+    // MARK: Row Code
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
@@ -117,7 +135,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
             if let secondCell = cell as? AgendaTableViewCell {
-                secondCell.label.text = "This is your agenda"
+                let agendaForCell = agenda[indexPath.row]
+                secondCell.label.text = agendaForCell.lessonName
             }
             
         case 2:
