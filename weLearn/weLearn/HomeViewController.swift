@@ -36,7 +36,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.title = dateInTitle.string(from: currentDate)
         
         tableView.separatorStyle = .none
-
+        
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
@@ -155,10 +155,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var linksButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Links", for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+    lazy var linksButton: UIButton = {
+        let button = UIButton()
+        //button.setTitle("Links", for: .normal)
+        button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 20
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
         return button
     }()
     

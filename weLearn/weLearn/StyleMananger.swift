@@ -77,11 +77,11 @@ class StyleManager {
         proxyWebView.layer.cornerRadius = 3.0
         proxyWebView.layer.borderWidth = 1.0
         
-        proxyTableView.backgroundColor = UIColor.weLearnWarmWhite
+        proxyTableView.backgroundColor = UIColor.white
         proxySectionHeader.tintColor = UIColor.weLearnOrange
         
         proxyScrollView.bounces = true
-        proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
+        //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
         proxyScrollView.tintColor = UIColor.weLearnOrange
         
         proxyCollectionView.backgroundColor = .clear
