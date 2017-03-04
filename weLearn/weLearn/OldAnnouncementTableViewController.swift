@@ -70,8 +70,8 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         cell.bar.isHidden = true
         
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor.weLearnGreen.withAlphaComponent(0.25)
+        if indexPath.row % 2 != 0 {
+            cell.box.backgroundColor = UIColor.weLearnLightGreen
         }
         
         return cell

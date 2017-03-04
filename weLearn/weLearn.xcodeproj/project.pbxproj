@@ -103,6 +103,7 @@
 		9E6E91211E67815C00DAE0D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D343FDB01E6B426F00DABD00 /* Link.swift */,
 				9E6E91221E67817000DAE0D1 /* Agenda.swift */,
 				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 			);
@@ -134,7 +135,6 @@
 				9E6E911E1E677BA800DAE0D1 /* Networking */,
 				D337DA2B1E64CA3600DEE7B5 /* UI */,
 				9EECFE861E64C83D00503F7F /* AppDelegate.swift */,
-				D343FDB01E6B426F00DABD00 /* Link.swift */,
 				D343FDAE1E6B120A00DABD00 /* LinkCollectionViewCell.swift */,
 				9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */,
 				9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */,

@@ -21,10 +21,10 @@ extension UIColor {
     static let weLearnCoolWhite = UIColor(red:0.95, green:1, blue:1, alpha:1.0)
     // light grayish blue
     static let weLearnCoolAccent = UIColor(red:0.46, green:0.75, blue:0.75, alpha:1.0)
+    // light green
+    static let weLearnLightGreen = UIColor(red:0.82, green:0.95, blue:0.92, alpha:1.0)
+    // base green
+    static let weLearnGreen = UIColor(red:0.00, green:0.75, blue:0.6, alpha:1.0)
     // strong green
     static let weLearnStrongGreen = UIColor(red: 0.0, green: 1.0, blue: 0.6, alpha: 1.0)
-    // light green
-    static let weLearnLightGreen = UIColor(red:0.0, green:0.75, blue:0.6, alpha:0.4)
-    // green
-    static let weLearnGreen = UIColor(red:0.00, green:0.75, blue:0.6, alpha:1.0)
 }
