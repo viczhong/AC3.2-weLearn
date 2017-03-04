@@ -39,12 +39,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
         
-        self.title = dateInTitle.string(from: currentDate)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 268.0
+        title = dateInTitle.string(from: currentDate)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 268.0
         
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
@@ -125,18 +125,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: Row Code
-    
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.section {
-//        case 2:
-//            return 268
-//        default:
-//            return UITableViewAutomaticDimension
-//            self.tableView.estimatedRowHeight = 268.0
-//        }
-//
-//    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20
@@ -239,8 +227,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        
+        let tableView = UITableView()//(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView

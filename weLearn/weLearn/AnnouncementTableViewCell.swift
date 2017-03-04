@@ -23,7 +23,6 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     
     func setupToHierachy() {
@@ -64,6 +63,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
         lbl.font = UIFont(name: "Avenir-Heavy", size: 14)
+        lbl.textColor = UIColor.darkGray
         return lbl
     }()
     
@@ -81,6 +81,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
         lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
+        lbl.textColor = UIColor.darkGray
         return lbl
     }()
     

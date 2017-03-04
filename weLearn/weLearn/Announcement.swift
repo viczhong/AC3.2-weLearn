@@ -17,7 +17,7 @@ class Announcement {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "EEEE, MMMM dd @ h:mm a"
+        dateFormatter.dateFormat = "MMMM dd @ h:mm a"
         
         self.date = dateFormatter.string(from: currentDate)
         self.quote = quote
