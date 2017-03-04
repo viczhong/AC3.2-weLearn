@@ -69,7 +69,7 @@ class InitialViewController: UIViewController {
             view.top.equalTo(usernameTextField)
             view.bottom.equalTo(usernameTextField)
             view.width.equalTo(2)
-            view.trailing.equalTo(usernameTextField.snp.trailing)
+            view.leading.equalTo(usernameTextField)
         }
         
         passwordTextField.snp.makeConstraints { view in
@@ -91,7 +91,7 @@ class InitialViewController: UIViewController {
             view.top.equalTo(passwordTextField)
             view.bottom.equalTo(passwordTextField)
             view.width.equalTo(2)
-            view.trailing.equalTo(passwordTextField.snp.trailing)
+            view.leading.equalTo(passwordTextField)
         }
         
         loginButton.snp.makeConstraints { button in

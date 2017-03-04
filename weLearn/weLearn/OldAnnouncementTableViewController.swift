@@ -20,6 +20,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
         announcements = [
             Announcement(quote: "You all get A's", author: "Ben"),
             Announcement(quote: "TGIF", author: "Jason"),
+            Announcement(quote: "Human beings evolved from a common ancestor of the chimpanzee.", author: "Darwin"),
             Announcement(quote: "I love cats", author: "Louis"),
             Announcement(quote: "We bought a fridge", author: "Rina"),
             Announcement(quote: "Hacked!", author: "Evan")

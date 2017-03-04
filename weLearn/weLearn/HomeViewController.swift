@@ -218,8 +218,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let button = UIButton()
         //button.setTitle("Links", for: .normal)
         button.backgroundColor = UIColor.weLearnGreen
-        button.layer.cornerRadius = 20
-        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
         button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
