@@ -10,14 +10,29 @@ import UIKit
 
 class OldAnnouncementsTableViewController: UITableViewController {
     
-    fileprivate let reuseIdentifier = "AnnouncemntCell"
+    fileprivate let reuseIdentifier = "AnnouncementCell"
+    
+    var announcements: [Announcement]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Past Announcements"
+        announcements = [
+            Announcement(quote: "You all get A's", author: "Ben"),
+            Announcement(quote: "TGIF", author: "Jason"),
+            Announcement(quote: "I love cats", author: "Louis"),
+            Announcement(quote: "We bought a fridge", author: "Rina"),
+            Announcement(quote: "Hacked!", author: "Evan")
+        ]
+        
+        title = "Past Announcements"
         
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 268.0
+        
+        tableView.separatorStyle = .none
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,26 +55,22 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return announcements?.count ?? 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
         // Configure the cell...
-        switch indexPath.row {
-        case 0:
-            cell.label.text = "You all got A's! Wow! - Ben"
-        case 1:
-            cell.label.text = "There is a workshop tonight. - Rina"
-        case 2:
-            cell.label.text = "TGIF. - Jason"
-        case 3:
-            cell.label.text = "We're making a Pokemon app. - Louis"
-        case 4:
-            cell.label.text = "You're all working for Google. - Liz"
-        default:
-            cell.label.text = "You all got A's! Wow! - Ben"
+        
+        cell.date.text = announcements![indexPath.row].date
+        cell.quote.text = announcements![indexPath.row].quote
+        cell.author.text = announcements![indexPath.row].author
+        
+        cell.bar.isHidden = true
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = UIColor.weLearnGreen.withAlphaComponent(0.25)
         }
         
         return cell

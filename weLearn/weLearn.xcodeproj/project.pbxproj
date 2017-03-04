@@ -27,6 +27,7 @@
 		D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */; };
 		D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */; };
 		D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */; };
+		D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343FDAA1E6A258E00DABD00 /* Announcement.swift */; };
 		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
 		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
 		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
@@ -59,6 +60,7 @@
 		D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlinedText.swift; sourceTree = "<group>"; };
 		D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShinyOvalButton.swift; sourceTree = "<group>"; };
 		D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		D343FDAA1E6A258E00DABD00 /* Announcement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
 		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
 		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
 		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */,
 				2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */,
 				2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */,
+				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
 				9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */,
 				9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */,
@@ -302,6 +305,7 @@
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
+				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
 				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
