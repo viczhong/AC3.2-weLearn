@@ -28,25 +28,44 @@ class DueDatesTableViewCell: UITableViewCell {
     }
 
     func setupHierarchy() {
+        self.contentView.addSubview(box)
         self.contentView.addSubview(timerLabel)
         self.contentView.addSubview(assignmentLabel)
     }
     
     func setupConstraints() {
+        box.snp.makeConstraints { (view) in
+            view.leading.equalTo(contentView).offset(7)
+            view.top.equalTo(contentView).offset(7)
+            view.trailing.equalTo(contentView).inset(7)
+            view.bottom.equalTo(contentView).inset(7)
+        }
+        
         timerLabel.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(contentView).offset(10)
             lbl.trailing.equalTo(contentView).inset(10)
-            lbl.top.equalTo(contentView).offset(10)
-            lbl.bottom.equalTo(assignmentLabel.snp.top).inset(-10)
+            lbl.top.equalTo(contentView).offset(13)
+            lbl.bottom.equalTo(assignmentLabel.snp.top).inset(-5)
         }
         
         assignmentLabel.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(contentView).offset(10)
             lbl.trailing.equalTo(contentView).inset(10)
-            lbl.bottom.equalTo(contentView).inset(10)
+            lbl.bottom.equalTo(contentView).inset(13)
         }
     }
 
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        return view
+    }()
+    
     lazy var timerLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Thirtysix", size: 36)
@@ -57,7 +76,7 @@ class DueDatesTableViewCell: UITableViewCell {
         lbl.layer.shadowOpacity = 3
         lbl.layer.shadowRadius = 1
         lbl.layer.masksToBounds = false
-        lbl.numberOfLines = 2
+        lbl.numberOfLines = 1
         return lbl
     }()
     

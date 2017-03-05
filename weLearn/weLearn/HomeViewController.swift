@@ -126,9 +126,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Row Code
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 20
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -214,14 +214,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var linksButton: UIButton = {
-        let button = UIButton()
-        //button.setTitle("Links", for: .normal)
+    lazy var linksButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("links".uppercased(), for: .normal)
         button.backgroundColor = UIColor.weLearnGreen
-        button.layer.cornerRadius = 20
-        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        button.imageView?.contentMode = .center
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
         return button
     }()
