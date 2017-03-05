@@ -29,6 +29,7 @@ class InitialViewController: UIViewController {
         self.view.addSubview(passwordStripe)
         self.view.addSubview(passwordBar)
         self.view.addSubview(loginButton)
+        self.view.addSubview(registerButton)
     }
     
     func configureConstraints() {
@@ -45,7 +46,6 @@ class InitialViewController: UIViewController {
         box.snp.makeConstraints { view in
             view.top.equalTo(logoHeader.snp.bottom).offset(20)
             view.centerX.equalToSuperview()
-            view.height.equalTo(325)
             view.leading.equalToSuperview().offset(25)
             view.trailing.equalToSuperview().inset(25)
         }
@@ -101,11 +101,25 @@ class InitialViewController: UIViewController {
             button.leading.equalTo(box).offset(15)
             button.trailing.equalTo(box).inset(15)
         }
+        
+        registerButton.snp.makeConstraints { button in
+            button.top.equalTo(loginButton.snp.bottom).offset(20)
+            button.centerX.equalToSuperview()
+            button.height.equalTo(40)
+            button.bottom.equalTo(box).inset(20)
+            button.leading.equalTo(box).offset(15)
+            button.trailing.equalTo(box).inset(15)
+        }
 
     }
     
     func loginButtonWasPressed() {
         present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+    }
+    
+    func registerButtonWasPressed() {
+        print("You clicked the registration button! wow.")
+        //present(UINavigationController(rootViewController: RegistrationViewController()), animated: false)
     }
     
     lazy var logoPic: UIImageView = {
@@ -199,4 +213,17 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    lazy var registerButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.layer.borderColor = UIColor.weLearnGreen.cgColor
+        button.layer.borderWidth = 2
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitle("register".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
+        return button
+    }()
+
 }

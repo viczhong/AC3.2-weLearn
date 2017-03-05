@@ -28,6 +28,12 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         title = "Past Announcements"
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        
+        linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+        let rightButton = UIBarButtonItem(customView: linksButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -42,9 +48,10 @@ class OldAnnouncementsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: - Actions
+    
+    func buttonWasPressed(button: UIButton) {
+        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
     }
     
     // MARK: - Table view data source
@@ -70,12 +77,22 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         cell.bar.isHidden = true
         
-        if indexPath.row % 2 != 0 {
-            cell.box.backgroundColor = UIColor.weLearnLightGreen
-        }
-        
         return cell
     }
+    
+    // MARK: -- UI Stuff That Isn't Tableview
+    
+    lazy var linksButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("links".uppercased(), for: .normal)
+        button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        //button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
+        return button
+    }()
     
     
     /*
