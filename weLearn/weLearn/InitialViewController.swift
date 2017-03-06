@@ -17,11 +17,9 @@ class InitialViewController: UIViewController {
     var databaseObserver: FIRDatabaseHandle?
     var signedInUser: FIRUser?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.weLearnGreen.withAlphaComponent(0.75)])
+        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.clear])
         viewHiearchy()
         configureConstraints()
     }
@@ -284,5 +282,7 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    lazy var registrationFields
     
 }
