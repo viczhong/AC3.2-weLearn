@@ -15,11 +15,11 @@ class ShinyOvalButton: UIButton {
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         self.clipsToBounds = true
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 0.75
         self.layer.cornerRadius = 15
-        self.apply(gradient: [UIColor.weLearnWarmHighlight.withAlphaComponent(0.5), UIColor.weLearnOrange])
-        self.layer.borderColor = UIColor.weLearnWarmHighlight.cgColor
-        self.setTitleColor(UIColor.weLearnBlack.withAlphaComponent(0.5), for: .normal)
-        self.titleLabel?.font = UIFont(name: "Avenir-Black", size: 16)
+        self.apply(gradient: [UIColor.white, UIColor.white])
+        self.layer.borderColor = UIColor.weLearnGreen.cgColor
+        self.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        self.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
     }
 }

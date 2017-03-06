@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D25ED091E6DD97000C9903E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */; };
 		2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */; };
 		2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */; };
 		2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */; };
@@ -27,6 +28,9 @@
 		D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */; };
 		D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */; };
 		D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */; };
+		D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343FDAA1E6A258E00DABD00 /* Announcement.swift */; };
+		D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343FDAE1E6B120A00DABD00 /* LinkCollectionViewCell.swift */; };
+		D343FDB11E6B426F00DABD00 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343FDB01E6B426F00DABD00 /* Link.swift */; };
 		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
 		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
 		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
@@ -36,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		01F35F447069D852D8DD870A /* Pods_weLearn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weLearn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDatesTableViewCell.swift; sourceTree = "<group>"; };
@@ -59,6 +64,9 @@
 		D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlinedText.swift; sourceTree = "<group>"; };
 		D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShinyOvalButton.swift; sourceTree = "<group>"; };
 		D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		D343FDAA1E6A258E00DABD00 /* Announcement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
+		D343FDAE1E6B120A00DABD00 /* LinkCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewCell.swift; sourceTree = "<group>"; };
+		D343FDB01E6B426F00DABD00 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
 		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
 		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
@@ -97,7 +105,9 @@
 		9E6E91211E67815C00DAE0D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D343FDB01E6B426F00DABD00 /* Link.swift */,
 				9E6E91221E67817000DAE0D1 /* Agenda.swift */,
+				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -127,6 +137,7 @@
 				9E6E911E1E677BA800DAE0D1 /* Networking */,
 				D337DA2B1E64CA3600DEE7B5 /* UI */,
 				9EECFE861E64C83D00503F7F /* AppDelegate.swift */,
+				D343FDAE1E6B120A00DABD00 /* LinkCollectionViewCell.swift */,
 				9C3FE0031E64CB6200ACC778 /* InitialViewController.swift */,
 				9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */,
 				2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */,
@@ -137,6 +148,7 @@
 				9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */,
 				9EECFE8D1E64C83D00503F7F /* Assets.xcassets */,
 				9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */,
+				2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */,
 				9EECFE921E64C83D00503F7F /* Info.plist */,
 			);
 			path = weLearn;
@@ -236,6 +248,7 @@
 				9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */,
 				9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */,
 				D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */,
+				2D25ED091E6DD97000C9903E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,16 +315,19 @@
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
+				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
 				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
 				2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */,
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
+				D343FDB11E6B426F00DABD00 /* Link.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
 				9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */,
 				9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */,
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
+				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
