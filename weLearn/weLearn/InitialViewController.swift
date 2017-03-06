@@ -22,15 +22,40 @@ class InitialViewController: UIViewController {
         self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.clear])
         viewHiearchy()
         configureConstraints()
+        
+        registerTab.backgroundColor = UIColor.weLearnLightGreen
+        registerButton.isHidden = true
+        loginButton.isHidden = false
+        classBar.isHidden = true
+        classStripe.isHidden = true
+        classTextField.isHidden = true
+    }
+    
+    func colorTab(_ button: UIButton) {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            button.backgroundColor = UIColor.white
+            button.titleLabel?.textColor = UIColor.weLearnGreen
+        } else {
+            button.backgroundColor = UIColor.weLearnLightGreen
+            button.titleLabel?.textColor = UIColor.weLearnGrey
+        }
     }
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
         self.view.addSubview(logoHeader)
+        self.view.addSubview(registerTab)
+        self.view.addSubview(loginTab)
         self.view.addSubview(box)
-        self.view.addSubview(usernameTextField)
-        self.view.addSubview(usernameStripe)
-        self.view.addSubview(usernameBar)
+        self.view.addSubview(nameTextField)
+        self.view.addSubview(classTextField)
+        self.view.addSubview(classStripe)
+        self.view.addSubview(classBar)
+        self.view.addSubview(studentIDTextField)
+        self.view.addSubview(emailTextField)
+        self.view.addSubview(emailStripe)
+        self.view.addSubview(emailBar)
         self.view.addSubview(passwordTextField)
         self.view.addSubview(passwordStripe)
         self.view.addSubview(passwordBar)
@@ -50,13 +75,27 @@ class InitialViewController: UIViewController {
         }
         
         box.snp.makeConstraints { view in
-            view.top.equalTo(logoHeader.snp.bottom).offset(20)
+            view.top.equalTo(logoHeader.snp.bottom).offset(60)
             view.centerX.equalToSuperview()
             view.leading.equalToSuperview().offset(25)
             view.trailing.equalToSuperview().inset(25)
         }
         
-        usernameTextField.snp.makeConstraints { view in
+        loginTab.snp.makeConstraints { view in
+            view.bottom.equalTo(box.snp.top)
+            view.leading.equalTo(box)
+            view.width.equalTo(box).dividedBy(2)
+            view.height.equalTo(40)
+        }
+        
+        registerTab.snp.makeConstraints { view in
+            view.bottom.equalTo(box.snp.top)
+            view.trailing.equalTo(box)
+            view.width.equalTo(box).dividedBy(2)
+            view.height.equalTo(40)
+        }
+        
+        nameTextField.snp.makeConstraints { view in
             view.top.equalTo(box).offset(40)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
@@ -64,22 +103,71 @@ class InitialViewController: UIViewController {
             view.trailing.equalTo(box).inset(15)
         }
         
-        usernameStripe.snp.makeConstraints { view in
-            view.width.equalTo(usernameTextField)
-            view.trailing.equalTo(usernameTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(usernameTextField.snp.bottom)
+        studentIDTextField.snp.makeConstraints { view in
+            view.top.equalTo(nameTextField.snp.bottom).offset(40)
+            view.centerX.equalToSuperview()
+            view.height.equalTo(40)
+            view.leading.equalTo(box).offset(15)
+            view.trailing.equalTo(box).inset(15)
         }
         
-        usernameBar.snp.makeConstraints { view in
-            view.top.equalTo(usernameTextField)
-            view.bottom.equalTo(usernameTextField)
+        classTextField.snp.makeConstraints { view in
+            view.top.equalTo(studentIDTextField.snp.bottom).offset(40)
+            view.centerX.equalToSuperview()
+            view.height.equalTo(40)
+            view.leading.equalTo(box).offset(15)
+            view.trailing.equalTo(box).inset(15)
+        }
+        
+        classStripe.snp.makeConstraints { view in
+            view.width.equalTo(classTextField)
+            view.trailing.equalTo(classTextField)
+            view.height.equalTo(2)
+            view.top.equalTo(classTextField.snp.bottom)
+        }
+        
+        classBar.snp.makeConstraints { view in
+            view.top.equalTo(classTextField)
+            view.bottom.equalTo(classTextField)
             view.width.equalTo(2)
-            view.leading.equalTo(usernameTextField)
+            view.leading.equalTo(classTextField)
+        }
+        
+        registerButton.snp.makeConstraints { button in
+            button.top.equalTo(classTextField.snp.bottom).offset(40)
+            button.centerX.equalToSuperview()
+            button.height.equalTo(40)
+            button.leading.equalTo(box).offset(15)
+            button.trailing.equalTo(box).inset(15)
+            button.bottom.equalTo(box).inset(40)
+        }
+        
+        //
+        
+        emailTextField.snp.makeConstraints { view in
+            view.top.equalTo(box).offset(40)
+            view.centerX.equalToSuperview()
+            view.height.equalTo(40)
+            view.leading.equalTo(box).offset(15)
+            view.trailing.equalTo(box).inset(15)
+        }
+        
+        emailStripe.snp.makeConstraints { view in
+            view.width.equalTo(emailTextField)
+            view.trailing.equalTo(emailTextField)
+            view.height.equalTo(2)
+            view.top.equalTo(emailTextField.snp.bottom)
+        }
+        
+        emailBar.snp.makeConstraints { view in
+            view.top.equalTo(emailTextField)
+            view.bottom.equalTo(emailTextField)
+            view.width.equalTo(2)
+            view.leading.equalTo(emailTextField)
         }
         
         passwordTextField.snp.makeConstraints { view in
-            view.top.equalTo(usernameTextField.snp.bottom).offset(20)
+            view.top.equalTo(emailTextField.snp.bottom).offset(40)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
             view.leading.equalTo(box).offset(15)
@@ -101,27 +189,19 @@ class InitialViewController: UIViewController {
         }
         
         loginButton.snp.makeConstraints { button in
-            button.top.equalTo(passwordTextField.snp.bottom).offset(40)
+            //button.top.equalTo(passwordTextField.snp.bottom).offset(40)
             button.centerX.equalToSuperview()
             button.height.equalTo(40)
             button.leading.equalTo(box).offset(15)
             button.trailing.equalTo(box).inset(15)
-        }
-        
-        registerButton.snp.makeConstraints { button in
-            button.top.equalTo(loginButton.snp.bottom).offset(20)
-            button.centerX.equalToSuperview()
-            button.height.equalTo(40)
-            button.bottom.equalTo(box).inset(40)
-            button.leading.equalTo(box).offset(15)
-            button.trailing.equalTo(box).inset(15)
+            button.centerY.equalTo(registerButton)
         }
         
     }
     
     func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
         guard let password = passwordTextField.text,
-            let email = usernameTextField.text else { return nil }
+            let email = emailTextField.text else { return nil }
         return ("Cris", email, password, "Accesscode", "3204")
     }
     
@@ -179,6 +259,38 @@ class InitialViewController: UIViewController {
         //present(UINavigationController(rootViewController: RegistrationViewController()), animated: false)
     }
     
+    func registerTabWasPressed() {
+        colorTab(registerTab)
+        colorTab(loginTab)
+        
+        registerButton.isHidden = false
+        nameTextField.isHidden = false
+        classTextField.isHidden = false
+        classStripe.isHidden = false
+        classBar.isHidden = false
+        studentIDTextField.isHidden = false
+        
+        loginButton.isHidden = true
+        emailTextField.isHidden = true
+        passwordTextField.isHidden = true
+    }
+    
+    func loginTabWasPressed() {
+        colorTab(registerTab)
+        colorTab(loginTab)
+        
+        loginButton.isHidden = false
+        emailTextField.isHidden = false
+        passwordTextField.isHidden = false
+        
+        registerButton.isHidden = true
+        nameTextField.isHidden = true
+        classTextField.isHidden = true
+        classStripe.isHidden = true
+        classBar.isHidden = true
+        studentIDTextField.isHidden = true
+    }
+    
     lazy var logoPic: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "logoForHeader")
@@ -205,6 +317,40 @@ class InitialViewController: UIViewController {
         return label
     }()
     
+    lazy var loginTab: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.white
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: -2, height: 3)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 3
+        button.layer.masksToBounds = false
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitle("Login".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
+        button.addTarget(self, action: #selector(loginTabWasPressed), for: .touchUpInside)
+        button.isSelected = true
+        return button
+    }()
+    
+    lazy var registerTab: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.white
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: -2, height: 3)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 3
+        button.layer.masksToBounds = false
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitle("Register".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
+        button.addTarget(self, action: #selector(registerTabWasPressed), for: .touchUpInside)
+        button.isSelected = false
+        return button
+    }()
+    
     lazy var box: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
@@ -216,7 +362,7 @@ class InitialViewController: UIViewController {
         return view
     }()
     
-    lazy var usernameTextField: PaddedTextField = {
+    lazy var emailTextField: PaddedTextField = {
         let textField = PaddedTextField()
         textField.placeholder = "Email"
         textField.spellCheckingType = .no
@@ -225,13 +371,13 @@ class InitialViewController: UIViewController {
         return textField
     }()
     
-    lazy var usernameStripe: UIView = {
+    lazy var emailStripe: UIView = {
         let stripe = UIView()
         stripe.backgroundColor = UIColor.weLearnGreen
         return stripe
     }()
     
-    lazy var usernameBar: UIView = {
+    lazy var emailBar: UIView = {
         let bar = UIView()
         bar.backgroundColor = UIColor.weLearnGreen
         return bar
@@ -283,6 +429,46 @@ class InitialViewController: UIViewController {
         return button
     }()
     
-    lazy var registrationFields
+    lazy var nameTextField: PaddedTextField = {
+        let thirdTextfield = PaddedTextField()
+        thirdTextfield.placeholder = "Preferred name"
+        thirdTextfield.isSecureTextEntry = false
+        thirdTextfield.spellCheckingType = .no
+        thirdTextfield.autocorrectionType = .no
+        thirdTextfield.autocapitalizationType = .none
+        return thirdTextfield
+    }()
     
+    lazy var classTextField: PaddedTextField = {
+        let fourthTextfield = PaddedTextField()
+        fourthTextfield.placeholder = "Class"
+        fourthTextfield.isSecureTextEntry = false
+        fourthTextfield.spellCheckingType = .no
+        fourthTextfield.autocorrectionType = .no
+        fourthTextfield.autocapitalizationType = .none
+        return fourthTextfield
+    }()
+    
+    lazy var studentIDTextField: PaddedTextField = {
+        let fifthTextfield = PaddedTextField()
+        fifthTextfield.placeholder = "Student ID"
+        fifthTextfield.isSecureTextEntry = true
+        fifthTextfield.spellCheckingType = .no
+        fifthTextfield.autocorrectionType = .no
+        fifthTextfield.autocapitalizationType = .none
+        return fifthTextfield
+    }()
+    
+    lazy var classStripe: UIView = {
+        let stripe = UIView()
+        stripe.backgroundColor = UIColor.weLearnGreen
+        return stripe
+    }()
+    
+    lazy var classBar: UIView = {
+        let bar = UIView()
+        bar.backgroundColor = UIColor.weLearnGreen
+        return bar
+    }()
+
 }
