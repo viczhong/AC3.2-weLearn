@@ -28,19 +28,64 @@ class DueDatesTableViewCell: UITableViewCell {
     }
 
     func setupHierarchy() {
-        self.contentView.addSubview(label)
+        self.contentView.addSubview(box)
+        self.contentView.addSubview(timerLabel)
+        self.contentView.addSubview(assignmentLabel)
     }
     
     func setupConstraints() {
-        label.snp.makeConstraints { (lbl) in
-            lbl.leading.equalToSuperview().offset(10)
-            lbl.trailing.equalToSuperview().inset(10)
-            lbl.centerY.equalToSuperview()
+        box.snp.makeConstraints { (view) in
+            view.leading.equalTo(contentView).offset(7)
+            view.top.equalTo(contentView).offset(7)
+            view.trailing.equalTo(contentView).inset(7)
+            view.bottom.equalTo(contentView).inset(7)
+        }
+        
+        timerLabel.snp.makeConstraints { (lbl) in
+            lbl.leading.equalTo(contentView).offset(10)
+            lbl.trailing.equalTo(contentView).inset(10)
+            lbl.top.equalTo(contentView).offset(13)
+            lbl.bottom.equalTo(assignmentLabel.snp.top).inset(-5)
+        }
+        
+        assignmentLabel.snp.makeConstraints { (lbl) in
+            lbl.leading.equalTo(contentView).offset(10)
+            lbl.trailing.equalTo(contentView).inset(10)
+            lbl.bottom.equalTo(contentView).inset(13)
         }
     }
 
-    lazy var label: UILabel = {
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        return view
+    }()
+    
+    lazy var timerLabel: UILabel = {
         let lbl = UILabel()
+        lbl.font = UIFont(name: "Thirtysix", size: 36)
+        lbl.textColor = UIColor.weLearnGreen
+        lbl.textAlignment = .center
+        lbl.layer.shadowColor = UIColor.weLearnBlack.cgColor
+        lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
+        lbl.layer.shadowOpacity = 3
+        lbl.layer.shadowRadius = 1
+        lbl.layer.masksToBounds = false
+        lbl.numberOfLines = 1
+        return lbl
+    }()
+    
+    lazy var assignmentLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Avenir-Black", size: 24)
+        lbl.textColor = UIColor.weLearnGreen
+        lbl.textAlignment = .center
+        lbl.layer.masksToBounds = false
         return lbl
     }()
 }

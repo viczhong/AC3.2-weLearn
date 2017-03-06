@@ -39,10 +39,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
         
-        self.title = dateInTitle.string(from: currentDate)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        title = dateInTitle.string(from: currentDate)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 268.0
         
         linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
@@ -124,20 +126,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Row Code
     
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0, 2:
-            return 134
-        default:
-            return UITableViewAutomaticDimension
-        }
-
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 15
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 20
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -148,9 +139,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
-                firstCell.label.text = "You all got A's! Wow! \n- Ben"
-                firstCell.label.numberOfLines = 2
-                firstCell.label.font = UIFont(name: "Avenir-LightOblique", size: 24)
+                firstCell.date.text = self.title
+                firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww gfhtftydtyc  tyfytfutfy yftfytf ytc yyt fyft ft ydydh fyjf uttuyk  yfyfitycfgccjcjf        fdgfdtxxgc  ytfy f  yt        c."
+                firstCell.author.text = "- Ben"
             }
             
             
@@ -165,7 +156,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
-                thirdCell.label.text = "7 days until midterm..."
+                thirdCell.timerLabel.text = "7 days"
+                thirdCell.assignmentLabel.text = "until midterm..."
                 // MARK: - Dummy timer runs down here!
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
@@ -180,20 +172,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
                     let seconds = Int(self.timeInSeconds) % 60
-                    thirdCell.label.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds) + " until Demo Day..."
+                    thirdCell.timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
+                    thirdCell.assignmentLabel.text = " until Demo Day..."
                 }
                 
                 timer.fire()
                  //*/
-                thirdCell.label.font = UIFont(name: "Thirtysix", size: 36)
-                thirdCell.label.textColor = UIColor.weLearnGreen
-                thirdCell.label.textAlignment = .center
-                thirdCell.label.layer.shadowColor = UIColor.weLearnBlack.cgColor
-                thirdCell.label.layer.shadowOffset = CGSize(width: -2, height: 3)
-                thirdCell.label.layer.shadowOpacity = 3
-                thirdCell.label.layer.shadowRadius = 1
-                thirdCell.label.layer.masksToBounds = false
-                thirdCell.label.numberOfLines = 2
             }
             
         default:
@@ -230,21 +214,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - UI Elements
     
-    lazy var linksButton: UIButton = {
-        let button = UIButton()
-        //button.setTitle("Links", for: .normal)
+    lazy var linksButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("links".uppercased(), for: .normal)
         button.backgroundColor = UIColor.weLearnGreen
-        button.layer.cornerRadius = 20
-        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        button.imageView?.contentMode = .center
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
         return button
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        
+        let tableView = UITableView()//(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
