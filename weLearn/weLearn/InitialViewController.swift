@@ -17,11 +17,9 @@ class InitialViewController: UIViewController {
     var databaseObserver: FIRDatabaseHandle?
     var signedInUser: FIRUser?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), .clear])
+        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.clear])
         viewHiearchy()
         configureConstraints()
     }
@@ -59,7 +57,7 @@ class InitialViewController: UIViewController {
         }
         
         usernameTextField.snp.makeConstraints { view in
-            view.top.equalTo(box).offset(60)
+            view.top.equalTo(box).offset(40)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
             view.leading.equalTo(box).offset(15)
@@ -81,7 +79,7 @@ class InitialViewController: UIViewController {
         }
         
         passwordTextField.snp.makeConstraints { view in
-            view.top.equalTo(usernameTextField.snp.bottom).offset(40)
+            view.top.equalTo(usernameTextField.snp.bottom).offset(20)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
             view.leading.equalTo(box).offset(15)
@@ -114,7 +112,7 @@ class InitialViewController: UIViewController {
             button.top.equalTo(loginButton.snp.bottom).offset(20)
             button.centerX.equalToSuperview()
             button.height.equalTo(40)
-            button.bottom.equalTo(box).inset(20)
+            button.bottom.equalTo(box).inset(40)
             button.leading.equalTo(box).offset(15)
             button.trailing.equalTo(box).inset(15)
         }
@@ -284,5 +282,7 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    lazy var registrationFields
     
 }

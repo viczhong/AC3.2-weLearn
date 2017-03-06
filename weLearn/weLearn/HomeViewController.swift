@@ -142,9 +142,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 firstCell.date.text = self.title
                 firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww gfhtftydtyc  tyfytfutfy yftfytf ytc yyt fyft ft ydydh fyjf uttuyk  yfyfitycfgccjcjf        fdgfdtxxgc  ytfy f  yt        c."
                 firstCell.author.text = "- Ben"
+                firstCell.bar.isHidden = true
             }
             
-            
+            return cell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
             if let secondCell = cell as? AgendaTableViewCell {
