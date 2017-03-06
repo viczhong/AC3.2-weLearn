@@ -8,8 +8,16 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class InitialViewController: UIViewController {
+    
+    var databaseReference = FIRDatabase.database()
+    var databaseObserver: FIRDatabaseHandle?
+    var signedInUser: FIRUser?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,15 +118,66 @@ class InitialViewController: UIViewController {
             button.leading.equalTo(box).offset(15)
             button.trailing.equalTo(box).inset(15)
         }
-
+        
+    }
+    
+    func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
+        guard let password = passwordTextField.text,
+            let email = usernameTextField.text else { return nil }
+        return ("Cris", email, password, "Accesscode", "3204")
+    }
+    
+    func showAlert(title: String, _ errorMessage: String) {
+        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let okayButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alert.addAction(okayButton)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setUpDatabaseReference() {
+        guard let credentials = signInCredentials() else { return }
+        
+        let referenceLink = databaseReference.reference().child(credentials.studentClass).childByAutoId()
+        
+        let dict = [
+            "studentName" : credentials.name,
+            "studentEmail" : credentials.email,
+            "class" : credentials.studentClass,
+            "studentID" : credentials.studentID
+        ]
+        
+        referenceLink.setValue(dict)
     }
     
     func loginButtonWasPressed() {
-        present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+        guard let credentials = signInCredentials() else { return }
+        FIRAuth.auth()?.signIn(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
+            
+            if user != nil {
+                
+                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            }
+            
+            if let error = error {
+                self.showAlert(title: "Login error", error.localizedDescription)
+            }
+            
+        })
     }
     
     func registerButtonWasPressed() {
-        print("You clicked the registration button! wow.")
+        guard let credentials = signInCredentials() else { return }
+        FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
+            if user != nil {
+                self.signedInUser = user
+                self.setUpDatabaseReference()
+                self.registerButton.isEnabled = false
+                self.registerButton.alpha = 0.50
+            }
+            if let error = error {
+                self.showAlert(title: "Registering Error", error.localizedDescription)
+            }
+        })
         //present(UINavigationController(rootViewController: RegistrationViewController()), animated: false)
     }
     
@@ -161,7 +220,7 @@ class InitialViewController: UIViewController {
     
     lazy var usernameTextField: PaddedTextField = {
         let textField = PaddedTextField()
-        textField.placeholder = "crisChavez@email.com"
+        textField.placeholder = "Email"
         textField.spellCheckingType = .no
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -179,10 +238,10 @@ class InitialViewController: UIViewController {
         bar.backgroundColor = UIColor.weLearnGreen
         return bar
     }()
-
+    
     lazy var passwordTextField: PaddedTextField = {
         let secondTextField = PaddedTextField()
-        secondTextField.placeholder = "password"
+        secondTextField.placeholder = "Password"
         secondTextField.isSecureTextEntry = true
         secondTextField.spellCheckingType = .no
         secondTextField.autocorrectionType = .no
@@ -225,5 +284,5 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
-
+    
 }
