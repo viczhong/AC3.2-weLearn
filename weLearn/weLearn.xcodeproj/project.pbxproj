@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D25ED091E6DD97000C9903E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */; };
 		2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */; };
 		2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */; };
 		2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		01F35F447069D852D8DD870A /* Pods_weLearn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weLearn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDatesTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				9C3FE0091E64CD9700ACC778 /* HomeworkTableViewController.swift */,
 				9EECFE8D1E64C83D00503F7F /* Assets.xcassets */,
 				9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */,
+				2D25ED081E6DD97000C9903E /* GoogleService-Info.plist */,
 				9EECFE921E64C83D00503F7F /* Info.plist */,
 			);
 			path = weLearn;
@@ -245,6 +248,7 @@
 				9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */,
 				9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */,
 				D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */,
+				2D25ED091E6DD97000C9903E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
