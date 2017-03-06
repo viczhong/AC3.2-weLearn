@@ -315,7 +315,7 @@ class InitialViewController: UIViewController {
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
         thirdTextfield.placeholder = "Preferred name"
-        thirdTextfield.isSecureTextEntry = true
+        thirdTextfield.isSecureTextEntry = false
         thirdTextfield.spellCheckingType = .no
         thirdTextfield.autocorrectionType = .no
         thirdTextfield.autocapitalizationType = .none
