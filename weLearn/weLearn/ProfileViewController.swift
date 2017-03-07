@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Profile"
+        
         self.view.backgroundColor = UIColor.weLearnLightGreen
         
         viewHeirarchy()
