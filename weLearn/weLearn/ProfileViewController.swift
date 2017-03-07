@@ -20,6 +20,8 @@ class ProfileViewController: UIViewController {
         
         viewHeirarchy()
         configureConstraints()
+        
+        self.edgesForExtendedLayout = .bottom
 
         // Do any additional setup after loading the view.
     }
@@ -37,15 +39,48 @@ class ProfileViewController: UIViewController {
     
     func configureConstraints() {
         profileBox.snp.makeConstraints { view in
-            
+            view.top.equalToSuperview().offset(40)
+            view.centerX.equalToSuperview()
+            view.leading.equalToSuperview().offset(25)
+            view.trailing.equalToSuperview().inset(25)
+        }
+        
+        profilePic.snp.makeConstraints { view in
+            view.top.leading.equalTo(profileBox).offset(20)
+            view.width.equalTo(profileBox).dividedBy(4)
+            view.height.equalTo(profilePic.snp.width)
+        }
+        
+        nameLabel.snp.makeConstraints { view in
+            view.top.equalTo(profileBox).offset(20)
+            view.trailing.equalTo(profileBox).inset(20)
+        }
+        
+        emailLabel.snp.makeConstraints { view in
+            view.top.equalTo(nameLabel.snp.bottom).offset(10)
+            view.trailing.equalTo(profileBox).inset(20)
+        }
+        
+        classLabel.snp.makeConstraints { view in
+            view.top.equalTo(emailLabel.snp.bottom).offset(10)
+            view.trailing.equalTo(profileBox).inset(20)
+            view.bottom.equalTo(profileBox).inset(20)
         }
         
         achievementBox.snp.makeConstraints { view in
-        
+            view.top.equalTo(profileBox.snp.bottom).offset(20)
+            view.centerX.equalToSuperview()
+            view.leading.equalToSuperview().offset(25)
+            view.trailing.equalToSuperview().inset(25)
+            view.height.equalTo(100)
         }
         
         gradeBox.snp.makeConstraints {view in
-        
+            view.top.equalTo(achievementBox.snp.bottom).offset(20)
+            view.centerX.equalToSuperview()
+            view.leading.equalToSuperview().offset(25)
+            view.trailing.equalToSuperview().inset(25)
+            view.height.equalTo(150)
         }
     }
 
@@ -73,22 +108,29 @@ class ProfileViewController: UIViewController {
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.black.cgColor
+        pic.image = #imageLiteral(resourceName: "profileIcon")
         pic.layer.borderWidth = 5
         return pic
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
+        label.text = "Karen Fuentes"
+        label.font = UIFont(name: "Avenir-LightOblique", size: 20)
         return label
     }()
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
+        label.text = "karen@karen.com"
+        label.font = UIFont(name: "Avenir-LightOblique", size: 20)
         return label
     }()
     
     lazy var classLabel: UILabel = {
         let label = UILabel()
+        label.text = "AC3.2"
+        label.font = UIFont(name: "Avenir-LightOblique", size: 20)
         return label
     }()
     
