@@ -22,6 +22,7 @@ class Agenda {
     var middayQuizURL: String?
     var homeworkDesc: String?
     var homeworkURL: String?
+    var lessonDesc: String?
     
     init(lessonName: String,
          date: Date,
@@ -31,7 +32,8 @@ class Agenda {
          morningQuizURL: String?,
          middayQuizURL: String?,
          homeworkDesc: String?,
-         homeworkURL: String?) {
+         homeworkURL: String?,
+         lessonDesc: String?) {
         self.lessonName = lessonName
         self.date = date
         self.unit = unit
@@ -41,6 +43,7 @@ class Agenda {
         self.middayQuizURL = middayQuizURL
         self.homeworkDesc = homeworkDesc
         self.homeworkURL = homeworkURL
+        self.lessonDesc = lessonDesc
     }
     
     convenience init?(from dict: [String:Any]) throws {
@@ -62,7 +65,8 @@ class Agenda {
                   morningQuizURL: dict["morningquizurl"],
                   middayQuizURL: dict["middayquizurl"],
                   homeworkDesc: dict["homeworkdesc"],
-                  homeworkURL: dict["homeworkurl"])
+                  homeworkURL: dict["homeworkurl"],
+                  lessonDesc: dict["lessondesc"])
     }
     
     static func getAgenda(from data: Data) -> [Agenda]? {
@@ -106,7 +110,7 @@ private func parseString(_ string: String) -> [String : String] {
 
 private func dateConvert(_ string: String) -> Date {
     let dateformatter = DateFormatter()
-    dateformatter.dateFormat = "mm/dd/yy"
-    
-    return dateformatter.date(from: string)!
+    dateformatter.dateFormat = "MM/dd/yy'T'HH:mmZZZZZ"
+    let dateString = "\(string)T18:00-05:00"
+    return dateformatter.date(from: dateString)!
 }
