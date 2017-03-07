@@ -283,6 +283,6 @@ class InitialViewController: UIViewController {
         return button
     }()
     
-    lazy var registrationFields
+
     
 }
