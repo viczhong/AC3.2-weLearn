@@ -84,7 +84,7 @@ class InitialViewController: UIViewController {
     
     func configureConstraints() {
         logoPic.snp.makeConstraints { view in
-            view.width.equalToSuperview().dividedBy(1.75)
+            view.width.equalToSuperview().dividedBy(2)
             view.height.equalToSuperview().dividedBy(5)
             view.top.equalToSuperview().offset(30)
             view.centerX.equalToSuperview()
