@@ -110,7 +110,7 @@ private func parseString(_ string: String) -> [String : String] {
 
 private func dateConvert(_ string: String) -> Date {
     let dateformatter = DateFormatter()
-    dateformatter.dateFormat = "mm/dd/yy"
-    
-    return dateformatter.date(from: string)!
+    dateformatter.dateFormat = "MM/dd/yy'T'HH:mmZZZZZ"
+    let dateString = "\(string)T18:00-05:00"
+    return dateformatter.date(from: dateString)!
 }
