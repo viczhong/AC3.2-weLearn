@@ -23,8 +23,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let currentDate = Date()
     let calendar = Calendar.current
+    var agenda: [Agenda]?
+    var todaysAgenda: Agenda?
+    
+    // This will be variable based on the Student's Class, pending Firebase setup
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
-    var agenda = [Agenda]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,14 +79,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
                 if let returnedAgenda = Agenda.getAgenda(from: data!) {
-                    print("We've got contacts: \(returnedAgenda.count)")
+                    print("We've got returns: \(returnedAgenda.count)")
                     self.agenda = returnedAgenda
                     DispatchQueue.main.async {
+                        self.todaysAgenda = self.todaysSchedule()
                         self.tableView.reloadData()
                     }
                 }
             }
         }
+    }
+    
+    func todaysSchedule() -> Agenda? {
+        if let agenda = agenda {
+            let sorted = agenda.sorted(by: {$0.date < $1.date})
+            let today = Date()
+            for entry in agenda {
+                if today <= entry.date  {
+                    return entry
+                }
+            }
+        }
+        return nil
     }
     
     // MARK: - TableView DataSource Methods
@@ -96,12 +113,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-//        case 0:
-//            return "Announcements"
+            //        case 0:
+        //            return "Announcements"
         case 1:
-            return "Agenda"
-//        case 2:
-//            return "Upcoming Due Dates"
+            if todaysAgenda != nil {
+                return "Agenda"
+            }
+            else {
+                return nil
+            }
+            //        case 2:
+        //            return "Upcoming Due Dates"
         default:
             return ""
         }
@@ -114,7 +136,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 1
         case 1:
             //Agenda
-            return agenda.count
+            if todaysAgenda != nil {
+                return 1
+            } else {
+                return 0
+            }
         case 2:
             //DueDates
             return 1
@@ -126,9 +152,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Row Code
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 20
-//    }
+    //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    //        return 20
+    //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -140,7 +166,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
                 firstCell.date.text = self.title
-                firstCell.quote.text = "You all got A's! Wow! adsf fw f wf qw  we fgwg eg w  w 4g weg  eg wa g we  weg w e4 w4 tg 43g  vw ww gfhtftydtyc  tyfytfutfy yftfytf ytc yyt fyft ft ydydh fyjf uttuyk  yfyfitycfgccjcjf        fdgfdtxxgc  ytfy f  yt        c."
+                firstCell.quote.text = "You all got A's! Wow!"
                 firstCell.author.text = "- Ben"
                 firstCell.bar.isHidden = true
             }
@@ -148,10 +174,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
-            if let secondCell = cell as? AgendaTableViewCell {
-                let agendaForCell = agenda[indexPath.row]
-                secondCell.label.text = agendaForCell.lessonName
-                secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
+            //            if let agenda = agenda {
+            //                if let secondCell = cell as? AgendaTableViewCell {
+            //                    let agendaForCell = agenda[indexPath.row]
+            //                    secondCell.label.text = agendaForCell.lessonName
+            //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
+            //                }
+            //            }
+            if let today = todaysAgenda {
+                if let secondCell = cell as? AgendaTableViewCell {
+                    secondCell.label.text = "\(today.lessonName) - \(today.repoURL)"
+                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
+                }
             }
             
         case 2:
@@ -163,9 +197,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-                guard self.timeInSeconds > 0  else {
-                    self.timer.invalidate()
-                    return
+                    guard self.timeInSeconds > 0  else {
+                        self.timer.invalidate()
+                        return
                     }
                     
                     self.timeInSeconds -= 1
@@ -178,7 +212,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 timer.fire()
-                 //*/
+                //*/
             }
             
         default:
@@ -189,7 +223,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowRadius = 3
         cell.layer.masksToBounds = false
-
+        
         return cell
     }
     
@@ -198,9 +232,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
         case 1: break
-            //Add the viewController to be presented
+        //Add the viewController to be presented
         case 2: break
-            //Add the viewController to be presented
+        //Add the viewController to be presented
         default:
             break
         }
@@ -210,7 +244,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Button Functions
     
     func buttonWasPressed(button: UIButton) {
-//    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
+        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
     }
     
     // MARK: - UI Elements
