@@ -252,7 +252,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 //    }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()//(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
