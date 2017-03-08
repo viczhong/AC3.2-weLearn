@@ -116,8 +116,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             //        case 0:
         //            return "Announcements"
         case 1:
-            if todaysAgenda != nil {
-                return "Agenda"
+            if let today = todaysAgenda {
+                return "Agenda for \(today.dateString)"
             }
             else {
                 return nil
@@ -174,6 +174,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
+            //  Save this code for lesson plan view
+            
             //            if let agenda = agenda {
             //                if let secondCell = cell as? AgendaTableViewCell {
             //                    let agendaForCell = agenda[indexPath.row]

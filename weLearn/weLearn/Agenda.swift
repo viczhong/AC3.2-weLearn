@@ -15,6 +15,7 @@ enum AgendaModelParseError: Error {
 class Agenda {
     var lessonName: String
     var date: Date
+    var dateString: String
     var unit: String?
     var repoURL: String?
     var preworkURL: String?
@@ -26,6 +27,7 @@ class Agenda {
     
     init(lessonName: String,
          date: Date,
+         dateString: String,
          unit: String?,
          repoURL: String?,
          preworkURL: String?,
@@ -36,6 +38,7 @@ class Agenda {
          lessonDesc: String?) {
         self.lessonName = lessonName
         self.date = date
+        self.dateString = dateString
         self.unit = unit
         self.repoURL = repoURL
         self.preworkURL = preworkURL
@@ -59,6 +62,7 @@ class Agenda {
         
         self.init(lessonName: lessonName,
                   date: dateConvert(dict["date"]!),
+                  dateString: dict["date"]!,
                   unit: dict["unit"],
                   repoURL: dict["repourl"],
                   preworkURL: dict["preworkrepourl"],
