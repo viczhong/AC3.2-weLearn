@@ -44,7 +44,7 @@ class AgendaTableViewCell: UITableViewCell {
         }
         
         label.snp.makeConstraints { (lbl) in
-            lbl.leading.leading.equalTo(bulletView.snp.trailing)
+            lbl.leading.equalTo(bulletView.snp.trailing)
             lbl.centerY.equalToSuperview()
         }
     }

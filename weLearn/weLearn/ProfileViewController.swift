@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     // we shall make cells for the acheievements and grades
     // grades will be a simple cell
     // achievements will be a cell containing...a collection view or scroll view
+    
+    var grades = [Grade]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         configureConstraints()
         
         self.edgesForExtendedLayout = .bottom
+        
+        tableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: "AchievementTableViewCell")
+        tableView.register(GradeTableViewCell.self, forCellReuseIdentifier: "GradeTableViewCell")
         
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -128,6 +133,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let header = view as! UITableViewHeaderFooterView
+//        header.textLabel?.font = UIFont(name: "Avenir-Black", size: 16)
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -135,7 +145,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             return 1
         case 1:
             // Grades
-            return 1 // we'll make an array to hold all of the grades later
+            return grades.count
         default:
             return 0
         }
@@ -147,9 +157,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switch indexPath.section {
         case 0:
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "AchievementTableViewCell", for: indexPath)
+            if let achieviementCell = cell as? AchievementTableViewCell {
+                achieviementCell
+            }
         case 1:
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
+            if let gradeCell = cell as? GradeTableViewCell {
+                gradeCell.testNameLabel.text = grades[indexPath.row].score
+                gradeCell.gradeLabel.text = grades[indexPath.row].score
+            }
         default:
             break
         }
@@ -161,9 +178,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
-    
-        
-        
 
     // Mark: - Views made here
     
@@ -252,7 +266,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 //    }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()//(frame: .zero, style: .grouped)
+        let tableView = UITableView() //(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
