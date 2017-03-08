@@ -57,6 +57,7 @@ class InitialViewController: UIViewController {
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
+        self.view.addSubview(logoOverlay)
         // self.view.addSubview(logoHeader)
         self.view.addSubview(registerTab)
         self.view.addSubview(registerTabLabel)
@@ -88,6 +89,13 @@ class InitialViewController: UIViewController {
             view.height.equalToSuperview().dividedBy(5)
             view.top.equalToSuperview().offset(30)
             view.centerX.equalToSuperview()
+        }
+        
+        logoOverlay.snp.makeConstraints { view in
+            view.width.equalToSuperview().dividedBy(2)
+            view.height.equalToSuperview().dividedBy(5)
+            view.top.equalToSuperview().offset(30)
+            view.centerX.equalToSuperview().offset(5)
         }
         
 //        logoHeader.snp.makeConstraints { label in
@@ -346,6 +354,16 @@ class InitialViewController: UIViewController {
         view.layer.shadowOffset = CGSize(width: -5, height: 5)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 1
+        view.layer.masksToBounds = false
+        return view
+    }()
+    
+    lazy var logoOverlay: UIImageView = {
+        let view = UIImageView()
+        let originalImage = #imageLiteral(resourceName: "logoForSplash")
+        let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
+        view.image = templateImage
+        view.tintColor = UIColor.weLearnCoolAccent.withAlphaComponent(0.25)
         view.layer.masksToBounds = false
         return view
     }()
