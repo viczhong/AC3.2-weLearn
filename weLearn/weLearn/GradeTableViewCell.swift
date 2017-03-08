@@ -16,7 +16,6 @@ class GradeTableViewCell: UITableViewCell {
         
         setupHierarchy()
         setupConstraints()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -25,6 +25,9 @@ class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        collectionViewLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
+        collectionView.setCollectionViewLayout(collectionViewLayout, animated: true)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,6 +44,11 @@ class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func setupConstraints() {
+        contentView.snp.makeConstraints { view in
+            view.height.equalTo(100)
+            view.width.equalToSuperview()
+        }
+        
         box.snp.makeConstraints { (view) in
             view.leading.equalTo(contentView).offset(7)
             view.top.equalTo(contentView).offset(7)
@@ -85,7 +93,12 @@ class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }()
     
     lazy var collectionView: UICollectionView = {
-        let view = UICollectionView()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         return view
+    }()
+    
+    lazy var collectionViewLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
     }()
 }
