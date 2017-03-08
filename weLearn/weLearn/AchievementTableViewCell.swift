@@ -11,13 +11,19 @@ import SnapKit
 
 // *** This is a container for the achievements -- see the collection view for cell details 
 
-class AchievementTableViewCell: UITableViewCell {
+class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    var achievements = [Achievement]()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupHierarchy()
         setupConstraints()
+        
+       collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
     }
     
@@ -27,8 +33,6 @@ class AchievementTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
 
     func setupHierarchy() {
@@ -48,6 +52,25 @@ class AchievementTableViewCell: UITableViewCell {
             view.top.leading.equalTo(box)
             view.bottom.trailing.equalTo(box)
         }
+    }
+    
+    //MARK: - Collection View Data Source Methods
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return achievements.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! AchievementCollectionViewCell
+        
+        cell.achievementPic.image = UIImage(named: achievements[indexPath.row].pic)
+        cell.descriptionLabel.text = achievements[indexPath.row].description
+        
+        return cell
     }
     
     lazy var box: UIView = {
