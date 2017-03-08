@@ -49,7 +49,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+        profileButton.addTarget(self, action: #selector(profileButtonWasPressed(button:)), for: .touchUpInside)
+        let leftButton = UIBarButtonItem(customView: profileButton)
+        navigationItem.setLeftBarButton(leftButton, animated: true)
+        
+        linksButton.addTarget(self, action: #selector(linksButtonWasPressed(button:)), for: .touchUpInside)
         let rightButton = UIBarButtonItem(customView: linksButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
     }
@@ -245,11 +249,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Button Functions
     
-    func buttonWasPressed(button: UIButton) {
+    func profileButtonWasPressed(button: UIButton) {
+        navigationController?.pushViewController(ProfileViewController(), animated: true)
+    }
+    
+    func linksButtonWasPressed(button: UIButton) {
         //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
     }
     
     // MARK: - UI Elements
+    
+    lazy var profileButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        // button.setTitle("profile".uppercased(), for: .normal)
+        button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
+        button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
+        return button
+    }()
     
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
