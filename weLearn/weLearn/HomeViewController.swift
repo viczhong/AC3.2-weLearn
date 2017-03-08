@@ -94,9 +94,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func fakeReadAgenda(_ items: [Agenda]) {
+        self.agenda = items
+        DispatchQueue.main.async {
+            self.todaysAgenda = self.todaysSchedule()
+            self.tableView.reloadData()
+        }
+    }
+    
     func todaysSchedule() -> Agenda? {
         if let agenda = agenda {
-            let sorted = agenda.sorted(by: {$0.date < $1.date})
+            _ = agenda.sorted(by: {$0.date < $1.date})
             let today = Date()
             for entry in agenda {
                 if today <= entry.date  {
