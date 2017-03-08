@@ -57,9 +57,24 @@ class ShareViewController: SLComposeServiceViewController {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
+        
+        
         if let linkDescription = self.textView.text,
             let url = self.urlString {
-        print(">> \(linkDescription) and URL: \(url)")
+            
+            let dict = [ "url" : url,
+                "urlDescription" : linkDescription
+            ]
+            
+            let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+
+            if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+                urlDefaults.append(dict)
+                userDefaults?.synchronize()
+            } else {
+                userDefaults?.setValue([dict], forKey: "urlDefaults")
+                userDefaults?.synchronize()
+            }   
         }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }

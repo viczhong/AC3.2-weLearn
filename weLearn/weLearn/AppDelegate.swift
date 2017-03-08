@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -75,6 +76,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+        var databaseReference = FIRDatabase.database().reference().child("Links")
+        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+
+        if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+            for urldict in urlDefaults {
+                databaseReference.setValue(urldict)
+            }
+            urlDefaults.removeAll()
+        }
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
