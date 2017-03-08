@@ -133,6 +133,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let header = view as! UITableViewHeaderFooterView
+//        header.textLabel?.font = UIFont(name: "Avenir-Black", size: 16)
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -261,7 +266,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 //    }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView() //(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
