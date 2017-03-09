@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import FirebaseAuth
+import Firebase
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,6 +19,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //    var grades = [Grade]()
     var testGrades: TestGrade?
     var gradesParsed: [(assignment: String, grade: String)] = []
+    var databaseReference: FIRDatabaseReference!
+    
     // subject to change
     var gradesSheetID = "1nWAy8nkwuPiOJkMvsdKOrwOPWgptVhNAbRrdBZlNPvA"
     
@@ -47,37 +49,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        //        fakePopulate([Grade(assignment: "Final", score: "A"), Grade(assignment: "Instacat", score: "A-"), Grade(assignment: "Battleship", score: "A+")])
-        
+        databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
     }
     
-    func checkLoggedIn() {
-        if FIRAuth.auth()?.currentUser != nil {
-            grabTestData()
-        }
-    }
-    
-    func grabTestData() {
-        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if data != nil {
-                let studentID = FIRAuth.auth()?.currentUser?.uid
-                if let returnedGradesData = TestGrade.getStudentTestGrade(from: data!,
-                                                                          for: "3236" /*studentID*/) {
-                    print("We've got grades for: \(returnedGradesData.id)")
-                    
-                    self.testGrades = returnedGradesData
-                    self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    
+    //MARK: - Views
     
     func viewHeirarchy() {
         self.view.addSubview(profileBox)
@@ -153,14 +129,56 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //        }
     }
     
+    //MARK: - User Functions
+    
+    func checkLoggedIn() {
+        if FIRAuth.auth()?.currentUser != nil {
+            startGrabbingTestData()
+        }
+    }
+    
+    func startGrabbingTestData() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                let currentStudent = FIRAuth.auth()?.currentUser?.uid
+                self.fetchStudentIDAndTestData(currentStudent!, data: data!)
+            }
+        }
+    }
+    
+    func fetchStudentIDAndTestData(_ student: String, data: Data) {
+        //MARK: Retool Users later
+        let classOfStudent = databaseReference.child("Accesscode").child(student)
+        var studentID = ""
+        
+        // Jump into Firebase and grab the ID Number
+        classOfStudent.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let valueDict = snapshot.value as? [String : Any] {
+                studentID = valueDict["studentID"] as! String
+            }
+            
+            // Now that we have the number, grab that person's grades
+            if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
+                                                                      for: studentID) {
+                print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
+                
+                self.testGrades = returnedGradesData
+                self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        })
+    }
+    
     // Mark: - Table view stuff
     
-//    func fakePopulate(_ items: [Grade]) {
-//        self.grades = items
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-//    }
+    //    func fakePopulate(_ items: [Grade]) {
+    //        self.grades = items
+    //        DispatchQueue.main.async {
+    //            self.tableView.reloadData()
+    //        }
+    //    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -214,8 +232,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
             if gradesParsed.count > 0 {
                 if let gradeCell = cell as? GradeTableViewCell {
-                    gradeCell.testNameLabel.text = gradesParsed[indexPath.row].assignment
-                    gradeCell.gradeLabel.text = gradesParsed[indexPath.row].grade
+                    let grades = gradesParsed[indexPath.row]
+                    gradeCell.testNameLabel.text = grades.assignment
+                    gradeCell.gradeLabel.text = grades.grade
                 }
             }
         default:

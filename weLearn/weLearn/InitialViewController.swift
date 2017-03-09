@@ -282,7 +282,9 @@ class InitialViewController: UIViewController {
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
         
-        let referenceLink = databaseReference.reference().child(credentials.studentClass).childByAutoId()
+        
+        let referenceLink = databaseReference.reference().child(credentials.studentClass)
+        let newUserRef = referenceLink.child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -291,7 +293,7 @@ class InitialViewController: UIViewController {
             "studentID" : credentials.studentID
         ]
         
-        referenceLink.setValue(dict)
+        newUserRef.setValue(dict)
     }
     
     func loginButtonWasPressed() {
