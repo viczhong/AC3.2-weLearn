@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,8 +16,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     // grades will be a simple cell
     // achievements will be a cell containing...a collection view or scroll view
     
-    var grades = [Grade]()
-
+    //    var grades = [Grade]()
+    var testGrades: TestGrade?
+    var gradesParsed: [(assignment: String, grade: String)] = []
+    // subject to change
+    var gradesSheetID = "1nWAy8nkwuPiOJkMvsdKOrwOPWgptVhNAbRrdBZlNPvA"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,9 +46,38 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
-
-        fakePopulate([Grade(assignment: "Final", score: "A"), Grade(assignment: "Instacat", score: "A-"), Grade(assignment: "Battleship", score: "A+")])
+        
+        //        fakePopulate([Grade(assignment: "Final", score: "A"), Grade(assignment: "Instacat", score: "A-"), Grade(assignment: "Battleship", score: "A+")])
+        
+        checkLoggedIn()
     }
+    
+    func checkLoggedIn() {
+        if FIRAuth.auth()?.currentUser != nil {
+            grabTestData()
+        }
+    }
+    
+    func grabTestData() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                let studentID = FIRAuth.auth()?.currentUser?.uid
+                if let returnedGradesData = TestGrade.getStudentTestGrade(from: data!,
+                                                                          for: "3236" /*studentID*/) {
+                    print("We've got grades for: \(returnedGradesData.id)")
+                    
+                    self.testGrades = returnedGradesData
+                    self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
     
     func viewHeirarchy() {
         self.view.addSubview(profileBox)
@@ -53,10 +87,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(classLabel)
         self.view.addSubview(editButton)
         self.view.addSubview(tableView)
-//        self.view.addSubview(achievementBox)
-//        self.view.addSubview(titleForAchievementsBox)
-//        self.view.addSubview(gradesBox)
-//        self.view.addSubview(titleForGradesBox)
+        //        self.view.addSubview(achievementBox)
+        //        self.view.addSubview(titleForAchievementsBox)
+        //        self.view.addSubview(gradesBox)
+        //        self.view.addSubview(titleForGradesBox)
     }
     
     func configureConstraints() {
@@ -94,39 +128,39 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             view.bottom.equalTo(profileBox).inset(20)
         }
         
-//        achievementBox.snp.makeConstraints { view in
-//            view.top.equalTo(profileBox.snp.bottom).offset(20)
-//            view.centerX.equalToSuperview()
-//            view.leading.equalToSuperview().offset(25)
-//            view.trailing.equalToSuperview().inset(25)
-//            view.height.equalTo(100)
-//        }
-//        
-//        titleForAchievementsBox.snp.makeConstraints { view in
-//            view.top.leading.equalTo(achievementBox).offset(20)
-//        }
-//        
-//        gradesBox.snp.makeConstraints {view in
-//            view.top.equalTo(achievementBox.snp.bottom).offset(20)
-//            view.centerX.equalToSuperview()
-//            view.leading.equalToSuperview().offset(25)
-//            view.trailing.equalToSuperview().inset(25)
-//            view.height.equalTo(150)
-//        }
-//        
-//        titleForGradesBox.snp.makeConstraints { view in
-//            view.top.leading.equalTo(gradesBox).offset(20)
-//        }
+        //        achievementBox.snp.makeConstraints { view in
+        //            view.top.equalTo(profileBox.snp.bottom).offset(20)
+        //            view.centerX.equalToSuperview()
+        //            view.leading.equalToSuperview().offset(25)
+        //            view.trailing.equalToSuperview().inset(25)
+        //            view.height.equalTo(100)
+        //        }
+        //
+        //        titleForAchievementsBox.snp.makeConstraints { view in
+        //            view.top.leading.equalTo(achievementBox).offset(20)
+        //        }
+        //
+        //        gradesBox.snp.makeConstraints {view in
+        //            view.top.equalTo(achievementBox.snp.bottom).offset(20)
+        //            view.centerX.equalToSuperview()
+        //            view.leading.equalToSuperview().offset(25)
+        //            view.trailing.equalToSuperview().inset(25)
+        //            view.height.equalTo(150)
+        //        }
+        //
+        //        titleForGradesBox.snp.makeConstraints { view in
+        //            view.top.leading.equalTo(gradesBox).offset(20)
+        //        }
     }
     
     // Mark: - Table view stuff
     
-    func fakePopulate(_ items: [Grade]) {
-        self.grades = items
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
+//    func fakePopulate(_ items: [Grade]) {
+//        self.grades = items
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -137,16 +171,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 0:
             return "Achievements"
         case 1:
-           return "Grades"
+            return "Grades"
         default:
             return ""
         }
     }
     
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        let header = view as! UITableViewHeaderFooterView
-//        header.textLabel?.font = UIFont(name: "Avenir-Black", size: 16)
-//    }
+    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //        let header = view as! UITableViewHeaderFooterView
+    //        header.textLabel?.font = UIFont(name: "Avenir-Black", size: 16)
+    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -155,7 +189,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             return 1
         case 1:
             // Grades
-            return grades.count
+            if testGrades != nil {
+                return self.gradesParsed.count
+            }
+            else {
+                return 0
+            }
         default:
             return 0
         }
@@ -173,9 +212,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
-            if let gradeCell = cell as? GradeTableViewCell {
-                gradeCell.testNameLabel.text = grades[indexPath.row].assignment
-                gradeCell.gradeLabel.text = grades[indexPath.row].score
+            if gradesParsed.count > 0 {
+                if let gradeCell = cell as? GradeTableViewCell {
+                    gradeCell.testNameLabel.text = gradesParsed[indexPath.row].assignment
+                    gradeCell.gradeLabel.text = gradesParsed[indexPath.row].grade
+                }
             }
         default:
             break
@@ -188,7 +229,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
-
+    
     // Mark: - Views made here
     
     lazy var profileBox: UIView = {
@@ -240,41 +281,41 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return button
     }()
     
-//    lazy var achievementBox: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.white
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 3
-//        view.layer.masksToBounds = false
-//        return view
-//    }()
-//    
-//    lazy var titleForAchievementsBox: UIView = {
-//        let label = UILabel()
-//        label.font = UIFont(name: "Avenir-Black", size: 20)
-//        label.text = "Achievements"
-//        return label
-//    }()
-//
-//    lazy var gradesBox: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.white
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 3
-//        view.layer.masksToBounds = false
-//        return view
-//    }()
-//    
-//    lazy var titleForGradesBox: UIView = {
-//        let label = UILabel()
-//        label.font = UIFont(name: "Avenir-Black", size: 20)
-//        label.text = "Grades"
-//        return label
-//    }()
+    //    lazy var achievementBox: UIView = {
+    //        let view = UIView()
+    //        view.backgroundColor = UIColor.white
+    //        view.layer.shadowColor = UIColor.black.cgColor
+    //        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+    //        view.layer.shadowOpacity = 0.5
+    //        view.layer.shadowRadius = 3
+    //        view.layer.masksToBounds = false
+    //        return view
+    //    }()
+    //
+    //    lazy var titleForAchievementsBox: UIView = {
+    //        let label = UILabel()
+    //        label.font = UIFont(name: "Avenir-Black", size: 20)
+    //        label.text = "Achievements"
+    //        return label
+    //    }()
+    //
+    //    lazy var gradesBox: UIView = {
+    //        let view = UIView()
+    //        view.backgroundColor = UIColor.white
+    //        view.layer.shadowColor = UIColor.black.cgColor
+    //        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+    //        view.layer.shadowOpacity = 0.5
+    //        view.layer.shadowRadius = 3
+    //        view.layer.masksToBounds = false
+    //        return view
+    //    }()
+    //
+    //    lazy var titleForGradesBox: UIView = {
+    //        let label = UILabel()
+    //        label.font = UIFont(name: "Avenir-Black", size: 20)
+    //        label.text = "Grades"
+    //        return label
+    //    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() //(frame: .zero, style: .grouped)
@@ -282,5 +323,5 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         return tableView
     }()
-
+    
 }
