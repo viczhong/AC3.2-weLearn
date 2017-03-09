@@ -331,7 +331,8 @@ class InitialViewController: UIViewController {
             
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
-                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+                self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                self.navigationController?.navigationBar.isHidden = false
             }
             
             if let error = error {

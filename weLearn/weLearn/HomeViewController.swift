@@ -195,7 +195,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             //            }
             if let today = todaysAgenda {
                 if let secondCell = cell as? AgendaTableViewCell {
-                    secondCell.label.text = "\(today.lessonName) - \(today.repoURL)"
+                    secondCell.label.text = "\(today.lessonName) - \(today.lessonDesc ?? "Just Keep On Keeping On!")"
                     secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
                 }
             }
