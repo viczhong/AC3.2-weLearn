@@ -10,13 +10,14 @@ import UIKit
 import SnapKit
 import Firebase
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     // we shall make cells for the acheievements and grades
     // grades will be a simple cell
     // achievements will be a cell containing...a collection view or scroll view
     
     //    var grades = [Grade]()
+    var achievements: [Achievement]?
     var testGrades: TestGrade?
     var gradesParsed: [(assignment: String, grade: String)] = []
     var databaseReference: FIRDatabaseReference!
@@ -39,7 +40,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.edgesForExtendedLayout = .bottom
         
-        tableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: "AchievementTableViewCell")
         tableView.register(GradeTableViewCell.self, forCellReuseIdentifier: "GradeTableViewCell")
         
         // tableView.separatorStyle = .none
@@ -48,6 +48,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
+        
+        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Outstanding Academic Performance")])
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
@@ -63,6 +65,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(classLabel)
         self.view.addSubview(editButton)
         self.view.addSubview(tableView)
+        self.view.addSubview(collectionView)
         //        self.view.addSubview(achievementBox)
         //        self.view.addSubview(titleForAchievementsBox)
         //        self.view.addSubview(gradesBox)
@@ -72,7 +75,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func configureConstraints() {
         tableView.snp.makeConstraints { (tV) in
             tV.leading.trailing.bottom.equalToSuperview()
-            tV.top.equalTo(profileBox.snp.bottom)
+            tV.top.equalTo(collectionView.snp.bottom)
+        }
+        
+        collectionView.snp.makeConstraints { (cV) in
+            cV.leading.trailing.equalToSuperview()
+            cV.top.equalTo(profileBox.snp.bottom)
+            cV.height.equalTo(100)
         }
         
         profileBox.snp.makeConstraints { view in
@@ -171,28 +180,42 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
-    // Mark: - Table view stuff
+    // MARK: - Collection view stuff
     
-    //    func fakePopulate(_ items: [Grade]) {
-    //        self.grades = items
-    //        DispatchQueue.main.async {
-    //            self.tableView.reloadData()
-    //        }
-    //    }
+    func fakePopulate(_ items: [Achievement]) {
+        self.achievements = items
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return achievements?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementCollectionViewCell", for: indexPath)
+        
+        if let achievementsUnwrapped = achievements {
+            if achievementsUnwrapped.count > 0 {
+                if let achievementCell = cell as? AchievementCollectionViewCell {
+                    achievementCell.achievementPic.image = UIImage(named: achievementsUnwrapped[indexPath.row].pic)
+                    achievementCell.descriptionLabel.text = achievements?[indexPath.row].description
+                }
+            }
+        }
+        
+        return cell
+    }
+    
+    // MARK: - Table view stuff
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Achievements"
-        case 1:
-            return "Grades"
-        default:
-            return ""
-        }
+        return "Grades"
     }
     
     //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -201,46 +224,30 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            // Achievements
-            return 1
-        case 1:
-            // Grades
-            if testGrades != nil {
-                return self.gradesParsed.count
-            }
-            else {
-                return 0
-            }
-        default:
+        
+        if testGrades != nil {
+            return self.gradesParsed.count
+        } else {
             return 0
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
+        cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
         
-        switch indexPath.section {
-        case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "AchievementTableViewCell", for: indexPath) as! AchievementTableViewCell
-            cell.selectionStyle = .none
-        case 1:
-            cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
-            if gradesParsed.count > 0 {
-                if let gradeCell = cell as? GradeTableViewCell {
-                    let grades = gradesParsed[indexPath.row]
-                    gradeCell.testNameLabel.text = grades.assignment
-                    gradeCell.gradeLabel.text = grades.grade
-                    
-                    if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
-                        gradeCell.testNameLabel.font = UIFont(name: "Avenir-Black", size: 16)
-                    }
+        if gradesParsed.count > 0 {
+            if let gradeCell = cell as? GradeTableViewCell {
+                let grades = gradesParsed[indexPath.row]
+                gradeCell.testNameLabel.text = grades.assignment
+                gradeCell.gradeLabel.text = grades.grade
+                
+                if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
+                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Black", size: 16)
                 }
             }
-        default:
-            break
         }
         
         cell.layer.shadowOffset = CGSize(width: 2, height: 3)
@@ -267,7 +274,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        pic.image = #imageLiteral(resourceName: "profileIcon")
+        pic.image = #imageLiteral(resourceName: "Karen")
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3
         return pic
@@ -343,6 +350,19 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
     
 }
