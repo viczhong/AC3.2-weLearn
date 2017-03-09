@@ -5,7 +5,6 @@
 //  Created by Victor Zhong on 2/27/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
-
 import UIKit
 import SnapKit
 import Firebase
@@ -26,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = InitialViewController()
+        let myNavVC = UINavigationController(rootViewController: InitialViewController())
+        myNavVC.navigationBar.isHidden = true
+        self.window?.rootViewController = myNavVC
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor =  UIColor.white
         
@@ -82,18 +83,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentClass = studentInfo["class"],
             let studentName = studentInfo["studentName"] else { return }
         
-        
-        let databaseReference = FIRDatabase.database().reference().child(studentClass).child("Links")
+        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+
         let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
         
-        if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
             for urlDict in urlDefaults {
+                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
                 var urlInfo = urlDict
                 urlInfo["studentName"] = studentName
                 databaseReference.setValue(urlInfo)
             }
-            urlDefaults.removeAll()
+
         }
+//        userDefaults?.removeObject(forKey: "urlDefaults")
+
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -105,4 +109,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
-

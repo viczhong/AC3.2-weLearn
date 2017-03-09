@@ -16,6 +16,7 @@ class Link {
     
     // meta data - this way we track who made what link, and when
     var author: String
+    var date: String
     
     init?(url: String, author: String, description: String) {
         let currentDate = Date()
@@ -23,11 +24,10 @@ class Link {
         
         dateFormatter.dateFormat = "mm/dd/yy hh:mm:ss"
         
-        
         self.description = description
         self.url = url
         self.author = author
-        //        self.date = dateFormatter.string(from: currentDate)
+        self.date = dateFormatter.string(from: currentDate)
         
     }
     
@@ -39,6 +39,6 @@ class Link {
     }
     
     func blame() {
-        //        print("I was made by \(self.author) at \(self.date)")
+         print("I was made by \(self.author) at \(self.date)")
     }
 }
