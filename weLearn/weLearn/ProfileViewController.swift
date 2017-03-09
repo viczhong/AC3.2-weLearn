@@ -53,6 +53,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
+        
+        let rightButton = UIBarButtonItem(customView: logOutButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
+        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
+       
     }
     
     //MARK: - Views
@@ -259,7 +265,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
-    
+    //Mark: - Button Functions 
+    func logOutButtonWasPressed(selector: UIButton) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                self.navigationController?.navigationBar.isHidden = true
+
+                _ = self.navigationController?.popToRootViewController(animated: true)
+               // self.navigationController?.navigationBar.isHidden = true
+            }
+            catch {
+                print(error)
+            }
+        }
+        
+    }
     // Mark: - Views made here
     
     lazy var profileBox: UIView = {
@@ -370,6 +391,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView
+    }()
+    lazy var logOutButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("Log Out".uppercased(), for: .normal)
+        //button.backgroundColor = UIColor.weLearnGreen
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        //button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
+        return button
     }()
     
 }
