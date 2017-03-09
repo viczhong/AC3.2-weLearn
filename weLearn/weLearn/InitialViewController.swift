@@ -269,8 +269,11 @@ class InitialViewController: UIViewController {
     
     func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
         guard let password = passwordTextField.text,
-            let email = emailTextField.text else { return nil }
-        return ("Cris", email, password, "Accesscode", "3204")
+            let email = emailTextField.text,
+            let name = nameTextField.text,
+            let studentClass = classTextField.text,
+            let studentID = studentIDTextField.text else { return nil }
+        return (name, email, password, studentClass, studentID)
     }
     
     func showAlert(title: String, _ errorMessage: String) {
@@ -285,7 +288,6 @@ class InitialViewController: UIViewController {
         
         
         let referenceLink = databaseReference.reference().child(credentials.studentClass)
-        let newUserRef = referenceLink.child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -294,7 +296,11 @@ class InitialViewController: UIViewController {
             "studentID" : credentials.studentID
         ]
         
-        newUserRef.setValue(dict)
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(dict, forKey: "studentInfo")
+        
+        referenceLink.setValue(dict)
+
     }
     
     func loginButtonWasPressed() {
@@ -516,7 +522,7 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
         thirdTextfield.placeholder = "Preferred name"
