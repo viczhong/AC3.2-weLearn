@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     // achievements will be a cell containing...a collection view or scroll view
     
     //    var grades = [Grade]()
-    var achievements = [Achievement]()
+    var achievements: [Achievement]?
     var testGrades: TestGrade?
     var gradesParsed: [(assignment: String, grade: String)] = []
     var databaseReference: FIRDatabaseReference!
@@ -48,6 +48,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
+        
+        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Outstanding Academic Performance")])
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
@@ -180,19 +182,29 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Collection view stuff
     
-        func fakePopulate(_ items: [Achievement]) {
-            self.achievements = items
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+    func fakePopulate(_ items: [Achievement]) {
+        self.achievements = items
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return achievements.count
+        return achievements?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementCollectionViewCell", for: indexPath)
+        
+        if let achievementsUnwrapped = achievements {
+            if achievementsUnwrapped.count > 0 {
+                if let achievementCell = cell as? AchievementCollectionViewCell {
+                    achievementCell.achievementPic.image = UIImage(named: achievementsUnwrapped[indexPath.row].pic)
+                    achievementCell.descriptionLabel.text = achievements?[indexPath.row].description
+                }
+            }
+        }
+        
         return cell
     }
     
@@ -262,7 +274,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        pic.image = #imageLiteral(resourceName: "profileIcon")
+        pic.image = #imageLiteral(resourceName: "Karen")
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3
         return pic

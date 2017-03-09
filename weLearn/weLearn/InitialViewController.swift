@@ -334,6 +334,8 @@ class InitialViewController: UIViewController {
                     scaleAndFloat = scaleAndFloat.translatedBy(x: 0, y: -20)
                     self.registerButton.transform = scaleAndFloat
                     self.registerButton.alpha = 0
+                    self.loginButton.isHidden = false
+                    self.loginButton.isEnabled = true
                 }
             }
             if let error = error {
