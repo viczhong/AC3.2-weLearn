@@ -76,6 +76,7 @@ class ShareViewController: SLComposeServiceViewController {
                 userDefaults?.synchronize()
             }   
         }
+        
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
 
