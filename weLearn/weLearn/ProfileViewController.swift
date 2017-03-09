@@ -155,35 +155,28 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func startGrabbingTestData() {
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
-                let currentStudent = FIRAuth.auth()?.currentUser?.uid
-                self.fetchStudentIDAndTestData(currentStudent!, data: data!)
+                //                let currentStudent = FIRAuth.auth()?.currentUser?.uid
+                self.fetchStudentTestData(data!)
             }
         }
     }
     
-    func fetchStudentIDAndTestData(_ student: String, data: Data) {
+    func fetchStudentTestData(_ data: Data) {
         //MARK: Retool Users later
-        let classOfStudent = databaseReference.child("Accesscode").child(student)
-        var studentID = ""
+        //        let classOfStudent = databaseReference.child("Accesscode").child(student)
+        //        var studentID = ""
         
-        // Jump into Firebase and grab the ID Number
-        classOfStudent.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let valueDict = snapshot.value as? [String : Any] {
-                studentID = valueDict["studentID"] as! String
-            }
+        // Now that we have the number, grab that person's grades
+        if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
+                                                                  for: User.manager.id!) {
+            print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
             
-            // Now that we have the number, grab that person's grades
-            if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
-                                                                      for: studentID) {
-                print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
-                
-                self.testGrades = returnedGradesData
-                self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+            self.testGrades = returnedGradesData
+            self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-        })
+        }
     }
     
     // MARK: - Collection view stuff
@@ -270,9 +263,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             do {
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
-
                 _ = self.navigationController?.popToRootViewController(animated: true)
-               // self.navigationController?.navigationBar.isHidden = true
+              
             }
             catch {
                 print(error)
