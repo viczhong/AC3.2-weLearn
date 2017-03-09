@@ -11,9 +11,13 @@ import Foundation
 class Assignment {
     let date: String
     let assignmentTitle: String
+    let score: String?
+    let url: String?
     
-    init(date: String, assignmentTitle: String) {
+    init(date: String, assignmentTitle: String, score: String?, url: String?) {
         self.date = date
         self.assignmentTitle = assignmentTitle
+        self.score = score ?? "n/a"
+        self.url = url
     }
 }

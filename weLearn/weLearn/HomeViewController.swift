@@ -244,9 +244,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
         case 1: break
-        //Add the viewController to be presented
-        case 2: break
-        //Add the viewController to be presented
+        case 2: //break
+            navigationController?.pushViewController(AssignmentTableViewController(), animated: true)
         default:
             break
         }
@@ -268,7 +267,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         // button.setTitle("profile".uppercased(), for: .normal)
-        button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
@@ -280,7 +279,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
