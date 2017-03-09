@@ -13,8 +13,9 @@
 		2D25ED181E6F189700C9903E /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2D25ED0E1E6F189700C9903E /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D25ED1E1E6F1B4700C9903E /* GetURL.js in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED1D1E6F1B4700C9903E /* GetURL.js */; };
 		2D25ED201E6F5B0000C9903E /* weLearnCloudWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED1F1E6F5B0000C9903E /* weLearnCloudWhite.png */; };
-		2D25ED2A1E71C15300C9903E /* AchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D25ED291E71C15300C9903E /* AchievementCollectionViewCell.swift */; };
 		2D25ED2C1E71DC7400C9903E /* LinksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D25ED2B1E71DC7400C9903E /* LinksTableViewController.swift */; };
+		2D25ED2E1E71EBA900C9903E /* AchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D25ED2D1E71EBA900C9903E /* AchievementCollectionViewCell.swift */; };
+		2D25ED301E71EBDE00C9903E /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D25ED2F1E71EBDE00C9903E /* Achievement.swift */; };
 		2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */; };
 		2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */; };
 		2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */; };
@@ -41,8 +42,7 @@
 		D343FDB11E6B426F00DABD00 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343FDB01E6B426F00DABD00 /* Link.swift */; };
 		D388A36B1E6F313300A44EF0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A36A1E6F313300A44EF0 /* ProfileViewController.swift */; };
 		D388A36D1E704C8B00A44EF0 /* GradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */; };
-		D388A3711E704F9800A44EF0 /* AchievementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */; };
-		D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3741E70632B00A44EF0 /* Achievement.swift */; };
+		D388A3751E70632B00A44EF0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D388A3771E706A1900A44EF0 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3761E706A1900A44EF0 /* Grade.swift */; };
 		D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3781E709ACD00A44EF0 /* Assignment.swift */; };
 		D388A37B1E70A76D00A44EF0 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */; };
@@ -89,8 +89,9 @@
 		2D25ED1F1E6F5B0000C9903E /* weLearnCloudWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weLearnCloudWhite.png; sourceTree = "<group>"; };
 		2D25ED271E70705E00C9903E /* weLearn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = weLearn.entitlements; sourceTree = "<group>"; };
 		2D25ED281E707C9100C9903E /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
-		2D25ED291E71C15300C9903E /* AchievementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCollectionViewCell.swift; sourceTree = "<group>"; };
 		2D25ED2B1E71DC7400C9903E /* LinksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksTableViewController.swift; sourceTree = "<group>"; };
+		2D25ED2D1E71EBA900C9903E /* AchievementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCollectionViewCell.swift; sourceTree = "<group>"; };
+		2D25ED2F1E71EBDE00C9903E /* Achievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDatesTableViewCell.swift; sourceTree = "<group>"; };
@@ -121,8 +122,6 @@
 		D343FDB01E6B426F00DABD00 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		D388A36A1E6F313300A44EF0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeTableViewCell.swift; sourceTree = "<group>"; };
-		D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementTableViewCell.swift; sourceTree = "<group>"; };
-		D388A3741E70632B00A44EF0 /* Achievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		D388A3761E706A1900A44EF0 /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		D388A3781E709ACD00A44EF0 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
@@ -189,7 +188,7 @@
 				9E80178A1E712A9000409FA7 /* TestGrade.swift */,
 				D343FDB01E6B426F00DABD00 /* Link.swift */,
 				9E6E91221E67817000DAE0D1 /* Agenda.swift */,
-				D388A3741E70632B00A44EF0 /* Achievement.swift */,
+				2D25ED2F1E71EBDE00C9903E /* Achievement.swift */,
 				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 				D388A3761E706A1900A44EF0 /* Grade.swift */,
 				D388A3781E709ACD00A44EF0 /* Assignment.swift */,
@@ -236,9 +235,8 @@
 				2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */,
 				9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */,
 				D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */,
-				D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */,
+				2D25ED2D1E71EBA900C9903E /* AchievementCollectionViewCell.swift */,
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
-				2D25ED291E71C15300C9903E /* AchievementCollectionViewCell.swift */,
 				D388A37C1E70AA2400A44EF0 /* AssignmentTableViewController.swift */,
 				D388A36A1E6F313300A44EF0 /* ProfileViewController.swift */,
 				9EECFE8D1E64C83D00503F7F /* Assets.xcassets */,
@@ -457,16 +455,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D337DA331E64CB4A00DEE7B5 /* StyleMananger.swift in Sources */,
-				2D25ED2A1E71C15300C9903E /* AchievementCollectionViewCell.swift in Sources */,
 				D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */,
 				D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */,
 				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
 				D388A37D1E70AA2400A44EF0 /* AssignmentTableViewController.swift in Sources */,
+				2D25ED301E71EBDE00C9903E /* Achievement.swift in Sources */,
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
-				D388A3711E704F9800A44EF0 /* AchievementTableViewCell.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
-				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
+				D388A3751E70632B00A44EF0 /* (null) in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
 				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
 				9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */,
@@ -488,6 +485,7 @@
 				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,
 				D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
+				2D25ED2E1E71EBA900C9903E /* AchievementCollectionViewCell.swift in Sources */,
 				9E80178B1E712A9000409FA7 /* TestGrade.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +526,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				DEVELOPMENT_TEAM = BAQHSM59S2;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nyc.c4q.viczhong.weLearn.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -542,6 +541,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				DEVELOPMENT_TEAM = BAQHSM59S2;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nyc.c4q.viczhong.weLearn.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
