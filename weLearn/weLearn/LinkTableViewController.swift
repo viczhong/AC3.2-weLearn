@@ -9,14 +9,19 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import SafariServices
 
-class LinksTableViewController: UITableViewController {
+class LinkTableViewController: UITableViewController, Tappable {
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Links"
+        
+        tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
@@ -43,21 +48,44 @@ class LinksTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - Button stuff
+    
+    func cellTapped(cell: UITableViewCell) {
+        self.urlButtonClicked(at: tableView.indexPath(for: cell)!)
+    }
+    
+    func urlButtonClicked(at index: IndexPath) {
+        let svc = SFSafariViewController(url: URL(string: links[index.row].url)!)
+        present(svc, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return links.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LinkTableViewCell", for: indexPath) as! LinkTableViewCell
+        // cell.selectionStyle = .none
+        
+        if cell.delegate == nil {
+            cell.delegate = self
+        }
+        
+        cell.authorLabel.text = "\(links[indexPath.row].author):"
+        cell.descriptionLabel.text = links[indexPath.row].description
+        // cell.author.text = announcements![indexPath.row].author
+        guard links[indexPath.row].url != nil else {
+            cell.urlButton.isHidden = true
+            return cell
+        }
+        cell.urlButton.setTitle(">", for: .normal)
     
+        return cell
+    }
 }
