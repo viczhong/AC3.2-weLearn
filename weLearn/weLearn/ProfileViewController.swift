@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.title = "Profile"
         
-        self.view.backgroundColor = UIColor.weLearnLightGreen
+        self.view.backgroundColor = UIColor.weLearnGreen
         
         viewHeirarchy()
         configureConstraints()
@@ -224,10 +224,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "AchievementTableViewCell", for: indexPath)
-            if let achieviementCell = cell as? AchievementTableViewCell {
-                achieviementCell
-            }
+            cell = tableView.dequeueReusableCell(withIdentifier: "AchievementTableViewCell", for: indexPath) as! AchievementTableViewCell
+            cell.selectionStyle = .none
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
             if gradesParsed.count > 0 {
@@ -235,6 +233,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let grades = gradesParsed[indexPath.row]
                     gradeCell.testNameLabel.text = grades.assignment
                     gradeCell.gradeLabel.text = grades.grade
+                    
+                    if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
+                        gradeCell.testNameLabel.font = UIFont(name: "Avenir-Black", size: 16)
+                    }
                 }
             }
         default:
@@ -264,16 +266,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
-        pic.layer.borderColor = UIColor.black.cgColor
+        pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
         pic.image = #imageLiteral(resourceName: "profileIcon")
         pic.contentMode = .scaleAspectFit
-        pic.layer.borderWidth = 2
+        pic.layer.borderWidth = 3
         return pic
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnCoolWhite
         label.text = "Karen Fuentes"
         label.font = UIFont(name: "Avenir-Light", size: 24)
         return label
@@ -281,17 +283,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnCoolWhite
         label.text = "karen@karen.com"
-        label.font = UIFont(name: "Avenir-LightOblique", size: 16)
+        label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
     
     lazy var classLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnCoolWhite
         label.text = "AC3.2"
-        label.font = UIFont(name: "Avenir-LightOblique", size: 16)
+        label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
     
