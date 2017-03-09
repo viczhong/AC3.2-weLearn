@@ -260,7 +260,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func linksButtonWasPressed(button: UIButton) {
-        navigationController?.pushViewController(LinksTableViewController(), animated: true)
+        navigationController?.pushViewController(LinkTableViewController(), animated: true)
     }
     
     // MARK: - UI Elements

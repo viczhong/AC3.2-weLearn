@@ -13,8 +13,10 @@ class AgendaTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setupHierarchy()
         setupConstraints()
+        
         let plainBullet = #imageLiteral(resourceName: "bullet")
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
