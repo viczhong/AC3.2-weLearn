@@ -24,7 +24,7 @@ class User {
     
     var name: String?
     var email: String?
-    var id: Int?
+    var id: String?
     var teacher: Bool?
     var classroom: String?
     var image: String?
