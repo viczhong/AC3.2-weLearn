@@ -70,6 +70,7 @@ class ShareViewController: SLComposeServiceViewController {
 
             if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
                 urlDefaults.append(dict)
+                userDefaults?.setValue(urlDefaults, forKey: "urlDefaults")
                 userDefaults?.synchronize()
             } else {
                 userDefaults?.setValue([dict], forKey: "urlDefaults")
