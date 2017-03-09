@@ -9,14 +9,17 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import SafariServices
 
-class LinkTableViewController: UITableViewController {
+class LinkTableViewController: UITableViewController, Tappable {
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Links"
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
@@ -45,9 +48,16 @@ class LinkTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - Button stuff
+    
+    func cellTapped(cell: UITableViewCell) {
+        self.urlButtonClicked(at: tableView.indexPath(for: cell)!)
+    }
+    
+    func urlButtonClicked(at index: IndexPath) {
+        let svc = SFSafariViewController(url: URL(string: links[index.row].url)!)
+        present(svc, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -63,9 +73,18 @@ class LinkTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LinkTableViewCell", for: indexPath) as! LinkTableViewCell
         // cell.selectionStyle = .none
         
-        cell.authorLabel.text = links[indexPath.row].author
+        if cell.delegate == nil {
+            cell.delegate = self
+        }
+        
+        cell.authorLabel.text = "\(links[indexPath.row].author):"
         cell.descriptionLabel.text = links[indexPath.row].description
         // cell.author.text = announcements![indexPath.row].author
+        guard links[indexPath.row].url != nil else {
+            cell.urlButton.isHidden = true
+            return cell
+        }
+        cell.urlButton.setTitle(">", for: .normal)
     
         return cell
     }

@@ -48,6 +48,7 @@
 		D388A3831E71EE9700A44EF0 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3821E71EE9700A44EF0 /* Student.swift */; };
 		D388A3851E71F3BB00A44EF0 /* LinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3841E71F3BB00A44EF0 /* LinkTableViewController.swift */; };
 		D388A3871E71FBF500A44EF0 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3861E71FBF500A44EF0 /* LinkTableViewCell.swift */; };
+		D388A38A1E72037C00A44EF0 /* Tappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3891E72037C00A44EF0 /* Tappable.swift */; };
 		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
 		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
 		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
@@ -129,6 +130,7 @@
 		D388A3821E71EE9700A44EF0 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		D388A3841E71F3BB00A44EF0 /* LinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewController.swift; sourceTree = "<group>"; };
 		D388A3861E71FBF500A44EF0 /* LinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewCell.swift; sourceTree = "<group>"; };
+		D388A3891E72037C00A44EF0 /* Tappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tappable.swift; sourceTree = "<group>"; };
 		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
 		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
 		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				2D25ED271E70705E00C9903E /* weLearn.entitlements */,
 				9E80178C1E712AC500409FA7 /* Extension+String.swift */,
+				D388A3881E72035900A44EF0 /* Protocols */,
 				9E6E91211E67815C00DAE0D1 /* Models */,
 				9E6E911E1E677BA800DAE0D1 /* Networking */,
 				D337DA2B1E64CA3600DEE7B5 /* UI */,
@@ -268,6 +271,14 @@
 				D3F0E6341E6622DF00C5E594 /* HeaderLabel.swift */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		D388A3881E72035900A44EF0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D388A3891E72037C00A44EF0 /* Tappable.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		E28EAC27D3937C3FD0D891AF /* Pods */ = {
@@ -463,6 +474,7 @@
 				D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */,
 				D388A3851E71F3BB00A44EF0 /* LinkTableViewController.swift in Sources */,
 				D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */,
+				D388A38A1E72037C00A44EF0 /* Tappable.swift in Sources */,
 				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
 				D388A37D1E70AA2400A44EF0 /* AssignmentTableViewController.swift in Sources */,
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,

@@ -9,10 +9,6 @@
 import UIKit
 import SnapKit
 
-protocol Tappable {
-    func cellTapped(cell: UITableViewCell)
-}
-
 class AssignmentTableViewCell: UITableViewCell {
     
     var delegate: Tappable?

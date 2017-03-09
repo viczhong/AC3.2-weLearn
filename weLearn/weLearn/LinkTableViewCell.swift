@@ -9,12 +9,17 @@
 import UIKit
 
 class LinkTableViewCell: UITableViewCell {
+    
+    var delegate: Tappable?
+    var indexPath: IndexPath!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupHierarchy()
         setupConstraints()
+        
+        self.contentView.backgroundColor = UIColor.white
 
     }
     
@@ -28,6 +33,14 @@ class LinkTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // Action
+    
+    func didClickUrlButton(_ sender: UIButton) {
+        if let unwrapDelegate = delegate {
+            unwrapDelegate.cellTapped(cell: self)
+        }
+    }
+    
     func setupHierarchy() {
         self.contentView.addSubview(authorLabel)
         self.contentView.addSubview(descriptionLabel)
@@ -36,7 +49,7 @@ class LinkTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         authorLabel.snp.makeConstraints { (pic) in
-            pic.leading.equalToSuperview()
+            pic.leading.equalTo(contentView).offset(10)
             pic.centerY.equalToSuperview()
         }
         
@@ -46,8 +59,8 @@ class LinkTableViewCell: UITableViewCell {
         }
         
         urlButton.snp.makeConstraints { (pic) in
-            pic.width.height.equalTo(44)
-            pic.trailing.equalToSuperview()
+            pic.width.height.equalTo(40)
+            pic.trailing.equalToSuperview().inset(10)
             pic.centerY.equalToSuperview()
         }
 
@@ -55,18 +68,26 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
+        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
         lbl.textAlignment = .center
+        lbl.numberOfLines = 2
+        lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     
     lazy var authorLabel: UILabel = {
         let lbl = UILabel()
+        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
         return lbl
     }()
     
     lazy var urlButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 22
+        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
+        button.layer.borderColor = UIColor.weLearnGrey.cgColor
+        button.layer.borderWidth = 2
+        button.layer.cornerRadius = 20
         return button
     }()
 
