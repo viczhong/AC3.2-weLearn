@@ -51,6 +51,11 @@
 		D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3781E709ACD00A44EF0 /* Assignment.swift */; };
 		D388A37B1E70A76D00A44EF0 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */; };
 		D388A37D1E70AA2400A44EF0 /* AssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A37C1E70AA2400A44EF0 /* AssignmentTableViewController.swift */; };
+<<<<<<< HEAD
+=======
+		D388A3811E71C14500A44EF0 /* AchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3801E71C14500A44EF0 /* AchievementCollectionViewCell.swift */; };
+		D388A3831E71EE9700A44EF0 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3821E71EE9700A44EF0 /* Student.swift */; };
+>>>>>>> dbff50eeec6ac9c7e4f7e2b3603aea04f6bbe6e5
 		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
 		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
 		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
@@ -135,6 +140,11 @@
 		D388A3781E709ACD00A44EF0 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		D388A37C1E70AA2400A44EF0 /* AssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewController.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		D388A3801E71C14500A44EF0 /* AchievementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCollectionViewCell.swift; sourceTree = "<group>"; };
+		D388A3821E71EE9700A44EF0 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+>>>>>>> dbff50eeec6ac9c7e4f7e2b3603aea04f6bbe6e5
 		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
 		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
 		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
@@ -194,6 +204,7 @@
 		9E6E91211E67815C00DAE0D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D388A3821E71EE9700A44EF0 /* Student.swift */,
 				9E80178A1E712A9000409FA7 /* TestGrade.swift */,
 				D343FDB01E6B426F00DABD00 /* Link.swift */,
 				9E6E91221E67817000DAE0D1 /* Agenda.swift */,
@@ -494,7 +505,11 @@
 				D388A37B1E70A76D00A44EF0 /* AssignmentTableViewCell.swift in Sources */,
 				9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */,
 				9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */,
+<<<<<<< HEAD
 				2D25ED2C1E71DC7400C9903E /* LinksTableViewController.swift in Sources */,
+=======
+				D388A3831E71EE9700A44EF0 /* Student.swift in Sources */,
+>>>>>>> dbff50eeec6ac9c7e4f7e2b3603aea04f6bbe6e5
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
 				D388A3771E706A1900A44EF0 /* Grade.swift in Sources */,
 				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,

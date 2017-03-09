@@ -27,26 +27,42 @@ class AchievementCollectionViewCell: UICollectionViewCell {
     
     func setupConstraints() {
         
+        contentView.snp.makeConstraints { (view) in
+            view.width.height.equalTo(80)
+        }
+        
         achievementPic.snp.makeConstraints { (pic) in
-            pic.leading.top.equalTo(contentView)
+            pic.top.equalTo(contentView)
+            pic.width.height.equalTo(60)
+            pic.centerX.equalTo(contentView)
         }
         
         descriptionLabel.snp.makeConstraints { (lbl) in
-            lbl.top.equalTo(achievementPic.snp.bottom).inset(5)
-            lbl.bottom.equalTo(contentView)
+            lbl.top.equalTo(achievementPic.snp.bottom)
+            lbl.leading.trailing.equalTo(contentView)
+            lbl.height.equalTo(40)
         }
     }
     
     lazy var achievementPic: UIImageView = {
         let pic = UIImageView()
+        pic.layer.cornerRadius = 30
+        pic.clipsToBounds = true
+        pic.contentMode = .scaleAspectFill
+        pic.layer.borderColor = UIColor.weLearnBlack.cgColor
+        pic.layer.borderWidth = 2
         return pic
     }()
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
+        lbl.backgroundColor = UIColor.white
+        lbl.font = UIFont(name: "Avenir-Black", size: 12)
         lbl.textAlignment = .center
+        lbl.numberOfLines = 3
         lbl.lineBreakMode = .byWordWrapping
+        lbl.layer.borderColor = UIColor.weLearnBlack.cgColor
+        lbl.layer.borderWidth = 2
         return lbl
     }()
     

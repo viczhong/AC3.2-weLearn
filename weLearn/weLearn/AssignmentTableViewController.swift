@@ -79,7 +79,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 assignmentCell.repoLink.isHidden = true
                 return cell
             }
-            
             assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
         }
         
