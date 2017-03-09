@@ -9,19 +9,19 @@
 import UIKit
 import SnapKit
 
-// *** This is a container for the achievements -- see the collection view for cell details 
+// *** This is a container for the achievements -- see the collection view for cell details
 
 class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var achievements = [Achievement]()
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupHierarchy()
         setupConstraints()
         
-       collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
+        collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -37,7 +37,7 @@ class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
     func setupHierarchy() {
         self.contentView.addSubview(box)
         self.contentView.addSubview(collectionView)

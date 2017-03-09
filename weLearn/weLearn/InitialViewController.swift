@@ -271,9 +271,10 @@ class InitialViewController: UIViewController {
         guard let password = passwordTextField.text,
             let name = nameTextField.text,
             let email = emailTextField.text,
-        let className = classTextField.text,
-        let studentID = studentIDTextField.text else { return nil }
-        return (name, email, password, className, studentID)
+            let studentName = nameTextField.text,
+            let studentClass = classTextField.text,
+            let studentID = studentIDTextField.text else { return nil }
+        return (studentName, email, password, studentClass, studentID)
     }
     
     func showAlert(title: String, _ errorMessage: String) {
