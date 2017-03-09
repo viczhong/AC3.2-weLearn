@@ -2,24 +2,21 @@
 //  LinksTableViewController.swift
 //  weLearn
 //
-//  Created by Cris on 3/9/17.
+//  Created by Karen Fuentes on 3/9/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
+
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class LinksTableViewController: UITableViewController {
+class LinkTableViewController: UITableViewController {
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "Links"
-        
-        // tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
@@ -53,18 +50,14 @@ class LinksTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return links.count
+        
+        return 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell = UITableViewCell()
-    }
     
 }
