@@ -21,7 +21,8 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
+       // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
+        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white])
         
         viewHiearchy()
         configureConstraints()
@@ -319,7 +320,13 @@ class InitialViewController: UIViewController {
                 self.signedInUser = user
                 self.setUpDatabaseReference()
                 self.registerButton.isEnabled = false
-                self.registerButton.alpha = 0
+                UIView.animate(withDuration: 1) {
+                    var scaleAndFloat = CGAffineTransform.identity
+                    scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
+                    scaleAndFloat = scaleAndFloat.translatedBy(x: 0, y: -20)
+                    self.registerButton.transform = scaleAndFloat
+                    self.registerButton.alpha = 0
+                }
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
