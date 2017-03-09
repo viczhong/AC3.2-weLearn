@@ -24,6 +24,12 @@ class GradeTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        testNameLabel.font = UIFont(name: "Avenir-Roman", size: 16)
+        
+        super.prepareForReuse()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

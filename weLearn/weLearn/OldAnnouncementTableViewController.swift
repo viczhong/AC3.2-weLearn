@@ -28,11 +28,11 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         title = "Past Announcements"
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+       // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
-        linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-        let rightButton = UIBarButtonItem(customView: linksButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
+       // linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+       // let rightButton = UIBarButtonItem(customView: linksButton)
+       // navigationItem.setRightBarButton(rightButton, animated: true)
         
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
@@ -50,9 +50,9 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    func buttonWasPressed(button: UIButton) {
-        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-    }
+//    func buttonWasPressed(button: UIButton) {
+//        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
+//    }
     
     // MARK: - Table view data source
     
@@ -69,6 +69,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
+        cell.selectionStyle = .none
         // Configure the cell...
         
         cell.date.text = announcements![indexPath.row].date
@@ -82,62 +83,17 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     // MARK: -- UI Stuff That Isn't Tableview
     
-    lazy var linksButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("links".uppercased(), for: .normal)
-        button.backgroundColor = UIColor.weLearnGreen
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        //button.imageView?.contentMode = .center
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
+//    lazy var linksButton: ShinyOvalButton = {
+//        let button = ShinyOvalButton()
+//        button.setTitle("links".uppercased(), for: .normal)
+//        // button.backgroundColor = UIColor.weLearnGreen
+//        button.layer.cornerRadius = 15
+//        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+//        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+//        //button.imageView?.contentMode = .center
+//        button.imageView?.clipsToBounds = true
+//        return button
+//    }()
     
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
 }

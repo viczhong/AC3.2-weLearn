@@ -218,8 +218,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let days = Int(self.timeInSeconds) / 86400
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
-                    let seconds = Int(self.timeInSeconds) % 60
-                    thirdCell.timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
+
+                    thirdCell.timerLabel.text = String(format: "%02i days, %02i hours, and %02i minutes", days, hours, minutes)
                     thirdCell.assignmentLabel.text = " until Demo Day..."
                 }
                 

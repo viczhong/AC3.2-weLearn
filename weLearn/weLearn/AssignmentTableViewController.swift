@@ -54,6 +54,7 @@ class AssignmentTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
+        cell.selectionStyle = .none
         
         if let assignmentCell = cell as? AssignmentTableViewCell {
             assignmentCell.gradeLabel.text = assignments[indexPath.row].score
@@ -63,6 +64,7 @@ class AssignmentTableViewController: UITableViewController {
                 assignmentCell.repoLink.isHidden = true
                 return cell
             }
+            
             assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
         }
         
