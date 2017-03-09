@@ -263,9 +263,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             do {
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
-
                 _ = self.navigationController?.popToRootViewController(animated: true)
-               // self.navigationController?.navigationBar.isHidden = true
+              
             }
             catch {
                 print(error)
