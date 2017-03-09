@@ -15,7 +15,6 @@
 		2D25ED201E6F5B0000C9903E /* weLearnCloudWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED1F1E6F5B0000C9903E /* weLearnCloudWhite.png */; };
 		2D25ED391E72024F00C9903E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		2D25ED3B1E7205CE00C9903E /* ipad-app-76pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D25ED3A1E7205CE00C9903E /* ipad-app-76pt@2x.png */; };
-		2D25ED3C1E7205DC00C9903E /* ipad-app-76pt@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 2D25ED3A1E7205CE00C9903E /* ipad-app-76pt@2x.png */; };
 		2DF10C821E67670A00F83751 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C811E67670A00F83751 /* AnnouncementTableViewCell.swift */; };
 		2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */; };
 		2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */; };
@@ -476,7 +475,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D25ED3C1E7205DC00C9903E /* ipad-app-76pt@2x.png in Sources */,
 				2D25ED111E6F189700C9903E /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

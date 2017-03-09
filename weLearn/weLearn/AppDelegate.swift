@@ -97,7 +97,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
 
+
         userDefaults?.removeObject(forKey: "urlDefaults")
+
 
 
     }

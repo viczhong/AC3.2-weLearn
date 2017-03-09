@@ -13,7 +13,7 @@ import FirebaseDatabase
 
 class InitialViewController: UIViewController {
     
-    var databaseReference = FIRDatabase.database()
+    var databaseReference: FIRDatabaseReference!
     var databaseObserver: FIRDatabaseHandle?
     var signedInUser: FIRUser?
     
@@ -21,10 +21,10 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
+        
+        // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white, UIColor.weLearnGreen.withAlphaComponent(0.5)])
-
+        
         
         viewHiearchy()
         configureConstraints()
@@ -45,6 +45,14 @@ class InitialViewController: UIViewController {
         ]
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
+        databaseReference = FIRDatabase.database().reference()
+        
+    }
+    
+    func checkLogin() {
+        if FIRAuth.auth()?.currentUser != nil {
+            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+        }
     }
     
     func colorTab(_ button: UIButton) {
@@ -101,10 +109,10 @@ class InitialViewController: UIViewController {
             view.centerX.equalToSuperview().offset(5)
         }
         
-//        logoHeader.snp.makeConstraints { label in
-//            label.top.equalToSuperview().offset(40)
-//            label.leading.equalToSuperview().offset(25)
-//        }
+        //        logoHeader.snp.makeConstraints { label in
+        //            label.top.equalToSuperview().offset(40)
+        //            label.leading.equalToSuperview().offset(25)
+        //        }
         
         box.snp.makeConstraints { view in
             view.top.equalTo(logoPic.snp.bottom).offset(60)
@@ -289,7 +297,7 @@ class InitialViewController: UIViewController {
         guard let credentials = signInCredentials() else { return }
         
         
-        let referenceLink = databaseReference.reference().child(credentials.studentClass)
+        let referenceLink = databaseReference.child("users").child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -302,26 +310,34 @@ class InitialViewController: UIViewController {
         userDefaults.set(dict, forKey: "studentInfo")
         
         referenceLink.setValue(dict)
-
+    }
+    
+    func fillInSingleton(_ string: String) {
+        let user = databaseReference.child("users").child(string)
+        user.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let valueDict = snapshot.value as? [String : Any] {
+                let user = User.manager
+                user.classroom = valueDict["class"] as? String
+                user.email = valueDict["studentEmail"] as? String
+                user.id = valueDict["studentID"] as? String
+                user.name = valueDict["studentName"] as? String
+            }
+        })
     }
     
     func loginButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
         FIRAuth.auth()?.signIn(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
             
-            if user != nil {
-                
-//                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
-                
+            if let loggedInUser = user {
+                self.fillInSingleton(loggedInUser.uid)
                 self.navigationController?.pushViewController(HomeViewController(), animated: true)
                 self.navigationController?.navigationBar.isHidden = false
-              
             }
             
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
-            
         })
     }
     
@@ -340,7 +356,10 @@ class InitialViewController: UIViewController {
                     self.registerButton.alpha = 0
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
+                    
+                    self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
                 }
+                
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
@@ -400,20 +419,20 @@ class InitialViewController: UIViewController {
         return view
     }()
     
-//    lazy var logoHeader: UIOutlinedLabel = {
-//        let label = UIOutlinedLabel()
-//        label.text = "We \nLearn"
-//        label.font = UIFont(name: "Thirtysix", size: 72)
-//        label.numberOfLines = 0
-//        label.lineBreakMode = .byWordWrapping
-//        label.textColor = UIColor.white
-//        label.layer.shadowColor = UIColor.weLearnGreen.cgColor
-//        label.layer.shadowOffset = CGSize(width: -10, height: 10)
-//        label.layer.shadowOpacity = 1
-//        label.layer.shadowRadius = 1
-//        label.layer.masksToBounds = false
-//        return label
-//    }()
+    //    lazy var logoHeader: UIOutlinedLabel = {
+    //        let label = UIOutlinedLabel()
+    //        label.text = "We \nLearn"
+    //        label.font = UIFont(name: "Thirtysix", size: 72)
+    //        label.numberOfLines = 0
+    //        label.lineBreakMode = .byWordWrapping
+    //        label.textColor = UIColor.white
+    //        label.layer.shadowColor = UIColor.weLearnGreen.cgColor
+    //        label.layer.shadowOffset = CGSize(width: -10, height: 10)
+    //        label.layer.shadowOpacity = 1
+    //        label.layer.shadowRadius = 1
+    //        label.layer.masksToBounds = false
+    //        return label
+    //    }()
     
     lazy var loginTab: UIButton = {
         let button = UIButton()
@@ -425,8 +444,8 @@ class InitialViewController: UIViewController {
         button.layer.masksToBounds = false
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         // button.setTitle("Login".uppercased(), for: .normal)
-//        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
-//        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
+        //        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(loginTabWasPressed), for: .touchUpInside)
         button.isSelected = true
         return button
@@ -440,10 +459,10 @@ class InitialViewController: UIViewController {
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 3
         button.layer.masksToBounds = false
-//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-//        button.setTitle("Register".uppercased(), for: .normal)
-//        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
-//        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
+        //        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        //        button.setTitle("Register".uppercased(), for: .normal)
+        //        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(registerTabWasPressed), for: .touchUpInside)
         button.isSelected = false
         return button
@@ -542,7 +561,7 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
-
+    
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
         thirdTextfield.placeholder = "Preferred name"
@@ -608,5 +627,5 @@ class InitialViewController: UIViewController {
         bar.backgroundColor = UIColor.weLearnGreen
         return bar
     }()
-
+    
 }
