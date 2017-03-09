@@ -7,14 +7,23 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol Tappable {
+    func cellTapped(cell: UITableViewCell)
+}
 
 class AssignmentTableViewCell: UITableViewCell {
+    
+    var delegate: Tappable?
+    var indexPath: IndexPath!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupHierarchy()
         setupConstraints()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,6 +34,14 @@ class AssignmentTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    // Action
+    
+    func didClickRepoButton(_ sender: UIButton) {
+        if let unwrapDelegate = delegate {
+            unwrapDelegate.cellTapped(cell: self)
+        }
     }
     
     func setupHierarchy() {
@@ -112,6 +129,7 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var repoLink: ShinyOvalButton = {
         let button = ShinyOvalButton()
+        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
         return button
     }()
     

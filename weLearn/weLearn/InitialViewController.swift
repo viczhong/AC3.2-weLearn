@@ -22,7 +22,7 @@ class InitialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
-        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white])
+        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white, UIColor.weLearnGreen.withAlphaComponent(0.5)])
         
         viewHiearchy()
         configureConstraints()
