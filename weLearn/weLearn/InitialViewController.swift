@@ -11,7 +11,7 @@ import SnapKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class InitialViewController: UIViewController {
+class InitialViewController: UIViewController, UITextFieldDelegate {
     
     var databaseReference: FIRDatabaseReference!
     var databaseObserver: FIRDatabaseHandle?
@@ -24,7 +24,8 @@ class InitialViewController: UIViewController {
         
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white, UIColor.weLearnGreen.withAlphaComponent(0.5)])
-        
+     
+        self.passwordTextField.delegate = self
         
         viewHiearchy()
         configureConstraints()
@@ -48,6 +49,16 @@ class InitialViewController: UIViewController {
         databaseReference = FIRDatabase.database().reference()
         
     }
+    
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if textField == passwordTextField {
+        self.view.endEditing(true)
+        self.loginButtonWasPressed()
+    }
+        return true
+    }
+
+    
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
@@ -331,6 +342,7 @@ class InitialViewController: UIViewController {
             
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
+                self.passwordTextField.text = ""
                 self.navigationController?.pushViewController(HomeViewController(), animated: true)
                 self.navigationController?.navigationBar.isHidden = false
             }
@@ -339,6 +351,7 @@ class InitialViewController: UIViewController {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
         })
+    
     }
     
     func registerButtonWasPressed() {
