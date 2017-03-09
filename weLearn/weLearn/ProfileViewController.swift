@@ -35,11 +35,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.register(AchievementTableViewCell.self, forCellReuseIdentifier: "AchievementTableViewCell")
         tableView.register(GradeTableViewCell.self, forCellReuseIdentifier: "GradeTableViewCell")
         
-        tableView.separatorStyle = .none
+        // tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
 
-        // Do any additional setup after loading the view.
+        fakePopulate([Grade(assignment: "Final", score: "A"), Grade(assignment: "Instacat", score: "A-"), Grade(assignment: "Battleship", score: "A+")])
     }
     
     func viewHeirarchy() {
@@ -118,6 +118,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Mark: - Table view stuff
     
+    func fakePopulate(_ items: [Grade]) {
+        self.grades = items
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -164,7 +171,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
             if let gradeCell = cell as? GradeTableViewCell {
-                gradeCell.testNameLabel.text = grades[indexPath.row].score
+                gradeCell.testNameLabel.text = grades[indexPath.row].assignment
                 gradeCell.gradeLabel.text = grades[indexPath.row].score
             }
         default:

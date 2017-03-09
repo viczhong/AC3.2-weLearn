@@ -244,9 +244,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
         case 1: break
-        //Add the viewController to be presented
-        case 2: break
-        //Add the viewController to be presented
+        case 2: //break
+            navigationController?.pushViewController(AssignmentTableViewController(), animated: true)
         default:
             break
         }

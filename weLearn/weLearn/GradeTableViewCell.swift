@@ -16,6 +16,8 @@ class GradeTableViewCell: UITableViewCell {
         
         setupHierarchy()
         setupConstraints()
+        
+        self.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +38,7 @@ class GradeTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         testNameLabel.snp.makeConstraints { label in
-            label.leading.equalTo(contentView).offset(10)
+            label.leading.equalTo(contentView).offset(20)
             label.centerY.equalTo(contentView)
         }
         
