@@ -15,6 +15,7 @@
 		9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */; };
 		9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */; };
 		9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */; };
+		9C959A391E71B86600C73357 /* AchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C959A381E71B86600C73357 /* AchievementCollectionViewCell.swift */; };
 		9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */; };
 		9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */; };
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
@@ -36,7 +37,6 @@
 		D388A36B1E6F313300A44EF0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A36A1E6F313300A44EF0 /* ProfileViewController.swift */; };
 		D388A36D1E704C8B00A44EF0 /* GradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */; };
 		D388A3711E704F9800A44EF0 /* AchievementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */; };
-		D388A3731E7050B400A44EF0 /* AchievementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3721E7050B400A44EF0 /* AchievementCollectionViewCell.swift */; };
 		D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3741E70632B00A44EF0 /* Achievement.swift */; };
 		D388A3771E706A1900A44EF0 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3761E706A1900A44EF0 /* Grade.swift */; };
 		D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3781E709ACD00A44EF0 /* Assignment.swift */; };
@@ -60,6 +60,7 @@
 		9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksCollectionViewController.swift; sourceTree = "<group>"; };
 		9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldAnnouncementTableViewController.swift; sourceTree = "<group>"; };
+		9C959A381E71B86600C73357 /* AchievementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCollectionViewCell.swift; sourceTree = "<group>"; };
 		9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewController.swift; sourceTree = "<group>"; };
 		9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		D388A36A1E6F313300A44EF0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeTableViewCell.swift; sourceTree = "<group>"; };
 		D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementTableViewCell.swift; sourceTree = "<group>"; };
-		D388A3721E7050B400A44EF0 /* AchievementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCollectionViewCell.swift; sourceTree = "<group>"; };
 		D388A3741E70632B00A44EF0 /* Achievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		D388A3761E706A1900A44EF0 /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		D388A3781E709ACD00A44EF0 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
@@ -171,13 +171,9 @@
 				D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */,
 				2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */,
 				2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */,
-
 				9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */,
-
 				D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */,
 				D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */,
-				D388A3721E7050B400A44EF0 /* AchievementCollectionViewCell.swift */,
-
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
 				9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */,
 				D388A37C1E70AA2400A44EF0 /* AssignmentTableViewController.swift */,
@@ -193,6 +189,7 @@
 		D337DA2B1E64CA3600DEE7B5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9C959A381E71B86600C73357 /* AchievementCollectionViewCell.swift */,
 				D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */,
 				D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */,
 				D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */,
@@ -344,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D337DA331E64CB4A00DEE7B5 /* StyleMananger.swift in Sources */,
+				9C959A391E71B86600C73357 /* AchievementCollectionViewCell.swift in Sources */,
 				D337DA391E64CF1A00DEE7B5 /* ShinyOvalButton.swift in Sources */,
 				D337DA351E64CB9100DEE7B5 /* OutlinedText.swift in Sources */,
 				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
@@ -355,9 +353,7 @@
 				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
 				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
-
 				9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */,
-
 				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,

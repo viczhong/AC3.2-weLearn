@@ -21,7 +21,7 @@ class AchievementTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         setupHierarchy()
         setupConstraints()
         
-       collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
+       collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         
