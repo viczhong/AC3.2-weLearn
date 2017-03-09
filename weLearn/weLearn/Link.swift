@@ -9,7 +9,6 @@
 import Foundation
 
 // *** Work in Progress!!
-
 class Link {
     
     var url: String
