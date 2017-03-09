@@ -10,45 +10,40 @@ import UIKit
 
 class AgendaTableViewController: UITableViewController {
     
-    let allAgendas = [Agenda]()
+    var agenda: [Agenda]?
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         readAgenda()
-
     }
-    
     func readAgenda() {
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
-//                if let returnedAgenda = Agenda.getAgenda(from: data!) {
-//                    print("We've got returns: \(returnedAgenda.count)")
-//                    self.allAgendas = returnedAgenda
-//                    DispatchQueue.main.async {
+                if let returnedAgenda = Agenda.getAgenda(from: data!) {
+                    print("We've got returns: \(returnedAgenda.count)")
+                    self.agenda = returnedAgenda
+                    DispatchQueue.main.async {
 //                        self.todaysAgenda = self.todaysSchedule()
-//                        self.tableView.reloadData()
-//                    }
-//                }
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (agenda?.count)!
     }
 
     /*

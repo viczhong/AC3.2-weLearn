@@ -26,3 +26,13 @@ class APIRequestManager {
     }
     
 }
+
+
+class classSchedule {
+    
+    static let manager = classSchedule()
+    private init() {}
+    
+    var agenda: [Agenda]?
+    
+}
