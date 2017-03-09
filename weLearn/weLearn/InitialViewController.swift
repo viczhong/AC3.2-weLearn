@@ -45,6 +45,12 @@ class InitialViewController: UIViewController {
         ]
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
+        
+        
+    }
+    
+    func checkLogin() {
+        
     }
     
     func colorTab(_ button: UIButton) {
@@ -289,7 +295,7 @@ class InitialViewController: UIViewController {
         guard let credentials = signInCredentials() else { return }
         
         
-        let referenceLink = databaseReference.reference().child(credentials.studentClass)
+        let referenceLink = databaseReference.reference().child("users").child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -302,7 +308,6 @@ class InitialViewController: UIViewController {
         userDefaults.set(dict, forKey: "studentInfo")
         
         referenceLink.setValue(dict)
-
     }
     
     func loginButtonWasPressed() {
@@ -336,7 +341,10 @@ class InitialViewController: UIViewController {
                     self.registerButton.alpha = 0
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
+                    
+                    self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
                 }
+                
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
