@@ -77,8 +77,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         collectionView.snp.makeConstraints { (cV) in
-            cV.leading.trailing.bottom.equalToSuperview()
+            cV.leading.trailing.equalToSuperview()
             cV.top.equalTo(profileBox.snp.bottom)
+            cV.height.equalTo(100)
         }
         
         profileBox.snp.makeConstraints { view in

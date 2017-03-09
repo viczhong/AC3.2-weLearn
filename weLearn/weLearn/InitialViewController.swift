@@ -338,6 +338,10 @@ class InitialViewController: UIViewController {
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
+                self.registerButton.isEnabled = true
+                self.registerButton.transform = .identity
+                self.loginButton.isHidden = true
+                self.loginButton.isEnabled = false
             }
         })
     }
@@ -346,6 +350,7 @@ class InitialViewController: UIViewController {
         colorTab(registerTab)
         colorTab(loginTab)
         
+        registerButton.isEnabled = true
         registerTabLabel.textColor = UIColor.weLearnGreen
         loginTabLabel.textColor = UIColor.weLearnGreen.withAlphaComponent(0.6)
         
@@ -356,6 +361,7 @@ class InitialViewController: UIViewController {
         colorTab(registerTab)
         colorTab(loginTab)
         
+        loginButton.isEnabled =  true
         loginTabLabel.textColor = UIColor.weLearnGreen
         registerTabLabel.textColor = UIColor.weLearnGreen.withAlphaComponent(0.6)
         
