@@ -357,7 +357,8 @@ class InitialViewController: UIViewController {
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
                     
-                    self.fillInSingleton(signedInUser?.uid)
+                    self.fillInSingleton((user?.uid)!)
+                    
                     self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
                 }
                 
