@@ -18,6 +18,8 @@ class LinkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
+        
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -50,14 +52,21 @@ class LinkTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 0
+        return links.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LinkTableViewCell", for: indexPath) as! LinkTableViewCell
+        // cell.selectionStyle = .none
+        
+        cell.authorLabel.text = links[indexPath.row].author
+        cell.descriptionLabel.text = links[indexPath.row].description
+        // cell.author.text = announcements![indexPath.row].author
     
+        return cell
+    }
 }
