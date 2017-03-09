@@ -19,7 +19,7 @@ class LinkTableViewCell: UITableViewCell {
         setupHierarchy()
         setupConstraints()
         
-        self.contentView.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.weLearnGreen
 
     }
     
@@ -42,33 +42,49 @@ class LinkTableViewCell: UITableViewCell {
     }
     
     func setupHierarchy() {
+        self.contentView.addSubview(box)
         self.contentView.addSubview(authorLabel)
         self.contentView.addSubview(descriptionLabel)
         self.contentView.addSubview(urlButton)
     }
     
     func setupConstraints() {
-        authorLabel.snp.makeConstraints { (pic) in
-            pic.leading.equalTo(contentView).offset(10)
-            pic.centerY.equalToSuperview()
+        box.snp.makeConstraints { view in
+            view.leading.top.equalTo(contentView).offset(7)
+            view.trailing.bottom.equalTo(contentView).inset(7)
+            view.height.equalTo(75)
+        }
+        
+        authorLabel.snp.makeConstraints { (view) in
+            view.top.leading.equalTo(contentView).offset(10)
         }
         
         descriptionLabel.snp.makeConstraints { (lbl) in
-            lbl.leading.equalTo(authorLabel.snp.trailing).offset(10)
-            lbl.centerY.equalToSuperview()
+            lbl.top.equalTo(authorLabel.snp.bottom).offset(10)
+            lbl.leading.equalTo(contentView).offset(20)
         }
         
         urlButton.snp.makeConstraints { (pic) in
             pic.width.height.equalTo(40)
-            pic.trailing.equalToSuperview().inset(10)
-            pic.centerY.equalToSuperview()
+            pic.trailing.equalTo(contentView).inset(10)
+            pic.bottom.equalTo(contentView).inset(10)
         }
-
     }
+    
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.weLearnCoolWhite
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: -2, height: 3)
+        view.layer.shadowOpacity = 0.75
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        return view
+    }()
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
+        lbl.font = UIFont(name: "Avenir-Roman", size: 20)
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
@@ -77,7 +93,8 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var authorLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
+        //lbl.textColor = UIColor.weLearnGrey
+        lbl.font = UIFont(name: "Avenir-Black", size: 16)
         return lbl
     }()
     
@@ -86,7 +103,7 @@ class LinkTableViewCell: UITableViewCell {
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
-        button.layer.borderColor = UIColor.weLearnGrey.cgColor
+        button.layer.borderColor = UIColor.weLearnGreen.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
         return button

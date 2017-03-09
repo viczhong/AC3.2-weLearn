@@ -128,6 +128,7 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var gradeSquare: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor.weLearnGreen.withAlphaComponent(0.5)
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
         return view

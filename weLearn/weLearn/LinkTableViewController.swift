@@ -23,6 +23,12 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 268.0
+        
+        tableView.separatorStyle = .none
+
+        
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

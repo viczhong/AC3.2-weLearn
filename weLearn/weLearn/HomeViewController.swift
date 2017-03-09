@@ -270,7 +270,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         button.setTitle("profile".uppercased(), for: .normal)
         //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
@@ -282,7 +282,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         button.setTitle("links".uppercased(), for: .normal)
         //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
