@@ -15,6 +15,7 @@
 		9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */; };
 		9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */; };
 		9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */; };
+		9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */; };
 		9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */; };
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
 		9E80178B1E712A9000409FA7 /* TestGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80178A1E712A9000409FA7 /* TestGrade.swift */; };
@@ -59,6 +60,7 @@
 		9C3FE0051E64CC0900ACC778 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksCollectionViewController.swift; sourceTree = "<group>"; };
 		9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldAnnouncementTableViewController.swift; sourceTree = "<group>"; };
+		9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewController.swift; sourceTree = "<group>"; };
 		9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		9E80178A1E712A9000409FA7 /* TestGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGrade.swift; sourceTree = "<group>"; };
@@ -169,9 +171,13 @@
 				D388A37A1E70A76D00A44EF0 /* AssignmentTableViewCell.swift */,
 				2DF10C831E6767FB00F83751 /* AgendaTableViewCell.swift */,
 				2DF10C851E67687300F83751 /* DueDatesTableViewCell.swift */,
+
+				9CFB21231E706E1C0059EB98 /* AgendaTableViewController.swift */,
+
 				D388A36C1E704C8A00A44EF0 /* GradeTableViewCell.swift */,
 				D388A3701E704F9800A44EF0 /* AchievementTableViewCell.swift */,
 				D388A3721E7050B400A44EF0 /* AchievementCollectionViewCell.swift */,
+
 				9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */,
 				9C3FE0071E64CCA100ACC778 /* LinksCollectionViewController.swift */,
 				D388A37C1E70AA2400A44EF0 /* AssignmentTableViewController.swift */,
@@ -349,7 +355,9 @@
 				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
 				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
-				D388A3731E7050B400A44EF0 /* AchievementCollectionViewCell.swift in Sources */,
+
+				9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */,
+
 				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
 				D3F0E6351E6622DF00C5E594 /* HeaderLabel.swift in Sources */,
