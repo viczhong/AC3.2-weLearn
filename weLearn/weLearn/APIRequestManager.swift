@@ -5,7 +5,6 @@
 //  Created by Victor Zhong on 2/13/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
-
 import Foundation
 
 class APIRequestManager {
@@ -24,5 +23,15 @@ class APIRequestManager {
             callback(validData)
             }.resume()
     }
+    
+}
+
+
+class classSchedule {
+    
+    static let manager = classSchedule()
+    private init() {}
+    
+    var agenda: [Agenda]?
     
 }
