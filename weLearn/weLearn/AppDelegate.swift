@@ -83,17 +83,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentName = studentInfo["studentName"] else { return }
         
         
-        let databaseReference = FIRDatabase.database().reference().child(studentClass).child("Links")
         let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
         
-        if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
             for urlDict in urlDefaults {
+                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
                 var urlInfo = urlDict
                 urlInfo["studentName"] = studentName
                 databaseReference.setValue(urlInfo)
             }
-            urlDefaults.removeAll()
         }
+//        userDefaults?.removeObject(forKey: "urlDefaults")
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
