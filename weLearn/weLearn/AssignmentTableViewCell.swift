@@ -66,7 +66,6 @@ class AssignmentTableViewCell: UITableViewCell {
         
         repoLink.snp.makeConstraints { view in
             view.top.equalTo(gradeSquare.snp.bottom).offset(20)
-            view.height.equalTo(44)
             view.width.equalTo(box).dividedBy(2)
             view.centerX.equalTo(box)
             view.bottom.equalTo(box).inset(10)
@@ -87,13 +86,13 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var assignmentNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Black", size: 24)
+        label.font = UIFont(name: "Avenir-Light", size: 30)
         return label
     }()
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Roman", size: 16)
+        label.font = UIFont(name: "Avenir-Light", size: 16)
         return label
     }()
     

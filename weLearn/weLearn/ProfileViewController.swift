@@ -38,6 +38,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         // tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        
+        profilePic.layer.cornerRadius = 50
+        profilePic.clipsToBounds = true
 
         fakePopulate([Grade(assignment: "Final", score: "A"), Grade(assignment: "Instacat", score: "A-"), Grade(assignment: "Battleship", score: "A+")])
     }
@@ -70,8 +73,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         profilePic.snp.makeConstraints { view in
-            view.top.leading.equalTo(profileBox).offset(20)
-            view.width.equalTo(profileBox).dividedBy(4)
+            view.top.leading.equalTo(profileBox).offset(10)
+            view.width.height.equalTo(100)
             view.height.equalTo(profilePic.snp.width)
         }
         
@@ -203,7 +206,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.black.cgColor
         pic.image = #imageLiteral(resourceName: "profileIcon")
-        pic.layer.borderWidth = 5
+        pic.contentMode = .scaleAspectFit
+        pic.layer.borderWidth = 2
         return pic
     }()
     

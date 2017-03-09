@@ -68,7 +68,7 @@ class DueDatesTableViewCell: UITableViewCell {
     
     lazy var timerLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Thirtysix", size: 36)
+        lbl.font = UIFont(name: "Avenir-Black", size: 36)
         lbl.textColor = UIColor.weLearnGreen
         lbl.textAlignment = .center
         lbl.layer.shadowColor = UIColor.weLearnBlack.cgColor
