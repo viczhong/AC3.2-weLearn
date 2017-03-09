@@ -11,28 +11,35 @@ import Foundation
 // *** Work in Progress!!
 
 class Link {
+    
     var url: String
-    var previewPic: String
     var description: String
     
     // meta data - this way we track who made what link, and when
     var author: String
-    var date: String
     
-    init(url: String, description: String) {
+    init?(url: String, author: String, description: String) {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "mm/dd/yy hh:mm:ss"
-
-        self.previewPic = "" // we have to make an api call here to get the image from the website...
+        
+        
         self.description = description
         self.url = url
-        self.author = "" // the user who is creating it's name
-        self.date = dateFormatter.string(from: currentDate)
+        self.author = author
+        //        self.date = dateFormatter.string(from: currentDate)
+        
+    }
+    
+    convenience init?(fromDict: [String : Any]) {
+        guard let url = fromDict["url"] as? String,
+            let name = fromDict["studentName"] as? String,
+            let description = fromDict["urlDescription"] as? String else { return nil }
+        self.init(url: url, author: name, description: description)
     }
     
     func blame() {
-        print("I was made by \(self.author) at \(self.date)")
+        //        print("I was made by \(self.author) at \(self.date)")
     }
 }

@@ -5,7 +5,6 @@
 //  Created by Victor Zhong on 2/27/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
-
 import UIKit
 import SnapKit
 import Firebase
@@ -83,17 +82,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentName = studentInfo["studentName"] else { return }
         
         
-        let databaseReference = FIRDatabase.database().reference().child(studentClass).child("Links")
+        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
         let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
         
-        if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
             for urlDict in urlDefaults {
                 var urlInfo = urlDict
                 urlInfo["studentName"] = studentName
                 databaseReference.setValue(urlInfo)
             }
-            urlDefaults.removeAll()
+            
         }
+        userDefaults?.removeObject(forKey: "urlDefaults")
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -105,4 +106,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
-
