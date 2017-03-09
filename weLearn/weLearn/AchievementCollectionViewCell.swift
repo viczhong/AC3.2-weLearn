@@ -51,4 +51,3 @@ class AchievementCollectionViewCell: UICollectionViewCell {
     }()
     
 }
-
