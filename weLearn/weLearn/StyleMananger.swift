@@ -14,22 +14,22 @@ class StyleManager {
     private init() {}
     
     func prettify() {
-        let displayFont = "Thirtysix"
+        //let displayFont = "Thirtysix"
         let boldFont = "Avenir-Black"
-        let semiboldFont = "Avenir-Medium"
+        //let semiboldFont = "Avenir-Medium"
         let regularFont = "Avenir-Roman"
-        let italicFont = "Avenir-Oblique"
-        let lightFont = "Avenir-Light"
+        //let italicFont = "Avenir-Oblique"
+        //let lightFont = "Avenir-Light"
         let lightItalicFont = "Avenir-LightOblique"
         
-        let accessibilityFont = "TiresiasInfofont"
-        let accessibilityFontItalic = "TiresiasInfofont"
+        //let accessibilityFont = "TiresiasInfofont"
+        //let accessibilityFontItalic = "TiresiasInfofont"
         
         // top bar
         let proxyNavBar = UINavigationBar.appearance()
         
         // details & text
-        let proxyImageView = UIImageView.appearance()
+        //let proxyImageView = UIImageView.appearance()
         let proxyLabel = UILabel.appearance()
         let proxyTextField = UITextField.appearance()
         let proxyTextView = UITextView.appearance()
@@ -41,8 +41,8 @@ class StyleManager {
         let proxyWebView = UIWebView.appearance()
         let proxyTableView = UITableView.appearance()
         let proxyTableCell = UITableViewCell.appearance()
-        let proxySectionHeader = UITableViewHeaderFooterView.appearance()
-        let proxyCollectionCell = UICollectionViewCell.appearance()
+        //let proxySectionHeader = UITableViewHeaderFooterView.appearance()
+        //let proxyCollectionCell = UICollectionViewCell.appearance()
         let proxyCollectionView = UICollectionView.appearance()
         let proxyScrollView = UIScrollView.appearance()
         
@@ -79,8 +79,8 @@ class StyleManager {
         proxyWebView.layer.borderWidth = 1.0
         
         proxyTableView.backgroundColor = UIColor.white
-        proxyTableCell.backgroundColor = UIColor.weLearnCoolWhite
-        proxySectionHeader.tintColor = UIColor.white
+        proxyTableCell.backgroundColor = UIColor.weLearnGreen
+        // proxySectionHeader.tintColor = UIColor.white
         
         proxyScrollView.bounces = true
         //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite
