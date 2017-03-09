@@ -48,6 +48,8 @@ class AssignmentTableViewCell: UITableViewCell {
         self.contentView.addSubview(box)
         self.contentView.addSubview(assignmentNameLabel)
         self.contentView.addSubview(dateLabel)
+        self.contentView.addSubview(topHorizontalRule)
+        self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(gradeLabel)
         self.contentView.addSubview(gradeSquare)
         self.contentView.addSubview(repoLink)
@@ -87,6 +89,20 @@ class AssignmentTableViewCell: UITableViewCell {
             view.height.equalTo(44)
             view.centerX.equalTo(box)
             view.bottom.equalTo(box).inset(10)
+        }
+        
+        topHorizontalRule.snp.makeConstraints { view in
+            view.height.equalTo(1)
+            view.width.equalTo(box)
+            view.centerY.equalTo(gradeSquare.snp.top)
+            view.centerX.equalTo(box)
+        }
+        
+        bottomHorizontalRule.snp.makeConstraints { view in
+            view.height.equalTo(1)
+            view.width.equalTo(box)
+            view.centerY.equalTo(gradeSquare.snp.bottom)
+            view.centerX.equalTo(box)
         }
         
     }
@@ -134,6 +150,18 @@ class AssignmentTableViewCell: UITableViewCell {
         button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var topHorizontalRule: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.weLearnGrey
+        return view
+    }()
+    
+    lazy var bottomHorizontalRule: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.weLearnGrey
+        return view
     }()
     
 }
