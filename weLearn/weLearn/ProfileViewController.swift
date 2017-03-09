@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Outstanding Academic Performance")])
+        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence")])
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
@@ -75,13 +75,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func configureConstraints() {
         tableView.snp.makeConstraints { (tV) in
             tV.leading.trailing.bottom.equalToSuperview()
-            tV.top.equalTo(collectionView.snp.bottom)
+            tV.top.equalTo(collectionView.snp.bottom).offset(10)
         }
         
         collectionView.snp.makeConstraints { (cV) in
             cV.leading.trailing.equalToSuperview()
             cV.top.equalTo(profileBox.snp.bottom)
-            cV.height.equalTo(100)
+            cV.height.equalTo(150)
         }
         
         profileBox.snp.makeConstraints { view in
@@ -207,6 +207,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
+    
+    
     
     // MARK: - Table view stuff
     
@@ -354,9 +356,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
+        layout.estimatedItemSize = CGSize(width: 50, height: 50)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(AchievementCollectionViewCell.self, forCellWithReuseIdentifier: "AchievementCollectionViewCell")

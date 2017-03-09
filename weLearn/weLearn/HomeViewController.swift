@@ -243,7 +243,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch indexPath.section {
         case 0:
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
-        case 1: break
+        case 1: //break
+            navigationController?.pushViewController(AgendaTableViewController(), animated: true)
         case 2: //break
             navigationController?.pushViewController(AssignmentTableViewController(), animated: true)
         default:
@@ -259,7 +260,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func linksButtonWasPressed(button: UIButton) {
-        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
+        navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
     }
     
     // MARK: - UI Elements
