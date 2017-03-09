@@ -288,7 +288,6 @@ class InitialViewController: UIViewController {
         
         
         let referenceLink = databaseReference.reference().child(credentials.studentClass)
-        let newUserRef = referenceLink.child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -297,7 +296,11 @@ class InitialViewController: UIViewController {
             "studentID" : credentials.studentID
         ]
         
-        newUserRef.setValue(dict)
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(dict, forKey: "studentInfo")
+        
+        referenceLink.setValue(dict)
+
     }
     
     func loginButtonWasPressed() {
@@ -520,7 +523,7 @@ class InitialViewController: UIViewController {
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
+
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
         thirdTextfield.placeholder = "Preferred name"
