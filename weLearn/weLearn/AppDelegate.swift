@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 databaseReference.setValue(urlInfo)
             }
         }
-//        userDefaults?.removeObject(forKey: "urlDefaults")
+        userDefaults?.removeObject(forKey: "urlDefaults")
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
