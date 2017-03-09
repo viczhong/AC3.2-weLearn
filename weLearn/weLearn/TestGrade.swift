@@ -16,7 +16,7 @@ class TestGrade {
     let id: String
     let grades: String
     
-    init (id: String, grades: String) { 
+    init (id: String, grades: String) {
         self.id = id
         self.grades = grades
     }
