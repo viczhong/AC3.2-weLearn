@@ -12,7 +12,7 @@ class User {
     
     //    init(name: String, email: String, id: Int?, teacher: Bool, classroom: String?, image: UIImage) {
     //        self.name = name
-    //        self.e           ail = email
+    //        self.email = email
     //        self.id = id
     //        self.teacher = teacher
     //        self.classroom = classroom
