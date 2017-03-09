@@ -15,7 +15,7 @@ class InitialViewController: UIViewController {
     
     var databaseReference = FIRDatabase.database()
     var databaseObserver: FIRDatabaseHandle?
-    var signedInUser: FIRUser?
+    var signedInUser: FIRUser? // Expand to User Object or Singleton
     
     var toggleIsHiddenWhenTabIsChanged = [UIView]()
     
@@ -269,8 +269,11 @@ class InitialViewController: UIViewController {
     
     func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
         guard let password = passwordTextField.text,
-            let email = emailTextField.text else { return nil }
-        return ("Cris", email, password, "Accesscode", "3204")
+            let name = nameTextField.text,
+            let email = emailTextField.text,
+        let className = classTextField.text,
+        let studentID = studentIDTextField.text else { return nil }
+        return (name, email, password, className, studentID)
     }
     
     func showAlert(title: String, _ errorMessage: String) {
@@ -322,6 +325,7 @@ class InitialViewController: UIViewController {
                 self.registerButton.isEnabled = false
                 self.registerButton.alpha = 0
             }
+            
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
             }
