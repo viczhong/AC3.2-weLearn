@@ -6,6 +6,7 @@ target 'weLearn' do
   use_frameworks!
 
   # Pods for weLearn
+  
 pod 'SnapKit'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
