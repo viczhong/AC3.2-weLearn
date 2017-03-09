@@ -18,6 +18,8 @@
 		9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */; };
 		9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */; };
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
+		9E8017871E70A99C00409FA7 /* TestGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8017861E70A99C00409FA7 /* TestGrade.swift */; };
+		9E8017891E71254700409FA7 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8017881E71254700409FA7 /* Extension+String.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
@@ -58,6 +60,8 @@
 		9C3FE00B1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldAnnouncementTableViewController.swift; sourceTree = "<group>"; };
 		9E6E911F1E677BE100DAE0D1 /* APIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
+		9E8017861E70A99C00409FA7 /* TestGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGrade.swift; sourceTree = "<group>"; };
+		9E8017881E71254700409FA7 /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 				D388A3741E70632B00A44EF0 /* Achievement.swift */,
 				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 				D388A3761E706A1900A44EF0 /* Grade.swift */,
+				9E8017861E70A99C00409FA7 /* TestGrade.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */,
 				D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */,
 				D3F0E6341E6622DF00C5E594 /* HeaderLabel.swift */,
+				9E8017881E71254700409FA7 /* Extension+String.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -331,6 +337,7 @@
 				D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */,
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
+				9E8017871E70A99C00409FA7 /* TestGrade.swift in Sources */,
 				D388A3711E704F9800A44EF0 /* AchievementTableViewCell.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
@@ -344,6 +351,7 @@
 				9C3FE0081E64CCA100ACC778 /* LinksCollectionViewController.swift in Sources */,
 				9C3FE00A1E64CD9700ACC778 /* HomeworkTableViewController.swift in Sources */,
 				D388A36B1E6F313300A44EF0 /* ProfileViewController.swift in Sources */,
+				9E8017891E71254700409FA7 /* Extension+String.swift in Sources */,
 				D343FDB11E6B426F00DABD00 /* Link.swift in Sources */,
 				D388A36D1E704C8B00A44EF0 /* GradeTableViewCell.swift in Sources */,
 				9C3FE0041E64CB6200ACC778 /* InitialViewController.swift in Sources */,
