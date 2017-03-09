@@ -96,7 +96,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
         }
+
+
         userDefaults?.removeObject(forKey: "urlDefaults")
+
+
+
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

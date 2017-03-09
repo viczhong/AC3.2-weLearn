@@ -366,7 +366,6 @@
 					};
 					9EECFE821E64C83C00503F7F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BAQHSM59S2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -686,7 +685,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = weLearn/weLearn.entitlements;
-				DEVELOPMENT_TEAM = BAQHSM59S2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = weLearn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -703,7 +702,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = weLearn/weLearn.entitlements;
-				DEVELOPMENT_TEAM = BAQHSM59S2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = weLearn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
