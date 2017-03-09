@@ -311,7 +311,11 @@ class InitialViewController: UIViewController {
             
             if user != nil {
                 
-                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+//                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+                
+                self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                self.navigationController?.navigationBar.isHidden = false
+              
             }
             
             if let error = error {

@@ -26,7 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = InitialViewController()
+        let myNavVC = UINavigationController(rootViewController: InitialViewController())
+        myNavVC.navigationBar.isHidden = true
+        self.window?.rootViewController = myNavVC
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor =  UIColor.white
         
