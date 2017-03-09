@@ -21,7 +21,8 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.clear])
+        //self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
+        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white])
         
         viewHiearchy()
         configureConstraints()
@@ -57,6 +58,7 @@ class InitialViewController: UIViewController {
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
+        self.view.addSubview(logoOverlay)
         // self.view.addSubview(logoHeader)
         self.view.addSubview(registerTab)
         self.view.addSubview(registerTabLabel)
@@ -88,6 +90,13 @@ class InitialViewController: UIViewController {
             view.height.equalToSuperview().dividedBy(5)
             view.top.equalToSuperview().offset(30)
             view.centerX.equalToSuperview()
+        }
+        
+        logoOverlay.snp.makeConstraints { view in
+            view.width.equalToSuperview().dividedBy(2)
+            view.height.equalToSuperview().dividedBy(5)
+            view.top.equalToSuperview().offset(30)
+            view.centerX.equalToSuperview().offset(5)
         }
         
 //        logoHeader.snp.makeConstraints { label in
@@ -274,7 +283,9 @@ class InitialViewController: UIViewController {
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
         
-        let referenceLink = databaseReference.reference().child(credentials.studentClass).childByAutoId()
+        
+        let referenceLink = databaseReference.reference().child(credentials.studentClass)
+        let newUserRef = referenceLink.child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
             "studentName" : credentials.name,
@@ -283,7 +294,7 @@ class InitialViewController: UIViewController {
             "studentID" : credentials.studentID
         ]
         
-        referenceLink.setValue(dict)
+        newUserRef.setValue(dict)
     }
     
     func loginButtonWasPressed() {
@@ -309,7 +320,7 @@ class InitialViewController: UIViewController {
                 self.signedInUser = user
                 self.setUpDatabaseReference()
                 self.registerButton.isEnabled = false
-                self.registerButton.alpha = 0.50
+                self.registerButton.alpha = 0
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
@@ -341,11 +352,24 @@ class InitialViewController: UIViewController {
     
     lazy var logoPic: UIImageView = {
         let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "logoForSplash")
-        view.layer.shadowColor = UIColor.weLearnGreen.cgColor
+        let originalImage = #imageLiteral(resourceName: "logoForSplash")
+        let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
+        view.image = templateImage
+        view.tintColor = UIColor.white
+        view.layer.shadowColor = UIColor.weLearnBlack.cgColor
         view.layer.shadowOffset = CGSize(width: -5, height: 5)
-        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
+        view.layer.masksToBounds = false
+        return view
+    }()
+    
+    lazy var logoOverlay: UIImageView = {
+        let view = UIImageView()
+        let originalImage = #imageLiteral(resourceName: "logoForSplash")
+        let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
+        view.image = templateImage
+        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.1)
         view.layer.masksToBounds = false
         return view
     }()

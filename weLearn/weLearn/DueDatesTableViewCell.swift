@@ -45,10 +45,10 @@ class DueDatesTableViewCell: UITableViewCell {
             lbl.leading.equalTo(contentView).offset(10)
             lbl.trailing.equalTo(contentView).inset(10)
             lbl.top.equalTo(contentView).offset(13)
-            lbl.bottom.equalTo(assignmentLabel.snp.top).inset(-5)
         }
         
         assignmentLabel.snp.makeConstraints { (lbl) in
+            lbl.top.equalTo(timerLabel.snp.bottom).offset(5)
             lbl.leading.equalTo(contentView).offset(10)
             lbl.trailing.equalTo(contentView).inset(10)
             lbl.bottom.equalTo(contentView).inset(13)
@@ -57,10 +57,10 @@ class DueDatesTableViewCell: UITableViewCell {
 
     lazy var box: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.weLearnCoolWhite
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOpacity = 0.75
         view.layer.shadowRadius = 3
         view.layer.masksToBounds = false
         return view
@@ -68,15 +68,16 @@ class DueDatesTableViewCell: UITableViewCell {
     
     lazy var timerLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Thirtysix", size: 36)
+        lbl.font = UIFont(name: "Avenir-Black", size: 36)
         lbl.textColor = UIColor.weLearnGreen
         lbl.textAlignment = .center
+        lbl.numberOfLines = 2
+        lbl.lineBreakMode = .byWordWrapping
         lbl.layer.shadowColor = UIColor.weLearnBlack.cgColor
         lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
-        lbl.layer.shadowOpacity = 3
-        lbl.layer.shadowRadius = 1
+        lbl.layer.shadowOpacity = 1
+        lbl.layer.shadowRadius = 2
         lbl.layer.masksToBounds = false
-        lbl.numberOfLines = 1
         return lbl
     }()
     

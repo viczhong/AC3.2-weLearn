@@ -18,6 +18,7 @@ class AgendaTableViewCell: UITableViewCell {
         let plainBullet = #imageLiteral(resourceName: "bullet")
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
+        self.backgroundColor = UIColor.white
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnGreen
     }
@@ -44,7 +45,7 @@ class AgendaTableViewCell: UITableViewCell {
         }
         
         label.snp.makeConstraints { (lbl) in
-            lbl.leading.leading.equalTo(bulletView.snp.trailing)
+            lbl.leading.equalTo(bulletView.snp.trailing)
             lbl.centerY.equalToSuperview()
         }
     }

@@ -94,9 +94,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func fakeReadAgenda(_ items: [Agenda]) {
+        self.agenda = items
+        DispatchQueue.main.async {
+            self.todaysAgenda = self.todaysSchedule()
+            self.tableView.reloadData()
+        }
+    }
+    
     func todaysSchedule() -> Agenda? {
         if let agenda = agenda {
-            let sorted = agenda.sorted(by: {$0.date < $1.date})
+            _ = agenda.sorted(by: {$0.date < $1.date})
             let today = Date()
             for entry in agenda {
                 if today <= entry.date  {
@@ -210,8 +218,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let days = Int(self.timeInSeconds) / 86400
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
-                    let seconds = Int(self.timeInSeconds) % 60
-                    thirdCell.timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
+
+                    thirdCell.timerLabel.text = String(format: "%02i days, %02i hours, and %02i minutes", days, hours, minutes)
                     thirdCell.assignmentLabel.text = " until Demo Day..."
                 }
                 
@@ -236,9 +244,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
         case 1: break
-        //Add the viewController to be presented
-        case 2: break
-        //Add the viewController to be presented
+        case 2: //break
+            navigationController?.pushViewController(AssignmentTableViewController(), animated: true)
         default:
             break
         }
@@ -260,7 +267,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         // button.setTitle("profile".uppercased(), for: .normal)
-        button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
@@ -272,7 +279,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
