@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         profileBox.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(20)
+            view.top.equalToSuperview().offset(10)
             view.centerX.equalToSuperview()
             view.leading.equalToSuperview().offset(25)
             view.trailing.equalToSuperview().inset(25)

@@ -83,7 +83,8 @@ class AssignmentTableViewCell: UITableViewCell {
         
         repoLink.snp.makeConstraints { view in
             view.top.equalTo(gradeSquare.snp.bottom).offset(20)
-            view.width.equalTo(box).dividedBy(2)
+            view.width.equalTo(box)
+            view.height.equalTo(44)
             view.centerX.equalTo(box)
             view.bottom.equalTo(box).inset(10)
         }
@@ -127,8 +128,10 @@ class AssignmentTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var repoLink: ShinyOvalButton = {
-        let button = ShinyOvalButton()
+    lazy var repoLink: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
         return button
     }()
