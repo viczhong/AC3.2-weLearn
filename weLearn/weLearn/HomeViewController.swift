@@ -267,12 +267,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
-        // button.setTitle("profile".uppercased(), for: .normal)
+        button.setTitle("profile".uppercased(), for: .normal)
         //button.backgroundColor = UIColor.weLearnGreen
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
-        button.imageView?.contentMode = .center
+        //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
+        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
         return button
     }()

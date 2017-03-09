@@ -83,6 +83,7 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var urlButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitleColor(UIColor.weLearnGreen, for: .normal)
         button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
         button.layer.borderColor = UIColor.weLearnGrey.cgColor
