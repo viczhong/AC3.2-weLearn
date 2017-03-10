@@ -6,6 +6,8 @@
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
 import UIKit
+import SafariServices
+
 
 class AgendaTableViewController: UITableViewController {
     
@@ -24,21 +26,21 @@ class AgendaTableViewController: UITableViewController {
     }
     
     /*
-    func readAgenda() {
-        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if data != nil {
-                if let returnedAgenda = Agenda.getAgenda(from: data!) {
-                    print("We've got returns: \(returnedAgenda.count)")
-                    self.agenda = returnedAgenda
-                    DispatchQueue.main.async {
-                        //                        self.todaysAgenda = self.todaysSchedule()
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
-    */
+     func readAgenda() {
+     APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+     if data != nil {
+     if let returnedAgenda = Agenda.getAgenda(from: data!) {
+     print("We've got returns: \(returnedAgenda.count)")
+     self.agenda = returnedAgenda
+     DispatchQueue.main.async {
+     //                        self.todaysAgenda = self.todaysSchedule()
+     self.tableView.reloadData()
+     }
+     }
+     }
+     }
+     }
+     */
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,9 +58,19 @@ class AgendaTableViewController: UITableViewController {
         
         let agendaAtRow = agenda[indexPath.row]
         
-        cell.textLabel?.text = agendaAtRow.lessonName
+        cell.textLabel?.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)\n\(agendaAtRow.lessonDesc)"
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let url = agenda[indexPath.row].repoURL {
+            
+            let svc = SFSafariViewController(url: URL(string: url)!)
+            present(svc, animated: true, completion: nil)
+        }
+        
     }
     
     
