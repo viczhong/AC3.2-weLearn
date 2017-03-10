@@ -74,7 +74,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
             }
             
             guard (assignments[indexPath.row].score?.characters.count)! < 3 else {
-                assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) in"
+                assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) due in"
                 assignmentCell.gradeLabel.font = UIFont(name: "Avenir-Black", size: 20)
                 assignmentCell.gradeLabel.layer.shadowColor = UIColor.clear.cgColor
                 assignmentCell.gradeLabel.text = assignments[indexPath.row].score

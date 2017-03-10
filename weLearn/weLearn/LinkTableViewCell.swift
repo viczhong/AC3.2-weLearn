@@ -86,7 +86,7 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 20)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
@@ -96,7 +96,7 @@ class LinkTableViewCell: UITableViewCell {
     lazy var authorLabel: UILabel = {
         let lbl = UILabel()
         //lbl.textColor = UIColor.weLearnGrey
-        lbl.font = UIFont(name: "Avenir-Black", size: 16)
+        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
         return lbl
     }()
     
