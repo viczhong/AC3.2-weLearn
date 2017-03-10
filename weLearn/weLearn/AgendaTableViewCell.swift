@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class AgendaTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -44,17 +44,30 @@ class AgendaTableViewCell: UITableViewCell {
         bulletView.snp.makeConstraints { (pic) in
             pic.leading.equalToSuperview()
             pic.centerY.equalToSuperview()
+            //            pic.leading.equalTo(contentView.snp.leading).offset(4)
+            //            pic.top.equalTo(contentView.snp.top).offset(8)
+            //            pic.width.equalTo(4)
+            //            pic.height.equalTo(8)
+            
         }
         
         label.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(bulletView.snp.trailing)
             lbl.centerY.equalToSuperview()
+            //            lbl.leading.equalTo(bulletView.snp.trailing)
+            //            lbl.top.equalTo(contentView.snp.top).offset(8)
+            //            lbl.trailing.equalTo(contentView.snp.trailing).inset(8)
+            //            lbl.bottom.equalTo(contentView.snp.bottom).inset(8)
         }
     }
     
     lazy var label: UILabel = {
         let lbl = UILabel()
         lbl.textAlignment = .center
+        
+        //        lbl.numberOfLines = 3
+        //        lbl.textAlignment = .left
+        //        lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     

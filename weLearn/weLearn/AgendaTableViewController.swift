@@ -20,7 +20,7 @@ class AgendaTableViewController: UITableViewController {
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
     }
     
