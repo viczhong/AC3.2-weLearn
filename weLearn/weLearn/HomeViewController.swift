@@ -199,9 +199,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
-            cell.selectionStyle = .none
             
             if let secondCell = cell as? AgendaTableViewCell {
+                secondCell.selectionStyle = .none
                 secondCell.backgroundColor = UIColor.weLearnCoolWhite
                 secondCell.label.text = todaysFakeSchedule[indexPath.row]
                 secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
