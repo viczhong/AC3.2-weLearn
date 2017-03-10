@@ -26,6 +26,7 @@
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
 		9E80178B1E712A9000409FA7 /* TestGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80178A1E712A9000409FA7 /* TestGrade.swift */; };
 		9E80178D1E712AC500409FA7 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80178C1E712AC500409FA7 /* Extension+String.swift */; };
+		9E88BA1D1E721C3200D7DE64 /* LessonSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
@@ -106,6 +107,7 @@
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		9E80178A1E712A9000409FA7 /* TestGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGrade.swift; sourceTree = "<group>"; };
 		9E80178C1E712AC500409FA7 /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonSchedule.swift; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				D343FDAA1E6A258E00DABD00 /* Announcement.swift */,
 				D388A3761E706A1900A44EF0 /* Grade.swift */,
 				D388A3781E709ACD00A44EF0 /* Assignment.swift */,
+				9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				9C3FE00C1E64CF6400ACC778 /* OldAnnouncementTableViewController.swift in Sources */,
 				9E6E91201E677BE100DAE0D1 /* APIRequestManager.swift in Sources */,
 				D388A3831E71EE9700A44EF0 /* Student.swift in Sources */,
+				9E88BA1D1E721C3200D7DE64 /* LessonSchedule.swift in Sources */,
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
 				D388A3771E706A1900A44EF0 /* Grade.swift in Sources */,
 				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,

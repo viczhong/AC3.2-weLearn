@@ -6,11 +6,14 @@
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
 import UIKit
+import SafariServices
+
 
 class AgendaTableViewController: UITableViewController {
     
-    var agenda: [Agenda]?
-    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
+    var agenda = LessonSchedule.manager.agenda
+    
+    //    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,23 +22,25 @@ class AgendaTableViewController: UITableViewController {
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
-        readAgenda()
+        //        readAgenda()
     }
     
-    func readAgenda() {
-        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if data != nil {
-                if let returnedAgenda = Agenda.getAgenda(from: data!) {
-                    print("We've got returns: \(returnedAgenda.count)")
-                    self.agenda = returnedAgenda
-                    DispatchQueue.main.async {
-                        //                        self.todaysAgenda = self.todaysSchedule()
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
+    /*
+     func readAgenda() {
+     APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+     if data != nil {
+     if let returnedAgenda = Agenda.getAgenda(from: data!) {
+     print("We've got returns: \(returnedAgenda.count)")
+     self.agenda = returnedAgenda
+     DispatchQueue.main.async {
+     //                        self.todaysAgenda = self.todaysSchedule()
+     self.tableView.reloadData()
+     }
+     }
+     }
+     }
+     }
+     */
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,15 +49,28 @@ class AgendaTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return agenda?.count ?? 0
+        return agenda.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath)
         
+        let agendaAtRow = agenda[indexPath.row]
+        
+        cell.textLabel?.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)\n\(agendaAtRow.lessonDesc)"
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let url = agenda[indexPath.row].repoURL {
+            
+            let svc = SFSafariViewController(url: URL(string: url)!)
+            present(svc, animated: true, completion: nil)
+        }
+        
     }
     
     

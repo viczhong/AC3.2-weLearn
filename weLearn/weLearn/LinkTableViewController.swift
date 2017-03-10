@@ -38,7 +38,7 @@ class LinkTableViewController: UITableViewController, Tappable {
     
     func getDataInfo() {
         
-        databaseReference.child("Links").child("Access code").observeSingleEvent(of: .value, with: { (snapShot) in
+        databaseReference.child("Links").child(User.manager.classroom!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
             for link in value {

@@ -103,14 +103,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func todaysSchedule() -> Agenda? {
+        //        if let agenda = agenda {
+        //            _ = agenda.sorted(by: {$0.date < $1.date})
+        //            let today = Date()
+        //            for entry in agenda {
+        //                if today <= entry.date  {
+        //                    return entry
+        //                }
+        //            }
+        //        }
         if let agenda = agenda {
-            _ = agenda.sorted(by: {$0.date < $1.date})
-            let today = Date()
-            for entry in agenda {
-                if today <= entry.date  {
-                    return entry
-                }
-            }
+            LessonSchedule.manager.setAgenda(agenda)
+            return LessonSchedule.manager.agenda[0]
         }
         return nil
     }
@@ -218,7 +222,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let days = Int(self.timeInSeconds) / 86400
                     let hours = Int(self.timeInSeconds) / 3600 % 24
                     let minutes = Int(self.timeInSeconds) / 60 % 60
-
+                    
                     thirdCell.timerLabel.text = String(format: "%02i days, %02i hours, and %02i minutes", days, hours, minutes)
                     thirdCell.assignmentLabel.text = " until Demo Day..."
                 }
