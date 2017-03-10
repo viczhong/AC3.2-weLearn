@@ -23,6 +23,12 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 268.0
+        
+        tableView.separatorStyle = .none
+
+        
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -77,6 +83,8 @@ class LinkTableViewController: UITableViewController, Tappable {
             cell.delegate = self
         }
         
+        cell.selectionStyle = .blue
+        
         cell.authorLabel.text = "\(links[indexPath.row].author):"
         cell.descriptionLabel.text = links[indexPath.row].description
         // cell.author.text = announcements![indexPath.row].author
@@ -84,7 +92,6 @@ class LinkTableViewController: UITableViewController, Tappable {
             cell.urlButton.isHidden = true
             return cell
         }
-        cell.urlButton.setTitle(">", for: .normal)
     
         return cell
     }

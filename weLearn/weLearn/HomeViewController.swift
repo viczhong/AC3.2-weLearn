@@ -17,7 +17,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Dummy timer created up here!
     
     /* dummy timer -- remove star and slash on this line to comment out */
-    var timeInSeconds = 1555200
+    var timeInSeconds = 777600
     var timer: Timer!
     //*/
     
@@ -25,6 +25,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let calendar = Calendar.current
     var agenda: [Agenda]?
     var todaysAgenda: Agenda?
+    var todaysFakeSchedule: [String] = [
+        "DSA",
+        "Sprite Kit with Louis",
+        "Capstone",
+        "Lunch break",
+        "Talk to Tech Mentors",
+        "Workshop at Headquarters"
+    ]
     
     // This will be variable based on the Student's Class, pending Firebase setup
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
@@ -37,7 +45,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         registerCell()
         viewHiearchy()
         configureConstraints()
-        readAgenda()
+        // readAgenda()
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
@@ -129,17 +137,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            //        case 0:
-        //            return "Announcements"
+        case 0:
+            return "Announcements"
         case 1:
-            if todaysAgenda != nil {
-                return "Agenda"
-            }
-            else {
-                return nil
-            }
-            //        case 2:
-        //            return "Upcoming Due Dates"
+            //            if todaysAgenda != nil {
+            return "Today's Schedule"
+            //            }
+            //            else {
+            //                return nil
+        //            }
+        case 2:
+            return "Assignments & Events"
         default:
             return ""
         }
@@ -152,11 +160,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 1
         case 1:
             //Agenda
-            if todaysAgenda != nil {
-                return 1
-            } else {
-                return 0
-            }
+            return todaysFakeSchedule.count
+            //            if todaysAgenda != nil {
+            //                return 1
+            //            } else {
+            //                return 0
+        //            }
         case 2:
             //DueDates
             return 1
@@ -168,9 +177,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Row Code
     
-    //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    //        return 20
-    //    }
+        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return 20
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -190,6 +199,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
+            
+            if let secondCell = cell as? AgendaTableViewCell {
+                secondCell.selectionStyle = .none
+                secondCell.backgroundColor = UIColor.weLearnCoolWhite
+                secondCell.label.text = todaysFakeSchedule[indexPath.row]
+                secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
+            }
             //            if let agenda = agenda {
             //                if let secondCell = cell as? AgendaTableViewCell {
             //                    let agendaForCell = agenda[indexPath.row]
@@ -197,12 +213,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
             //                }
             //            }
-            if let today = todaysAgenda {
-                if let secondCell = cell as? AgendaTableViewCell {
-                    secondCell.label.text = "\(today.lessonName) - \(today.lessonDesc ?? "Just Keep On Keeping On!")"
-                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
-                }
-            }
+            //            if let today = todaysAgenda {
+            //                if let secondCell = cell as? AgendaTableViewCell {
+            //                    secondCell.label.text = "\(today.lessonName) - \(today.lessonDesc ?? "Just Keep On Keeping On!")"
+            //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
+            //                }
+            //            }
             
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
@@ -250,7 +266,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 1: //break
             navigationController?.pushViewController(AgendaTableViewController(), animated: true)
         case 2: //break
-            navigationController?.pushViewController(AssignmentTableViewController(), animated: true)
+            let newvc = AssignmentTableViewController()
+            let days = Int(self.timeInSeconds) / 86400
+            let hours = Int(self.timeInSeconds) / 3600 % 24
+            let minutes = Int(self.timeInSeconds) / 60 % 60
+            
+            newvc.stopTime = String(format: "%02i days, %02i hours, and %02i minutes", days, hours, minutes)
+            
+            navigationController?.pushViewController(newvc, animated: true)
         default:
             break
         }
@@ -271,25 +294,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
-        // button.setTitle("profile".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        button.setTitle("profile".uppercased(), for: .normal)
+        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
+        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
-        button.imageView?.contentMode = .center
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
+        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
+        //        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        //        button.layer.shadowOpacity = 0.25
+        //        button.layer.shadowRadius = 2
         return button
     }()
     
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
         button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
+        //        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        //        button.layer.shadowOpacity = 0.25
+        //        button.layer.shadowRadius = 2
         return button
     }()
     

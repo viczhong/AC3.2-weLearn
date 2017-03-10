@@ -16,12 +16,14 @@ class AgendaTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Agenda"
+        self.title = "Syllabus"
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
-//        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        
+        //        readAgenda()
     }
     
     // MARK: - Table view data source
@@ -36,11 +38,11 @@ class AgendaTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
         let agendaAtRow = agenda[indexPath.row]
         
-        cell.textLabel?.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)\n\(agendaAtRow.lessonDesc)"
+        cell.label.text = "\(agendaAtRow.dateString): \(agendaAtRow.lessonName)"
         
         return cell
     }

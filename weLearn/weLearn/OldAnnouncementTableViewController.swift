@@ -18,7 +18,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         announcements = [
-            Announcement(quote: "You all get A's", author: "Ben"),
+            Announcement(quote: "You all got A's! Wow!", author: "Ben"),
             Announcement(quote: "TGIF", author: "Jason"),
             Announcement(quote: "Human beings evolved from a common ancestor of the chimpanzee.", author: "Darwin"),
             Announcement(quote: "I love cats", author: "Louis"),
@@ -86,7 +86,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
 //    lazy var linksButton: ShinyOvalButton = {
 //        let button = ShinyOvalButton()
 //        button.setTitle("links".uppercased(), for: .normal)
-//        // button.backgroundColor = UIColor.weLearnGreen
+//        // button.backgroundColor = UIColor.weLearnBlue
 //        button.layer.cornerRadius = 15
 //        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
 //        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)

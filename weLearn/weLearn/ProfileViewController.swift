@@ -33,7 +33,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.title = "Profile"
         
-        self.view.backgroundColor = UIColor.weLearnGreen
+        self.view.backgroundColor = UIColor.weLearnBlue
         
         viewHeirarchy()
         configureConstraints()
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence")])
+        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
@@ -251,7 +251,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
-        
+        cell.selectionStyle = .none
         cell.layer.shadowOffset = CGSize(width: 2, height: 3)
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowRadius = 3
@@ -388,7 +388,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var logOutButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)

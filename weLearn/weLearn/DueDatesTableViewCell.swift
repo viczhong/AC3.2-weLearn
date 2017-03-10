@@ -69,14 +69,14 @@ class DueDatesTableViewCell: UITableViewCell {
     lazy var timerLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Avenir-Black", size: 36)
-        lbl.textColor = UIColor.weLearnGreen
+        lbl.textColor = UIColor.weLearnBlue
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
-        lbl.layer.shadowColor = UIColor.weLearnBlack.cgColor
+        lbl.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
         lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
         lbl.layer.shadowOpacity = 1
-        lbl.layer.shadowRadius = 2
+        lbl.layer.shadowRadius = 1
         lbl.layer.masksToBounds = false
         return lbl
     }()
@@ -84,7 +84,7 @@ class DueDatesTableViewCell: UITableViewCell {
     lazy var assignmentLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont(name: "Avenir-Black", size: 24)
-        lbl.textColor = UIColor.weLearnGreen
+        lbl.textColor = UIColor.weLearnBlue
         lbl.textAlignment = .center
         lbl.layer.masksToBounds = false
         return lbl
