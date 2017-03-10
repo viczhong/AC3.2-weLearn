@@ -42,24 +42,30 @@ class AgendaTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         bulletView.snp.makeConstraints { (pic) in
-            pic.leading.equalToSuperview()
-            pic.centerY.equalToSuperview()
+            pic.leading.equalTo(contentView)
+            pic.width.equalTo(20)
+            pic.centerY.equalTo(contentView)
         }
         
         label.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(bulletView.snp.trailing)
-            lbl.centerY.equalToSuperview()
+            lbl.trailing.equalTo(contentView).offset(10)
+            lbl.top.equalTo(contentView).offset(7)
+            lbl.bottom.equalTo(contentView).inset(7)
         }
     }
     
     lazy var label: UILabel = {
         let lbl = UILabel()
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
+        lbl.lineBreakMode = .byWordWrapping
+        lbl.numberOfLines = 3
         return lbl
     }()
     
     lazy var bulletView: UIImageView = {
         let pic = UIImageView()
+        pic.contentMode = .center
         return pic
     }()
 }

@@ -62,14 +62,14 @@ class LinkTableViewCell: UITableViewCell {
             lbl.top.equalTo(authorLabel.snp.bottom).offset(10)
             lbl.leading.equalTo(contentView).offset(10)
             lbl.trailing.equalTo(contentView).inset(10)
-            lbl.bottom.equalTo(contentView).inset(20)
         }
         
-        urlButton.snp.makeConstraints { (pic) in
-            pic.width.height.equalTo(40)
-            pic.trailing.equalTo(contentView).inset(10)
-            // pic.top.equalTo(descriptionLabel.snp.bottom).offset(10)
-            pic.bottom.equalTo(contentView).inset(20)
+        urlButton.snp.makeConstraints { (btn) in
+            btn.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            btn.width.equalTo(box).dividedBy(2)
+            btn.height.equalTo(44)
+            btn.centerX.equalTo(box)
+            btn.bottom.equalTo(contentView).inset(20)
         }
     }
     
@@ -102,18 +102,14 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var urlButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(#imageLiteral(resourceName: "arrow"), for: .normal)
-        button.contentMode = .scaleAspectFit
-        button.clipsToBounds = true
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("Visit Link", for: .normal)
+        button.backgroundColor = UIColor.weLearnBlue
         button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
-        button.backgroundColor = UIColor.white
-        button.layer.borderColor = UIColor.weLearnBlue.cgColor
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 20
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
-        
         return button
     }()
 

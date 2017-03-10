@@ -73,8 +73,8 @@ class DueDatesTableViewCell: UITableViewCell {
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
-        lbl.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.5).cgColor
-        lbl.layer.shadowOffset = CGSize(width: -1, height: 1)
+        lbl.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
+        lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
         lbl.layer.shadowOpacity = 1
         lbl.layer.shadowRadius = 1
         lbl.layer.masksToBounds = false

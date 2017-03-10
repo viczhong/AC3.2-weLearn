@@ -83,6 +83,8 @@ class LinkTableViewController: UITableViewController, Tappable {
             cell.delegate = self
         }
         
+        cell.selectionStyle = .blue
+        
         cell.authorLabel.text = "\(links[indexPath.row].author):"
         cell.descriptionLabel.text = links[indexPath.row].description
         // cell.author.text = announcements![indexPath.row].author

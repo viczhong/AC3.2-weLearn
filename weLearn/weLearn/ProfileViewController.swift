@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence")])
+        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
         
         databaseReference = FIRDatabase.database().reference()
         checkLoggedIn()
@@ -249,7 +249,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
-        
+        cell.selectionStyle = .none
         cell.layer.shadowOffset = CGSize(width: 2, height: 3)
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowRadius = 3

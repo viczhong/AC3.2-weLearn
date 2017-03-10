@@ -18,7 +18,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         announcements = [
-            Announcement(quote: "You all get A's", author: "Ben"),
+            Announcement(quote: "You all got A's! Wow!", author: "Ben"),
             Announcement(quote: "TGIF", author: "Jason"),
             Announcement(quote: "Human beings evolved from a common ancestor of the chimpanzee.", author: "Darwin"),
             Announcement(quote: "I love cats", author: "Louis"),
