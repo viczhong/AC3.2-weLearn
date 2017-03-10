@@ -238,6 +238,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         var cell = UITableViewCell()
         cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
         
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        
         if gradesParsed.count > 0 {
             if let gradeCell = cell as? GradeTableViewCell {
                 let grades = gradesParsed[indexPath.row]
@@ -297,7 +299,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = "Karen Fuentes"
+        label.text = User.manager.name!
         label.font = UIFont(name: "Avenir-Light", size: 24)
         return label
     }()
@@ -305,7 +307,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = "karen@karen.com"
+        label.text = User.manager.email!
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
