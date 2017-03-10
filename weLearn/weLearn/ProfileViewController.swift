@@ -33,7 +33,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.title = "Profile"
         
-        self.view.backgroundColor = UIColor.weLearnGreen
+        self.view.backgroundColor = UIColor.weLearnBlue
         
         viewHeirarchy()
         configureConstraints()
@@ -386,7 +386,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var logOutButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)

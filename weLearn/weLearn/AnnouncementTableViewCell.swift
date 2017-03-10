@@ -107,7 +107,7 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     lazy var bar: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.weLearnGreen
+        view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
 

@@ -268,7 +268,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("profile".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
@@ -280,7 +280,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnGreen
+        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)

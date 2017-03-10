@@ -22,7 +22,7 @@ class AgendaTableViewCell: UITableViewCell {
         
         self.backgroundColor = UIColor.white
         self.bulletView.image = tintedBullet
-        self.bulletView.tintColor = UIColor.weLearnGreen
+        self.bulletView.tintColor = UIColor.weLearnBlue
     }
     
     required init?(coder aDecoder: NSCoder) {

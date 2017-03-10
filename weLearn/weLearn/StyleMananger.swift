@@ -47,20 +47,20 @@ class StyleManager {
         let proxyScrollView = UIScrollView.appearance()
         
         // top bar styling
-        proxyNavBar.tintColor = UIColor.weLearnGreen
-        proxyNavBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.weLearnGreen, NSFontAttributeName: UIFont(name: boldFont, size: 21)!]
+        proxyNavBar.tintColor = UIColor.weLearnBlue
+        proxyNavBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.weLearnBlue, NSFontAttributeName: UIFont(name: boldFont, size: 21)!]
         proxyNavBar.backgroundColor = UIColor.white
         
         // detail & text styling
         proxyLabel.font = UIFont(name: boldFont, size: 24)
-        proxyLabel.textColor = UIColor.weLearnGreen
+        proxyLabel.textColor = UIColor.weLearnBlue
         
         proxyTextView.font = UIFont(name: regularFont, size: 16)
         proxyTextView.textColor = UIColor.weLearnBlack
         proxyTextView.backgroundColor = UIColor.white
         
         proxyTextField.backgroundColor = UIColor.weLearnCoolWhite
-        proxyTextField.textColor = UIColor.weLearnGreen
+        proxyTextField.textColor = UIColor.weLearnBlue
         proxyTextField.font = UIFont(name: boldFont, size: 20)
 
         proxyPlaceholder.font = UIFont(name: lightItalicFont, size: 20)
@@ -79,7 +79,7 @@ class StyleManager {
         proxyWebView.layer.borderWidth = 1.0
         
         proxyTableView.backgroundColor = UIColor.white
-        proxyTableCell.backgroundColor = UIColor.weLearnGreen
+        proxyTableCell.backgroundColor = UIColor.weLearnBlue
         // proxySectionHeader.tintColor = UIColor.white
         
         proxyScrollView.bounces = true

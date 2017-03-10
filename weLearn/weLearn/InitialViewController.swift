@@ -23,7 +23,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
-        self.view.apply(gradient: [UIColor.weLearnGreen.withAlphaComponent(0.5), UIColor.white, UIColor.weLearnGreen.withAlphaComponent(0.5)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white, UIColor.weLearnBlue])
      
         self.passwordTextField.delegate = self
         
@@ -70,7 +70,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.isSelected = !button.isSelected
         if button.isSelected {
             button.backgroundColor = UIColor.white
-            //button.titleLabel?.textColor = UIColor.weLearnGreen
+            //button.titleLabel?.textColor = UIColor.weLearnBlue
         } else {
             button.backgroundColor = UIColor.weLearnLightGreen
             //button.titleLabel?.textColor = UIColor.weLearnGrey
@@ -391,8 +391,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         colorTab(loginTab)
         
         registerButton.isEnabled = true
-        registerTabLabel.textColor = UIColor.weLearnGreen
-        loginTabLabel.textColor = UIColor.weLearnGreen.withAlphaComponent(0.6)
+        registerTabLabel.textColor = UIColor.weLearnBlue
+        loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
     }
@@ -402,8 +402,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         colorTab(loginTab)
         
         loginButton.isEnabled =  true
-        loginTabLabel.textColor = UIColor.weLearnGreen
-        registerTabLabel.textColor = UIColor.weLearnGreen.withAlphaComponent(0.6)
+        loginTabLabel.textColor = UIColor.weLearnBlue
+        registerTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
     }
@@ -441,7 +441,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     //        label.numberOfLines = 0
     //        label.lineBreakMode = .byWordWrapping
     //        label.textColor = UIColor.white
-    //        label.layer.shadowColor = UIColor.weLearnGreen.cgColor
+    //        label.layer.shadowColor = UIColor.weLearnBlue.cgColor
     //        label.layer.shadowOffset = CGSize(width: -10, height: 10)
     //        label.layer.shadowOpacity = 1
     //        label.layer.shadowRadius = 1
@@ -459,7 +459,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         // button.setTitle("Login".uppercased(), for: .normal)
-        //        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        //        button.setTitleColor(UIColor.weLearnBlue, for: .selected)
         //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(loginTabWasPressed), for: .touchUpInside)
         button.isSelected = true
@@ -476,7 +476,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = false
         //        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         //        button.setTitle("Register".uppercased(), for: .normal)
-        //        button.setTitleColor(UIColor.weLearnGreen, for: .selected)
+        //        button.setTitleColor(UIColor.weLearnBlue, for: .selected)
         //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(registerTabWasPressed), for: .touchUpInside)
         button.isSelected = false
@@ -486,7 +486,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     lazy var loginTabLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20)
-        label.textColor = UIColor.weLearnGreen
+        label.textColor = UIColor.weLearnBlue
         label.text = "LOGIN"
         return label
     }()
@@ -494,7 +494,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     lazy var registerTabLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Black", size: 20)
-        label.textColor = UIColor.weLearnGreen.withAlphaComponent(0.6)
+        label.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         label.text = "REGISTER"
         return label
     }()
@@ -521,13 +521,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var emailStripe: UIView = {
         let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
+        stripe.backgroundColor = UIColor.weLearnBlue
         return stripe
     }()
     
     lazy var emailBar: UIView = {
         let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnGreen
+        bar.backgroundColor = UIColor.weLearnBlue
         return bar
     }()
     
@@ -543,24 +543,24 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var passwordStripe: UIView = {
         let secondStripe = UIView()
-        secondStripe.backgroundColor = UIColor.weLearnGreen
+        secondStripe.backgroundColor = UIColor.weLearnBlue
         return secondStripe
     }()
     
     lazy var passwordBar: UIView = {
         let secondBar = UIView()
-        secondBar.backgroundColor = UIColor.weLearnGreen
+        secondBar.backgroundColor = UIColor.weLearnBlue
         return secondBar
     }()
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.weLearnCoolWhite
-        button.layer.borderColor = UIColor.weLearnGreen.cgColor
+        button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("Login".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -568,11 +568,11 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     lazy var registerButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.weLearnCoolWhite
-        button.layer.borderColor = UIColor.weLearnGreen.cgColor
+        button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("register".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -589,13 +589,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var nameStripe: UIView = {
         let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
+        stripe.backgroundColor = UIColor.weLearnBlue
         return stripe
     }()
     
     lazy var nameBar: UIView = {
         let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnGreen
+        bar.backgroundColor = UIColor.weLearnBlue
         return bar
     }()
     
@@ -611,13 +611,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var classStripe: UIView = {
         let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
+        stripe.backgroundColor = UIColor.weLearnBlue
         return stripe
     }()
     
     lazy var classBar: UIView = {
         let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnGreen
+        bar.backgroundColor = UIColor.weLearnBlue
         return bar
     }()
     
@@ -633,13 +633,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var studentIDStripe: UIView = {
         let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnGreen
+        stripe.backgroundColor = UIColor.weLearnBlue
         return stripe
     }()
     
     lazy var studentIDBar: UIView = {
         let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnGreen
+        bar.backgroundColor = UIColor.weLearnBlue
         return bar
     }()
     

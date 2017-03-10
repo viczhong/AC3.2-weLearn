@@ -90,7 +90,6 @@ class LinkTableViewController: UITableViewController, Tappable {
             cell.urlButton.isHidden = true
             return cell
         }
-        cell.urlButton.setTitle(">", for: .normal)
     
         return cell
     }

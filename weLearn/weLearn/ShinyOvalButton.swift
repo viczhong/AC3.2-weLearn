@@ -18,8 +18,8 @@ class ShinyOvalButton: UIButton {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
         self.apply(gradient: [UIColor.white, UIColor.weLearnGrey.withAlphaComponent(0.25)])
-        self.layer.borderColor = UIColor.weLearnGreen.cgColor
-        self.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        self.layer.borderColor = UIColor.weLearnBlue.cgColor
+        self.setTitleColor(UIColor.weLearnBlue, for: .normal)
         self.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
     }
 }

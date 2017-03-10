@@ -27,13 +27,13 @@ class PaddedTextField: UITextField {
     
 //    lazy var stripe: UIView = {
 //        let stripe = UIView()
-//        stripe.backgroundColor = UIColor.weLearnGreen
+//        stripe.backgroundColor = UIColor.weLearnBlue
 //        return stripe
 //    }()
 //    
 //    lazy var bar: UIView = {
 //        let bar = UIView()
-//        bar.backgroundColor = UIColor.weLearnGreen
+//        bar.backgroundColor = UIColor.weLearnBlue
 //        return bar
 //    }()
 }

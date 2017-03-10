@@ -144,7 +144,7 @@ class AssignmentTableViewCell: UITableViewCell {
     lazy var repoLink: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
         return button
     }()

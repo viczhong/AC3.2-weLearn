@@ -19,7 +19,7 @@ class LinkTableViewCell: UITableViewCell {
         setupHierarchy()
         setupConstraints()
         
-        self.backgroundColor = UIColor.weLearnGreen
+        self.backgroundColor = UIColor.weLearnBlue
 
     }
     
@@ -100,10 +100,12 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var urlButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-        button.setTitleColor(UIColor.weLearnGreen, for: .normal)
+        button.setBackgroundImage(#imageLiteral(resourceName: "arrow"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.clipsToBounds = true
         button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
-        button.layer.borderColor = UIColor.weLearnGreen.cgColor
+        button.backgroundColor = UIColor.white
+        button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
         return button
