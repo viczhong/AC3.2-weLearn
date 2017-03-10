@@ -52,7 +52,6 @@ class LinkTableViewCell: UITableViewCell {
         box.snp.makeConstraints { view in
             view.leading.top.equalTo(contentView).offset(7)
             view.trailing.bottom.equalTo(contentView).inset(7)
-            view.height.equalTo(75)
         }
         
         authorLabel.snp.makeConstraints { (view) in
@@ -61,13 +60,16 @@ class LinkTableViewCell: UITableViewCell {
         
         descriptionLabel.snp.makeConstraints { (lbl) in
             lbl.top.equalTo(authorLabel.snp.bottom).offset(10)
-            lbl.leading.equalTo(contentView).offset(20)
+            lbl.leading.equalTo(contentView).offset(10)
+            lbl.trailing.equalTo(contentView).inset(10)
+            lbl.bottom.equalTo(contentView).inset(20)
         }
         
         urlButton.snp.makeConstraints { (pic) in
             pic.width.height.equalTo(40)
             pic.trailing.equalTo(contentView).inset(10)
-            pic.bottom.equalTo(contentView).inset(10)
+            // pic.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            pic.bottom.equalTo(contentView).inset(20)
         }
     }
     
@@ -108,6 +110,10 @@ class LinkTableViewCell: UITableViewCell {
         button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowRadius = 2
+        
         return button
     }()
 

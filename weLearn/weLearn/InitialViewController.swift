@@ -562,6 +562,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Login".uppercased(), for: .normal)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowRadius = 2
         return button
     }()
     
@@ -574,6 +577,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("register".uppercased(), for: .normal)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowRadius = 2
         return button
     }()
     

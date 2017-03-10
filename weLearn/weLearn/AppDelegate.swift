@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.cloudView = UIImageView()
             
             self.cloudView?.contentMode = .center
-            self.cloudView?.backgroundColor = UIColor.weLearnCoolAccent
+            self.cloudView?.backgroundColor = UIColor.weLearnBlue
             self.cloudView?.image = #imageLiteral(resourceName: "logoForSplash")
             self.cloudView?.alpha = 1
             let plainPic = #imageLiteral(resourceName: "logoForSplash")

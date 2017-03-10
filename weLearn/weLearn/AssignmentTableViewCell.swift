@@ -146,6 +146,9 @@ class AssignmentTableViewCell: UITableViewCell {
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowRadius = 2
         return button
     }()
     

@@ -268,24 +268,31 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("profile".uppercased(), for: .normal)
+        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
         //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
+//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        button.layer.shadowOpacity = 0.25
+//        button.layer.shadowRadius = 2
         return button
     }()
     
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue
+        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
+//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        button.layer.shadowOpacity = 0.25
+//        button.layer.shadowRadius = 2
         return button
     }()
     
