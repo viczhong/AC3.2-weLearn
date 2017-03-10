@@ -54,7 +54,7 @@ class GradeTableViewCell: UITableViewCell {
         
         gradeSquare.snp.makeConstraints { view in
             view.height.width.equalTo(contentView.snp.height)
-            view.trailing.equalTo(contentView)
+            view.trailing.equalTo(contentView).inset(5)
         }
     }
     

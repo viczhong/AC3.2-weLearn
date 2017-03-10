@@ -26,6 +26,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var agenda: [Agenda]?
     var todaysAgenda: Agenda?
     var todaysFakeSchedule: [String] = [
+        "Schedule for Today",
         "DSA",
         "Sprite Kit with Louis",
         "Capstone",
@@ -56,6 +57,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        
+        tableView.contentInset = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
         
         profileButton.addTarget(self, action: #selector(profileButtonWasPressed(button:)), for: .touchUpInside)
         let leftButton = UIBarButtonItem(customView: profileButton)
@@ -137,11 +140,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return "Announcements"
         case 1:
-            //            if todaysAgenda != nil {
-            return "Today's Schedule"
+            return "Announcements"
+//        case 0:
+//            //            if todaysAgenda != nil {
+//            return "Today's Schedule"
             //            }
             //            else {
             //                return nil
@@ -155,10 +158,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
+        case 1:
             //Announcement
             return 1
-        case 1:
+        case 0:
             //Agenda
             return todaysFakeSchedule.count
             //            if todaysAgenda != nil {
@@ -178,8 +181,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Row Code
     
         func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return 20
+            return 10
         }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 1
+        } else {
+            return 30
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -187,7 +198,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         switch indexPath.section {
             
-        case 0:
+        case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
                 firstCell.date.text = self.title
@@ -197,7 +208,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
             return cell
-        case 1:
+        case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: agendaCellID, for: indexPath)
             
             if let secondCell = cell as? AgendaTableViewCell {
@@ -205,7 +216,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 secondCell.backgroundColor = UIColor.weLearnCoolWhite
                 secondCell.label.text = todaysFakeSchedule[indexPath.row]
                 secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
-            }
+            
             //            if let agenda = agenda {
             //                if let secondCell = cell as? AgendaTableViewCell {
             //                    let agendaForCell = agenda[indexPath.row]
@@ -219,6 +230,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
             //                }
             //            }
+            if indexPath.row == 0 {
+                secondCell.label.font = UIFont(name: "Avenir-Black", size: 16)
+                secondCell.bulletView.isHidden = true
+                }
+            }
             
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
@@ -261,9 +277,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 0:
+        case 1: // break
             navigationController?.pushViewController(OldAnnouncementsTableViewController(), animated: true)
-        case 1: //break
+        case 0: //break
             navigationController?.pushViewController(AgendaTableViewController(), animated: true)
         case 2: //break
             let newvc = AssignmentTableViewController()
@@ -278,6 +294,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             break
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.weLearnBlue
+        header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
+        header.textLabel?.textAlignment = .center
+        header.textLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
     
     
     // MARK: - Button Functions
