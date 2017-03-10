@@ -11,7 +11,6 @@ import SafariServices
 
 class AgendaTableViewController: UITableViewController {
     var todaysFakeSchedule: [String] = [
-        "Schedule for Today",
         "DSA",
         "Sprite Kit with Louis",
         "Capstone",

@@ -9,8 +9,9 @@
 import UIKit
 import SnapKit
 import Firebase
+import MobileCoreServices
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     // we shall make cells for the acheievements and grades
     // grades will be a simple cell
@@ -72,6 +73,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(editButton)
         self.view.addSubview(tableView)
         self.view.addSubview(collectionView)
+        self.view.addSubview(uploadImageButton)
         //        self.view.addSubview(achievementBox)
         //        self.view.addSubview(titleForAchievementsBox)
         //        self.view.addSubview(gradesBox)
@@ -95,6 +97,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             view.centerX.equalToSuperview()
             view.leading.equalToSuperview().offset(25)
             view.trailing.equalToSuperview().inset(25)
+        }
+        
+        uploadImageButton.snp.makeConstraints { (view) in
+            view.top.leading.equalTo(profileBox).offset(10)
+            view.width.height.equalTo(100)
+            view.height.equalTo(profilePic.snp.width)
         }
         
         profilePic.snp.makeConstraints { view in
@@ -188,6 +196,30 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    //MARK: - UIImagePicker Delegate Method
+    func uploadImageButtonWasTouched() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profilePic.image = image
+            print("appending \(image)")
+            
+            
+        }
+        dismiss(animated: true) {
+            //
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return achievements?.count ?? 0
     }
@@ -265,6 +297,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             do {
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
+                selector.isHidden = true
                 _ = self.navigationController?.popToRootViewController(animated: true)
               
             }
@@ -290,7 +323,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        pic.image = #imageLiteral(resourceName: "Karen")
+        //pic.image = #imageLiteral(resourceName: "Karen")
+        pic.backgroundColor = UIColor.white
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3
         return pic
@@ -388,12 +422,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var logOutButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
         //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
+        return button
+    }()
+    
+    lazy var uploadImageButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.setTitle("Upload A Pic", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
     }()
     
