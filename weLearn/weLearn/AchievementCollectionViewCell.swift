@@ -49,20 +49,21 @@ class AchievementCollectionViewCell: UICollectionViewCell {
         pic.layer.cornerRadius = 30
         pic.clipsToBounds = true
         pic.contentMode = .scaleAspectFill
-        pic.layer.borderColor = UIColor.weLearnBlack.cgColor
-        pic.layer.borderWidth = 2
+        pic.layer.borderColor = UIColor.white.cgColor
+        pic.layer.borderWidth = 3
         return pic
     }()
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.backgroundColor = UIColor.white
+        lbl.backgroundColor = UIColor.weLearnBlue
+        lbl.textColor = UIColor.white
         lbl.font = UIFont(name: "Avenir-Black", size: 12)
         lbl.textAlignment = .center
         lbl.numberOfLines = 3
         lbl.lineBreakMode = .byWordWrapping
-        lbl.layer.borderColor = UIColor.weLearnBlack.cgColor
-        lbl.layer.borderWidth = 2
+        lbl.layer.borderColor = UIColor.white.cgColor
+        lbl.layer.borderWidth = 3
         return lbl
     }()
     

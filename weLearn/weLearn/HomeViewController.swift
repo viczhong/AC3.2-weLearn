@@ -58,7 +58,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        tableView.contentInset = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
+       // the below code hides the top part of the tableview under the navbar, giving the illusion that there is no first section bar
+       // tableView.contentInset = UIEdgeInsets(top: -1, left: 0, bottom: 0, right: 0)
         
         profileButton.addTarget(self, action: #selector(profileButtonWasPressed(button:)), for: .touchUpInside)
         let leftButton = UIBarButtonItem(customView: profileButton)
@@ -142,9 +143,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch section {
         case 1:
             return "Announcements"
-//        case 0:
+        case 0:
 //            //            if todaysAgenda != nil {
-//            return "Today's Schedule"
+            return "Today's Schedule"
             //            }
             //            else {
             //                return nil
@@ -178,19 +179,29 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 0
     }
     
-    // MARK: Row Code
-    
-        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            return 10
-        }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 1
-        } else {
+//        the commneted out stuff below makes the section header for the top very small, so we can easily hide it under the nav bar
+//        if section == 0 {
+//            return 1
+//        } else {
             return 30
-        }
+//        }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.weLearnBlue
+        header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
+        header.textLabel?.textAlignment = .center
+        header.textLabel?.adjustsFontSizeToFitWidth = true
+    }
+
+    
+    // MARK: Row Code
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -229,11 +240,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             //                    secondCell.label.text = "\(today.lessonName) - \(today.lessonDesc ?? "Just Keep On Keeping On!")"
             //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
             //                }
-            //            }
-            if indexPath.row == 0 {
-                secondCell.label.font = UIFont(name: "Avenir-Black", size: 16)
-                secondCell.bulletView.isHidden = true
-                }
+            // }
+                
+                // the commented out code below makes the bold "section header" seen in the demo
+//            if indexPath.row == 0 {
+//                secondCell.label.font = UIFont(name: "Avenir-Black", size: 16)
+//                secondCell.bulletView.isHidden = true
+//                }
             }
             
         case 2:
@@ -294,16 +307,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             break
         }
     }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.weLearnBlue
-        header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
-        header.textLabel?.textAlignment = .center
-        header.textLabel?.adjustsFontSizeToFitWidth = true
-    }
-    
-    
     
     // MARK: - Button Functions
     

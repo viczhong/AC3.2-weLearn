@@ -92,7 +92,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.numberOfLines = 3
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
-        lbl.font = UIFont(name: "Avenir-LightOblique", size: 24)
+        lbl.font = UIFont(name: "Avenir-Light", size: 24)
         return lbl
     }()
     

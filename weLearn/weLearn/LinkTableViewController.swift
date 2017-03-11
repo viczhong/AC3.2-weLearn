@@ -85,10 +85,10 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         cell.selectionStyle = .blue
         
-        cell.authorLabel.text = "Link shared by \(links[indexPath.row].author):"
+        cell.authorLabel.text = "\(links[indexPath.row].author):"
         cell.descriptionLabel.text = links[indexPath.row].description
         // cell.author.text = announcements![indexPath.row].author
-        guard links[indexPath.row].url != nil else {
+        if links[indexPath.row].url == "" {
             cell.urlButton.isHidden = true
             return cell
         }
