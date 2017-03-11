@@ -58,7 +58,7 @@ class LinkTableViewCell: UITableViewCell {
         }
         
         descriptionLabel.snp.makeConstraints { (lbl) in
-            lbl.top.equalTo(authorLabel.snp.bottom).offset(10)
+            lbl.top.equalTo(authorLabel.snp.bottom)
             lbl.leading.equalTo(box).offset(10)
             lbl.trailing.equalTo(box).inset(10)
             lbl.bottom.equalTo(contentView).inset(20)
@@ -80,17 +80,17 @@ class LinkTableViewCell: UITableViewCell {
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor.weLearnBlue
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
+        lbl.font = UIFont(name: "Avenir-Black", size: 24)
         lbl.textAlignment = .center
-        lbl.numberOfLines = 2
+        lbl.numberOfLines = 5
         lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     
     lazy var authorLabel: UILabel = {
         let lbl = UILabel()
-        //lbl.textColor = UIColor.weLearnGrey
-        lbl.font = UIFont(name: "Avenir-Black", size: 16)
+        lbl.textColor = UIColor.darkGray
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
         return lbl
     }()
 
