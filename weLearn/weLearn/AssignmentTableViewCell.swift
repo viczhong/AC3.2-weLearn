@@ -48,15 +48,15 @@ class AssignmentTableViewCell: UITableViewCell {
         self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(gradeLabel)
        // self.contentView.addSubview(gradeSquare)
-        self.contentView.addSubview(repoLink)
+       // self.contentView.addSubview(repoLink)
     }
     
     func setupConstraints() {
         box.snp.makeConstraints { (view) in
-            view.leading.equalTo(contentView).offset(7)
-            view.top.equalTo(contentView).offset(7)
-            view.trailing.equalTo(contentView).inset(7)
-            view.bottom.equalTo(contentView).inset(7)
+            view.leading.equalTo(contentView).offset(14)
+            view.top.equalTo(contentView).offset(14)
+            view.trailing.equalTo(contentView).inset(14)
+            view.bottom.equalTo(contentView).inset(14)
         }
         
         assignmentNameLabel.snp.makeConstraints { label in
@@ -70,7 +70,7 @@ class AssignmentTableViewCell: UITableViewCell {
 //        }
         
         gradeLabel.snp.makeConstraints { label in
-            label.top.equalTo(topHorizontalRule.snp.bottom).offset(7)
+            label.top.equalTo(topHorizontalRule.snp.bottom)
             label.centerX.equalTo(box)
         }
         
@@ -80,13 +80,13 @@ class AssignmentTableViewCell: UITableViewCell {
 //            view.trailing.equalTo(box).inset(10)
 //        }
         
-        repoLink.snp.makeConstraints { view in
-            view.top.equalTo(gradeLabel.snp.bottom).offset(20)
-            view.width.equalTo(box).dividedBy(2)
-            view.height.equalTo(44)
-            view.centerX.equalTo(box)
-            view.bottom.equalTo(box).inset(10)
-        }
+//        repoLink.snp.makeConstraints { view in
+//            view.top.equalTo(gradeLabel.snp.bottom).offset(20)
+//            view.width.equalTo(box).dividedBy(2)
+//            view.height.equalTo(44)
+//            view.centerX.equalTo(box)
+//            view.bottom.equalTo(box).inset(10)
+//        }
         
         topHorizontalRule.snp.makeConstraints { view in
             view.height.equalTo(1)
@@ -100,18 +100,20 @@ class AssignmentTableViewCell: UITableViewCell {
             view.width.equalTo(box)
             view.centerY.equalTo(gradeLabel.snp.bottom).inset(7)
             view.centerX.equalTo(box)
+            view.bottom.equalTo(box).inset(10)
         }
         
     }
     
-    lazy var box: UIView = {
-        let view = UIView()
+    lazy var box: UIButton = {
+        let view = UIButton()
         view.backgroundColor = UIColor.weLearnCoolWhite
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: -2, height: 3)
         view.layer.shadowOpacity = 0.75
         view.layer.shadowRadius = 3
         view.layer.masksToBounds = false
+        view.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -140,25 +142,25 @@ class AssignmentTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.textColor = UIColor.weLearnBlue
         label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-        label.layer.shadowOffset = CGSize(width: -2, height: 3)
-        label.layer.shadowOpacity = 1
-        label.layer.shadowRadius = 1
-        label.layer.masksToBounds = false
+//        label.layer.shadowOffset = CGSize(width: -2, height: 3)
+//        label.layer.shadowOpacity = 1
+//        label.layer.shadowRadius = 1
+//        label.layer.masksToBounds = false
         label.font = UIFont(name: "Avenir-Black", size: 72)
         return label
     }()
     
-    lazy var repoLink: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor.weLearnBlue
-        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        button.layer.shadowOpacity = 0.25
-        button.layer.shadowRadius = 2
-        return button
-    }()
+//    lazy var repoLink: UIButton = {
+//        let button = UIButton()
+//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
+//        button.setTitleColor(UIColor.white, for: .normal)
+//        button.backgroundColor = UIColor.weLearnBlue
+//        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
+//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        button.layer.shadowOpacity = 0.25
+//        button.layer.shadowRadius = 2
+//        return button
+//    }()
     
     lazy var topHorizontalRule: UIView = {
         let view = UIView()

@@ -80,7 +80,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 assignmentCell.gradeLabel.text = assignments[indexPath.row].score
                 assignmentCell.topHorizontalRule.isHidden = true
                 assignmentCell.bottomHorizontalRule.isHidden = true
-                assignmentCell.repoLink.isHidden = true
+                //assignmentCell.repoLink.isHidden = true
                 return cell
             }
             
@@ -89,10 +89,10 @@ class AssignmentTableViewController: UITableViewController, Tappable {
             assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
           //  assignmentCell.dateLabel.text = assignments[indexPath.row].date
             guard assignments[indexPath.row].url != nil else {
-                assignmentCell.repoLink.isHidden = true
+                //assignmentCell.repoLink.isHidden = true
                 return cell
             }
-            assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
+            //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
         }
         
         return cell
