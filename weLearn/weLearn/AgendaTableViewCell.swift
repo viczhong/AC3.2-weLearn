@@ -20,7 +20,7 @@ class AgendaTableViewCell: UITableViewCell {
         let plainBullet = #imageLiteral(resourceName: "bullet")
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.weLearnCoolWhite
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnBlue
     }
