@@ -40,6 +40,14 @@ class AgendaTableViewController: UITableViewController {
         return 3
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.weLearnBlue
+        header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
+        header.textLabel?.textAlignment = .center
+        header.textLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
