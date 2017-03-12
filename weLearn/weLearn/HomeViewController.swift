@@ -179,9 +179,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 0
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 10
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        the commneted out stuff below makes the section header for the top very small, so we can easily hide it under the nav bar
