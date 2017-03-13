@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.height.equalToSuperview()
             }
             
-            UIView.animate(withDuration: 4.0) {
+            UIView.animate(withDuration: 3.0) {
                 self.cloudView?.alpha = 0
                 self.cloudView?.transform = CGAffineTransform(scaleX: 5, y: 5)
                 // self.gradientView?.alpha = 0
