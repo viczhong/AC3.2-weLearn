@@ -46,14 +46,9 @@ class LinkCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    lazy var box: UIView = {
-        let view = UIView()
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-        return view
+    lazy var box: Box = {
+        let button = Box()
+        return button
     }()
     
     lazy var previewPic: UIImageView = {

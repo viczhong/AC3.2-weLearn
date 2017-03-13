@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tintedPic = plainPic.withRenderingMode(.alwaysTemplate)
             
             self.cloudView?.image = tintedPic
-            self.cloudView?.tintColor = UIColor.white
+            self.cloudView?.tintColor = UIColor.weLearnCoolWhite
             
             self.window?.addSubview(self.cloudView!)
             
@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UIView.animate(withDuration: 4.0) {
                 self.cloudView?.alpha = 0
+                self.cloudView?.transform = CGAffineTransform(scaleX: 5, y: 5)
                 // self.gradientView?.alpha = 0
             }
         }

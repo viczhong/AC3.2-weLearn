@@ -55,15 +55,9 @@ class DueDatesTableViewCell: UITableViewCell {
         }
     }
 
-    lazy var box: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.weLearnCoolWhite
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.75
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-        return view
+    lazy var box: Box = {
+        let button = Box()
+        return button
     }()
     
     lazy var timerLabel: UILabel = {
@@ -73,10 +67,10 @@ class DueDatesTableViewCell: UITableViewCell {
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
-        lbl.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-        lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
-        lbl.layer.shadowOpacity = 1
-        lbl.layer.shadowRadius = 1
+//        lbl.layer.shadowColor = UIColor.black.withAlphaComponent(0.75).cgColor
+//        lbl.layer.shadowOffset = CGSize(width: -2, height: 3)
+//        lbl.layer.shadowOpacity = 1
+//        lbl.layer.shadowRadius = 1
         lbl.layer.masksToBounds = false
         return lbl
     }()
