@@ -361,35 +361,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     //        return label
     //    }()
     
-    lazy var loginTab: UIButton = {
-        let button = UIButton()
+    lazy var loginTab: Box = {
+        let button = Box()
         button.backgroundColor = UIColor.white
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: -2, height: 3)
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowRadius = 3
-        button.layer.masksToBounds = false
-        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-        // button.setTitle("Login".uppercased(), for: .normal)
-        //        button.setTitleColor(UIColor.weLearnBlue, for: .selected)
-        //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(loginTabWasPressed), for: .touchUpInside)
         button.isSelected = true
         return button
     }()
     
-    lazy var registerTab: UIButton = {
-        let button = UIButton()
+    lazy var registerTab: Box = {
+        let button = Box()
         button.backgroundColor = UIColor.white
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: -2, height: 3)
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowRadius = 3
-        button.layer.masksToBounds = false
-        //        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-        //        button.setTitle("Register".uppercased(), for: .normal)
-        //        button.setTitleColor(UIColor.weLearnBlue, for: .selected)
-        //        button.setTitleColor(UIColor.weLearnGrey, for: .normal)
         button.addTarget(self, action: #selector(registerTabWasPressed), for: .touchUpInside)
         button.isSelected = false
         return button
@@ -411,15 +393,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    lazy var box: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-        return view
+    lazy var box: Box = {
+        let button = Box()
+        button.backgroundColor = UIColor.white
+        return button
     }()
     
     lazy var emailTextField: PaddedTextField = {

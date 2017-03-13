@@ -65,16 +65,10 @@ class LinkTableViewCell: UITableViewCell {
         }
     }
     
-    lazy var box: UIButton = {
-        let view = UIButton()
-        view.backgroundColor = UIColor.weLearnCoolWhite
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.75
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-        view.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
-        return view
+    lazy var box: Box = {
+        let button = Box()
+        button.addTarget(self, action: #selector(didClickUrlButton(_:)), for: .touchUpInside)
+        return button
     }()
     
     lazy var descriptionLabel: UILabel = {

@@ -30,6 +30,7 @@
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
+		D302A77D1E76397A00484909 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = D302A77C1E76397A00484909 /* Box.swift */; };
 		D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */; };
 		D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */; };
 		D337DA311E64CB0200DEE7B5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */; };
@@ -113,6 +114,7 @@
 		9EECFE901E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EECFE921E64C83D00503F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8618649D51838DE28792458 /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D302A77C1E76397A00484909 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NavBar.swift"; sourceTree = "<group>"; };
 		D337DA301E64CB0200DEE7B5 /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				D337DA321E64CB4A00DEE7B5 /* StyleMananger.swift */,
+				D302A77C1E76397A00484909 /* Box.swift */,
 				D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */,
 				D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */,
 				D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */,
@@ -492,6 +495,7 @@
 				D388A37D1E70AA2400A44EF0 /* AssignmentTableViewController.swift in Sources */,
 				D337DA3D1E64DABB00DEE7B5 /* PaddedTextField.swift in Sources */,
 				D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */,
+				D302A77D1E76397A00484909 /* Box.swift in Sources */,
 				D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */,
 				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,

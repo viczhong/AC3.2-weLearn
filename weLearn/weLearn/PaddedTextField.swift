@@ -58,15 +58,4 @@ class PaddedTextField: UITextField {
         return UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-//    lazy var stripe: UIView = {
-//        let stripe = UIView()
-//        stripe.backgroundColor = UIColor.weLearnBlue
-//        return stripe
-//    }()
-//    
-//    lazy var bar: UIView = {
-//        let bar = UIView()
-//        bar.backgroundColor = UIColor.weLearnBlue
-//        return bar
-//    }()
 }
