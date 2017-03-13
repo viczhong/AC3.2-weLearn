@@ -212,6 +212,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: announcementCellID, for: indexPath)
             if let firstCell = cell as? AnnouncementTableViewCell {
+                // the below code is so that the button (the box) does not override touch detection to the cell
+                firstCell.contentView.isUserInteractionEnabled = false
+                
                 firstCell.date.text = self.title
                 firstCell.quote.text = "You all got A's! Wow!"
                 firstCell.author.text = "- Ben"
@@ -251,6 +254,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: dueDatesCellID, for: indexPath)
             if let thirdCell = cell as? DueDatesTableViewCell {
+                // the below code is so that the button (the box) does not override touch detection to the cell
+                thirdCell.contentView.isUserInteractionEnabled = false
+                
                 thirdCell.timerLabel.text = "7 days"
                 thirdCell.assignmentLabel.text = "until midterm..."
                 // MARK: - Dummy timer runs down here!

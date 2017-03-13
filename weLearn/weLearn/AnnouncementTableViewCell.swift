@@ -67,15 +67,9 @@ class AnnouncementTableViewCell: UITableViewCell {
         }
     }
     
-    lazy var box: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.weLearnCoolWhite
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.75
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
-        return view
+    lazy var box: Box = {
+        let button = Box()
+        return button
     }()
     
     lazy var date: UILabel = {
