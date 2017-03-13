@@ -24,7 +24,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
-     
+        
         self.passwordTextField.delegate = self
         
         viewHiearchy()
@@ -44,14 +44,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if textField == passwordTextField {
-        self.view.endEditing(true)
-        self.loginButtonWasPressed()
-    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == passwordTextField {
+            self.view.endEditing(true)
+            self.loginButtonWasPressed()
+        }
         return true
     }
-
+    
     
     
     func checkLogin() {
@@ -219,7 +219,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
         
-        
         let referenceLink = databaseReference.child("users").child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
@@ -229,9 +228,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             "studentID" : credentials.studentID
         ]
         
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(dict, forKey: "studentInfo")
-        
+        //        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+        //        userDefaults?.setValue(dict, forKey: "studentInfo")
+        //
         referenceLink.setValue(dict)
     }
     
@@ -259,11 +258,15 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.navigationController?.navigationBar.isHidden = false
             }
             
+            let userID = FIRAuth.auth()?.currentUser?.uid
+            let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+            userDefaults?.setValue(userID, forKey: "studentInfo")
+            
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
         })
-    
+        
     }
     
     func registerButtonWasPressed() {
@@ -285,9 +288,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.fillInSingleton((user?.uid)!)
                     
                     self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+
+                    let userID = user?.uid
+                    let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+                    userDefaults?.setValue(userID, forKey: "studentInfo")
                 }
-                
             }
+            
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
                 self.registerButton.isEnabled = true
@@ -467,7 +474,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         fourthTextfield.autocapitalizationType = .none
         return fourthTextfield
     }()
-
+    
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
         fifthTextfield.placeholder = "Student ID"
