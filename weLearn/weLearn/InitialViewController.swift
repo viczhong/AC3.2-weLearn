@@ -24,7 +24,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
-     
+        
         self.passwordTextField.delegate = self
         
         viewHiearchy()
@@ -44,14 +44,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if textField == passwordTextField {
-        self.view.endEditing(true)
-        self.loginButtonWasPressed()
-    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == passwordTextField {
+            self.view.endEditing(true)
+            self.loginButtonWasPressed()
+        }
         return true
     }
-
+    
     
     
     func checkLogin() {
@@ -60,12 +60,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func colorTab(_ button: UIButton) {
-        button.isSelected = !button.isSelected
-        if button.isSelected {
-            button.backgroundColor = UIColor.white
+    func colorTab(button1: UIButton, button2: UIButton) {
+        if button1.isSelected {
+            button1.backgroundColor = UIColor.white
+            button2.backgroundColor = UIColor.weLearnLightGreen
         } else {
-            button.backgroundColor = UIColor.weLearnLightGreen
+            button1.backgroundColor = UIColor.weLearnLightGreen
+            button2.backgroundColor = UIColor.white
         }
     }
     
@@ -263,7 +264,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
         })
-    
+        
     }
     
     func registerButtonWasPressed() {
@@ -299,19 +300,22 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        registerTab.isSelected = true
+        loginTab.isSelected = false
+        colorTab(button1: registerTab, button2: loginTab)
         
         registerButton.isEnabled = true
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
-        
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
+        
+        
     }
     
     func loginTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        loginTab.isSelected = true
+        registerTab.isSelected = false
+        colorTab(button1: loginTab, button2: registerTab)
         
         loginButton.isEnabled =  true
         loginTabLabel.textColor = UIColor.weLearnBlue
@@ -467,7 +471,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         fourthTextfield.autocapitalizationType = .none
         return fourthTextfield
     }()
-
+    
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
         fifthTextfield.placeholder = "Student ID"
