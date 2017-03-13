@@ -19,6 +19,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     var toggleIsHiddenWhenTabIsChanged = [UIView]()
     
+    // Timer stuff for buttons
+    
+    var time = 0.0
+    var timer: Timer!
+    var selection: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -270,10 +276,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func registerButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
         FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
-            if user != nil {
+            if error == nil {
                 self.signedInUser = user
                 self.setUpDatabaseReference()
                 self.registerButton.isEnabled = false
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkTime), userInfo: nil, repeats: true)
+                self.timer.fire()
+                
                 UIView.animate(withDuration: 1) {
                     var scaleAndFloat = CGAffineTransform.identity
                     scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
@@ -282,12 +292,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.registerButton.alpha = 0
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
-                    
-                    self.fillInSingleton((user?.uid)!)
-                    
-                    self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
                 }
-                
+                self.fillInSingleton((user?.uid)!)
+//                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
             }
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
@@ -297,6 +304,15 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.loginButton.isEnabled = false
             }
         })
+    }
+    
+    func checkTime () {
+        if self.time >= 1.0  {
+            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            timer.invalidate()
+        }
+        
+        self.time += 0.1
     }
     
     func registerTabWasPressed() {
