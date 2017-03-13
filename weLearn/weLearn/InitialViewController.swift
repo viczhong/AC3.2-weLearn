@@ -23,7 +23,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white, UIColor.weLearnBlue])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
      
         self.passwordTextField.delegate = self
         
@@ -35,14 +35,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         toggleIsHiddenWhenTabIsChanged = [
             registerButton,
             nameTextField,
-            nameStripe,
-            nameBar,
             classTextField,
-            classStripe,
-            classBar,
-            studentIDTextField,
-            studentIDStripe,
-            studentIDBar
+            studentIDTextField
         ]
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
@@ -70,10 +64,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.isSelected = !button.isSelected
         if button.isSelected {
             button.backgroundColor = UIColor.white
-            //button.titleLabel?.textColor = UIColor.weLearnBlue
         } else {
             button.backgroundColor = UIColor.weLearnLightGreen
-            //button.titleLabel?.textColor = UIColor.weLearnGrey
         }
     }
     
@@ -87,20 +79,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(loginTabLabel)
         self.view.addSubview(box)
         self.view.addSubview(nameTextField)
-        self.view.addSubview(nameStripe)
-        self.view.addSubview(nameBar)
         self.view.addSubview(classTextField)
-        self.view.addSubview(classStripe)
-        self.view.addSubview(classBar)
         self.view.addSubview(studentIDTextField)
-        self.view.addSubview(studentIDStripe)
-        self.view.addSubview(studentIDBar)
         self.view.addSubview(emailTextField)
-        self.view.addSubview(emailStripe)
-        self.view.addSubview(emailBar)
         self.view.addSubview(passwordTextField)
-        self.view.addSubview(passwordStripe)
-        self.view.addSubview(passwordBar)
         self.view.addSubview(loginButton)
         self.view.addSubview(registerButton)
     }
@@ -164,40 +146,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             view.trailing.equalTo(box).inset(15)
         }
         
-        emailStripe.snp.makeConstraints { view in
-            view.width.equalTo(emailTextField)
-            view.trailing.equalTo(emailTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(emailTextField.snp.bottom)
-        }
-        
-        emailBar.snp.makeConstraints { view in
-            view.top.equalTo(emailTextField)
-            view.bottom.equalTo(emailTextField)
-            view.width.equalTo(2)
-            view.leading.equalTo(emailTextField)
-        }
-        
         passwordTextField.snp.makeConstraints { view in
             view.top.equalTo(emailTextField.snp.bottom).offset(10)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
             view.leading.equalTo(box).offset(15)
             view.trailing.equalTo(box).inset(15)
-        }
-        
-        passwordStripe.snp.makeConstraints { view in
-            view.leading.equalTo(passwordTextField)
-            view.trailing.equalTo(passwordTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(passwordTextField.snp.bottom)
-        }
-        
-        passwordBar.snp.makeConstraints { view in
-            view.top.equalTo(passwordTextField)
-            view.bottom.equalTo(passwordTextField)
-            view.width.equalTo(2)
-            view.leading.equalTo(passwordTextField)
         }
         
         loginButton.snp.makeConstraints { button in
@@ -218,20 +172,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             view.trailing.equalTo(box).inset(15)
         }
         
-        nameStripe.snp.makeConstraints { view in
-            view.width.equalTo(nameTextField)
-            view.trailing.equalTo(nameTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(nameTextField.snp.bottom)
-        }
-        
-        nameBar.snp.makeConstraints { view in
-            view.top.equalTo(nameTextField)
-            view.bottom.equalTo(nameTextField)
-            view.width.equalTo(2)
-            view.leading.equalTo(nameTextField)
-        }
-        
         studentIDTextField.snp.makeConstraints { view in
             view.top.equalTo(nameTextField.snp.bottom).offset(10)
             view.centerX.equalToSuperview()
@@ -240,40 +180,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             view.trailing.equalTo(box).inset(15)
         }
         
-        studentIDStripe.snp.makeConstraints { view in
-            view.width.equalTo(studentIDTextField)
-            view.trailing.equalTo(studentIDTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(studentIDTextField.snp.bottom)
-        }
-        
-        studentIDBar.snp.makeConstraints { view in
-            view.top.equalTo(studentIDTextField)
-            view.bottom.equalTo(studentIDTextField)
-            view.width.equalTo(2)
-            view.leading.equalTo(studentIDTextField)
-        }
-        
         classTextField.snp.makeConstraints { view in
             view.top.equalTo(studentIDTextField.snp.bottom).offset(10)
             view.centerX.equalToSuperview()
             view.height.equalTo(40)
             view.leading.equalTo(box).offset(15)
             view.trailing.equalTo(box).inset(15)
-        }
-        
-        classStripe.snp.makeConstraints { view in
-            view.width.equalTo(classTextField)
-            view.trailing.equalTo(classTextField)
-            view.height.equalTo(2)
-            view.top.equalTo(classTextField.snp.bottom)
-        }
-        
-        classBar.snp.makeConstraints { view in
-            view.top.equalTo(classTextField)
-            view.bottom.equalTo(classTextField)
-            view.width.equalTo(2)
-            view.leading.equalTo(classTextField)
         }
         
         registerButton.snp.makeConstraints { button in
@@ -519,18 +431,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    lazy var emailStripe: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnBlue
-        return stripe
-    }()
-    
-    lazy var emailBar: UIView = {
-        let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnBlue
-        return bar
-    }()
-    
     lazy var passwordTextField: PaddedTextField = {
         let secondTextField = PaddedTextField()
         secondTextField.placeholder = "Password"
@@ -539,18 +439,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         secondTextField.autocorrectionType = .no
         secondTextField.autocapitalizationType = .none
         return secondTextField
-    }()
-    
-    lazy var passwordStripe: UIView = {
-        let secondStripe = UIView()
-        secondStripe.backgroundColor = UIColor.weLearnBlue
-        return secondStripe
-    }()
-    
-    lazy var passwordBar: UIView = {
-        let secondBar = UIView()
-        secondBar.backgroundColor = UIColor.weLearnBlue
-        return secondBar
     }()
     
     lazy var loginButton: UIButton = {
@@ -593,18 +481,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return thirdTextfield
     }()
     
-    lazy var nameStripe: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnBlue
-        return stripe
-    }()
-    
-    lazy var nameBar: UIView = {
-        let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnBlue
-        return bar
-    }()
-    
     lazy var classTextField: PaddedTextField = {
         let fourthTextfield = PaddedTextField()
         fourthTextfield.placeholder = "Class"
@@ -614,19 +490,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         fourthTextfield.autocapitalizationType = .none
         return fourthTextfield
     }()
-    
-    lazy var classStripe: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnBlue
-        return stripe
-    }()
-    
-    lazy var classBar: UIView = {
-        let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnBlue
-        return bar
-    }()
-    
+
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
         fifthTextfield.placeholder = "Student ID"
@@ -635,18 +499,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         fifthTextfield.autocorrectionType = .no
         fifthTextfield.autocapitalizationType = .none
         return fifthTextfield
-    }()
-    
-    lazy var studentIDStripe: UIView = {
-        let stripe = UIView()
-        stripe.backgroundColor = UIColor.weLearnBlue
-        return stripe
-    }()
-    
-    lazy var studentIDBar: UIView = {
-        let bar = UIView()
-        bar.backgroundColor = UIColor.weLearnBlue
-        return bar
     }()
     
 }
