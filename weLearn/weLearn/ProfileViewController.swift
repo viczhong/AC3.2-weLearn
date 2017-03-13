@@ -198,6 +198,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - UIImagePicker Delegate Method
     func uploadImageButtonWasTouched() {
+        uploadImageButton.alpha = 0
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]

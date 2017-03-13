@@ -19,6 +19,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     var toggleIsHiddenWhenTabIsChanged = [UIView]()
     
+    // Timer stuff for buttons
+    
+    var time = 0.0
+    var timer: Timer!
+    var selection: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,12 +66,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func colorTab(_ button: UIButton) {
-        button.isSelected = !button.isSelected
-        if button.isSelected {
-            button.backgroundColor = UIColor.white
+    func colorTab(button1: UIButton, button2: UIButton) {
+        if button1.isSelected {
+            button1.backgroundColor = UIColor.white
+            button2.backgroundColor = UIColor.weLearnLightGreen
         } else {
-            button.backgroundColor = UIColor.weLearnLightGreen
+            button1.backgroundColor = UIColor.weLearnLightGreen
+            button2.backgroundColor = UIColor.white
         }
     }
     
@@ -272,10 +279,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func registerButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
         FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
-            if user != nil {
+            if error == nil {
                 self.signedInUser = user
                 self.setUpDatabaseReference()
                 self.registerButton.isEnabled = false
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkTime), userInfo: nil, repeats: true)
+                self.timer.fire()
+                
                 UIView.animate(withDuration: 1) {
                     var scaleAndFloat = CGAffineTransform.identity
                     scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
@@ -285,14 +296,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
                     
-                    self.fillInSingleton((user?.uid)!)
-                    
-                    self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
-
-                    let userID = user?.uid
-                    let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-                    userDefaults?.setValue(userID, forKey: "studentInfo")
                 }
+                self.fillInSingleton((user?.uid)!)
+                
+                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+                
+                let userID = user?.uid
+                let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+                userDefaults?.setValue(userID, forKey: "studentInfo")
             }
             
             if let error = error {
@@ -305,20 +316,32 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
+    func checkTime () {
+        if self.time >= 1.0  {
+            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            timer.invalidate()
+        }
+        
+        self.time += 0.1
+    }
+    
     func registerTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        registerTab.isSelected = true
+        loginTab.isSelected = false
+        colorTab(button1: registerTab, button2: loginTab)
         
         registerButton.isEnabled = true
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
-        
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
+        
+        
     }
     
     func loginTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        loginTab.isSelected = true
+        registerTab.isSelected = false
+        colorTab(button1: loginTab, button2: registerTab)
         
         loginButton.isEnabled =  true
         loginTabLabel.textColor = UIColor.weLearnBlue
