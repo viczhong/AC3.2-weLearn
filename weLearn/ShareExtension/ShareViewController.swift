@@ -57,27 +57,89 @@ class ShareViewController: SLComposeServiceViewController {
         
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
         
-        
-        if let linkDescription = self.textView.text,
-            let url = self.urlString {
+        guard let userUID = getUserIDFromUserDefaults() else { return }
+        getStudentClassFromDatabase(studentID: userUID) { (studentDict) -> (Void) in
+            guard let studentClass = studentDict["class"] as? String,
+                let studentName = studentDict["studentName"] as? String else { return }
             
-            let dict = [ "url" : url,
-                         "urlDescription" : linkDescription
-            ]
-            
-            let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-            
-            if var urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
-                urlDefaults.append(dict)
-                userDefaults?.setValue(urlDefaults, forKey: "urlDefaults")
-                userDefaults?.synchronize()
-            } else {
-                userDefaults?.setValue([dict], forKey: "urlDefaults")
-                userDefaults?.synchronize()
+            if let linkDescription = self.textView.text,
+                let url = self.urlString {
+                let time = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
+                let uniqueID = userUID + time
+                
+            let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/\(uniqueID).json"
+            guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                let validURL = URL(string: validURLString) else { return }
+            var request = URLRequest(url: validURL)
+            let session = URLSession(configuration: .default)
+            request.httpMethod = "PUT"
+                
+                let dict = [ "url" : url,
+                             "urlDescription" : linkDescription,
+                             "studentClass" : studentClass,
+                             "studentName" : studentName
+                ]
+                
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: dict, options: [])
+                    request.httpBody = json
+                }
+                catch {
+                    print("error turning dict to json")
+                }
+                
+                session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+                    if let data = data {
+                        print(data)
+                    }
+                    if let response = response {
+                        print(response)
+                    }
+                    if let error = error {
+                        print(error)
+                    }
+                }).resume()
+                
             }
+            
         }
-        
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+    }
+    
+    func getUserIDFromUserDefaults() -> String? {
+        guard let userDefaults = UserDefaults(suiteName: "group.com.welearn.app"),
+            let userUID = userDefaults.object(forKey: "studentInfo") as? String else { return nil }
+        return userUID
+    }
+    
+    func getStudentClassFromDatabase(studentID: String, _ completionHandler: @escaping ([String : Any])->(Void)) {
+        let urlString = "https://welearn-a2b14.firebaseio.com/users/\(studentID).json"
+        guard let validURL = URL(string: urlString) else { return }
+        var request = URLRequest(url: validURL)
+        request.httpMethod = "GET"
+        
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+
+        if let data = data {
+                print(data)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    if let dict = json as? [String : Any] {
+                        completionHandler(dict)
+                    }
+                }
+                catch {
+                    print("error")
+                }
+            }
+            if let response = response {
+                print(response)
+            }
+            if let error = error {
+                print(error)
+            }
+            }.resume()
     }
     
     override func configurationItems() -> [Any]! {
