@@ -55,6 +55,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             self.view.endEditing(true)
             self.loginButtonWasPressed()
         }
+        
         return true
     }
     
@@ -295,11 +296,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.registerButton.alpha = 0
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
-                    
                 }
-                self.fillInSingleton((user?.uid)!)
                 
-                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+                self.fillInSingleton((user?.uid)!)
                 
                 let userID = user?.uid
                 let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
@@ -334,8 +333,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
-        
-        
     }
     
     func loginTabWasPressed() {

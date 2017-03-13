@@ -196,7 +196,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    //MARK: - UIImagePicker Delegate Method
+    // MARK: - UIImagePicker Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
