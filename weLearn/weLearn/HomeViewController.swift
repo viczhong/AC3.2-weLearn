@@ -51,6 +51,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
         
+        navigationController?.navigationBar.isHidden = false
         title = dateInTitle.string(from: currentDate)
         navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         

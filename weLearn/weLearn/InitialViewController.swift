@@ -45,9 +45,22 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             studentIDTextField
         ]
         
-        toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
         databaseReference = FIRDatabase.database().reference()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
+        loginTabWasPressed()
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -63,7 +76,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            self.navigationController?.pushViewController(HomeViewController(), animated: true)
         }
     }
     
@@ -288,7 +301,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkTime), userInfo: nil, repeats: true)
                 self.timer.fire()
                 
-                UIView.animate(withDuration: 1) {
+                UIView.animate(withDuration: 0.5) {
                     var scaleAndFloat = CGAffineTransform.identity
                     scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
                     scaleAndFloat = scaleAndFloat.translatedBy(x: 0, y: -20)
@@ -316,8 +329,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkTime () {
-        if self.time >= 1.0  {
-            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+        if self.time >= 0.5  {
+            self.navigationController?.pushViewController(HomeViewController(), animated: true)
             timer.invalidate()
         }
         
