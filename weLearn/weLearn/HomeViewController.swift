@@ -24,7 +24,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let currentDate = Date()
     let calendar = Calendar.current
     var agenda: [Agenda]?
+    var assignments: [Assignment]?
     var todaysAgenda: Agenda?
+    var nextDue: Assignment?
     var todaysFakeSchedule: [String] = [
         "Schedule for Today",
         "DSA",
@@ -37,6 +39,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // This will be variable based on the Student's Class, pending Firebase setup
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
+    let assignmentSheetID = "1X0u5jM7-L4RSqdGC0AWa1XsyvSusV2wLDTtmwgBERJA"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         viewHiearchy()
         configureConstraints()
         // readAgenda()
+        readAssignments()
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
@@ -102,6 +106,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.todaysAgenda = self.todaysSchedule()
                         self.tableView.reloadData()
                     }
+                }
+            }
+        }
+    }
+    
+    func readAssignments() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(assignmentSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                if let returnedAssignments = Assignment.getAssignment(from: data!) {
+                    print("We've got returns: \(returnedAssignments.count)")
+                    self.assignments = returnedAssignments
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadData()
+//                    }
                 }
             }
         }

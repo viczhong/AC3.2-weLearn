@@ -25,7 +25,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
+//        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -72,7 +72,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
             if assignmentCell.delegate == nil {
                 assignmentCell.delegate = self
             }
-            
+            /*
             guard (assignments[indexPath.row].score?.characters.count)! < 3 else {
                 assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) due in"
                 assignmentCell.gradeLabel.font = UIFont(name: "Avenir-Black", size: 20)
@@ -93,6 +93,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 return cell
             }
             //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
+            */
         }
         
         return cell
