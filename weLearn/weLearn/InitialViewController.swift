@@ -60,12 +60,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func colorTab(_ button: UIButton) {
-        button.isSelected = !button.isSelected
-        if button.isSelected {
-            button.backgroundColor = UIColor.white
+    func colorTab(button1: UIButton, button2: UIButton) {
+        if button1.isSelected {
+            button1.backgroundColor = UIColor.white
+            button2.backgroundColor = UIColor.weLearnLightGreen
         } else {
-            button.backgroundColor = UIColor.weLearnLightGreen
+            button1.backgroundColor = UIColor.weLearnLightGreen
+            button2.backgroundColor = UIColor.white
         }
     }
     
@@ -306,19 +307,22 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        registerTab.isSelected = true
+        loginTab.isSelected = false
+        colorTab(button1: registerTab, button2: loginTab)
         
         registerButton.isEnabled = true
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
-        
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
+        
+        
     }
     
     func loginTabWasPressed() {
-        colorTab(registerTab)
-        colorTab(loginTab)
+        loginTab.isSelected = true
+        registerTab.isSelected = false
+        colorTab(button1: loginTab, button2: registerTab)
         
         loginButton.isEnabled =  true
         loginTabLabel.textColor = UIColor.weLearnBlue
