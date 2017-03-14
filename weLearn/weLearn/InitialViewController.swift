@@ -19,6 +19,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     var toggleIsHiddenWhenTabIsChanged = [UIView]()
     
+    // Timer stuff for buttons
+    
+    var time = 0.0
+    var timer: Timer!
+    var selection: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +55,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             self.view.endEditing(true)
             self.loginButtonWasPressed()
         }
+        
         return true
     }
     
@@ -273,10 +280,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func registerButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
         FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
-            if user != nil {
+            if error == nil {
                 self.signedInUser = user
                 self.setUpDatabaseReference()
                 self.registerButton.isEnabled = false
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkTime), userInfo: nil, repeats: true)
+                self.timer.fire()
+                
                 UIView.animate(withDuration: 1) {
                     var scaleAndFloat = CGAffineTransform.identity
                     scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
@@ -285,15 +296,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.registerButton.alpha = 0
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
-                    
-                    self.fillInSingleton((user?.uid)!)
-                    
-                    self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
-
-                    let userID = user?.uid
-                    let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-                    userDefaults?.setValue(userID, forKey: "studentInfo")
                 }
+                
+                self.fillInSingleton((user?.uid)!)
+                
+                let userID = user?.uid
+                let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+                userDefaults?.setValue(userID, forKey: "studentInfo")
             }
             
             if let error = error {
@@ -306,6 +315,15 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
+    func checkTime () {
+        if self.time >= 1.0  {
+            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            timer.invalidate()
+        }
+        
+        self.time += 0.1
+    }
+    
     func registerTabWasPressed() {
         registerTab.isSelected = true
         loginTab.isSelected = false
@@ -315,8 +333,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
-        
-        
     }
     
     func loginTabWasPressed() {
