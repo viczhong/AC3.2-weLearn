@@ -11,7 +11,7 @@ import SafariServices
 
 class AssignmentTableViewController: UITableViewController, Tappable {
     
-    var assignments = [Assignment]()
+    var assignments = User.manager.assignments
     var stopTime: String = ""
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
+        //        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,20 +47,27 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     }
     
     func repoButtonClicked(at index: IndexPath) {
-        let svc = SFSafariViewController(url: URL(string: assignments[index.row].url!)!)
-        present(svc, animated: true, completion: nil)
+        if let assignments = assignments {
+            if let link = assignments[index.row].url {
+                let svc = SFSafariViewController(url: URL(string: link)!)
+                present(svc, animated: true, completion: nil)
+            }
+        }
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return assignments.count
+        if let assignments = assignments {
+            return assignments.count
+        }
+        else {
+            return 0
+        }
     }
     
     
@@ -72,30 +79,41 @@ class AssignmentTableViewController: UITableViewController, Tappable {
             if assignmentCell.delegate == nil {
                 assignmentCell.delegate = self
             }
-            
-            guard (assignments[indexPath.row].score?.characters.count)! < 3 else {
-                assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) due in"
-                assignmentCell.gradeLabel.font = UIFont(name: "Avenir-Black", size: 20)
-                assignmentCell.gradeLabel.layer.shadowColor = UIColor.clear.cgColor
-                assignmentCell.gradeLabel.text = assignments[indexPath.row].score
-                assignmentCell.topHorizontalRule.isHidden = true
-                assignmentCell.bottomHorizontalRule.isHidden = true
-                //assignmentCell.repoLink.isHidden = true
-                return cell
+            if let assignments = assignments {
+                /*
+                 guard (assignments[indexPath.row].score?.characters.count)! < 3 else {
+                 assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) due in"
+                 assignmentCell.gradeLabel.font = UIFont(name: "Avenir-Black", size: 20)
+                 assignmentCell.gradeLabel.layer.shadowColor = UIColor.clear.cgColor
+                 assignmentCell.gradeLabel.text = assignments[indexPath.row].score
+                 assignmentCell.topHorizontalRule.isHidden = true
+                 assignmentCell.bottomHorizontalRule.isHidden = true
+                 //assignmentCell.repoLink.isHidden = true
+                 return cell
+                 }
+                 */
+                let assignment = assignments[indexPath.row]
+                assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
+                assignmentCell.gradeLabel.text = convertDateToString(assignment.date)
+                //                assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
+                //                  assignmentCell.dateLabel.text = assignments[indexPath.row].date
+                guard assignments[indexPath.row].url != nil else {
+                    //                    assignmentCell.repoLink.isHidden = true
+                    return cell
+                }
+                //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
+                
             }
-            
-            assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
-            assignmentCell.gradeLabel.text = assignments[indexPath.row].score
-            assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
-          //  assignmentCell.dateLabel.text = assignments[indexPath.row].date
-            guard assignments[indexPath.row].url != nil else {
-                //assignmentCell.repoLink.isHidden = true
-                return cell
-            }
-            //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
         }
         
         return cell
+    }
+    
+    func convertDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        
+        return dateFormatter.string(from: date)
     }
     
 }

@@ -28,4 +28,5 @@ class User {
     var teacher: Bool?
     var classroom: String?
     var image: String?
+    var assignments: [Assignment]?
 }
