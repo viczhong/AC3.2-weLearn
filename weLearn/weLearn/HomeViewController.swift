@@ -24,7 +24,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let currentDate = Date()
     let calendar = Calendar.current
     var agenda: [Agenda]?
-    var assignments: [Assignment]?
+    var assignments: [Assignment]? {
+        didSet {
+            User.manager.assignments = assignments
+        }
+    }
     var todaysAgenda: Agenda?
     var nextDue: Assignment?
     var todaysFakeSchedule: [String] = [
@@ -117,9 +121,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if let returnedAssignments = Assignment.getAssignment(from: data!) {
                     print("We've got returns: \(returnedAssignments.count)")
                     self.assignments = returnedAssignments
-//                    DispatchQueue.main.async {
-//                        self.tableView.reloadData()
-//                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }

@@ -37,7 +37,7 @@ class Assignment {
         
         self.init(assignmentTitle: assignmentName,
                   date: dateConvert(dict["duedate"]!),
-                  url: dict["url"])
+                  url: dict["link"])
     }
     
     static func getAssignment(from data: Data) -> [Assignment]? {
