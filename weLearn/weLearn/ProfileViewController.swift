@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import Firebase
+import FirebaseDatabase
+
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
@@ -202,6 +204,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.profilePic.image = image
+            let postRef = self.databaseReference.childByAutoId()
+            let storage = FIRStorage.storage()
+            let storageRef = storage.reference(forURL: "gs://welearn-a2b14.appspot.com/")
+            let spaceRef = storageRef.child("profileImage/\(postRef.key)")
+            
+            let data = UIImageJPEGRepresentation(image, 0.5)
+            let metaData = FIRStorageMetadata()
+            metaData.cacheControl = "public,max-age=300";
+            metaData.contentType = "image/jpeg";
+            
+            let _ = spaceRef.put(data!, metadata: metaData, completion: { (metaData, error) in
+                guard metaData != nil else {
+                    print("Error in putting data")
+                    return
+                }
+            })
+            
             print("appending \(image)")
             
         }
@@ -227,6 +246,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
+    
+    
     
     
     // MARK: - Table view stuff
