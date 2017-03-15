@@ -28,6 +28,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.time = 0.0
+        
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
         
@@ -63,6 +65,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        
+        hoverCloud()
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == passwordTextField {
             self.view.endEditing(true)
@@ -71,8 +79,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
-    
-    
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
@@ -217,6 +223,20 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             button.trailing.equalTo(box).inset(15)
             button.bottom.equalTo(box).inset(40)
         }
+    }
+    
+    // MARK: - Animation
+    
+    func hoverCloud() {
+        UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
+            self.logoPic.transform = CGAffineTransform(translationX: 0, y: -1.5)
+            self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: -1.5)
+            self.logoOverlay.alpha = 0.5
+        }, completion: { finish in
+            self.logoPic.transform = CGAffineTransform(translationX: 0, y: 1.5)
+            self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: 1.5)
+            self.logoOverlay.alpha = 1
+        })
     }
     
     // MARK: - Button Actions
@@ -381,7 +401,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         let originalImage = #imageLiteral(resourceName: "logoForSplash")
         let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
         view.image = templateImage
-        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.1)
+        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.2)
         view.layer.masksToBounds = false
         return view
     }()
