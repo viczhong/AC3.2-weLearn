@@ -48,7 +48,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         ]
         
         databaseReference = FIRDatabase.database().reference()
-        
+     checkLogin()
     }
     
     override func viewWillAppear(_ animated: Bool) {

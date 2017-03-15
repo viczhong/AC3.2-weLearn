@@ -16,7 +16,7 @@ fileprivate let dueDatesCellID = "DueDatesCellID"
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - Dummy timer created up here!
     
-    var timeInSeconds = 0
+    var timeInSeconds = 150
     var timer: Timer!
     
     let currentDate = Date()
@@ -121,15 +121,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print("We've got returns: \(returnedAssignments.count)")
                     self.assignments = returnedAssignments
                     DispatchQueue.main.async {
-                        self.nextDue = self.findNextDue()
-                        self.tableView.reloadData()
+                        self.nextDue = self.findNextDue() {
+                            DispatchQueue.main.async { self.tableView.reloadData() }
+                        }
                     }
                 }
             }
         }
     }
     
-    func findNextDue() -> Assignment? {
+    func findNextDue(_ completion: @escaping () -> Void) -> Assignment? {
         if let assignments = assignments {
             _ = assignments.sorted(by: {$0.date > $1.date})
             let today = Date()
@@ -290,10 +291,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-                    guard self.timeInSeconds > 0  else {
-                        self.timer.invalidate()
-                        return
-                    }
+//                    guard self.timeInSeconds > 0  else {
+//                        self.timer.invalidate()
+//                        return
+//                    }
                     if let nextDueCountdown = self.nextDue {
                         
                         let startTime = Date()
