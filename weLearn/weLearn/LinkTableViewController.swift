@@ -19,7 +19,7 @@ class LinkTableViewController: UITableViewController, Tappable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Links"
+        self.navigationItem.title = "Links"
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         

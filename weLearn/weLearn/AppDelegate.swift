@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.window?.backgroundColor =  UIColor.white
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let initialVC = InitialViewController()
-        self.window?.rootViewController = initialVC
+        let myNavVC = UINavigationController(rootViewController: InitialViewController())
+        self.window?.rootViewController = myNavVC
         window?.makeKeyAndVisible()
         
         if let window = self.window {

@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.title = "Profile"
+        self.navigationItem.title = "Profile"
         
         self.view.backgroundColor = UIColor.weLearnBlue
         
@@ -45,7 +45,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.register(GradeTableViewCell.self, forCellReuseIdentifier: "GradeTableViewCell")
         
-        // tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
@@ -60,13 +59,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        
-        checkLoggedIn()
         
         if profilePic.image == nil {
             uploadImageButton.isHidden = false
@@ -76,7 +73,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-
+        checkLoggedIn()
     }
     
     //MARK: - Views
@@ -139,7 +136,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             view.trailing.equalTo(profileBox).inset(20)
             view.bottom.equalTo(profileBox).inset(20)
         }
-    
+        
     }
     
     //MARK: - User Functions
@@ -165,14 +162,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //        var studentID = ""
         
         // Now that we have the number, grab that person's grades
-        if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
-                                                                  for: User.manager.id!) {
-            print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
-            
-            self.testGrades = returnedGradesData
-            self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        if let studentID = User.manager.id {
+            if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
+                                                                      for: studentID) {
+                print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
+                
+                self.testGrades = returnedGradesData
+                self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -284,7 +283,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
-    //Mark: - Button Functions 
+    //Mark: - Button Functions
     
     func logOutButtonWasPressed(selector: UIButton) {
         if FIRAuth.auth()?.currentUser != nil {
@@ -293,7 +292,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 _ = self.navigationController?.popToRootViewController(animated: true)
-              
+                
             }
             catch {
                 print(error)
@@ -337,7 +336,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.name
+        label.text = User.manager.name ?? "Anon"
         label.font = UIFont(name: "Avenir-Light", size: 24)
         return label
     }()
@@ -345,7 +344,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.email
+        label.text = User.manager.email ?? "anon@anon.com"
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()

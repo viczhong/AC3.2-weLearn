@@ -17,7 +17,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Assignments"
+        self.navigationItem.title = "Assignments"
         
         tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: "AssignmentTableViewCell")
         

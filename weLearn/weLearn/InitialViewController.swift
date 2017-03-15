@@ -84,10 +84,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerProfile]
         TabViewController.viewControllers = viewControllers
         
-        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 0)
-        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 1)
-        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 2)
-        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 3)
+        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
+        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
+        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
+        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
         
         tabAgenda.view.backgroundColor = UIColor.weLearnBlue
         tabLinks.view.backgroundColor = UIColor.weLearnBlue
