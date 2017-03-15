@@ -64,6 +64,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if profilePic.image == nil {
+            uploadImageButton.isHidden = false
+        }
+    }
+    
     //MARK: - Views
     
     func viewHeirarchy() {
@@ -353,7 +359,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.name!
+        label.text = User.manager.name
         label.font = UIFont(name: "Avenir-Light", size: 24)
         return label
     }()
@@ -361,7 +367,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.email!
+        label.text = User.manager.email
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
