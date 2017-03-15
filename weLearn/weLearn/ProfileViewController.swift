@@ -55,11 +55,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         databaseReference = FIRDatabase.database().reference()
         
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
         if User.manager.studentKey != nil {
             getProfileImage()
         }
