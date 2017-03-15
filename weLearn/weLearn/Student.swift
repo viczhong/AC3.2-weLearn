@@ -29,5 +29,6 @@ class User {
     var classDatabaseKey: String?
     var classroom: String?
     var image: String?
+    var studentKey: String? 
     var assignments: [Assignment]?
 }
