@@ -82,6 +82,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 let image = UIImage(data: data!)
                 self.profilePic.image = image
+                self.uploadImageButton.setTitle("  ", for: .normal)
             }
         }
     }
