@@ -45,9 +45,22 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             studentIDTextField
         ]
         
-        toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
         databaseReference = FIRDatabase.database().reference()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
+        loginTabWasPressed()
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -55,6 +68,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             self.view.endEditing(true)
             self.loginButtonWasPressed()
         }
+        
         return true
     }
     
@@ -62,7 +76,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+            self.navigationController?.pushViewController(HomeViewController(), animated: true)
         }
     }
     
@@ -226,7 +240,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
         
-        
         let referenceLink = databaseReference.child("users").child("\(FIRAuth.auth()!.currentUser!.uid)")
         
         let dict = [
@@ -236,9 +249,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             "studentID" : credentials.studentID
         ]
         
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(dict, forKey: "studentInfo")
-        
+        //        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+        //        userDefaults?.setValue(dict, forKey: "studentInfo")
+        //
         referenceLink.setValue(dict)
     }
     
@@ -266,6 +279,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.navigationController?.navigationBar.isHidden = false
             }
             
+            let userID = FIRAuth.auth()?.currentUser?.uid
+            let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+            userDefaults?.setValue(userID, forKey: "studentInfo")
+            
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
@@ -284,7 +301,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.checkTime), userInfo: nil, repeats: true)
                 self.timer.fire()
                 
-                UIView.animate(withDuration: 1) {
+                UIView.animate(withDuration: 0.5) {
                     var scaleAndFloat = CGAffineTransform.identity
                     scaleAndFloat = scaleAndFloat.scaledBy(x: 1.5, y: 1.5)
                     scaleAndFloat = scaleAndFloat.translatedBy(x: 0, y: -20)
@@ -293,9 +310,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
                 }
+                
                 self.fillInSingleton((user?.uid)!)
-//                self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+                
+                let userID = user?.uid
+                let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+                userDefaults?.setValue(userID, forKey: "studentInfo")
             }
+            
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
                 self.registerButton.isEnabled = true
@@ -307,8 +329,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkTime () {
-        if self.time >= 1.0  {
-            self.present(UINavigationController(rootViewController: HomeViewController()), animated: false)
+        if self.time >= 0.5  {
+            self.navigationController?.pushViewController(HomeViewController(), animated: true)
             timer.invalidate()
         }
         
@@ -324,8 +346,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         registerTabLabel.textColor = UIColor.weLearnBlue
         loginTabLabel.textColor = UIColor.weLearnBlue.withAlphaComponent(0.6)
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = false }
-        
-        
     }
     
     func loginTabWasPressed() {

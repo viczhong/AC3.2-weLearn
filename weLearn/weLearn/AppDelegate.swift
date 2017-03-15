@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         StyleManager.styler.prettify()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let myNavVC = UINavigationController(rootViewController: InitialViewController())
-        myNavVC.navigationBar.isHidden = true
+
         self.window?.rootViewController = myNavVC
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor =  UIColor.white
@@ -52,10 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.height.equalToSuperview()
             }
             
-            UIView.animate(withDuration: 3.0) {
+            UIView.animate(withDuration: 2.0) {
                 self.cloudView?.alpha = 0
                 self.cloudView?.transform = CGAffineTransform(scaleX: 5, y: 5)
-                // self.gradientView?.alpha = 0
             }
         }
         
@@ -84,22 +83,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentClass = studentInfo["class"],
             let studentName = studentInfo["studentName"] else { return }
         
-        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+//        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+//
+//        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+//        
+//        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+//            for urlDict in urlDefaults {
+//                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+//                var urlInfo = urlDict
+//                urlInfo["studentName"] = studentName
+//                databaseReference.setValue(urlInfo)
+//            }
+//
+//        }
 
-        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-        
-        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
-            for urlDict in urlDefaults {
-                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
-                var urlInfo = urlDict
-                urlInfo["studentName"] = studentName
-                databaseReference.setValue(urlInfo)
-            }
 
-        }
-
-
-        userDefaults?.removeObject(forKey: "urlDefaults")
+//        userDefaults?.removeObject(forKey: "urlDefaults")
 
 
 

@@ -196,27 +196,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    //MARK: - UIImagePicker Delegate Method
-    func uploadImageButtonWasTouched() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
-        picker.delegate = self
-        self.present(picker, animated: true, completion: nil)
-    }
+    // MARK: - UIImagePicker Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.profilePic.image = image
             print("appending \(image)")
             
-            
         }
         dismiss(animated: true) {
-            //
         }
     }
     
@@ -309,6 +298,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
+    
+    func uploadImageButtonWasTouched() {
+        let picker = UIImagePickerController()
+        uploadImageButton.alpha = 0
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
     // Mark: - Views made here
     
     lazy var profileBox: UIView = {
