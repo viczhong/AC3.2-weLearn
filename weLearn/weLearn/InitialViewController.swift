@@ -446,6 +446,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         view.layer.shadowOffset = CGSize(width: -5, height: 5)
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
+        view.layer.shouldRasterize = true
         view.layer.masksToBounds = false
         return view
     }()
