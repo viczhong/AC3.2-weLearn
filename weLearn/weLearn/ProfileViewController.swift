@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
         
         databaseReference = FIRDatabase.database().reference()
-//        checkLoggedIn()
+        checkLoggedIn()
         
         let rightButton = UIBarButtonItem(customView: logOutButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
