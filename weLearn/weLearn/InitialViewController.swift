@@ -25,12 +25,32 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var timer: Timer!
     var selection: String?
     
+    // tab bar
+    
+    var TabViewController = UITabBarController()
+    
+    var tabAgenda = UITableViewController()
+    var tabLinks = UITableViewController()
+    var tabAnnouncements = UITableViewController()
+    var tabProfile = UIViewController()
+    
+    var navControllerAgenda = UINavigationController()
+    var navControllerLinks = UINavigationController()
+    var navControllerAnnouncements = UINavigationController()
+    var navControllerProfile = UINavigationController()
+    
+    var viewControllers = [UINavigationController]()
+    
+    var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
+    var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
+    var tabAnnouncementsImage = #imageLiteral(resourceName: "announcementIcon")
+    var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.time = 0.0
         
-        // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
         
         self.passwordTextField.delegate = self
@@ -85,7 +105,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.navigationController?.pushViewController(HomeViewController(), animated: true)
+            self.navigationController?.pushViewController(TabViewController, animated: true)
         }
     }
     
@@ -131,11 +151,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             view.top.equalToSuperview().offset(30)
             view.centerX.equalToSuperview().offset(5)
         }
-        
-        //        logoHeader.snp.makeConstraints { label in
-        //            label.top.equalToSuperview().offset(40)
-        //            label.leading.equalToSuperview().offset(25)
-        //        }
         
         box.snp.makeConstraints { view in
             view.top.equalTo(logoPic.snp.bottom).offset(60)
@@ -351,7 +366,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
                 self.passwordTextField.text = ""
-                self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                self.navigationController?.pushViewController(self.TabViewController, animated: true)
                 self.navigationController?.navigationBar.isHidden = false
             }
             
@@ -407,7 +422,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkTime () {
         if self.time >= 0.5  {
-            self.navigationController?.pushViewController(HomeViewController(), animated: true)
+            self.navigationController?.pushViewController(TabViewController, animated: true)
             timer.invalidate()
         }
         

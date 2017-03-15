@@ -19,7 +19,7 @@ class LinkTableViewController: UITableViewController, Tappable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Links"
+        self.navigationItem.title = "Links"
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
@@ -31,9 +31,12 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         self.getDataInfo()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.getDataInfo()
+    }
     
-    func getDataInfo() {
-        
+   func getDataInfo() {
+//        
         databaseReference.child("Links").child(User.manager.classroom!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
@@ -50,7 +53,7 @@ class LinkTableViewController: UITableViewController, Tappable {
             print(error.localizedDescription)
         }
     }
-    
+
     // MARK: - Button stuff
     
     func cellTapped(cell: UITableViewCell) {

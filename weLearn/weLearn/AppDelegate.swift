@@ -30,12 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
+        
+        //self.window?.backgroundColor =  UIColor.white
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let myNavVC = UINavigationController(rootViewController: InitialViewController())
-
         self.window?.rootViewController = myNavVC
-        self.window?.makeKeyAndVisible()
-        self.window?.backgroundColor =  UIColor.white
+        window?.makeKeyAndVisible()
         
         if let window = self.window {
             self.bigCloudView = UIImageView()
