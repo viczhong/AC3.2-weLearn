@@ -60,7 +60,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         
-        getProfileImage()
+        if User.manager.studentKey != nil {
+            getProfileImage()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
