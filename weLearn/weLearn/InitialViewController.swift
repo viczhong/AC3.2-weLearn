@@ -62,7 +62,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        
+        logoPic.transform = .identity
+        logoOverlay.transform = .identity
+        logoOverlay.alpha = 1
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     

@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.centerY.equalTo((rightCloudView1?.snp.top)!)
             }
             
-            UIView.animate(withDuration: 2, animations: {
+            UIView.animate(withDuration: 3, animations: {
                 self.bigCloudView?.alpha = 0
                 self.bigCloudView?.transform = CGAffineTransform(scaleX: 3, y: 3)
                 self.leftCloudView1?.transform = CGAffineTransform(translationX: -600, y: 0)
