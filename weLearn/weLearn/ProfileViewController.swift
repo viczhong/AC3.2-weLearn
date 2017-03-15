@@ -60,12 +60,28 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-       
+        getProfileImage()
+        
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         if profilePic.image == nil {
             uploadImageButton.isHidden = false
+        }
+    }
+    
+    func getProfileImage() {
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference()
+        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
+        
+        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                let image = UIImage(data: data!)
+                self.profilePic.image = image
+            }
         }
     }
     
@@ -209,10 +225,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.profilePic.image = image
-            let postRef = self.databaseReference.childByAutoId()
+            // let postRef = self.databaseReference.childByAutoId()
             let storage = FIRStorage.storage()
             let storageRef = storage.reference(forURL: "gs://welearn-a2b14.appspot.com/")
-            let spaceRef = storageRef.child("profileImage/\(postRef.key)")
+            let spaceRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
             
             let data = UIImageJPEGRepresentation(image, 0.5)
             let metaData = FIRStorageMetadata()
@@ -306,7 +322,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
-    //Mark: - Button Functions 
+    //Mark: - Button Functions
     func logOutButtonWasPressed(selector: UIButton) {
         if FIRAuth.auth()?.currentUser != nil {
             do {
@@ -314,7 +330,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 _ = self.navigationController?.popToRootViewController(animated: true)
-              
+                
             }
             catch {
                 print(error)
