@@ -16,10 +16,8 @@ fileprivate let dueDatesCellID = "DueDatesCellID"
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - Dummy timer created up here!
     
-    /* dummy timer -- remove star and slash on this line to comment out */
-    var timeInSeconds = 777600
+    var timeInSeconds = 0
     var timer: Timer!
-    //*/
     
     let currentDate = Date()
     let calendar = Calendar.current
@@ -29,6 +27,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             User.manager.assignments = assignments
         }
     }
+    
     var todaysAgenda: Agenda?
     var nextDue: Assignment?
     var todaysFakeSchedule: [String] = [
@@ -152,15 +151,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func todaysSchedule() -> Agenda? {
-        //        if let agenda = agenda {
-        //            _ = agenda.sorted(by: {$0.date < $1.date})
-        //            let today = Date()
-        //            for entry in agenda {
-        //                if today <= entry.date  {
-        //                    return entry
-        //                }
-        //            }
-        //        }
         if let agenda = agenda {
             LessonSchedule.manager.setAgenda(agenda)
             return LessonSchedule.manager.agenda[0]
@@ -323,7 +313,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 timer.fire()
-                //*/
             }
             
         default:
