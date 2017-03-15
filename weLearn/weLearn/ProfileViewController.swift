@@ -64,6 +64,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
        
     }
     
+    func getProfileImage() {
+       let storage = FIRStorage.storage()
+       let storageRef = storage.reference()
+       let imageRef = storageRef.child("pr")
+    }
+    
     //MARK: - Views
     
     func viewHeirarchy() {
@@ -204,10 +210,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.profilePic.image = image
-            let postRef = self.databaseReference.childByAutoId()
+           // let postRef = self.databaseReference.childByAutoId()
             let storage = FIRStorage.storage()
             let storageRef = storage.reference(forURL: "gs://welearn-a2b14.appspot.com/")
-            let spaceRef = storageRef.child("profileImage/\(postRef.key)")
+            let spaceRef = storageRef.child("profileImage/\(User.manager.id)")
             
             let data = UIImageJPEGRepresentation(image, 0.5)
             let metaData = FIRStorageMetadata()
