@@ -26,6 +26,7 @@ class User {
     var email: String?
     var id: String?
     var teacher: Bool?
+    var classDatabaseKey: String?
     var classroom: String?
     var image: String?
     var assignments: [Assignment]?

@@ -28,6 +28,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.time = 0.0
+        
         // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
         
@@ -60,7 +62,16 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        logoPic.transform = .identity
+        logoOverlay.transform = .identity
+        logoOverlay.alpha = 1
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        
+        hoverCloud()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -71,8 +82,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
-    
-    
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
@@ -219,6 +228,20 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - Animation
+    
+    func hoverCloud() {
+        UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
+            self.logoPic.transform = CGAffineTransform(translationX: 0, y: -1.5)
+            self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: -1.5)
+            self.logoOverlay.alpha = 0.5
+        }, completion: { finish in
+            self.logoPic.transform = CGAffineTransform(translationX: 0, y: 1.5)
+            self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: 1.5)
+            self.logoOverlay.isOpaque = true
+        })
+    }
+    
     // MARK: - Button Actions
     
     func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
@@ -239,20 +262,71 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
+        var databaseCodeForClass = ""
+        let curreuntUser = FIRAuth.auth()!.currentUser!.uid
+        let referenceLink = databaseReference.child("users").child(curreuntUser)
         
-        let referenceLink = databaseReference.child("users").child("\(FIRAuth.auth()!.currentUser!.uid)")
-        
-        let dict = [
-            "studentName" : credentials.name,
-            "studentEmail" : credentials.email,
-            "class" : credentials.studentClass,
-            "studentID" : credentials.studentID
-        ]
-        
-        //        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-        //        userDefaults?.setValue(dict, forKey: "studentInfo")
-        //
-        referenceLink.setValue(dict)
+        // 1) Find out if a class exists, or generate it
+        let classBuckets = databaseReference.child("classes")
+        classBuckets.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            var containsClass = false
+            
+            // 2) Loops through every snapshot in the Classes node to see if user's class exists
+            for child in snapshot.children {
+                if let snap = child as? FIRDataSnapshot,
+                    let valueDict = snap.value as? [String : Any] {
+                    
+                    if let name = valueDict["name"] as? String {
+                        if name == credentials.studentClass {
+                            
+                            // 2A) It exists! Set up the user, fills in the singleton, and break the loop
+                            containsClass = true
+                            databaseCodeForClass = snap.key
+                            
+                            let dict = [
+                                "studentName" : credentials.name,
+                                "studentEmail" : credentials.email,
+                                "class" : credentials.studentClass,
+                                "classKey" : databaseCodeForClass,
+                                "studentID" : credentials.studentID
+                            ]
+                            
+                            referenceLink.setValue(dict)
+                            self.fillInSingleton(curreuntUser)
+                            break
+                        }
+                    }
+                }
+            }
+            
+            // 3) Looks like we can't find the class. Time to create a ref for it in the database
+            if !containsClass {
+                let newClassRef = classBuckets.childByAutoId()
+                let className = credentials.studentClass
+                newClassRef.setValue(["name" : className]) { (error, reference) in
+                    
+                    // 3A) Looks like the ref was created. Time to finish up the rest of the user creation in database.
+                    if error == nil {
+                        print("\n\n\n\n Class \(className) doesn't exist! Created at \\classes\\\(reference.key)")
+                        databaseCodeForClass = reference.key
+                        
+                        let dict = [
+                            "studentName" : credentials.name,
+                            "studentEmail" : credentials.email,
+                            "class" : credentials.studentClass,
+                            "classKey" : databaseCodeForClass,
+                            "studentID" : credentials.studentID
+                        ]
+                        
+                        referenceLink.setValue(dict)
+                        self.fillInSingleton(curreuntUser)
+                    }
+                }
+            } else {
+                print("\n\n\n\n Class \(credentials.studentClass) exists already! It's at \\classes\\\(databaseCodeForClass)")
+            }
+        })
     }
     
     func fillInSingleton(_ string: String) {
@@ -261,6 +335,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let valueDict = snapshot.value as? [String : Any] {
                 let user = User.manager
                 user.classroom = valueDict["class"] as? String
+                user.classDatabaseKey = valueDict["classKey"] as? String
                 user.email = valueDict["studentEmail"] as? String
                 user.id = valueDict["studentID"] as? String
                 user.name = valueDict["studentName"] as? String
@@ -311,11 +386,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isEnabled = true
                 }
                 
-                self.fillInSingleton((user?.uid)!)
                 
                 let userID = user?.uid
                 let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
                 userDefaults?.setValue(userID, forKey: "studentInfo")
+                
+                //                self.fillInSingleton((user?.uid)!)
             }
             
             if let error = error {
@@ -372,6 +448,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         view.layer.shadowOffset = CGSize(width: -5, height: 5)
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
+        view.layer.shouldRasterize = true
         view.layer.masksToBounds = false
         return view
     }()
@@ -381,7 +458,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         let originalImage = #imageLiteral(resourceName: "logoForSplash")
         let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
         view.image = templateImage
-        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.1)
+        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.2)
         view.layer.masksToBounds = false
         return view
     }()
