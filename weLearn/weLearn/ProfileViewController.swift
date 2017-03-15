@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import Firebase
 import FirebaseDatabase
-
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
