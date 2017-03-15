@@ -366,7 +366,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var classLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = "AC3.2"
+        label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
