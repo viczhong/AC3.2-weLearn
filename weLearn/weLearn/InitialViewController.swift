@@ -236,7 +236,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }, completion: { finish in
             self.logoPic.transform = CGAffineTransform(translationX: 0, y: 1.5)
             self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: 1.5)
-            self.logoOverlay.alpha = 1
+            self.logoOverlay.isOpaque = true
         })
     }
     
