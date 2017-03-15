@@ -33,11 +33,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var tabLinks = UITableViewController()
     var tabAnnouncements = UITableViewController()
     var tabProfile = UIViewController()
+    var tabAssignments = UIViewController()
     
     var navControllerAgenda = UINavigationController()
     var navControllerLinks = UINavigationController()
     var navControllerAnnouncements = UINavigationController()
     var navControllerProfile = UINavigationController()
+    var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
     
@@ -45,6 +47,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
     var tabAnnouncementsImage = #imageLiteral(resourceName: "announcementIcon")
     var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
+    var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,24 +77,28 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         tabAgenda = AgendaTableViewController()
         tabLinks = LinkTableViewController()
         tabAnnouncements = OldAnnouncementsTableViewController()
+        tabAssignments = AssignmentTableViewController()
         tabProfile = ProfileViewController()
         
         navControllerAgenda = UINavigationController(rootViewController: tabAgenda)
         navControllerLinks = UINavigationController(rootViewController: tabLinks)
         navControllerAnnouncements = UINavigationController(rootViewController: tabAnnouncements)
+        navControllerAssignments = UINavigationController(rootViewController: tabAssignments)
         navControllerProfile = UINavigationController(rootViewController: tabProfile)
         
-        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerProfile]
+        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
         tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
         tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
+        tabAssignments.tabBarItem = UITabBarItem(title: "Assignments", image: tabAssignmentImage, tag: 5)
         tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
         
         tabAgenda.view.backgroundColor = UIColor.weLearnBlue
         tabLinks.view.backgroundColor = UIColor.weLearnBlue
         tabAnnouncements.view.backgroundColor = UIColor.weLearnBlue
+        tabAssignments.view.backgroundColor = UIColor.weLearnBlue
         tabProfile.view.backgroundColor = UIColor.weLearnBlue
         
         TabViewController.tabBar.tintColor = UIColor.weLearnBlue

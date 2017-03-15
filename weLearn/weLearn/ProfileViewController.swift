@@ -54,11 +54,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         databaseReference = FIRDatabase.database().reference()
         
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
         if User.manager.studentKey != nil {
             getProfileImage()
         }
@@ -324,7 +319,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let picker = UIImagePickerController()
         uploadImageButton.alpha = 0
         picker.sourceType = .photoLibrary
-        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
+        picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
