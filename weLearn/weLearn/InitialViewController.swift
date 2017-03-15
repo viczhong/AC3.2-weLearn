@@ -68,7 +68,35 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         ]
         
         databaseReference = FIRDatabase.database().reference()
-        //     checkLogin()
+        
+        // Tabbar guts
+        
+        tabAgenda = AgendaTableViewController()
+        tabLinks = LinkTableViewController()
+        tabAnnouncements = OldAnnouncementsTableViewController()
+        tabProfile = ProfileViewController()
+        
+        navControllerAgenda = UINavigationController(rootViewController: tabAgenda)
+        navControllerLinks = UINavigationController(rootViewController: tabLinks)
+        navControllerAnnouncements = UINavigationController(rootViewController: tabAnnouncements)
+        navControllerProfile = UINavigationController(rootViewController: tabProfile)
+        
+        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerProfile]
+        TabViewController.viewControllers = viewControllers
+        
+        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
+        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
+        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
+        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
+        
+        tabAgenda.view.backgroundColor = UIColor.weLearnBlue
+        tabLinks.view.backgroundColor = UIColor.weLearnBlue
+        tabAnnouncements.view.backgroundColor = UIColor.weLearnBlue
+        tabProfile.view.backgroundColor = UIColor.weLearnBlue
+        
+        TabViewController.tabBar.tintColor = UIColor.weLearnBlue
+        TabViewController.tabBar.barTintColor = UIColor.weLearnCoolWhite
+        TabViewController.tabBar.unselectedItemTintColor = UIColor.weLearnGrey
     }
     
     override func viewWillAppear(_ animated: Bool) {

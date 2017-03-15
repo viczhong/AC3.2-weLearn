@@ -31,110 +31,126 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         
-        //self.window?.backgroundColor =  UIColor.white
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let myNavVC = UINavigationController(rootViewController: InitialViewController())
-        self.window?.rootViewController = myNavVC
-        window?.makeKeyAndVisible()
         
-        if let window = self.window {
-            self.bigCloudView = UIImageView()
-            self.leftCloudView1 = UIImageView()
-            self.leftCloudView2 = UIImageView()
-            self.leftCloudView3 = UIImageView()
-            self.rightCloudView1 = UIImageView()
-            self.rightCloudView2 = UIImageView()
-            self.rightCloudView3 = UIImageView()
+        // Check to see if user is logged in
+        if FIRAuth.auth()?.currentUser != nil {
+            
+            // CHANGE SOON
+            print("\n\n\n\nLogged in! Time to log out!\n\n\n\n")
+            do {
+                try FIRAuth.auth()?.signOut()
+            } catch {
+                print(error)
+            }
+        } else {
+            
+            //self.window?.backgroundColor =  UIColor.white
+            
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let myNavVC = UINavigationController(rootViewController: InitialViewController())
+            self.window?.rootViewController = myNavVC
+            window?.makeKeyAndVisible()
+            
+            if let window = self.window {
+                self.bigCloudView = UIImageView()
+                self.leftCloudView1 = UIImageView()
+                self.leftCloudView2 = UIImageView()
+                self.leftCloudView3 = UIImageView()
+                self.rightCloudView1 = UIImageView()
+                self.rightCloudView2 = UIImageView()
+                self.rightCloudView3 = UIImageView()
                 
-            self.bigCloudView?.contentMode = .center
-            self.bigCloudView?.image = #imageLiteral(resourceName: "logoForSplash")
-            self.bigCloudView?.alpha = 1
-            
-            self.leftCloudView1?.contentMode = .center
-            self.leftCloudView2?.contentMode = .center
-            self.leftCloudView3?.contentMode = .center
-            self.leftCloudView1?.image = #imageLiteral(resourceName: "logoForHeader")
-            self.leftCloudView2?.image = #imageLiteral(resourceName: "logoForHeader")
-            self.leftCloudView3?.image = #imageLiteral(resourceName: "logoForHeader")
-            
-            self.rightCloudView1?.contentMode = .center
-            self.rightCloudView2?.contentMode = .center
-            self.rightCloudView3?.contentMode = .center
-            self.rightCloudView1?.image = #imageLiteral(resourceName: "logoForHeader")
-            self.rightCloudView2?.image = #imageLiteral(resourceName: "logoForHeader")
-            self.rightCloudView3?.image = #imageLiteral(resourceName: "logoForHeader")
-            
-            self.leftCloudView1?.alpha = 0.8
-            self.leftCloudView2?.alpha = 0.8
-            self.leftCloudView3?.alpha = 0.8
-            self.rightCloudView1?.alpha = 0.8
-            self.rightCloudView2?.alpha = 0.8
-            self.rightCloudView3?.alpha = 0.8
-            
-            self.window?.addSubview(self.bigCloudView!)
-            self.window?.addSubview(leftCloudView1!)
-            self.window?.addSubview(leftCloudView2!)
-            self.window?.addSubview(leftCloudView3!)
-            self.window?.addSubview(rightCloudView1!)
-            self.window?.addSubview(rightCloudView2!)
-            self.window?.addSubview(rightCloudView3!)
-            
-            self.bigCloudView?.snp.makeConstraints { view in
-                view.center.equalToSuperview()
-                view.width.equalToSuperview()
-                view.height.equalToSuperview()
+                self.bigCloudView?.contentMode = .center
+                self.bigCloudView?.image = #imageLiteral(resourceName: "logoForSplash")
+                self.bigCloudView?.alpha = 1
+                
+                self.leftCloudView1?.contentMode = .center
+                self.leftCloudView2?.contentMode = .center
+                self.leftCloudView3?.contentMode = .center
+                self.leftCloudView1?.image = #imageLiteral(resourceName: "logoForHeader")
+                self.leftCloudView2?.image = #imageLiteral(resourceName: "logoForHeader")
+                self.leftCloudView3?.image = #imageLiteral(resourceName: "logoForHeader")
+                
+                self.rightCloudView1?.contentMode = .center
+                self.rightCloudView2?.contentMode = .center
+                self.rightCloudView3?.contentMode = .center
+                self.rightCloudView1?.image = #imageLiteral(resourceName: "logoForHeader")
+                self.rightCloudView2?.image = #imageLiteral(resourceName: "logoForHeader")
+                self.rightCloudView3?.image = #imageLiteral(resourceName: "logoForHeader")
+                
+                self.leftCloudView1?.alpha = 0.8
+                self.leftCloudView2?.alpha = 0.8
+                self.leftCloudView3?.alpha = 0.8
+                self.rightCloudView1?.alpha = 0.8
+                self.rightCloudView2?.alpha = 0.8
+                self.rightCloudView3?.alpha = 0.8
+                
+                self.window?.addSubview(self.bigCloudView!)
+                self.window?.addSubview(leftCloudView1!)
+                self.window?.addSubview(leftCloudView2!)
+                self.window?.addSubview(leftCloudView3!)
+                self.window?.addSubview(rightCloudView1!)
+                self.window?.addSubview(rightCloudView2!)
+                self.window?.addSubview(rightCloudView3!)
+                
+                self.bigCloudView?.snp.makeConstraints { view in
+                    view.center.equalToSuperview()
+                    view.width.equalToSuperview()
+                    view.height.equalToSuperview()
+                }
+                
+                self.leftCloudView1?.snp.makeConstraints { view in
+                    view.leading.equalToSuperview()
+                    view.centerY.equalTo(window.snp.bottom).inset(20)
+                }
+                
+                self.leftCloudView2?.snp.makeConstraints { view in
+                    view.leading.equalTo((leftCloudView1?.snp.trailing)!).inset(50)
+                    view.centerY.equalTo(window.snp.bottom).inset(20)
+                }
+                
+                self.leftCloudView3?.snp.makeConstraints { view in
+                    view.centerX.equalTo((leftCloudView1?.snp.trailing)!)
+                    view.centerY.equalTo((leftCloudView1?.snp.top)!)
+                }
+                
+                self.rightCloudView1?.snp.makeConstraints { view in
+                    view.trailing.equalTo(window.snp.trailing)
+                    view.centerY.equalTo(window.snp.bottom).inset(20)
+                }
+                
+                self.rightCloudView2?.snp.makeConstraints { view in
+                    view.trailing.equalTo((rightCloudView1?.snp.leading)!).offset(50)
+                    view.centerY.equalTo(window.snp.bottom).inset(20)
+                }
+                
+                self.rightCloudView3?.snp.makeConstraints { view in
+                    view.centerX.equalTo((rightCloudView1?.snp.leading)!)
+                    view.centerY.equalTo((rightCloudView1?.snp.top)!)
+                }
+                
+                UIView.animate(withDuration: 3, animations: {
+                    self.bigCloudView?.alpha = 0
+                    self.bigCloudView?.transform = CGAffineTransform(scaleX: 3, y: 3)
+                    self.leftCloudView1?.transform = CGAffineTransform(translationX: -600, y: 0)
+                    self.rightCloudView1?.transform = CGAffineTransform(translationX: 600, y: 0)
+                    self.leftCloudView2?.transform = CGAffineTransform(translationX: -600, y: 0)
+                    self.rightCloudView2?.transform = CGAffineTransform(translationX: 600, y: 0)
+                    self.leftCloudView3?.transform = CGAffineTransform(translationX: -600, y: -300)
+                    self.rightCloudView3?.transform = CGAffineTransform(translationX: 600, y: -300)
+                }, completion: { finish in
+                    self.bigCloudView?.removeFromSuperview()
+                    self.leftCloudView1?.removeFromSuperview()
+                    self.leftCloudView2?.removeFromSuperview()
+                    self.leftCloudView3?.removeFromSuperview()
+                    self.rightCloudView1?.removeFromSuperview()
+                    self.rightCloudView2?.removeFromSuperview()
+                    self.rightCloudView3?.removeFromSuperview()
+                })
             }
-            
-            self.leftCloudView1?.snp.makeConstraints { view in
-                view.leading.equalToSuperview()
-                view.centerY.equalTo(window.snp.bottom).inset(20)
-            }
-            
-            self.leftCloudView2?.snp.makeConstraints { view in
-                view.leading.equalTo((leftCloudView1?.snp.trailing)!).inset(50)
-                view.centerY.equalTo(window.snp.bottom).inset(20)
-            }
-            
-            self.leftCloudView3?.snp.makeConstraints { view in
-                view.centerX.equalTo((leftCloudView1?.snp.trailing)!)
-                view.centerY.equalTo((leftCloudView1?.snp.top)!)
-            }
-            
-            self.rightCloudView1?.snp.makeConstraints { view in
-                view.trailing.equalTo(window.snp.trailing)
-                view.centerY.equalTo(window.snp.bottom).inset(20)
-            }
-            
-            self.rightCloudView2?.snp.makeConstraints { view in
-                view.trailing.equalTo((rightCloudView1?.snp.leading)!).offset(50)
-                view.centerY.equalTo(window.snp.bottom).inset(20)
-            }
-            
-            self.rightCloudView3?.snp.makeConstraints { view in
-                view.centerX.equalTo((rightCloudView1?.snp.leading)!)
-                view.centerY.equalTo((rightCloudView1?.snp.top)!)
-            }
-            
-            UIView.animate(withDuration: 3, animations: {
-                self.bigCloudView?.alpha = 0
-                self.bigCloudView?.transform = CGAffineTransform(scaleX: 3, y: 3)
-                self.leftCloudView1?.transform = CGAffineTransform(translationX: -600, y: 0)
-                self.rightCloudView1?.transform = CGAffineTransform(translationX: 600, y: 0)
-                self.leftCloudView2?.transform = CGAffineTransform(translationX: -600, y: 0)
-                self.rightCloudView2?.transform = CGAffineTransform(translationX: 600, y: 0)
-                self.leftCloudView3?.transform = CGAffineTransform(translationX: -600, y: -300)
-                self.rightCloudView3?.transform = CGAffineTransform(translationX: 600, y: -300)
-            }, completion: { finish in
-                self.bigCloudView?.removeFromSuperview()
-                self.leftCloudView1?.removeFromSuperview()
-                self.leftCloudView2?.removeFromSuperview()
-                self.leftCloudView3?.removeFromSuperview()
-                self.rightCloudView1?.removeFromSuperview()
-                self.rightCloudView2?.removeFromSuperview()
-                self.rightCloudView3?.removeFromSuperview()
-            })
         }
+        
         
         return true
     }
@@ -161,25 +177,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentClass = studentInfo["class"],
             let studentName = studentInfo["studentName"] else { return }
         
-//        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
-//
-//        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-//        
-//        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
-//            for urlDict in urlDefaults {
-//                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
-//                var urlInfo = urlDict
-//                urlInfo["studentName"] = studentName
-//                databaseReference.setValue(urlInfo)
-//            }
-//
-//        }
-
-
-//        userDefaults?.removeObject(forKey: "urlDefaults")
-
-
-
+        //        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+        //
+        //        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+        //
+        //        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+        //            for urlDict in urlDefaults {
+        //                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+        //                var urlInfo = urlDict
+        //                urlInfo["studentName"] = studentName
+        //                databaseReference.setValue(urlInfo)
+        //            }
+        //
+        //        }
+        
+        
+        //        userDefaults?.removeObject(forKey: "urlDefaults")
+        
+        
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
