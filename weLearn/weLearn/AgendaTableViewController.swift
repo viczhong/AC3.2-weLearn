@@ -19,19 +19,19 @@ class AgendaTableViewController: UITableViewController {
         "Workshop at Headquarters"
     ]
     
-    //var agenda = LessonSchedule.manager.agenda
+    // var agenda = LessonSchedule.manager.agenda
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Syllabus"
+        self.navigationItem.title = "Syllabus"
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-                //readAgenda()
+                // readAgenda()
     }
     
     // MARK: - Table view data source
