@@ -382,6 +382,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 user.email = valueDict["studentEmail"] as? String
                 user.id = valueDict["studentID"] as? String
                 user.name = valueDict["studentName"] as? String
+                user.studentKey = snapshot.key
             }
         })
     }
