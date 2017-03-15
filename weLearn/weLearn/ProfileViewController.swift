@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import Firebase
 import FirebaseDatabase
-
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
@@ -367,7 +366,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var classLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = "AC3.2"
+        label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()

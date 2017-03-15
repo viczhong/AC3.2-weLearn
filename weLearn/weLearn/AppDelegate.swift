@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.rightCloudView1 = UIImageView()
             self.rightCloudView2 = UIImageView()
             self.rightCloudView3 = UIImageView()
-                
+            
             self.bigCloudView?.contentMode = .center
             self.bigCloudView?.image = #imageLiteral(resourceName: "logoForSplash")
             self.bigCloudView?.alpha = 1
@@ -161,25 +161,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let studentClass = studentInfo["class"],
             let studentName = studentInfo["studentName"] else { return }
         
-//        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
-//
-//        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
-//        
-//        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
-//            for urlDict in urlDefaults {
-//                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
-//                var urlInfo = urlDict
-//                urlInfo["studentName"] = studentName
-//                databaseReference.setValue(urlInfo)
-//            }
-//
-//        }
-
-
-//        userDefaults?.removeObject(forKey: "urlDefaults")
-
-
-
+        //        let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+        //
+        //        let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+        //
+        //        if let urlDefaults = userDefaults?.object(forKey: "urlDefaults") as? [[String : String]] {
+        //            for urlDict in urlDefaults {
+        //                let databaseReference = FIRDatabase.database().reference().child("Links").child(studentClass).childByAutoId()
+        //                var urlInfo = urlDict
+        //                urlInfo["studentName"] = studentName
+        //                databaseReference.setValue(urlInfo)
+        //            }
+        //
+        //        }
+        
+        
+        //        userDefaults?.removeObject(forKey: "urlDefaults")
+        
+        
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
