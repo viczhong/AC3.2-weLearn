@@ -325,7 +325,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let picker = UIImagePickerController()
         uploadImageButton.alpha = 0
         picker.sourceType = .photoLibrary
-        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
+        picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
