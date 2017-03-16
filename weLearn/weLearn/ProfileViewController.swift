@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         
         self.navigationItem.title = "Profile"
+        self.tabBarController?.title = navigationItem.title
         
         self.view.backgroundColor = UIColor.weLearnBlue
         
