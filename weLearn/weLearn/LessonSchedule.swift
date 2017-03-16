@@ -15,6 +15,7 @@ class LessonSchedule {
     
     var pastAgenda: [Agenda]?
     var todaysAgenda: Agenda?
+    var fullAgendaUpToToday: [Agenda]?
     
     func setAgenda(_ array: [Agenda]) {
         let today = Date()
@@ -34,6 +35,8 @@ class LessonSchedule {
             }
         }
         pastAgenda = tempAgenda
+        
+        fullAgendaUpToToday = [todaysAgenda!] + pastAgenda!
         
         print("\n\n\n\n\nWe have a lesson schedule: \(tempAgenda.count) entries")
     }

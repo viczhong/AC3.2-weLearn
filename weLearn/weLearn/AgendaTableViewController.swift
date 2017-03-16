@@ -120,11 +120,7 @@ class AgendaTableViewController: UITableViewController {
         //            return "March 10, 2017"
         case 0:
             if agenda != nil {
-                let date = Date()
-                let formatter = DateFormatter()
-                formatter.dateFormat = "dd.MM.yyyy"
-                let result = formatter.string(from: date)
-                return result
+                return "Today's Agenda"
             }
         case 1:
             if agenda != nil {
@@ -139,13 +135,12 @@ class AgendaTableViewController: UITableViewController {
         return ""
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
         case 0:
-            if let agenda = LessonSchedule.manager.todaysAgenda {
-                return agenda.count
+            if LessonSchedule.manager.todaysAgenda != nil {
+                return 1
             }
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
@@ -154,6 +149,7 @@ class AgendaTableViewController: UITableViewController {
             
         default:
             break
+
         }
             return 0
     }
@@ -162,11 +158,11 @@ class AgendaTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
         // needs diff sections
+
         switch indexPath.section {
         case 0:
             if let agenda = LessonSchedule.manager.todaysAgenda {
-                let agendaAtRow = agenda[indexPath.row]
-                cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
+                cell.label.text = "\(agenda.dateString) - \(agenda.lessonName)"
             }
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
@@ -175,6 +171,7 @@ class AgendaTableViewController: UITableViewController {
             }
         default:
             break
+
         }
         return cell
     }
