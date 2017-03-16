@@ -29,6 +29,10 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         tableView.separatorStyle = .none
 
+        let rightButton = UIBarButtonItem(customView: logOutButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
+        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
@@ -70,7 +74,24 @@ class LinkTableViewController: UITableViewController, Tappable {
         present(svc, animated: true, completion: nil)
     }
     
+    func logOutButtonWasPressed(selector: UIButton) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                self.navigationController?.navigationBar.isHidden = true
+                selector.isHidden = true
+                self.dismiss(animated: true, completion: nil)
+                
+            }
+            catch {
+                print(error)
+            }
+        }
+        
+    }
+    
     // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -92,4 +113,14 @@ class LinkTableViewController: UITableViewController, Tappable {
     
         return cell
     }
+    
+    lazy var logOutButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("Log Out".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        button.imageView?.clipsToBounds = true
+        return button
+    }()
 }

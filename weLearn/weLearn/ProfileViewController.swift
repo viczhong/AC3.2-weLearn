@@ -62,6 +62,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if User.manager.studentKey != nil {
             getProfileImage()
         }
+        
+        let rightButton = UIBarButtonItem(customView: logOutButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
+        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -306,14 +311,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
-                _ = self.navigationController?.popToRootViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
                 
             }
             catch {
                 print(error)
             }
         }
-        
     }
     
     func uploadImageButtonWasTouched() {
@@ -402,19 +406,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return collectionView
     }()
     
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        //button.imageView?.contentMode = .center
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
-    
     lazy var uploadImageButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
@@ -422,6 +413,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var logOutButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("Log Out".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        button.imageView?.clipsToBounds = true
         return button
     }()
 }

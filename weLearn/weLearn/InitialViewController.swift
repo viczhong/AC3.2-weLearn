@@ -42,6 +42,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
+//    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -49,7 +50,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
     var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
     
-    //MARK: Views Did Do Things
+    // MARK: Views Did Do Things
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,18 +79,19 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
         loginTabWasPressed()
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        activityIndicator.isHidden = true
+        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        activityIndicator.stopAnimating()
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -116,6 +118,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         navControllerProfile = UINavigationController(rootViewController: tabProfile)
         
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
+        
+      //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
@@ -171,6 +175,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(passwordTextField)
         self.view.addSubview(loginButton)
         self.view.addSubview(registerButton)
+        self.view.addSubview(activityIndicator)
     }
     
     func configureConstraints() {
@@ -215,6 +220,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         registerTabLabel.snp.makeConstraints { view in
             view.center.equalTo(registerTab)
+        }
+        
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalTo(box)
         }
         
         // visible on login & registration tab
@@ -297,7 +306,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            self.present(TabViewController, animated: true)
         }
     }
     
@@ -408,12 +417,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func loginButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
+        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
         FIRAuth.auth()?.signIn(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
             
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
                 self.passwordTextField.text = ""
-                self.navigationController?.pushViewController(self.TabViewController, animated: true)
+                self.activityIndicator.stopAnimating()
+                self.present(self.TabViewController, animated: true)
                 self.navigationController?.navigationBar.isHidden = false
             }
             
@@ -423,6 +437,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
+                self.activityIndicator.stopAnimating()
             }
         })
         
@@ -430,6 +445,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func registerButtonWasPressed() {
         guard let credentials = signInCredentials() else { return }
+        
+        activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+        
         FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
             if error == nil {
                 self.signedInUser = user
@@ -457,17 +476,21 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             
             if let error = error {
                 self.showAlert(title: "Registering Error", error.localizedDescription)
+                
                 self.registerButton.isEnabled = true
                 self.registerButton.transform = .identity
                 self.loginButton.isHidden = true
                 self.loginButton.isEnabled = false
+                
+                self.activityIndicator.stopAnimating()
+
             }
         })
     }
     
     func checkTime () {
         if self.time >= 0.5  {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            self.present(TabViewController, animated: true)
             timer.invalidate()
         }
         
@@ -498,6 +521,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Views created here
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
     
     lazy var logoPic: UIImageView = {
         let view = UIImageView()

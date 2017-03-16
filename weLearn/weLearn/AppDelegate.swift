@@ -36,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let window = self.window {
             window.backgroundColor =  UIColor.weLearnBlue
             
-            let myNavVC = UINavigationController(rootViewController: InitialViewController())
-            window.rootViewController = myNavVC
+            let myRootVC = InitialViewController()
+            window.rootViewController = myRootVC
             window.makeKeyAndVisible()
             
             self.bigCloudView = UIImageView()
