@@ -9,7 +9,6 @@ import UIKit
 import Social
 import MobileCoreServices
 
-
 class ShareViewController: SLComposeServiceViewController {
     
     private var urlString: String?
@@ -62,26 +61,28 @@ class ShareViewController: SLComposeServiceViewController {
         getStudentClassFromDatabase(studentID: userUID) { (studentDict) -> (Void) in
             guard let studentClass = studentDict["classKey"] as? String,
                 let studentName = studentDict["studentName"] as? String else { return }
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            let dateString = dateFormatter.string(from: date)
             
             if let linkDescription = self.textView.text,
                 let url = self.urlString {
                 let time = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
                 let uniqueID = userUID + time
                 
-//         let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/\(uniqueID).json"
-                let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/.json"
-
-     
-            guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                let validURL = URL(string: validURLString) else { return }
-            var request = URLRequest(url: validURL)
-            let session = URLSession(configuration: .default)
-            request.httpMethod = "PUT"
+                let urlString = "https://welearn-a2b14.firebaseio.com/links/\(studentClass)/\(uniqueID).json"
+                
+                guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                    let validURL = URL(string: validURLString) else { return }
+                var request = URLRequest(url: validURL)
+                let session = URLSession(configuration: .default)
+                request.httpMethod = "PUT"
                 
                 let dict = [ "url" : url,
                              "urlDescription" : linkDescription,
                              "studentClass" : studentClass,
-                             "studentName" : studentName
+                             "studentName" : studentName,
+                             "date" : dateString
                 ]
                 
                 do {
@@ -124,8 +125,8 @@ class ShareViewController: SLComposeServiceViewController {
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-
-        if let data = data {
+            
+            if let data = data {
                 print(data)
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
