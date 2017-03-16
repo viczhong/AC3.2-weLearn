@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import AudioToolbox
 import FirebaseDatabase
 
 class InitialViewController: UIViewController, UITextFieldDelegate {
@@ -80,8 +81,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         loginTabWasPressed()
+
         activityIndicator.isHidden = true
-        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,6 +92,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
+        
+//        self.registerButton.layer.shadowOpacity = 0.25
+//        self.registerButton.layer.shadowRadius = 2
+//        self.registerButton.layer.sublayers!.remove(at: 0)
+//        
+//        self.loginButton.layer.shadowOpacity = 0.25
+//        self.loginButton.layer.shadowRadius = 2
+//        self.loginButton.layer.sublayers!.remove(at: 0)
         // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -416,6 +425,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginButtonWasPressed() {
+        AudioServicesPlaySystemSound(1105)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loginButton.layer.shadowOpacity = 0.1
+            self.loginButton.layer.shadowRadius = 1
+            self.loginButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.loginButton.layer.shadowOpacity = 0.25
+            self.loginButton.layer.shadowRadius = 2
+            self.loginButton.layer.sublayers!.remove(at: 0)
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -444,6 +464,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerButtonWasPressed() {
+        AudioServicesPlaySystemSound(1105)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.registerButton.layer.shadowOpacity = 0.1
+            self.registerButton.layer.shadowRadius = 1
+            self.registerButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.registerButton.layer.shadowOpacity = 0.25
+            self.registerButton.layer.shadowRadius = 2
+            self.registerButton.layer.sublayers!.remove(at: 0)
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -467,7 +498,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
                 }
-                
                 
                 let userID = user?.uid
                 let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
@@ -498,6 +528,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerTabWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.registerTab.layer.shadowOpacity = 0.1
+            self.registerTab.layer.shadowRadius = 1
+            self.registerTab.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.2), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.registerTab.layer.shadowOpacity = 0.25
+            self.registerTab.layer.shadowRadius = 2
+            self.registerTab.layer.sublayers!.remove(at: 0)
+        })
+
         registerTab.isSelected = true
         loginTab.isSelected = false
         colorTab(button1: registerTab, button2: loginTab)
@@ -509,6 +550,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginTabWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loginTab.layer.shadowOpacity = 0.1
+            self.loginTab.layer.shadowRadius = 1
+            self.loginTab.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.2), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.loginTab.layer.shadowOpacity = 0.25
+            self.loginTab.layer.shadowRadius = 2
+            self.loginTab.layer.sublayers!.remove(at: 0)
+        })
+        
         loginTab.isSelected = true
         registerTab.isSelected = false
         colorTab(button1: loginTab, button2: registerTab)
