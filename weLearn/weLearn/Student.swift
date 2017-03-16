@@ -51,4 +51,12 @@ class User {
             User.manager.assignments = assign.reversed()
         }
     }
+    
+    func logOut() {
+        User.clearSingleton()
+        MyClass.clearSingleton()
+        LessonSchedule.clearSchedule()
+    }
+
 }
+

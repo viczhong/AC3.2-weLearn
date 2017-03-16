@@ -14,28 +14,20 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     fileprivate let reuseIdentifier = "AnnouncementCell"
     
+    let announcementSheetID = MyClass.manager.announcementsID!
     var announcements: [Announcement]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        announcements = [
-            Announcement(quote: "You all got A's! Wow!", author: "Ben"),
-            Announcement(quote: "TGIF", author: "Jason"),
-            Announcement(quote: "Human beings evolved from a common ancestor of the chimpanzee.", author: "Darwin"),
-            Announcement(quote: "I love cats", author: "Louis"),
-            Announcement(quote: "We bought a fridge", author: "Rina"),
-            Announcement(quote: "Hacked!", author: "Evan")
-        ]
-        
         self.navigationItem.title = "Announcements"
         self.tabBarController?.title = navigationItem.title
         
-       // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
-       // linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-       // let rightButton = UIBarButtonItem(customView: linksButton)
-       // navigationItem.setRightBarButton(rightButton, animated: true)
+        // linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
+        // let rightButton = UIBarButtonItem(customView: linksButton)
+        // navigationItem.setRightBarButton(rightButton, animated: true)
         
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
@@ -56,11 +48,31 @@ class OldAnnouncementsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        getAnnouncements()
+    }
+    
+    func getAnnouncements() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(announcementSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                if let returnedAnnouncements = Announcement.getAnnounements(from: data!) {
+                    print("We've got returns: \(returnedAnnouncements.count)")
+                    self.announcements = returnedAnnouncements.sorted(by: { $0.date > $1.date })
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Actions
     
-//    func buttonWasPressed(button: UIButton) {
-//        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-//    }
+    //    func buttonWasPressed(button: UIButton) {
+    //        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
+    //    }
     
     // MARK: - Table view data source
     
@@ -80,12 +92,13 @@ class OldAnnouncementsTableViewController: UITableViewController {
         cell.selectionStyle = .none
         // Configure the cell...
         
-        cell.date.text = announcements![indexPath.row].date
-        cell.quote.text = announcements![indexPath.row].quote
-        cell.author.text = announcements![indexPath.row].author
+        if let announce = announcements {
+        cell.date.text = announce[indexPath.row].dateString
+        cell.quote.text = announce[indexPath.row].quote
+        cell.author.text = announce[indexPath.row].author
         
         cell.bar.isHidden = true
-        
+        }
         return cell
     }
     
@@ -101,19 +114,19 @@ class OldAnnouncementsTableViewController: UITableViewController {
         return button
     }()
     
-//    lazy var linksButton: ShinyOvalButton = {
-//        let button = ShinyOvalButton()
-//        button.setTitle("links".uppercased(), for: .normal)
-//        // button.backgroundColor = UIColor.weLearnBlue
-//        button.layer.cornerRadius = 15
-//        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
-//        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-//        //button.imageView?.contentMode = .center
-//        button.imageView?.clipsToBounds = true
-//        return button
-//    }()
+    //    lazy var linksButton: ShinyOvalButton = {
+    //        let button = ShinyOvalButton()
+    //        button.setTitle("links".uppercased(), for: .normal)
+    //        // button.backgroundColor = UIColor.weLearnBlue
+    //        button.layer.cornerRadius = 15
+    //        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
+    //        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+    //        //button.imageView?.contentMode = .center
+    //        button.imageView?.clipsToBounds = true
+    //        return button
+    //    }()
     
-
+    
     // MARK: - Button Action
     
     func logOutButtonWasPressed(selector: UIButton) {

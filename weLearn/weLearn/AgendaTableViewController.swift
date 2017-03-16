@@ -91,7 +91,7 @@ class AgendaTableViewController: UITableViewController {
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 self.dismiss(animated: true, completion: nil)
-                
+
             }
             catch {
                 print(error)
