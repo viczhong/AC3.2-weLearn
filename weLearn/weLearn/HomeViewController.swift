@@ -99,20 +99,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Functions and Methods
     
-    func readAgenda() {
-        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if data != nil {
-                if let returnedAgenda = Agenda.getAgenda(from: data!) {
-                    print("We've got returns: \(returnedAgenda.count)")
-                    self.agenda = returnedAgenda
-                    DispatchQueue.main.async {
-                        self.todaysAgenda = self.todaysSchedule()
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
+    //    func readAgenda() {
+    //        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+    //            if data != nil {
+    //                if let returnedAgenda = Agenda.getAgenda(from: data!) {
+    //                    print("We've got returns: \(returnedAgenda.count)")
+    //                    self.agenda = returnedAgenda
+    //                    DispatchQueue.main.async {
+    //                        self.todaysAgenda = self.todaysSchedule()
+    //                        self.tableView.reloadData()
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
     
     func readAssignments() {
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(assignmentSheetID)/od6/public/basic?alt=json") { (data: Data?) in
@@ -154,7 +154,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func todaysSchedule() -> Agenda? {
         if let agenda = agenda {
             LessonSchedule.manager.setAgenda(agenda)
-            return LessonSchedule.manager.agenda[0]
+            if let agendaception = LessonSchedule.manager.pastAgenda {
+                return agendaception[0]
+            }
         }
         return nil
     }
@@ -291,10 +293,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-//                    guard self.timeInSeconds > 0  else {
-//                        self.timer.invalidate()
-//                        return
-//                    }
+                    //                    guard self.timeInSeconds > 0  else {
+                    //                        self.timer.invalidate()
+                    //                        return
+                    //                    }
                     if let nextDueCountdown = self.nextDue {
                         
                         let startTime = Date()
