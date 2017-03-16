@@ -286,7 +286,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
             self.logoPic.transform = CGAffineTransform(translationX: 0, y: -1.5)
             self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: -1.5)
-            self.logoOverlay.alpha = 0.5
+            self.logoOverlay.alpha = 0
         }, completion: { finish in
             self.logoPic.transform = CGAffineTransform(translationX: 0, y: 1.5)
             self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: 1.5)
