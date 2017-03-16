@@ -64,6 +64,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
+        if User.manager.studentKey != nil {
+            nameLabel.text = User.manager.name
+        }
+        
         if profilePic.image == nil {
             uploadImageButton.isHidden = false
         }

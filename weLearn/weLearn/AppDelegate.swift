@@ -64,8 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.backgroundColor = UIColor.weLearnBlue
             
             loadTabsAndEverythingElse()
-            let myNavVC = UINavigationController(rootViewController: tabBarViewController)
-            self.window?.rootViewController = myNavVC
+            let myRootVC = tabBarViewController
+            self.window?.rootViewController = myRootVC
             self.window?.makeKeyAndVisible()
             
             self.bigCloudView = UIImageView()

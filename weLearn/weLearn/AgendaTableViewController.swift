@@ -32,10 +32,10 @@ class AgendaTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        self.tabBarController?.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = true
         
         let rightButton = UIBarButtonItem(customView: logOutButton)
-        self.tabBarController?.navigationItem.setRightBarButton(rightButton, animated: true)
+        self.navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
 
