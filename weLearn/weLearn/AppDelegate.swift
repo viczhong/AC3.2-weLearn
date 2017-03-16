@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Firebase config
         FIRApp.configure()
-        
+        classSheetsSetup()
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         
@@ -136,6 +136,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
+        classSheetsSetup()
+        
         return true
     }
     
@@ -188,6 +190,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         print("did enter the function")
+    }
+    
+    func classSheetsSetup() {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/1bY09jvCzHdfTLHMcsgKoGIDZnHwYzIzrnTnwgJU7UNU/od6/public/basic?alt=json") { (data: Data?) in
+            
+            
+            if data != nil {
+                if let returnedClasses = ClassFromSheet.getClasses(from: data!) {
+                    print("We've got returns: \(returnedClasses.count)")
+                    DispatchQueue.main.async {
+                        ClassFromSheet.postClassInfoToDatabase(returnedClasses)
+                        // Start the code
+                    }
+                }
+            }
+        }
     }
     
 }

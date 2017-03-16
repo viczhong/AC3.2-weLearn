@@ -26,6 +26,7 @@
 		9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6E91221E67817000DAE0D1 /* Agenda.swift */; };
 		9E80178B1E712A9000409FA7 /* TestGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80178A1E712A9000409FA7 /* TestGrade.swift */; };
 		9E80178D1E712AC500409FA7 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80178C1E712AC500409FA7 /* Extension+String.swift */; };
+		9E8874251E7B10B100F0F966 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8874241E7B10B100F0F966 /* Classes.swift */; };
 		9E88BA1D1E721C3200D7DE64 /* LessonSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */; };
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
@@ -107,6 +108,7 @@
 		9E6E91221E67817000DAE0D1 /* Agenda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agenda.swift; sourceTree = "<group>"; };
 		9E80178A1E712A9000409FA7 /* TestGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGrade.swift; sourceTree = "<group>"; };
 		9E80178C1E712AC500409FA7 /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		9E8874241E7B10B100F0F966 /* Classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonSchedule.swift; sourceTree = "<group>"; };
 		9EECFE831E64C83D00503F7F /* weLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EECFE861E64C83D00503F7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				D388A3761E706A1900A44EF0 /* Grade.swift */,
 				D388A3781E709ACD00A44EF0 /* Assignment.swift */,
 				9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */,
+				9E8874241E7B10B100F0F966 /* Classes.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,
 				D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
+				9E8874251E7B10B100F0F966 /* Classes.swift in Sources */,
 				D388A3811E71C14500A44EF0 /* AchievementCollectionViewCell.swift in Sources */,
 				9E80178B1E712A9000409FA7 /* TestGrade.swift in Sources */,
 			);
