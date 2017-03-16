@@ -56,7 +56,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         self.time = 0.0
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
         
         self.passwordTextField.delegate = self
         
@@ -154,12 +154,11 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: - Autolayout Constraints and Hierarchy
+    // MARK: - Autolayout Constraints and Hierarchy
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
         self.view.addSubview(logoOverlay)
-        // self.view.addSubview(logoHeader)
         self.view.addSubview(registerTab)
         self.view.addSubview(registerTabLabel)
         self.view.addSubview(loginTab)
@@ -286,7 +285,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
             self.logoPic.transform = CGAffineTransform(translationX: 0, y: -1.5)
             self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: -1.5)
-            self.logoOverlay.alpha = 0.5
+            self.logoOverlay.alpha = 0
         }, completion: { finish in
             self.logoPic.transform = CGAffineTransform(translationX: 0, y: 1.5)
             self.logoOverlay.transform = CGAffineTransform(translationX: 0, y: 1.5)
@@ -526,21 +525,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         view.layer.masksToBounds = false
         return view
     }()
-    
-    //    lazy var logoHeader: UIOutlinedLabel = {
-    //        let label = UIOutlinedLabel()
-    //        label.text = "We \nLearn"
-    //        label.font = UIFont(name: "Thirtysix", size: 72)
-    //        label.numberOfLines = 0
-    //        label.lineBreakMode = .byWordWrapping
-    //        label.textColor = UIColor.white
-    //        label.layer.shadowColor = UIColor.weLearnBlue.cgColor
-    //        label.layer.shadowOffset = CGSize(width: -10, height: 10)
-    //        label.layer.shadowOpacity = 1
-    //        label.layer.shadowRadius = 1
-    //        label.layer.masksToBounds = false
-    //        return label
-    //    }()
     
     lazy var loginTab: Box = {
         let button = Box()

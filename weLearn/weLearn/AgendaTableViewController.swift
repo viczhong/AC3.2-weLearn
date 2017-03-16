@@ -25,14 +25,17 @@ class AgendaTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "Syllabus"
+        self.tabBarController?.title = "Syllabus"
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
+        self.tabBarController?.navigationItem.hidesBackButton = true
+        
         let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
+        self.tabBarController?.navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
 
@@ -43,7 +46,6 @@ class AgendaTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.navigationItem.hidesBackButton = true
     }
     
     // MARK: - Button Actions
@@ -54,7 +56,7 @@ class AgendaTableViewController: UITableViewController {
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
-                _ = self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.pushViewController(InitialViewController(), animated: true)
                 
             }
             catch {
@@ -118,22 +120,9 @@ class AgendaTableViewController: UITableViewController {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
         return button
     }()
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        if let url = agenda[indexPath.row].repoURL {
-//            
-//            let svc = SFSafariViewController(url: URL(string: url)!)
-//            present(svc, animated: true, completion: nil)
-//        }
-//        
-//    }
 }
