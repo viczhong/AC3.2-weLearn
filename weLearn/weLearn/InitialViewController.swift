@@ -528,7 +528,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerTabWasPressed() {
-        AudioServicesPlaySystemSound(1105)
+        AudioServicesPlaySystemSound(1104)
         UIView.animate(withDuration: 0.5, animations: {
             self.registerTab.layer.shadowOpacity = 0.1
             self.registerTab.layer.shadowRadius = 1
@@ -550,7 +550,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginTabWasPressed() {
-        AudioServicesPlaySystemSound(1105)
+        AudioServicesPlaySystemSound(1104)
         UIView.animate(withDuration: 0.5, animations: {
             self.loginTab.layer.shadowOpacity = 0.1
             self.loginTab.layer.shadowRadius = 1
