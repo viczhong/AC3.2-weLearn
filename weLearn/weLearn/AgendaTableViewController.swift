@@ -19,8 +19,8 @@ class AgendaTableViewController: UITableViewController {
 //        "Workshop at Headquarters"
 //    ]
     
-    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
-    let assignmentSheetID = "1X0u5jM7-L4RSqdGC0AWa1XsyvSusV2wLDTtmwgBERJA"
+    let agendaSheetID = MyClass.manager.lessonScheduleID!
+    let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
     
     var agenda: [Agenda]?

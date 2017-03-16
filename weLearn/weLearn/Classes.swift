@@ -18,15 +18,21 @@ class ClassFromSheet {
     let studentGradesID: String?
     let assignmentsID: String?
     let lessonScheduleID: String?
+    let achievementsID: String?
+    let announcementsID: String?
     
     init(className: String,
          studentGradesID: String?,
          assignmentsID: String?,
-         lessonScheduleID: String?) {
+         lessonScheduleID: String?,
+         achievementsID: String?,
+         announcementsID: String?) {
         self.className = className
         self.studentGradesID = studentGradesID
         self.assignmentsID = assignmentsID
         self.lessonScheduleID = lessonScheduleID
+        self.achievementsID = achievementsID
+        self.announcementsID = announcementsID
     }
     
     convenience init?(from dict: [String : Any]) throws {
@@ -42,7 +48,10 @@ class ClassFromSheet {
         self.init(className: className,
                   studentGradesID: dict["studentgradesid"],
                   assignmentsID: dict["assignmentsid"],
-                  lessonScheduleID: dict["lessonscheduleid"])
+                  lessonScheduleID: dict["lessonscheduleid"],
+                  achievementsID: dict["achievementsid"],
+                  announcementsID: dict["announcementsid"]
+                  )
     }
     
     static func getClasses(from data: Data) -> [ClassFromSheet]? {
@@ -69,7 +78,7 @@ class ClassFromSheet {
         
         return classesParsed
     }
-
+    
     static func postClassInfoToDatabase(_ classes: [ClassFromSheet]) {
         let classBuckets = FIRDatabase.database().reference().child("classes")
         var classDict: [String : String] = [:]
@@ -90,7 +99,9 @@ class ClassFromSheet {
                         "name" : element.className,
                         "studentGradesID" : element.studentGradesID,
                         "assignmentsID" : element.assignmentsID,
-                        "lessonScheduleID" : element.lessonScheduleID
+                        "lessonScheduleID" : element.lessonScheduleID,
+                        "achievementsID" : element.achievementsID,
+                        "announcementsID" : element.announcementsID
                     ]
                     
                     if classDict.keys.contains(element.className) {

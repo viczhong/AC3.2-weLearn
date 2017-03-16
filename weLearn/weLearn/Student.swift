@@ -45,4 +45,10 @@ class User {
         User.manager.assignments = nil
         User.manager.grades = nil
     }
+    
+    static func setAssignmentsReversed(_ assignments: [Assignment]?) {
+        if let assign = assignments {
+            User.manager.assignments = assign.reversed()
+        }
+    }
 }
