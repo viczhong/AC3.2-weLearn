@@ -7,7 +7,7 @@
 //
 import UIKit
 import SafariServices
-
+import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
     var todaysFakeSchedule: [String] = [
@@ -19,19 +19,49 @@ class AgendaTableViewController: UITableViewController {
         "Workshop at Headquarters"
     ]
     
-    //var agenda = LessonSchedule.manager.agenda
+    // var agenda = LessonSchedule.manager.agenda
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Syllabus"
+        self.navigationItem.title = "Syllabus"
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-                //readAgenda()
+        let rightButton = UIBarButtonItem(customView: logOutButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
+        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
+
+        
+                // readAgenda()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.navigationItem.hidesBackButton = true
+    }
+    
+    // MARK: - Button Actions
+    
+    func logOutButtonWasPressed(selector: UIButton) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                self.navigationController?.navigationBar.isHidden = true
+                selector.isHidden = true
+                _ = self.navigationController?.popToRootViewController(animated: true)
+                
+            }
+            catch {
+                print(error)
+            }
+        }
+        
     }
     
     // MARK: - Table view data source
@@ -83,6 +113,19 @@ class AgendaTableViewController: UITableViewController {
         
         return cell
     }
+    
+    lazy var logOutButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("Log Out".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        //button.backgroundColor = UIColor.weLearnBlue
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
+        //button.imageView?.contentMode = .center
+        button.imageView?.clipsToBounds = true
+        return button
+    }()
     
 //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        

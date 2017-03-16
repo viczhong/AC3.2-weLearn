@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import Firebase
 import FirebaseDatabase
-
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
@@ -34,7 +33,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.title = "Profile"
+        self.navigationItem.title = "Profile"
         
         self.view.backgroundColor = UIColor.weLearnBlue
         
@@ -45,7 +44,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.register(GradeTableViewCell.self, forCellReuseIdentifier: "GradeTableViewCell")
         
-        // tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
@@ -55,21 +53,26 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
         
         databaseReference = FIRDatabase.database().reference()
-        checkLoggedIn()
         
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        getProfileImage()
-        
+        if User.manager.studentKey != nil {
+            getProfileImage()
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        
         if profilePic.image == nil {
             uploadImageButton.isHidden = false
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        
+        checkLoggedIn()
+    }
+
     func getProfileImage() {
         let storage = FIRStorage.storage()
         let storageRef = storage.reference()
@@ -99,10 +102,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(tableView)
         self.view.addSubview(collectionView)
         self.view.addSubview(uploadImageButton)
-        //        self.view.addSubview(achievementBox)
-        //        self.view.addSubview(titleForAchievementsBox)
-        //        self.view.addSubview(gradesBox)
-        //        self.view.addSubview(titleForGradesBox)
     }
     
     func configureConstraints() {
@@ -152,29 +151,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             view.bottom.equalTo(profileBox).inset(20)
         }
         
-        //        achievementBox.snp.makeConstraints { view in
-        //            view.top.equalTo(profileBox.snp.bottom).offset(20)
-        //            view.centerX.equalToSuperview()
-        //            view.leading.equalToSuperview().offset(25)
-        //            view.trailing.equalToSuperview().inset(25)
-        //            view.height.equalTo(100)
-        //        }
-        //
-        //        titleForAchievementsBox.snp.makeConstraints { view in
-        //            view.top.leading.equalTo(achievementBox).offset(20)
-        //        }
-        //
-        //        gradesBox.snp.makeConstraints {view in
-        //            view.top.equalTo(achievementBox.snp.bottom).offset(20)
-        //            view.centerX.equalToSuperview()
-        //            view.leading.equalToSuperview().offset(25)
-        //            view.trailing.equalToSuperview().inset(25)
-        //            view.height.equalTo(150)
-        //        }
-        //
-        //        titleForGradesBox.snp.makeConstraints { view in
-        //            view.top.leading.equalTo(gradesBox).offset(20)
-        //        }
     }
     
     //MARK: - User Functions
@@ -200,14 +176,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //        var studentID = ""
         
         // Now that we have the number, grab that person's grades
-        if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
-                                                                  for: User.manager.id!) {
-            print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
-            
-            self.testGrades = returnedGradesData
-            self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        if let studentID = User.manager.id {
+            if let returnedGradesData = TestGrade.getStudentTestGrade(from: data,
+                                                                      for: studentID) {
+                print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
+                
+                self.testGrades = returnedGradesData
+                self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -283,11 +261,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return "Grades"
     }
     
-    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    //        let header = view as! UITableViewHeaderFooterView
-    //        header.textLabel?.font = UIFont(name: "Avenir-Black", size: 16)
-    //    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if testGrades != nil {
@@ -325,6 +298,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     //Mark: - Button Functions
+
     func logOutButtonWasPressed(selector: UIButton) {
         if FIRAuth.auth()?.currentUser != nil {
             do {
@@ -345,7 +319,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let picker = UIImagePickerController()
         uploadImageButton.alpha = 0
         picker.sourceType = .photoLibrary
-        picker.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)]
+        picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
@@ -376,7 +350,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.name
+        label.text = User.manager.name ?? "Anon"
         label.font = UIFont(name: "Avenir-Light", size: 24)
         return label
     }()
@@ -384,7 +358,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = User.manager.email
+        label.text = User.manager.email ?? "anon@anon.com"
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
@@ -392,7 +366,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var classLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
-        label.text = "AC3.2"
+        label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 16)
         return label
     }()
@@ -401,42 +375,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let button = UIButton()
         return button
     }()
-    
-    //    lazy var achievementBox: UIView = {
-    //        let view = UIView()
-    //        view.backgroundColor = UIColor.white
-    //        view.layer.shadowColor = UIColor.black.cgColor
-    //        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-    //        view.layer.shadowOpacity = 0.5
-    //        view.layer.shadowRadius = 3
-    //        view.layer.masksToBounds = false
-    //        return view
-    //    }()
-    //
-    //    lazy var titleForAchievementsBox: UIView = {
-    //        let label = UILabel()
-    //        label.font = UIFont(name: "Avenir-Black", size: 20)
-    //        label.text = "Achievements"
-    //        return label
-    //    }()
-    //
-    //    lazy var gradesBox: UIView = {
-    //        let view = UIView()
-    //        view.backgroundColor = UIColor.white
-    //        view.layer.shadowColor = UIColor.black.cgColor
-    //        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-    //        view.layer.shadowOpacity = 0.5
-    //        view.layer.shadowRadius = 3
-    //        view.layer.masksToBounds = false
-    //        return view
-    //    }()
-    //
-    //    lazy var titleForGradesBox: UIView = {
-    //        let label = UILabel()
-    //        label.font = UIFont(name: "Avenir-Black", size: 20)
-    //        label.text = "Grades"
-    //        return label
-    //    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() //(frame: .zero, style: .grouped)
@@ -462,6 +400,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         collectionView.dataSource = self
         return collectionView
     }()
+    
     lazy var logOutButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)

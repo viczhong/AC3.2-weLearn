@@ -25,12 +25,37 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var timer: Timer!
     var selection: String?
     
+    // MARK: Tab bar properties
+    
+    var TabViewController = UITabBarController()
+    
+    var tabAgenda = UITableViewController()
+    var tabLinks = UITableViewController()
+    var tabAnnouncements = UITableViewController()
+    var tabProfile = UIViewController()
+    var tabAssignments = UIViewController()
+    
+    var navControllerAgenda = UINavigationController()
+    var navControllerLinks = UINavigationController()
+    var navControllerAnnouncements = UINavigationController()
+    var navControllerProfile = UINavigationController()
+    var navControllerAssignments = UINavigationController()
+    
+    var viewControllers = [UINavigationController]()
+    
+    var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
+    var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
+    var tabAnnouncementsImage = #imageLiteral(resourceName: "announcementIcon")
+    var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
+    var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
+    
+    //MARK: Views Did Do Things
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.time = 0.0
         
-        // self.view.apply(gradient: [UIColor.white, UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.5), UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)])
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
         
         self.passwordTextField.delegate = self
@@ -48,7 +73,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         ]
         
         databaseReference = FIRDatabase.database().reference()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +98,43 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         hoverCloud()
     }
     
+    //MARK: - Tab loading functions
+    
+    func loadTabsAndEverythingElse() {
+        // Tabbar guts
+        
+        tabAgenda = AgendaTableViewController()
+        tabLinks = LinkTableViewController()
+        tabAnnouncements = OldAnnouncementsTableViewController()
+        tabAssignments = AssignmentTableViewController()
+        tabProfile = ProfileViewController()
+        
+        navControllerAgenda = UINavigationController(rootViewController: tabAgenda)
+        navControllerLinks = UINavigationController(rootViewController: tabLinks)
+        navControllerAnnouncements = UINavigationController(rootViewController: tabAnnouncements)
+        navControllerAssignments = UINavigationController(rootViewController: tabAssignments)
+        navControllerProfile = UINavigationController(rootViewController: tabProfile)
+        
+        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
+        TabViewController.viewControllers = viewControllers
+        
+        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
+        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
+        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
+        tabAssignments.tabBarItem = UITabBarItem(title: "Assignments", image: tabAssignmentImage, tag: 5)
+        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
+        
+        tabAgenda.view.backgroundColor = UIColor.weLearnBlue
+        tabLinks.view.backgroundColor = UIColor.weLearnBlue
+        tabAnnouncements.view.backgroundColor = UIColor.weLearnBlue
+        tabAssignments.view.backgroundColor = UIColor.weLearnBlue
+        tabProfile.view.backgroundColor = UIColor.weLearnBlue
+        
+        TabViewController.tabBar.tintColor = UIColor.weLearnBlue
+        TabViewController.tabBar.barTintColor = UIColor.weLearnCoolWhite
+        TabViewController.tabBar.unselectedItemTintColor = UIColor.weLearnGrey
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == passwordTextField {
             self.view.endEditing(true)
@@ -81,12 +142,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
         
         return true
-    }
-    
-    func checkLogin() {
-        if FIRAuth.auth()?.currentUser != nil {
-            self.navigationController?.pushViewController(HomeViewController(), animated: true)
-        }
     }
     
     func colorTab(button1: UIButton, button2: UIButton) {
@@ -98,6 +153,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             button2.backgroundColor = UIColor.white
         }
     }
+    
+    //MARK: - Autolayout Constraints and Hierarchy
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
@@ -131,11 +188,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             view.top.equalToSuperview().offset(30)
             view.centerX.equalToSuperview().offset(5)
         }
-        
-        //        logoHeader.snp.makeConstraints { label in
-        //            label.top.equalToSuperview().offset(40)
-        //            label.leading.equalToSuperview().offset(25)
-        //        }
         
         box.snp.makeConstraints { view in
             view.top.equalTo(logoPic.snp.bottom).offset(60)
@@ -242,7 +294,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    // MARK: - Button Actions
+    // MARK: - Button Actions and Functions
+    
+    func checkLogin() {
+        if FIRAuth.auth()?.currentUser != nil {
+            self.navigationController?.pushViewController(TabViewController, animated: true)
+        }
+    }
     
     func signInCredentials() -> (name: String, email: String, password: String, studentClass: String, studentID: String)? {
         guard let password = passwordTextField.text,
@@ -263,8 +321,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func setUpDatabaseReference() {
         guard let credentials = signInCredentials() else { return }
         var databaseCodeForClass = ""
-        let curreuntUser = FIRAuth.auth()!.currentUser!.uid
-        let referenceLink = databaseReference.child("users").child(curreuntUser)
+        let currentUser = FIRAuth.auth()!.currentUser!.uid
+        let referenceLink = databaseReference.child("users").child(currentUser)
         
         // 1) Find out if a class exists, or generate it
         let classBuckets = databaseReference.child("classes")
@@ -293,7 +351,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                             ]
                             
                             referenceLink.setValue(dict)
-                            self.fillInSingleton(curreuntUser)
+                            self.fillInSingleton(currentUser)
                             break
                         }
                     }
@@ -320,7 +378,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                         ]
                         
                         referenceLink.setValue(dict)
-                        self.fillInSingleton(curreuntUser)
+                        self.fillInSingleton(currentUser)
                     }
                 }
             } else {
@@ -339,7 +397,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 user.email = valueDict["studentEmail"] as? String
                 user.id = valueDict["studentID"] as? String
                 user.name = valueDict["studentName"] as? String
-                user.studentKey = snapshot.key
+                user.studentKey = string
+                
+                DispatchQueue.main.async {
+                    // Load tab bar now!
+                    self.loadTabsAndEverythingElse()
+                }
             }
         })
     }
@@ -351,7 +414,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
                 self.passwordTextField.text = ""
-                self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                self.navigationController?.pushViewController(self.TabViewController, animated: true)
                 self.navigationController?.navigationBar.isHidden = false
             }
             
@@ -407,7 +470,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkTime () {
         if self.time >= 0.5  {
-            self.navigationController?.pushViewController(HomeViewController(), animated: true)
+            self.navigationController?.pushViewController(TabViewController, animated: true)
             timer.invalidate()
         }
         

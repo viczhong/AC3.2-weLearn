@@ -41,7 +41,7 @@ class StyleManager {
         let proxyWebView = UIWebView.appearance()
         let proxyTableView = UITableView.appearance()
         let proxyTableCell = UITableViewCell.appearance()
-        //let proxySectionHeader = UITableViewHeaderFooterView.appearance()
+        let proxySectionHeader = UITableViewHeaderFooterView.appearance()
         //let proxyCollectionCell = UICollectionViewCell.appearance()
         let proxyCollectionView = UICollectionView.appearance()
         let proxyScrollView = UIScrollView.appearance()
@@ -80,7 +80,7 @@ class StyleManager {
         
         proxyTableView.backgroundColor = UIColor.white
         proxyTableCell.backgroundColor = UIColor.weLearnBlue
-        // proxySectionHeader.tintColor = UIColor.white
+        proxySectionHeader.tintColor = UIColor.white
         
         proxyScrollView.bounces = true
         //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite

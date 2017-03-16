@@ -26,7 +26,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
             Announcement(quote: "Hacked!", author: "Evan")
         ]
         
-        title = "Past Announcements"
+        self.navigationItem.title = "Announcements"
         
        // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
