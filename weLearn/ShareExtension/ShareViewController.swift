@@ -9,6 +9,7 @@ import UIKit
 import Social
 import MobileCoreServices
 
+
 class ShareViewController: SLComposeServiceViewController {
     
     private var urlString: String?
@@ -59,7 +60,7 @@ class ShareViewController: SLComposeServiceViewController {
         
         guard let userUID = getUserIDFromUserDefaults() else { return }
         getStudentClassFromDatabase(studentID: userUID) { (studentDict) -> (Void) in
-            guard let studentClass = studentDict["class"] as? String,
+            guard let studentClass = studentDict["classKey"] as? String,
                 let studentName = studentDict["studentName"] as? String else { return }
             
             if let linkDescription = self.textView.text,
@@ -67,7 +68,10 @@ class ShareViewController: SLComposeServiceViewController {
                 let time = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
                 let uniqueID = userUID + time
                 
-            let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/\(uniqueID).json"
+//         let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/\(uniqueID).json"
+                let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/.json"
+
+     
             guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                 let validURL = URL(string: validURLString) else { return }
             var request = URLRequest(url: validURL)

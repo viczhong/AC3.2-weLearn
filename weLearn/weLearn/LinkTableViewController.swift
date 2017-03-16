@@ -29,7 +29,7 @@ class LinkTableViewController: UITableViewController, Tappable {
         tableView.separatorStyle = .none
 
         
-      //  self.getDataInfo()
+        self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -41,7 +41,7 @@ class LinkTableViewController: UITableViewController, Tappable {
     
    func getDataInfo() {
 //        
-        databaseReference.child("Links").child(User.manager.classroom!).observeSingleEvent(of: .value, with: { (snapShot) in
+        databaseReference.child("Links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
             for link in value {
