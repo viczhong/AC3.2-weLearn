@@ -61,16 +61,17 @@ class ShareViewController: SLComposeServiceViewController {
         getStudentClassFromDatabase(studentID: userUID) { (studentDict) -> (Void) in
             guard let studentClass = studentDict["classKey"] as? String,
                 let studentName = studentDict["studentName"] as? String else { return }
-            let date = Date()
-            let dateFormatter = DateFormatter()
-            let dateString = dateFormatter.string(from: date)
-            
             if let linkDescription = self.textView.text,
                 let url = self.urlString {
                 let time = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
                 let uniqueID = userUID + time
                 
                 let urlString = "https://welearn-a2b14.firebaseio.com/links/\(studentClass)/\(uniqueID).json"
+                
+                let now = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yy'T'HH:mmZZZZZ"
+                let dateString = dateFormatter.string(from: now)
                 
                 guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                     let validURL = URL(string: validURLString) else { return }
