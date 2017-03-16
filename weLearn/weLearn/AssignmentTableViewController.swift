@@ -12,13 +12,9 @@ import FirebaseAuth
 
 class AssignmentTableViewController: UITableViewController, Tappable {
     
-    //    var timer: Timer!
-    //    let currentDate = Date()
-    
     var assignments: [Assignment]? {
         didSet {
             User.setAssignmentsReversed(assignments)
-            //            User.manager.assignments = assignments
         }
     }
     
@@ -44,15 +40,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         
         readAssignments()
-        
-        //        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
     }
     
     func readAssignments() {
@@ -137,7 +124,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     
                 }
                 else {
-                    
                     let endTime = assignment.date
                     let difference = endTime.timeIntervalSinceNow
                     var timeInSeconds = 0
@@ -160,6 +146,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 return cell
             }
         }
+        
         return cell
     }
     
@@ -181,7 +168,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         button.imageView?.clipsToBounds = true
         return button
     }()
-    
     
     // MARK: - Button Action
     
