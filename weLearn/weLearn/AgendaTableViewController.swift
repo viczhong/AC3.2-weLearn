@@ -35,7 +35,7 @@ class AgendaTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
-
+        
         readAgenda()
     }
     
@@ -86,13 +86,14 @@ class AgendaTableViewController: UITableViewController {
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 self.dismiss(animated: true, completion: nil)
-
             }
+                
             catch {
                 print(error)
             }
         }
-        
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,7 +111,7 @@ class AgendaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             //        case 0:
-        //            return "March 10, 2017"   
+        //            return "March 10, 2017"
         case 0:
             if agenda != nil {
                 return "Today's Agenda"
@@ -142,20 +143,20 @@ class AgendaTableViewController: UITableViewController {
             
         default:
             break
-
+            
         }
-            return 0
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
         // needs diff sections
-
+        
         switch indexPath.section {
         case 0:
             if let agenda = LessonSchedule.manager.todaysAgenda {
-                cell.label.text = "\(agenda.dateString) - \(agenda.lessonName)"
+                cell.label.text = agenda.lessonName
             }
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
@@ -164,7 +165,7 @@ class AgendaTableViewController: UITableViewController {
             }
         default:
             break
-
+            
         }
         return cell
     }

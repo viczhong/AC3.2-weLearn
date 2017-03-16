@@ -33,5 +33,4 @@ class MyClass {
             strings[index] = nil
         }
     }
-    
 }
