@@ -19,8 +19,8 @@ class AgendaTableViewController: UITableViewController {
     //        "Workshop at Headquarters"
     //    ]
     
-    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
-    let assignmentSheetID = "1X0u5jM7-L4RSqdGC0AWa1XsyvSusV2wLDTtmwgBERJA"
+    let agendaSheetID = MyClass.manager.lessonScheduleID!
+    let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
     
     var agenda: [Agenda]?
@@ -79,6 +79,19 @@ class AgendaTableViewController: UITableViewController {
     
     // MARK: - Button Actions
     
+    func logOutButtonWasPressed(selector: UIButton) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                self.navigationController?.navigationBar.isHidden = true
+                selector.isHidden = true
+                self.dismiss(animated: true, completion: nil)
+
+            }
+            catch {
+                print(error)
+            }
+        }
         
     // MARK: - Table view data source
     

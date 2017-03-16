@@ -40,4 +40,10 @@ class LessonSchedule {
         
         print("\n\n\n\n\nWe have a lesson schedule: \(tempAgenda.count) entries")
     }
+    
+    static func clearSchedule() {
+        LessonSchedule.manager.pastAgenda = nil
+        LessonSchedule.manager.todaysAgenda = nil
+        LessonSchedule.manager.fullAgendaUpToToday = nil
+    }
 }

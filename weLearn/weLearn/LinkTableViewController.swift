@@ -41,7 +41,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     }
     
    func getDataInfo() {
-//        
         databaseReference.child("links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()

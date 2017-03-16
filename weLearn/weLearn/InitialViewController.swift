@@ -43,7 +43,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
-//    var viewControllers = [UIViewController]()
+    //    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -81,7 +81,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         loginTabWasPressed()
-
         activityIndicator.isHidden = true
     }
     
@@ -92,14 +91,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        
-//        self.registerButton.layer.shadowOpacity = 0.25
-//        self.registerButton.layer.shadowRadius = 2
-//        self.registerButton.layer.sublayers!.remove(at: 0)
-//        
-//        self.loginButton.layer.shadowOpacity = 0.25
-//        self.loginButton.layer.shadowRadius = 2
-//        self.loginButton.layer.sublayers!.remove(at: 0)
         // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -128,7 +119,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
         
-      //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
+        //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
@@ -418,10 +409,30 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 
                 DispatchQueue.main.async {
                     // Load tab bar now!
-                    self.loadTabsAndEverythingElse()
+                    self.fillInClassSingleton(user.classDatabaseKey)
                 }
             }
         })
+    }
+    
+    func fillInClassSingleton(_ classKey: String?) {
+        if let key = classKey {
+            let classRef = databaseReference.child("classes").child(key)
+            classRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let valueDict = snapshot.value as? [String : Any] {
+                    let thisClass = MyClass.manager
+                    thisClass.studentGradesID = valueDict["studentGradesID"] as? String
+                    thisClass.lessonScheduleID = valueDict["lessonScheduleID"] as? String
+                    thisClass.announcementsID = valueDict["announcementsID"] as? String
+                    thisClass.assignmentsID = valueDict["assignmentsID"] as? String
+                    thisClass.achievementsID = valueDict["achievementsID"] as? String
+                    
+                    DispatchQueue.main.async {
+                        self.loadTabsAndEverythingElse()
+                    }
+                }
+            })
+        }
     }
     
     func loginButtonWasPressed() {
@@ -513,7 +524,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.loginButton.isEnabled = false
                 
                 self.activityIndicator.stopAnimating()
-
             }
         })
     }

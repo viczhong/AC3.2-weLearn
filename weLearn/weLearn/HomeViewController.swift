@@ -122,7 +122,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.assignments = returnedAssignments
                     DispatchQueue.main.async {
                         self.nextDue = self.findNextDue() {
-                            DispatchQueue.main.async { self.tableView.reloadData() }
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
                     }
                 }
