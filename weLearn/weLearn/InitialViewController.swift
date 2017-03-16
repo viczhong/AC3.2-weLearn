@@ -42,6 +42,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
+//    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -49,7 +50,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
     var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
     
-    //MARK: Views Did Do Things
+    // MARK: Views Did Do Things
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,16 +81,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         loginTabWasPressed()
         activityIndicator.isHidden = true
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        activityIndicator.stopAnimating()
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -116,6 +118,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         navControllerProfile = UINavigationController(rootViewController: tabProfile)
         
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
+        
+      //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
@@ -302,7 +306,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            self.present(TabViewController, animated: true)
         }
     }
     
@@ -423,7 +427,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.fillInSingleton(loggedInUser.uid)
                 self.passwordTextField.text = ""
                 self.activityIndicator.stopAnimating()
-                self.navigationController?.pushViewController(self.TabViewController, animated: true)
+                self.present(self.TabViewController, animated: true)
                 self.navigationController?.navigationBar.isHidden = false
             }
             
@@ -486,7 +490,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkTime () {
         if self.time >= 0.5  {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            self.present(TabViewController, animated: true)
             timer.invalidate()
         }
         

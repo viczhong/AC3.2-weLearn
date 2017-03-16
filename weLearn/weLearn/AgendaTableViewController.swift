@@ -55,7 +55,7 @@ class AgendaTableViewController: UITableViewController {
                 try FIRAuth.auth()?.signOut()
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
-                _ = self.navigationController?.popToRootViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
                 
             }
             catch {
