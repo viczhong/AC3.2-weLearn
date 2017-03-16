@@ -20,6 +20,7 @@ class LinkTableViewController: UITableViewController, Tappable {
         super.viewDidLoad()
         
         self.navigationItem.title = "Links"
+        self.tabBarController?.title = "Links"
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         
@@ -27,9 +28,10 @@ class LinkTableViewController: UITableViewController, Tappable {
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
-
         
-        self.getDataInfo()
+        if FIRAuth.auth()?.currentUser != nil {
+            self.getDataInfo()
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -39,25 +41,26 @@ class LinkTableViewController: UITableViewController, Tappable {
         self.getDataInfo()
     }
     
-   func getDataInfo() {
-//        
-        databaseReference.child("Links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
-            guard let value = snapShot.value as? [String : Any] else { return }
-            var linksArr = [Link]()
-            for link in value {
-                guard let dict = link.value as? [String : Any] else { return }
-                guard let links = Link(fromDict: dict) else { return }
-                linksArr.append(links)
+    func getDataInfo() {
+        if let classDatabaseKey = User.manager.classDatabaseKey {
+            databaseReference.child("Links").child(classDatabaseKey).observeSingleEvent(of: .value, with: { (snapShot) in
+                guard let value = snapShot.value as? [String : Any] else { return }
+                var linksArr = [Link]()
+                for link in value {
+                    guard let dict = link.value as? [String : Any] else { return }
+                    guard let links = Link(fromDict: dict) else { return }
+                    linksArr.append(links)
+                }
+                self.links = linksArr
+                self.tableView.reloadData()
+                print(">>> there are \(self.links.count) links")
+                
+            }) { (error) in
+                print(error.localizedDescription)
             }
-            self.links = linksArr
-            self.tableView.reloadData()
-            print(">>> there are \(self.links.count) links")
-            
-        }) { (error) in
-            print(error.localizedDescription)
         }
     }
-
+    
     // MARK: - Button stuff
     
     func cellTapped(cell: UITableViewCell) {
@@ -88,7 +91,7 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         cell.authorLabel.text = "\(links[indexPath.row].author):"
         cell.descriptionLabel.text = links[indexPath.row].description
-    
+        
         return cell
     }
 }

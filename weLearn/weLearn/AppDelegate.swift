@@ -14,6 +14,9 @@ import FirebaseDatabase
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
+    // Animation Views
+    
     var bigCloudView: UIImageView?
     var leftCloudView1: UIImageView?
     var leftCloudView2: UIImageView?
@@ -21,6 +24,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var rightCloudView1: UIImageView?
     var rightCloudView2: UIImageView?
     var rightCloudView3: UIImageView?
+    
+    // MARK: Tab bar properties
+    
+    var tabBarViewController = UITabBarController()
+    
+    var tabAgenda = UITableViewController()
+    var tabLinks = UITableViewController()
+    var tabAnnouncements = UITableViewController()
+    var tabProfile = UIViewController()
+    var tabAssignments = UIViewController()
+    
+    var navControllerAgenda = UINavigationController()
+    var navControllerLinks = UINavigationController()
+    var navControllerAnnouncements = UINavigationController()
+    var navControllerProfile = UINavigationController()
+    var navControllerAssignments = UINavigationController()
+    
+    var viewControllers = [UINavigationController]()
+    
+    var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
+    var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
+    var tabAnnouncementsImage = #imageLiteral(resourceName: "announcementIcon")
+    var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
+    var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -32,13 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         StyleManager.styler.prettify()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let myNavVC = UINavigationController(rootViewController: InitialViewController())
         
         if let window = self.window {
             window.backgroundColor = UIColor.weLearnBlue
             
-            window.rootViewController = myNavVC
-            window.makeKeyAndVisible()
+            loadTabsAndEverythingElse()
+            let myNavVC = UINavigationController(rootViewController: tabBarViewController)
+            self.window?.rootViewController = myNavVC
+            self.window?.makeKeyAndVisible()
             
             self.bigCloudView = UIImageView()
             self.leftCloudView1 = UIImageView()
@@ -189,6 +217,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
         print("did enter the function")
+    }
+    
+    func loadTabsAndEverythingElse() {
+        // Tabbar guts
+        
+        tabAgenda = AgendaTableViewController()
+        tabLinks = LinkTableViewController()
+        tabAnnouncements = OldAnnouncementsTableViewController()
+        tabAssignments = AssignmentTableViewController()
+        tabProfile = ProfileViewController()
+        
+        navControllerAgenda = UINavigationController(rootViewController: tabAgenda)
+        navControllerLinks = UINavigationController(rootViewController: tabLinks)
+        navControllerAnnouncements = UINavigationController(rootViewController: tabAnnouncements)
+        navControllerAssignments = UINavigationController(rootViewController: tabAssignments)
+        navControllerProfile = UINavigationController(rootViewController: tabProfile)
+        
+        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
+        tabBarViewController.viewControllers = viewControllers
+        
+        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
+        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
+        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
+        tabAssignments.tabBarItem = UITabBarItem(title: "Assignments", image: tabAssignmentImage, tag: 5)
+        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
+        
+        tabAgenda.view.backgroundColor = UIColor.weLearnBlue
+        tabLinks.view.backgroundColor = UIColor.weLearnBlue
+        tabAnnouncements.view.backgroundColor = UIColor.weLearnBlue
+        tabAssignments.view.backgroundColor = UIColor.weLearnBlue
+        tabProfile.view.backgroundColor = UIColor.weLearnBlue
+        
+        tabBarViewController.tabBar.tintColor = UIColor.weLearnBlue
+        tabBarViewController.tabBar.barTintColor = UIColor.weLearnCoolWhite
+        tabBarViewController.tabBar.unselectedItemTintColor = UIColor.weLearnGrey
     }
     
 }

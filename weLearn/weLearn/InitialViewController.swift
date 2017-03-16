@@ -27,28 +27,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Tab bar properties
     
-    var TabViewController = UITabBarController()
-    
-    var tabAgenda = UITableViewController()
-    var tabLinks = UITableViewController()
-    var tabAnnouncements = UITableViewController()
-    var tabProfile = UIViewController()
-    var tabAssignments = UIViewController()
-    
-    var navControllerAgenda = UINavigationController()
-    var navControllerLinks = UINavigationController()
-    var navControllerAnnouncements = UINavigationController()
-    var navControllerProfile = UINavigationController()
-    var navControllerAssignments = UINavigationController()
-    
-    var viewControllers = [UINavigationController]()
-    
-    var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
-    var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
-    var tabAnnouncementsImage = #imageLiteral(resourceName: "announcementIcon")
-    var tabProfileImage = #imageLiteral(resourceName: "profileIcon")
-    var tabAssignmentImage = #imageLiteral(resourceName: "assignmentIcon")
-    
     //MARK: Views Did Do Things
     
     override func viewDidLoad() {
@@ -80,7 +58,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         toggleIsHiddenWhenTabIsChanged.map { $0.isHidden = true }
         loginTabWasPressed()
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,50 +66,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
         hoverCloud()
-    }
-    
-    //MARK: - Tab loading functions
-    
-    func loadTabsAndEverythingElse() {
-        // Tabbar guts
-        
-        tabAgenda = AgendaTableViewController()
-        tabLinks = LinkTableViewController()
-        tabAnnouncements = OldAnnouncementsTableViewController()
-        tabAssignments = AssignmentTableViewController()
-        tabProfile = ProfileViewController()
-        
-        navControllerAgenda = UINavigationController(rootViewController: tabAgenda)
-        navControllerLinks = UINavigationController(rootViewController: tabLinks)
-        navControllerAnnouncements = UINavigationController(rootViewController: tabAnnouncements)
-        navControllerAssignments = UINavigationController(rootViewController: tabAssignments)
-        navControllerProfile = UINavigationController(rootViewController: tabProfile)
-        
-        viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
-        TabViewController.viewControllers = viewControllers
-        
-        tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
-        tabLinks.tabBarItem = UITabBarItem(title: "Links", image: tabLinksImage, tag: 2)
-        tabAnnouncements.tabBarItem = UITabBarItem(title: "Announcements", image: tabAnnouncementsImage, tag: 3)
-        tabAssignments.tabBarItem = UITabBarItem(title: "Assignments", image: tabAssignmentImage, tag: 5)
-        tabProfile.tabBarItem = UITabBarItem(title: "Profile", image: tabProfileImage, tag: 4)
-        
-        tabAgenda.view.backgroundColor = UIColor.weLearnBlue
-        tabLinks.view.backgroundColor = UIColor.weLearnBlue
-        tabAnnouncements.view.backgroundColor = UIColor.weLearnBlue
-        tabAssignments.view.backgroundColor = UIColor.weLearnBlue
-        tabProfile.view.backgroundColor = UIColor.weLearnBlue
-        
-        TabViewController.tabBar.tintColor = UIColor.weLearnBlue
-        TabViewController.tabBar.barTintColor = UIColor.weLearnCoolWhite
-        TabViewController.tabBar.unselectedItemTintColor = UIColor.weLearnGrey
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -297,7 +236,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkLogin() {
         if FIRAuth.auth()?.currentUser != nil {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -398,10 +337,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 user.name = valueDict["studentName"] as? String
                 user.studentKey = string
                 
-                DispatchQueue.main.async {
-                    // Load tab bar now!
-                    self.loadTabsAndEverythingElse()
-                }
             }
         })
     }
@@ -413,8 +348,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let loggedInUser = user {
                 self.fillInSingleton(loggedInUser.uid)
                 self.passwordTextField.text = ""
-                self.navigationController?.pushViewController(self.TabViewController, animated: true)
-                self.navigationController?.navigationBar.isHidden = false
             }
             
             let userID = FIRAuth.auth()?.currentUser?.uid
@@ -424,6 +357,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
             }
+            
+            DispatchQueue.main.async {
+                // Load tab bar now!
+                self.dismiss(animated: true, completion: nil)
+            }
+
         })
         
     }
@@ -469,7 +408,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     func checkTime () {
         if self.time >= 0.5  {
-            self.navigationController?.pushViewController(TabViewController, animated: true)
+            // self.navigationController?.pushViewController(TabViewController, animated: true)
+            loginButtonWasPressed()
             timer.invalidate()
         }
         

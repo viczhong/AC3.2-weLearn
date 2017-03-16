@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Firebase
 import FirebaseDatabase
+import FirebaseStorage
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
@@ -34,6 +35,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         
         self.navigationItem.title = "Profile"
+        self.tabBarController?.title = "Profile"
         
         self.view.backgroundColor = UIColor.weLearnBlue
         

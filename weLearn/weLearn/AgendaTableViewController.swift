@@ -45,7 +45,8 @@ class AgendaTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        checkLogin()
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Button Actions
@@ -54,16 +55,21 @@ class AgendaTableViewController: UITableViewController {
         if FIRAuth.auth()?.currentUser != nil {
             do {
                 try FIRAuth.auth()?.signOut()
-                self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
-                _ = self.navigationController?.pushViewController(InitialViewController(), animated: true)
-                
+                self.present(InitialViewController(), animated: true, completion: nil)
+                self.tabBarController?.tabBar.isHidden = true
             }
             catch {
                 print(error)
             }
         }
         
+    }
+    
+    func checkLogin() {
+        if FIRAuth.auth()?.currentUser == nil {
+            self.present(InitialViewController(), animated: false, completion: nil)
+        }
     }
     
     // MARK: - Table view data source
