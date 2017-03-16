@@ -81,6 +81,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         loginTabWasPressed()
         activityIndicator.isHidden = true
+        
+        self.registerButton.layer.shadowOpacity = 0.25
+        self.registerButton.layer.shadowRadius = 2
+        self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
+        
+        self.loginButton.layer.shadowOpacity = 0.25
+        self.loginButton.layer.shadowRadius = 2
+        self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
         // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -91,6 +99,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
+        
+        self.registerButton.layer.shadowOpacity = 0.25
+        self.registerButton.layer.shadowRadius = 2
+        self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
+        
+        self.loginButton.layer.shadowOpacity = 0.25
+        self.loginButton.layer.shadowRadius = 2
+        self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
         // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -416,6 +432,16 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginButtonWasPressed() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loginButton.layer.shadowOpacity = 0.1
+            self.loginButton.layer.shadowRadius = 1
+            self.loginButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.loginButton.layer.shadowOpacity = 0.25
+            self.loginButton.layer.shadowRadius = 2
+            self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -444,6 +470,16 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerButtonWasPressed() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.registerButton.layer.shadowOpacity = 0.1
+            self.registerButton.layer.shadowRadius = 1
+            self.registerButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.registerButton.layer.shadowOpacity = 0.25
+            self.registerButton.layer.shadowRadius = 2
+            self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -467,7 +503,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isHidden = false
                     self.loginButton.isEnabled = true
                 }
-                
                 
                 let userID = user?.uid
                 let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
