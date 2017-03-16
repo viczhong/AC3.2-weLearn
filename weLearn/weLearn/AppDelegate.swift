@@ -31,14 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.statusBarStyle = .lightContent
         StyleManager.styler.prettify()
         
-        //self.window?.backgroundColor =  UIColor.white
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let myNavVC = UINavigationController(rootViewController: InitialViewController())
-        self.window?.rootViewController = myNavVC
-        window?.makeKeyAndVisible()
         
         if let window = self.window {
+            window.backgroundColor =  UIColor.weLearnBlue
+            
+            let myNavVC = UINavigationController(rootViewController: InitialViewController())
+            window.rootViewController = myNavVC
+            window.makeKeyAndVisible()
+            
             self.bigCloudView = UIImageView()
             self.leftCloudView1 = UIImageView()
             self.leftCloudView2 = UIImageView()
@@ -116,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.centerY.equalTo((rightCloudView1?.snp.top)!)
             }
             
-            UIView.animate(withDuration: 3, animations: {
+            UIView.animate(withDuration: 2, animations: {
                 self.bigCloudView?.alpha = 0
                 self.bigCloudView?.transform = CGAffineTransform(scaleX: 3, y: 3)
                 self.leftCloudView1?.transform = CGAffineTransform(translationX: -600, y: 0)

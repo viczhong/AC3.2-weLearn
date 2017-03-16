@@ -20,6 +20,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         super.viewDidLoad()
         
         self.navigationItem.title = "Links"
+        self.tabBarController?.title = navigationItem.title
         
         tableView.register(LinkTableViewCell.self, forCellReuseIdentifier: "LinkTableViewCell")
         

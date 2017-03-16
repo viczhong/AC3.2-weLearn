@@ -18,6 +18,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         super.viewDidLoad()
         
         self.navigationItem.title = "Assignments"
+        self.tabBarController?.title = navigationItem.title
         
         tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: "AssignmentTableViewCell")
         
