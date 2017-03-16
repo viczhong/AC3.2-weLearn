@@ -52,6 +52,7 @@ class User {
         }
     }
     
+    // Clears the singletons
     static func logOut() {
         User.clearSingleton()
         MyClass.clearSingleton()
