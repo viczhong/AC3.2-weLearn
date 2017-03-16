@@ -9,7 +9,6 @@ import UIKit
 import Social
 import MobileCoreServices
 
-
 class ShareViewController: SLComposeServiceViewController {
     
     private var urlString: String?
@@ -60,28 +59,32 @@ class ShareViewController: SLComposeServiceViewController {
         
         guard let userUID = getUserIDFromUserDefaults() else { return }
         getStudentClassFromDatabase(studentID: userUID) { (studentDict) -> (Void) in
-            guard let studentClass = studentDict["classKey"] as? String,
+            guard let studentClassKey = studentDict["classKey"] as? String,
+            let studentClass = studentDict["class"] as? String,
                 let studentName = studentDict["studentName"] as? String else { return }
-            
             if let linkDescription = self.textView.text,
                 let url = self.urlString {
-                let time = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
-                let uniqueID = userUID + time
+                let uniqueID = String(Int(Date.timeIntervalSinceReferenceDate * 1000))
                 
-//         let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/\(uniqueID).json"
-                let urlString = "https://welearn-a2b14.firebaseio.com/Links/\(studentClass)/.json"
-
-     
-            guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                let validURL = URL(string: validURLString) else { return }
-            var request = URLRequest(url: validURL)
-            let session = URLSession(configuration: .default)
-            request.httpMethod = "PUT"
+                let urlString = "https://welearn-a2b14.firebaseio.com/links/\(studentClassKey)/\(uniqueID).json"
+                
+                let now = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yy'T'HH:mmZZZZZ"
+                let dateString = dateFormatter.string(from: now)
+                
+                guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                    let validURL = URL(string: validURLString) else { return }
+                var request = URLRequest(url: validURL)
+                let session = URLSession(configuration: .default)
+                request.httpMethod = "PUT"
                 
                 let dict = [ "url" : url,
                              "urlDescription" : linkDescription,
                              "studentClass" : studentClass,
-                             "studentName" : studentName
+                             "studentName" : studentName,
+                             "date" : dateString,
+                             "studentKey" : userUID
                 ]
                 
                 do {
@@ -124,8 +127,8 @@ class ShareViewController: SLComposeServiceViewController {
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-
-        if let data = data {
+            
+            if let data = data {
                 print(data)
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
