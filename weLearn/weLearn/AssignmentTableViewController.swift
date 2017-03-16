@@ -106,7 +106,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
         // cell.selectionStyle = .none
@@ -161,7 +160,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 return cell
             }
         }
-        
         return cell
     }
     
