@@ -25,6 +25,7 @@ class AgendaTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "Syllabus"
+        self.tabBarController?.title = navigationItem.title
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         

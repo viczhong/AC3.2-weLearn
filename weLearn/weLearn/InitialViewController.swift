@@ -56,7 +56,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         self.time = 0.0
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnBlue.withAlphaComponent(0.75)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
         
         self.passwordTextField.delegate = self
         
