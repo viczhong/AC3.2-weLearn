@@ -81,7 +81,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         loginTabWasPressed()
-
         activityIndicator.isHidden = true
     }
     
@@ -92,14 +91,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        
-//        self.registerButton.layer.shadowOpacity = 0.25
-//        self.registerButton.layer.shadowRadius = 2
-//        self.registerButton.layer.sublayers!.remove(at: 0)
-//        
-//        self.loginButton.layer.shadowOpacity = 0.25
-//        self.loginButton.layer.shadowRadius = 2
-//        self.loginButton.layer.sublayers!.remove(at: 0)
         // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -533,7 +524,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.loginButton.isEnabled = false
                 
                 self.activityIndicator.stopAnimating()
-                
             }
         })
     }

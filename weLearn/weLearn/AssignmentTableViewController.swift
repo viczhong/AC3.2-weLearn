@@ -34,11 +34,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
         readAssignments()
     }
     
@@ -55,13 +50,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     }
                 }
             }
-        }
-    }
-    
-    func fakePopulate(_ items: [Assignment]) {
-        self.assignments = items
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
         }
     }
     

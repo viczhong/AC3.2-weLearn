@@ -96,47 +96,4 @@ class OldAnnouncementsTableViewController: UITableViewController {
         }
         return cell
     }
-    
-    // MARK: -- UI Stuff That Isn't Tableview
-    
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
-    
-    //    lazy var linksButton: ShinyOvalButton = {
-    //        let button = ShinyOvalButton()
-    //        button.setTitle("links".uppercased(), for: .normal)
-    //        // button.backgroundColor = UIColor.weLearnBlue
-    //        button.layer.cornerRadius = 15
-    //        button.frame = CGRect(x: 0, y: 0, width: 65, height: 30)
-    //        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-    //        //button.imageView?.contentMode = .center
-    //        button.imageView?.clipsToBounds = true
-    //        return button
-    //    }()
-    
-    
-    // MARK: - Button Action
-    
-    func logOutButtonWasPressed(selector: UIButton) {
-        if FIRAuth.auth()?.currentUser != nil {
-            do {
-                try FIRAuth.auth()?.signOut()
-                self.navigationController?.navigationBar.isHidden = true
-                selector.isHidden = true
-                self.dismiss(animated: true, completion: nil)
-                
-            }
-            catch {
-                print(error)
-            }
-        }
-        
-    }
-}
+ }
