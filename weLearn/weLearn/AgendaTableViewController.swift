@@ -10,16 +10,20 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-    var todaysFakeSchedule: [String] = [
-        "DSA",
-        "Sprite Kit with Louis",
-        "Capstone",
-        "Lunch break",
-        "Talk to Tech Mentors",
-        "Workshop at Headquarters"
-    ]
+//    var todaysFakeSchedule: [String] = [
+//        "DSA",
+//        "Sprite Kit with Louis",
+//        "Capstone",
+//        "Lunch break",
+//        "Talk to Tech Mentors",
+//        "Workshop at Headquarters"
+//    ]
     
-    // var agenda = LessonSchedule.manager.agenda
+    let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
+    let assignmentSheetID = "1X0u5jM7-L4RSqdGC0AWa1XsyvSusV2wLDTtmwgBERJA"
+    var todaysAgenda: Agenda?
+    
+    var agenda: [Agenda]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +39,47 @@ class AgendaTableViewController: UITableViewController {
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-
         
-                // readAgenda()
+        
+        readAgenda()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.tabBarController?.navigationItem.hidesBackButton = true
+    }
+    
+    // MARK: - Agenda functions
+    
+    func todaysSchedule() -> Agenda? {
+        if let agenda = agenda {
+            LessonSchedule.manager.setAgenda(agenda)
+            if let agendaception = LessonSchedule.manager.pastAgenda {
+                return agendaception[0]
+            }
+        }
+        return nil
+    }
+    
+    func readAgenda() {
+        if LessonSchedule.manager.pastAgenda == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    if let returnedAgenda = Agenda.getAgenda(from: data!) {
+                        print("We've got returns: \(returnedAgenda.count)")
+                        self.agenda = returnedAgenda
+                        DispatchQueue.main.async {
+                            self.todaysAgenda = self.todaysSchedule()
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Button Actions
@@ -67,7 +103,7 @@ class AgendaTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -80,37 +116,43 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return "March 10, 2017"
             //        case 0:
-            //            //            if todaysAgenda != nil {
-            //            return "Today's Schedule"
-            //            }
-            //            else {
-            //                return nil
-        //            }
-        case 1:
-            return "March 09, 2017"
-        case 2:
-            return "March 07, 2017"
+        //            return "March 10, 2017"
+        case 0:
+            if agenda != nil {
+                return "Today's Schedule"
+            }
+            else {
+                return nil
+            }
+            //        case 1:
+            //            return "March 09, 2017"
+            //        case 2:
+        //            return "March 07, 2017"
         default:
             return ""
         }
     }
- 
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todaysFakeSchedule.count
+        if let agenda = LessonSchedule.manager.pastAgenda {
+            return agenda.count
+        }
+        else {
+            return 0
+        }
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
-        let agendaAtRow = todaysFakeSchedule[indexPath.row]
+        // needs diff sections
         
-        cell.label.text = agendaAtRow
-        
+        if let agenda = LessonSchedule.manager.pastAgenda {
+            let agendaAtRow = agenda[indexPath.row]
+            cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
+        }
         return cell
     }
     
@@ -127,13 +169,13 @@ class AgendaTableViewController: UITableViewController {
         return button
     }()
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        if let url = agenda[indexPath.row].repoURL {
-//            
-//            let svc = SFSafariViewController(url: URL(string: url)!)
-//            present(svc, animated: true, completion: nil)
-//        }
-//        
-//    }
+    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //        if let url = agenda[indexPath.row].repoURL {
+    //
+    //            let svc = SFSafariViewController(url: URL(string: url)!)
+    //            present(svc, animated: true, completion: nil)
+    //        }
+    //
+    //    }
 }

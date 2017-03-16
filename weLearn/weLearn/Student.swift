@@ -23,6 +23,7 @@ class User {
     var studentKey: String? 
     var assignments: [Assignment]?
     var grades: [(assignment: String, grade: String)]?
+    var agenda: [Agenda]?
     
     func clearSingleton() {
         var strings = [name, email, id, classDatabaseKey, classDatabaseKey, image, studentKey]
