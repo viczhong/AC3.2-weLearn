@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import SafariServices
 
-class LinkTableViewController: UITableViewController, Tappable {
+class LinkTableViewController: UITableViewController, Tappable, SFSafariViewControllerDelegate {
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
@@ -29,17 +29,13 @@ class LinkTableViewController: UITableViewController, Tappable {
         
         tableView.separatorStyle = .none
 
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
         self.getDataInfo()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.getDataInfo()
     }
@@ -70,24 +66,16 @@ class LinkTableViewController: UITableViewController, Tappable {
     }
     
     func urlButtonClicked(at index: IndexPath) {
-        let svc = SFSafariViewController(url: URL(string: links[index.row].url)!)
-        present(svc, animated: true, completion: nil)
+        let url = URL(string: links[index.row].url)!
+        let svc = SFSafariViewController(url: url)
+        
+        navigationController?.show(svc, sender: self)
+//        present(svc, animated: true, completion: nil)
+        svc.delegate = self
     }
     
-    func logOutButtonWasPressed(selector: UIButton) {
-        if FIRAuth.auth()?.currentUser != nil {
-            do {
-                try FIRAuth.auth()?.signOut()
-                self.navigationController?.navigationBar.isHidden = true
-                selector.isHidden = true
-                self.dismiss(animated: true, completion: nil)
-                
-            }
-            catch {
-                print(error)
-            }
-        }
-        
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -113,14 +101,4 @@ class LinkTableViewController: UITableViewController, Tappable {
     
         return cell
     }
-    
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
 }

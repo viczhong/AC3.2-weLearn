@@ -27,11 +27,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
         //        fakePopulate([Assignment(date: "March 21, 2017", assignmentTitle: "Capstone", score: stopTime, url: nil), Assignment(date: "Feb 14, 2017", assignmentTitle: "Final", score: "A", url: "https://github.com/C4Q/AC3.2-Final"), Assignment(date: "October 1, 2016", assignmentTitle: "Battleship Homework", score: "A+", url: "https://github.com/jgresh/Battleship"), Assignment(date: "September 20, 2016", assignmentTitle: "Tableview Exam", score: "A", url: "https://github.com/martyav/EmojiDeck")])
         
         // Uncomment the following line to preserve selection between presentations
@@ -77,7 +72,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
         // cell.selectionStyle = .none
@@ -109,10 +103,8 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     return cell
                 }
                 //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
-                
             }
         }
-        
         return cell
     }
     
@@ -123,34 +115,4 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         return dateFormatter.string(from: date)
     }
     
-    // Button
-    
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
-    
-    
-    // MARK: - Button Action
-    
-    func logOutButtonWasPressed(selector: UIButton) {
-        if FIRAuth.auth()?.currentUser != nil {
-            do {
-                try FIRAuth.auth()?.signOut()
-                self.navigationController?.navigationBar.isHidden = true
-                selector.isHidden = true
-                self.dismiss(animated: true, completion: nil)
-                
-            }
-            catch {
-                print(error)
-            }
-        }
-        
-    }
 }

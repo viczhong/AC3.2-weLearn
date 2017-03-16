@@ -10,14 +10,14 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-//    var todaysFakeSchedule: [String] = [
-//        "DSA",
-//        "Sprite Kit with Louis",
-//        "Capstone",
-//        "Lunch break",
-//        "Talk to Tech Mentors",
-//        "Workshop at Headquarters"
-//    ]
+    //    var todaysFakeSchedule: [String] = [
+    //        "DSA",
+    //        "Sprite Kit with Louis",
+    //        "Capstone",
+    //        "Lunch break",
+    //        "Talk to Tech Mentors",
+    //        "Workshop at Headquarters"
+    //    ]
     
     let agendaSheetID = "1o2OX0aweZIEiIgZNclasDH3CNYAX_doBNweP59cvfx4"
     let assignmentSheetID = "1X0u5jM7-L4RSqdGC0AWa1XsyvSusV2wLDTtmwgBERJA"
@@ -35,13 +35,7 @@ class AgendaTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
-        
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
-        
+
         readAgenda()
     }
     
@@ -102,19 +96,17 @@ class AgendaTableViewController: UITableViewController {
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 self.dismiss(animated: true, completion: nil)
-                
             }
             catch {
                 print(error)
             }
         }
-        
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -128,54 +120,64 @@ class AgendaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             //        case 0:
-        //            return "March 10, 2017"
+        //            return "March 10, 2017"   
         case 0:
             if agenda != nil {
-                return "Today's Schedule"
+                return "Today's Agenda"
+            }
+        case 1:
+            if agenda != nil {
+                return "Past Agenda"
             }
             else {
                 return nil
             }
-            //        case 1:
-            //            return "March 09, 2017"
-            //        case 2:
-        //            return "March 07, 2017"
         default:
             return ""
         }
+        return ""
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let agenda = LessonSchedule.manager.pastAgenda {
-            return agenda.count
+        
+        switch section {
+        case 0:
+            if LessonSchedule.manager.todaysAgenda != nil {
+                return 1
+            }
+        case 1:
+            if let agenda = LessonSchedule.manager.pastAgenda {
+                return agenda.count
+            }
+            
+        default:
+            break
+
         }
-        else {
             return 0
-        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
         // needs diff sections
-        
-        if let agenda = LessonSchedule.manager.pastAgenda {
-            let agendaAtRow = agenda[indexPath.row]
-            cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
+
+        switch indexPath.section {
+        case 0:
+            if let agenda = LessonSchedule.manager.todaysAgenda {
+                cell.label.text = "\(agenda.dateString) - \(agenda.lessonName)"
+            }
+        case 1:
+            if let agenda = LessonSchedule.manager.pastAgenda {
+                let agendaAtRow = agenda[indexPath.row]
+                cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
+            }
+        default:
+            break
+
         }
         return cell
     }
-    
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
     
     //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     //
