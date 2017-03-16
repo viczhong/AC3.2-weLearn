@@ -56,6 +56,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        databaseReference = FIRDatabase.database().reference()
+        
         self.time = 0.0
         
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
@@ -74,7 +76,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             studentIDTextField
         ]
         
-        databaseReference = FIRDatabase.database().reference()
+//        self.checkLogin()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -305,8 +307,11 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Button Actions and Functions
     
     func checkLogin() {
-        if FIRAuth.auth()?.currentUser != nil {
-            self.present(TabViewController, animated: true)
+        if let currentUser = FIRAuth.auth()?.currentUser {
+            //            self.present(TabViewController, animated: true)
+            self.fillInSingleton(currentUser.uid)
+            self.present(self.TabViewController, animated: true)
+            self.navigationController?.navigationBar.isHidden = false
         }
     }
     
@@ -548,7 +553,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             self.registerTab.layer.shadowRadius = 2
             self.registerTab.layer.sublayers!.remove(at: 0)
         })
-
+        
         registerTab.isSelected = true
         loginTab.isSelected = false
         colorTab(button1: registerTab, button2: loginTab)
