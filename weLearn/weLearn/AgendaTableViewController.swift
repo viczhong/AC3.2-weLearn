@@ -135,9 +135,8 @@ class AgendaTableViewController: UITableViewController {
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let agenda = LessonSchedule.manager.pastAgenda {
+        if let agenda = LessonSchedule.manager.fullAgendaUpToToday {
             return agenda.count
         }
         else {
@@ -150,7 +149,7 @@ class AgendaTableViewController: UITableViewController {
         
         // needs diff sections
         
-        if let agenda = LessonSchedule.manager.pastAgenda {
+        if let agenda = LessonSchedule.manager.fullAgendaUpToToday {
             let agendaAtRow = agenda[indexPath.row]
             cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
         }

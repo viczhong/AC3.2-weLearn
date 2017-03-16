@@ -25,8 +25,16 @@ class User {
     var grades: [(assignment: String, grade: String)]?
     var agenda: [Agenda]?
     
-    func clearSingleton() {
-        var strings = [name, email, id, classDatabaseKey, classDatabaseKey, image, studentKey]
+    static func clearSingleton() {
+        var strings = [
+            User.manager.name,
+            User.manager.email,
+            User.manager.id,
+            User.manager.classDatabaseKey,
+            User.manager.classDatabaseKey,
+            User.manager.image,
+            User.manager.studentKey
+        ]
         
         // Clear strings
         for index in 0..<strings.count {
@@ -34,7 +42,7 @@ class User {
         }
         
         // Clear the rest
-        assignments = nil
-        grades = nil
+        User.manager.assignments = nil
+        User.manager.grades = nil
     }
 }

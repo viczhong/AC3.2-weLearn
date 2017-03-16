@@ -31,6 +31,7 @@
 		9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECFE861E64C83D00503F7F /* AppDelegate.swift */; };
 		9EECFE8E1E64C83D00503F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8D1E64C83D00503F7F /* Assets.xcassets */; };
 		9EECFE911E64C83D00503F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EECFE8F1E64C83D00503F7F /* LaunchScreen.storyboard */; };
+		9EF151831E7B336D003944DC /* MyClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF151821E7B336D003944DC /* MyClass.swift */; };
 		D302A77D1E76397A00484909 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = D302A77C1E76397A00484909 /* Box.swift */; };
 		D337DA2D1E64CA7200DEE7B5 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */; };
 		D337DA2F1E64CAD100DEE7B5 /* Extension+NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337DA2E1E64CAD100DEE7B5 /* Extension+NavBar.swift */; };
@@ -115,6 +116,7 @@
 		9EECFE8D1E64C83D00503F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EECFE901E64C83D00503F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EECFE921E64C83D00503F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EF151821E7B336D003944DC /* MyClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyClass.swift; sourceTree = "<group>"; };
 		C8618649D51838DE28792458 /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D302A77C1E76397A00484909 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		D337DA2C1E64CA7200DEE7B5 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				D388A3781E709ACD00A44EF0 /* Assignment.swift */,
 				9E88BA1C1E721C3200D7DE64 /* LessonSchedule.swift */,
 				9E8874241E7B10B100F0F966 /* Classes.swift */,
+				9EF151821E7B336D003944DC /* MyClass.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				D388A3751E70632B00A44EF0 /* Achievement.swift in Sources */,
 				2DF10C841E6767FB00F83751 /* AgendaTableViewCell.swift in Sources */,
 				D343FDAB1E6A258F00DABD00 /* Announcement.swift in Sources */,
+				9EF151831E7B336D003944DC /* MyClass.swift in Sources */,
 				9CFB21241E706E1D0059EB98 /* AgendaTableViewController.swift in Sources */,
 				2DF10C861E67687300F83751 /* DueDatesTableViewCell.swift in Sources */,
 				9E6E91231E67817000DAE0D1 /* Agenda.swift in Sources */,
