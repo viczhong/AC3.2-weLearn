@@ -80,16 +80,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         loginTabWasPressed()
+
         activityIndicator.isHidden = true
-        
-        self.registerButton.layer.shadowOpacity = 0.25
-        self.registerButton.layer.shadowRadius = 2
-        self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
-        
-        self.loginButton.layer.shadowOpacity = 0.25
-        self.loginButton.layer.shadowRadius = 2
-        self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
-        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,13 +92,13 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
         
-        self.registerButton.layer.shadowOpacity = 0.25
-        self.registerButton.layer.shadowRadius = 2
-        self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
-        
-        self.loginButton.layer.shadowOpacity = 0.25
-        self.loginButton.layer.shadowRadius = 2
-        self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
+//        self.registerButton.layer.shadowOpacity = 0.25
+//        self.registerButton.layer.shadowRadius = 2
+//        self.registerButton.layer.sublayers!.remove(at: 0)
+//        
+//        self.loginButton.layer.shadowOpacity = 0.25
+//        self.loginButton.layer.shadowRadius = 2
+//        self.loginButton.layer.sublayers!.remove(at: 0)
         // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -439,7 +431,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }, completion: { finish in
             self.loginButton.layer.shadowOpacity = 0.25
             self.loginButton.layer.shadowRadius = 2
-            self.loginButton.apply(gradient: [UIColor.weLearnCoolWhite])
+            self.loginButton.layer.sublayers!.remove(at: 0)
         })
         
         guard let credentials = signInCredentials() else { return }
@@ -477,7 +469,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }, completion: { finish in
             self.registerButton.layer.shadowOpacity = 0.25
             self.registerButton.layer.shadowRadius = 2
-            self.registerButton.apply(gradient: [UIColor.weLearnCoolWhite])
+            self.registerButton.layer.sublayers!.remove(at: 0)
         })
         
         guard let credentials = signInCredentials() else { return }
