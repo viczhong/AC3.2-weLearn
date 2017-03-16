@@ -74,8 +74,8 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let url = URL(string: links[index.row].url)!
         let svc = SFSafariViewController(url: url)
         
-//        navigationController?.show(svc, sender: self)
-        present(svc, animated: true, completion: nil)
+        navigationController?.show(svc, sender: self)
+//        present(svc, animated: true, completion: nil)
         svc.delegate = self
     }
     
