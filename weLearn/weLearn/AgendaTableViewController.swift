@@ -86,6 +86,16 @@ class AgendaTableViewController: UITableViewController {
     // MARK: - Button Actions
     
     func logOutButtonWasPressed(selector: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.logOutButton.layer.shadowOpacity = 0.1
+            self.logOutButton.layer.shadowRadius = 1
+            self.logOutButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.2), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.logOutButton.layer.shadowOpacity = 0.25
+            self.logOutButton.layer.shadowRadius = 2
+            self.logOutButton.layer.sublayers!.remove(at: 0)
+        })
+        
         if FIRAuth.auth()?.currentUser != nil {
             do {
                 try FIRAuth.auth()?.signOut()
