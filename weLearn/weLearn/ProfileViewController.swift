@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Firebase
+import AudioToolbox
 import FirebaseDatabase
 import MobileCoreServices
 
@@ -306,6 +307,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //Mark: - Button Functions
     
     func logOutButtonWasPressed(selector: UIButton) {
+        AudioServicesPlaySystemSound(1105)
         if FIRAuth.auth()?.currentUser != nil {
             do {
                 try FIRAuth.auth()?.signOut()

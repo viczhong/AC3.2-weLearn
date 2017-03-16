@@ -35,12 +35,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
-        
-        let rightButton = UIBarButtonItem(customView: logOutButton)
-        navigationItem.setRightBarButton(rightButton, animated: true)
-        
-        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
