@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import SafariServices
 
-class LinkTableViewController: UITableViewController, Tappable {
+class LinkTableViewController: UITableViewController, Tappable, SFSafariViewControllerDelegate {
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
@@ -62,8 +62,16 @@ class LinkTableViewController: UITableViewController, Tappable {
     }
     
     func urlButtonClicked(at index: IndexPath) {
-        let svc = SFSafariViewController(url: URL(string: links[index.row].url)!)
+        let url = URL(string: links[index.row].url)!
+        let svc = SFSafariViewController(url: url)
+        
+//        navigationController?.show(svc, sender: self)
         present(svc, animated: true, completion: nil)
+        svc.delegate = self
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
