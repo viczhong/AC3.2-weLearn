@@ -14,15 +14,19 @@ import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    // we shall make cells for the acheievements and grades
-    // grades will be a simple cell
-    // achievements will be a cell containing...a collection view or scroll view
+    /* we shall make cells for the acheievements and grades
+     grades will be a simple cell
+     achievements will be a cell containing a collection view or scroll view
+     */
     
-    //    var grades = [Grade]()
     var achievements: [Achievement]?
     var testGrades: TestGrade?
-    var gradesParsed: [(assignment: String, grade: String)] = []
     var databaseReference: FIRDatabaseReference!
+    var gradesParsed: [(assignment: String, grade: String)] = [] {
+        didSet {
+            User.manager.grades = gradesParsed
+        }
+    }
     
     // subject to change
     var gradesSheetID = "1nWAy8nkwuPiOJkMvsdKOrwOPWgptVhNAbRrdBZlNPvA"
@@ -73,7 +77,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         checkLoggedIn()
     }
-
+    
     func getProfileImage() {
         let storage = FIRStorage.storage()
         let storageRef = storage.reference()
@@ -163,18 +167,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func startGrabbingTestData() {
-        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-            if data != nil {
-                //                let currentStudent = FIRAuth.auth()?.currentUser?.uid
-                self.fetchStudentTestData(data!)
+        if User.manager.grades == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    self.fetchStudentTestData(data!)
+                }
             }
         }
     }
     
     func fetchStudentTestData(_ data: Data) {
-        //MARK: Retool Users later
-        //        let classOfStudent = databaseReference.child("Accesscode").child(student)
-        //        var studentID = ""
         
         // Now that we have the number, grab that person's grades
         if let studentID = User.manager.id {
@@ -224,8 +226,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
             
             print("appending \(image)")
-            
         }
+        
         dismiss(animated: true) {
         }
     }
@@ -249,9 +251,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    
-    
-    
     // MARK: - Table view stuff
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -264,12 +263,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if testGrades != nil {
-            return self.gradesParsed.count
+        if let loadedGrades = User.manager.grades {
+            return loadedGrades.count
         } else {
             return 0
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -279,9 +277,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-        if gradesParsed.count > 0 {
+        if let loadedGrades = User.manager.grades {
             if let gradeCell = cell as? GradeTableViewCell {
-                let grades = gradesParsed[indexPath.row]
+                let grades = loadedGrades[indexPath.row]
                 gradeCell.testNameLabel.text = grades.assignment
                 gradeCell.gradeLabel.text = grades.grade
                 
@@ -290,6 +288,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+        
         cell.selectionStyle = .none
         cell.layer.shadowOffset = CGSize(width: 2, height: 3)
         cell.layer.shadowColor = UIColor.black.cgColor
@@ -298,8 +297,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
+    
     //Mark: - Button Functions
-
+    
     func logOutButtonWasPressed(selector: UIButton) {
         if FIRAuth.auth()?.currentUser != nil {
             do {
@@ -424,5 +424,4 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
     }()
-    
 }
