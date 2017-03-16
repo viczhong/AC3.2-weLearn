@@ -13,18 +13,28 @@ class LessonSchedule {
     static let manager = LessonSchedule()
     private init() {}
     
-    var agenda: [Agenda] = []
+    var pastAgenda: [Agenda]?
+    var todaysAgenda: Agenda?
     
     func setAgenda(_ array: [Agenda]) {
-        
-        let reversedSorted = array.sorted(by: {$0.date > $1.date})
         let today = Date()
-        for entry in reversedSorted {
-            if today >= entry.date  {
-                agenda.append(entry)
+        
+        outer: for entry in array {
+            if entry.date > today {
+                todaysAgenda = entry
+                break outer
             }
         }
         
-        print("\n\n\n\n\nWe have a lesson schedule: \(agenda.count) entries")
+        let reversedSorted = array.sorted(by: {$0.date > $1.date})
+        var tempAgenda = [Agenda]()
+        for entry in reversedSorted {
+            if today >= entry.date  {
+                tempAgenda.append(entry)
+            }
+        }
+        pastAgenda = tempAgenda
+        
+        print("\n\n\n\n\nWe have a lesson schedule: \(tempAgenda.count) entries")
     }
 }
