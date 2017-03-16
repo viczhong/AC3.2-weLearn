@@ -119,11 +119,8 @@ class AgendaTableViewController: UITableViewController {
         let button = ShinyOvalButton()
         button.setTitle("Log Out".uppercased(), for: .normal)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
         return button
     }()

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
 
 class OldAnnouncementsTableViewController: UITableViewController {
     
@@ -41,6 +43,11 @@ class OldAnnouncementsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
+        
+        let rightButton = UIBarButtonItem(customView: logOutButton)
+        navigationItem.setRightBarButton(rightButton, animated: true)
+        
+        logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -84,6 +91,16 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     // MARK: -- UI Stuff That Isn't Tableview
     
+    lazy var logOutButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+        button.setTitle("Log Out".uppercased(), for: .normal)
+        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        button.imageView?.clipsToBounds = true
+        return button
+    }()
+    
 //    lazy var linksButton: ShinyOvalButton = {
 //        let button = ShinyOvalButton()
 //        button.setTitle("links".uppercased(), for: .normal)
@@ -97,4 +114,21 @@ class OldAnnouncementsTableViewController: UITableViewController {
 //    }()
     
 
+    // MARK: - Button Action
+    
+    func logOutButtonWasPressed(selector: UIButton) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                self.navigationController?.navigationBar.isHidden = true
+                selector.isHidden = true
+                self.dismiss(animated: true, completion: nil)
+                
+            }
+            catch {
+                print(error)
+            }
+        }
+        
+    }
 }
