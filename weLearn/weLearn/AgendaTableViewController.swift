@@ -135,7 +135,6 @@ class AgendaTableViewController: UITableViewController {
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let agenda = LessonSchedule.manager.pastAgenda {
             return agenda.count
