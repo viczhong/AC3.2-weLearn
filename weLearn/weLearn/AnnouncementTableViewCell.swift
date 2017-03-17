@@ -43,27 +43,27 @@ class AnnouncementTableViewCell: UITableViewCell {
         }
         
         date.snp.makeConstraints { (lbl) in
-            lbl.top.leading.equalTo(contentView).offset(10)
+            lbl.top.leading.equalTo(box).offset(10)
         }
         
         quote.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
-            lbl.trailing.equalTo(contentView).inset(20)
+            lbl.trailing.equalTo(box).inset(20)
             lbl.bottom.equalTo(author.snp.top).inset(10)
             //lbl.centerY.equalTo(contentView)
         }
         
         bar.snp.makeConstraints { (view) in
-            view.leading.equalTo(contentView).offset(15)
+            view.leading.equalTo(box).offset(15)
             view.width.equalTo(5)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }
         
         author.snp.makeConstraints { (view) in
-            view.bottom.equalTo(contentView).inset(10)
-            view.trailing.equalTo(contentView).inset(10)
+            view.bottom.equalTo(box).inset(10)
+            view.trailing.equalTo(box).inset(10)
         }
     }
     
