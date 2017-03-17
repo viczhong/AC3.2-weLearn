@@ -20,19 +20,22 @@ class ClassFromSheet {
     let lessonScheduleID: String?
     let achievementsID: String?
     let announcementsID: String?
+    let gradeBookID: String?
     
     init(className: String,
          studentGradesID: String?,
          assignmentsID: String?,
          lessonScheduleID: String?,
          achievementsID: String?,
-         announcementsID: String?) {
+         announcementsID: String?,
+         gradeBookID: String?) {
         self.className = className
         self.studentGradesID = studentGradesID
         self.assignmentsID = assignmentsID
         self.lessonScheduleID = lessonScheduleID
         self.achievementsID = achievementsID
         self.announcementsID = announcementsID
+        self.gradeBookID = gradeBookID
     }
     
     convenience init?(from dict: [String : Any]) throws {
@@ -50,7 +53,8 @@ class ClassFromSheet {
                   assignmentsID: dict["assignmentsid"],
                   lessonScheduleID: dict["lessonscheduleid"],
                   achievementsID: dict["achievementsid"],
-                  announcementsID: dict["announcementsid"]
+                  announcementsID: dict["announcementsid"],
+                  gradeBookID: dict["gradebookid"]
                   )
     }
     
@@ -100,8 +104,9 @@ class ClassFromSheet {
                         "studentGradesID" : element.studentGradesID,
                         "assignmentsID" : element.assignmentsID,
                         "lessonScheduleID" : element.lessonScheduleID,
-                        "achievementsID" : element.achievementsID,
-                        "announcementsID" : element.announcementsID
+                        "announcementsID" : element.announcementsID,
+                        "gradeBookID" : element.gradeBookID,
+                        "achievementsID" : element.achievementsID
                     ]
                     
                     if classDict.keys.contains(element.className) {
@@ -112,7 +117,6 @@ class ClassFromSheet {
                         let newClassRef = classBuckets.childByAutoId()
                         
                         newClassRef.setValue(classInfo)
-                        
                     }
                 }
             }

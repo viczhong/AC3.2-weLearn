@@ -29,8 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    // subject to change
-    var gradesSheetID = "1nWAy8nkwuPiOJkMvsdKOrwOPWgptVhNAbRrdBZlNPvA"
+    var gradesSheetID = MyClass.manager.studentGradesID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +80,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        checkLoggedIn()
+         startGrabbingTestData()
     }
     
     func getProfileImage() {
@@ -165,12 +164,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - User Functions
-    
-    func checkLoggedIn() {
-        if FIRAuth.auth()?.currentUser != nil {
-            startGrabbingTestData()
-        }
-    }
     
     func startGrabbingTestData() {
         if User.manager.grades == nil {

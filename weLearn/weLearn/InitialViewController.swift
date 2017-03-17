@@ -427,6 +427,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 if let valueDict = snapshot.value as? [String : Any] {
                     let thisClass = MyClass.manager
                     thisClass.studentGradesID = valueDict["studentGradesID"] as? String
+                    thisClass.gradeBookID = valueDict["gradeBookID"] as? String
                     thisClass.lessonScheduleID = valueDict["lessonScheduleID"] as? String
                     thisClass.announcementsID = valueDict["announcementsID"] as? String
                     thisClass.assignmentsID = valueDict["assignmentsID"] as? String

@@ -23,6 +23,7 @@ class User {
     var studentKey: String? 
     var assignments: [Assignment]?
     var grades: [(assignment: String, grade: String)]?
+    var assignmentGrades: [(assignment: String, grade: String)]?
     var agenda: [Agenda]?
     
     static func clearSingleton() {
@@ -30,7 +31,6 @@ class User {
             User.manager.name,
             User.manager.email,
             User.manager.id,
-            User.manager.classDatabaseKey,
             User.manager.classDatabaseKey,
             User.manager.image,
             User.manager.studentKey
@@ -43,6 +43,7 @@ class User {
         
         // Clear the rest
         User.manager.assignments = nil
+        User.manager.assignmentGrades = nil
         User.manager.grades = nil
     }
     
