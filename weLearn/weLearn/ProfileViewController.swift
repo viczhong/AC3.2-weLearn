@@ -15,7 +15,12 @@ import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    var achievements: [Achievement]?
+    var achievements: [Achievement]? {
+        didSet {
+            User.manager.achievements = achievements
+        }
+    }
+
     var testGrades: TestGrade?
     var databaseReference: FIRDatabaseReference!
     var gradesParsed: [(assignment: String, grade: String)] = [] {
@@ -24,8 +29,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    // subject to change
-    var gradesSheetID = "1nWAy8nkwuPiOJkMvsdKOrwOPWgptVhNAbRrdBZlNPvA"
+    var gradesSheetID = MyClass.manager.studentGradesID!
+    var achievementsSheetID = MyClass.manager.achievementsID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +56,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
-        
         databaseReference = FIRDatabase.database().reference()
         
         if User.manager.studentKey != nil {
@@ -63,6 +66,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +81,29 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidAppear(false)
         
         if gradesParsed.isEmpty {
-            checkLoggedIn()
+            startGrabbingTestData()
+        }
+        
+        if achievements == nil {
+            getChievos()
+        }
+    }
+    
+    func getChievos() {
+        if User.manager.achievements == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(achievementsSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    if let returnedAnnouncements = AchievementBucket.getStudentAchievementBucket(from: data!, for: User.manager.id!) {
+                        DispatchQueue.main.async {
+                            self.achievements = AchievementBucket.parseBucketString(returnedAnnouncements.contentString)
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            self.collectionView.reloadData()
         }
     }
     
@@ -168,16 +194,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - User Functions
     
-    func checkLoggedIn() {
+    func startGrabbingTestData() {
         self.view.bringSubview(toFront: activityIndicator)
         activityIndicator.startAnimating()
         
-        if FIRAuth.auth()?.currentUser != nil {
-            startGrabbingTestData()
-        }
-    }
-    
-    func startGrabbingTestData() {
         if User.manager.grades == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -187,6 +207,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+        self.tableView.reloadData()
+        self.activityIndicator.stopAnimating()
     }
     
     func fetchStudentTestData(_ data: Data) {
@@ -206,17 +228,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-    
-    // MARK: - Collection view stuff
-    
-    func fakePopulate(_ items: [Achievement]) {
-        self.achievements = items
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.activityIndicator.stopAnimating()
-        }
-    }
-    
+
     // MARK: - UIImagePicker Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -247,14 +259,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    // MARK: - Collectionview stuff
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return achievements?.count ?? 0
+        return User.manager.achievements?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementCollectionViewCell", for: indexPath)
         
-        if let achievementsUnwrapped = achievements {
+        if let achievementsUnwrapped = User.manager.achievements {
             if achievementsUnwrapped.count > 0 {
                 if let achievementCell = cell as? AchievementCollectionViewCell {
                     achievementCell.achievementPic.image = UIImage(named: achievementsUnwrapped[indexPath.row].pic)

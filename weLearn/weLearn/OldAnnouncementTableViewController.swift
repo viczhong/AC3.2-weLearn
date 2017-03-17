@@ -66,7 +66,7 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(announcementSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
-                if let returnedAnnouncements = Announcement.getAnnounements(from: data!) {
+                if let returnedAnnouncements = Announcement.getAnnouncements(from: data!) {
                     print("We've got returns: \(returnedAnnouncements.count)")
                     self.announcements = returnedAnnouncements.sorted(by: { $0.date > $1.date })
                     DispatchQueue.main.async {
