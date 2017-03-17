@@ -397,7 +397,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        //pic.image = #imageLiteral(resourceName: "Karen")
         pic.backgroundColor = UIColor.white
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3

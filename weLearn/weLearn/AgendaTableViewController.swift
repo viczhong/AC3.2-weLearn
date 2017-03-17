@@ -12,29 +12,29 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-    //    var todaysFakeSchedule: [String] = [
-    //        "DSA",
-    //        "Sprite Kit with Louis",
-    //        "Capstone",
-    //        "Lunch break",
-    //        "Talk to Tech Mentors",
-    //        "Workshop at Headquarters"
-    //    ]
     
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
-    let currentDate = Date()
+
+    var todaysHardCodedSchedule = [
+        "Stand ups",
+        "Run through presentations",
+        "Lunch",
+        "Code",
+        "Get pumped for demo day!"
+    ]
     
     var agenda: [Agenda]?
     
+    let currentDate = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "EEEE, MMM dd"
         let dateTitleString = dateInTitle.string(from: currentDate)
-        print("**************** \(dateTitleString) ***********************")
 
         self.navigationItem.title = dateTitleString
         self.tabBarController?.title = "Agenda"
@@ -53,6 +53,8 @@ class AgendaTableViewController: UITableViewController {
         activityIndicator.snp.makeConstraints { view in
             view.center.equalToSuperview()
         }
+        
+        tableView.reloadData()
         
         self.tabBarController?.navigationItem.hidesBackButton = true
     }
@@ -136,11 +138,9 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            //        case 0:
-        //            return "March 10, 2017"
         case 0:
             if agenda != nil {
-                return "Today's Agenda"
+                return todaysAgenda?.lessonName
             }
         case 1:
             if agenda != nil {
@@ -152,6 +152,7 @@ class AgendaTableViewController: UITableViewController {
         default:
             return ""
         }
+        
         return ""
     }
     
@@ -159,9 +160,11 @@ class AgendaTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            if LessonSchedule.manager.todaysAgenda != nil {
-                return 6
-            }
+//            if LessonSchedule.manager.todaysAgenda != nil {
+//                return 1
+//            } else {
+                return todaysHardCodedSchedule.count
+            //}
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 return agenda.count
@@ -181,26 +184,7 @@ class AgendaTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            if let agenda = LessonSchedule.manager.todaysAgenda {
-                switch indexPath.row {
-                case 0:
-                    cell.label.text = agenda.lessonName
-                    cell.bulletView.isHidden = true
-                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 20)
-                case 1:
-                    cell.label.text = "Stand ups"
-                case 2:
-                    cell.label.text = "Run through presentations"
-                case 3:
-                    cell.label.text = "Lunch"
-                case 4:
-                    cell.label.text = "Refactor code"
-                case 5:
-                    cell.label.text = "Get pumped for demo day!"
-                default:
-                    cell.label.text = "Go to the bar"
-                }
-            }
+            cell.label.text = todaysHardCodedSchedule[indexPath.row]
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 let agendaAtRow = agenda[indexPath.row]
@@ -217,6 +201,22 @@ class AgendaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AudioServicesPlaySystemSound(1306)
     }
+    
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 0
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            if editingStyle == .delete {
+                todaysHardCodedSchedule.remove(at: indexPath.row)
+                tableView.reloadData()
+            }
+        }
+    }
+    
     
     lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
