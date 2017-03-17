@@ -66,6 +66,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if User.manager.studentKey != nil {
             getProfileImage()
+            getChievos()
         }
         
         let rightButton = UIBarButtonItem(customView: logOutButton)
