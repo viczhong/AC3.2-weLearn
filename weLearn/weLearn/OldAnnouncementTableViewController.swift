@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseAuth
 import FirebaseStorage
 
@@ -35,7 +36,9 @@ class OldAnnouncementsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
-
+        
+        self.view.addSubview(activityIndicator)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -43,9 +46,17 @@ class OldAnnouncementsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
         getAnnouncements()
     }
     
@@ -56,9 +67,13 @@ class OldAnnouncementsTableViewController: UITableViewController {
                     print("We've got returns: \(returnedAnnouncements.count)")
                     self.announcements = returnedAnnouncements.sorted(by: { $0.date > $1.date })
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
                         self.tableView.reloadData()
                     }
                 }
+            } else {
+                print("error loading data!")
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -81,19 +96,25 @@ class OldAnnouncementsTableViewController: UITableViewController {
         return announcements?.count ?? 0
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
         cell.selectionStyle = .none
         // Configure the cell...
         
         if let announce = announcements {
-        cell.date.text = announce[indexPath.row].dateString
-        cell.quote.text = announce[indexPath.row].quote
-        cell.author.text = announce[indexPath.row].author
-        
-        cell.bar.isHidden = true
+            cell.date.text = announce[indexPath.row].dateString
+            cell.quote.text = announce[indexPath.row].quote
+            cell.author.text = announce[indexPath.row].author
+            
+            cell.bar.isHidden = true
         }
         return cell
     }
- }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
+}
