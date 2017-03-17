@@ -66,6 +66,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
+        getChievos()
+
         
     }
     
