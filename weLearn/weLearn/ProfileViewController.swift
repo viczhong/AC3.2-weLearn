@@ -311,7 +311,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         var cell = UITableViewCell()
         cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.selectionStyle = .none
         
         if let loadedGrades = User.manager.grades {
             if let gradeCell = cell as? GradeTableViewCell {
@@ -332,6 +332,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.layer.masksToBounds = false
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        AudioServicesPlaySystemSound(1306)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        AudioServicesPlaySystemSound(1306)
     }
     
     //Mark: - Button Functions

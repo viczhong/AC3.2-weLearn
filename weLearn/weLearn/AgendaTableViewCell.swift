@@ -20,7 +20,7 @@ class AgendaTableViewCell: UITableViewCell {
         let plainBullet = #imageLiteral(resourceName: "bullet")
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
-        self.backgroundColor = UIColor.weLearnCoolWhite
+        self.backgroundColor = UIColor.white
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnBlue
     }
@@ -36,7 +36,7 @@ class AgendaTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.backgroundColor = UIColor.weLearnCoolWhite
-        self.label.font = UIFont(name: "Avenir-Roman", size: 16)
+        self.label.font = UIFont(name: "Avenir-Roman", size: 20)
         self.bulletView.isHidden = false
         self.bulletView.tintColor = UIColor.weLearnBlue
         self.label.text = ""
@@ -64,7 +64,7 @@ class AgendaTableViewCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
+        lbl.font = UIFont(name: "Avenir-Roman", size: 20)
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
         lbl.numberOfLines = 3

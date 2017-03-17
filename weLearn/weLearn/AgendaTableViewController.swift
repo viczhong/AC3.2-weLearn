@@ -24,14 +24,20 @@ class AgendaTableViewController: UITableViewController {
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
+    let currentDate = Date()
     
     var agenda: [Agenda]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let dateInTitle = DateFormatter()
+        dateInTitle.dateFormat = "E, MMM dd"
+        
+        navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.title = dateInTitle.string(from: currentDate)
+
         self.navigationItem.title = "Agenda"
-        self.tabBarController?.title = navigationItem.title
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
@@ -171,7 +177,7 @@ class AgendaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AgendaTableViewCell", for: indexPath) as! AgendaTableViewCell
         
-        // needs diff sections
+        cell.selectionStyle = .none
         
         switch indexPath.section {
         case 0:

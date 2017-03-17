@@ -64,6 +64,7 @@ class LinkTableViewCell: UITableViewCell {
             lbl.leading.equalTo(box).offset(20)
             lbl.trailing.equalTo(box).inset(20)
         }
+
     }
     
     lazy var box: Box = {
@@ -74,7 +75,7 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor.weLearnBlack
+        lbl.textColor = UIColor.weLearnBlue
         lbl.font = UIFont(name: "Avenir-Light", size: 24)
         lbl.textAlignment = .left
         lbl.numberOfLines = 10

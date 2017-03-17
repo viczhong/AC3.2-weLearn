@@ -85,21 +85,19 @@ class OldAnnouncementsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return announcements?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
         cell.selectionStyle = .none
-        // Configure the cell...
         
         if let announce = announcements {
             cell.date.text = announce[indexPath.row].dateString
             cell.quote.text = announce[indexPath.row].quote
             cell.author.text = announce[indexPath.row].author
             
-            cell.bar.isHidden = true
+            //cell.bar.isHidden = true
         }
         return cell
     }

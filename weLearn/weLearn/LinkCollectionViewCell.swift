@@ -44,6 +44,7 @@ class LinkCollectionViewCell: UICollectionViewCell {
             lbl.trailing.equalTo(contentView).inset(10)
             lbl.bottom.equalTo(contentView).inset(13)
         }
+        
     }
     
     lazy var box: Box = {

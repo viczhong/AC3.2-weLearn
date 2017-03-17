@@ -50,18 +50,18 @@ class AnnouncementTableViewCell: UITableViewCell {
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
             lbl.trailing.equalTo(box).inset(20)
-            lbl.bottom.equalTo(author.snp.top).inset(10)
-            //lbl.centerY.equalTo(contentView)
+//            lbl.bottom.equalTo(author.snp.top).inset(10)
         }
         
         bar.snp.makeConstraints { (view) in
             view.leading.equalTo(box).offset(15)
-            view.width.equalTo(5)
+            view.width.equalTo(2)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }
         
         author.snp.makeConstraints { (view) in
+            view.top.equalTo(quote.snp.bottom).offset(10)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
         }
