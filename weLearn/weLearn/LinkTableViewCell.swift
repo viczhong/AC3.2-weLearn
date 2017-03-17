@@ -85,7 +85,7 @@ class LinkTableViewCell: UITableViewCell {
     lazy var authorLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor.darkGray
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         return lbl
     }()
 
