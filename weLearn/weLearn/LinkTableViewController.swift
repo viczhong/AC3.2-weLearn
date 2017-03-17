@@ -41,7 +41,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     }
     
    func getDataInfo() {
-//        
         databaseReference.child("links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
@@ -53,7 +52,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             self.links = linksArr
             self.tableView.reloadData()
             print(">>> there are \(self.links.count) links")
-            
         }) { (error) in
             print(error.localizedDescription)
         }
