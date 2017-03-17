@@ -36,10 +36,10 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         box.snp.makeConstraints { (view) in
-            view.leading.equalTo(contentView).offset(7)
-            view.top.equalTo(contentView).offset(7)
-            view.trailing.equalTo(contentView).inset(7)
-            view.bottom.equalTo(contentView).inset(7)
+            view.leading.equalTo(contentView).offset(14)
+            view.top.equalTo(contentView).offset(14)
+            view.trailing.equalTo(contentView).inset(14)
+            view.bottom.equalTo(contentView).inset(14)
         }
         
         date.snp.makeConstraints { (lbl) in
