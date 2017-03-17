@@ -39,7 +39,7 @@ class Announcement {
         self.init(date: dateConvert(dict["date"]!), dateString: dict["date"]!, quote: dict["message"]!, author: author)
     }
     
-    static func getAnnounements(from data: Data) -> [Announcement]? {
+    static func getAnnouncements(from data: Data) -> [Announcement]? {
         var announcements: [Announcement]? = []
         do {
             let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
