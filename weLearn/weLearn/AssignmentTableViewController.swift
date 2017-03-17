@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import FirebaseAuth
+import Firebase
 
 class AssignmentTableViewController: UITableViewController, Tappable {
     
@@ -18,7 +19,16 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         }
     }
     
+    var gradesParsed: [(assignment: String, grade: String)] = [] {
+        didSet {
+            User.manager.assignmentGrades = gradesParsed.reversed()
+        }
+    }
+    
     let assignmentSheetID = MyClass.manager.assignmentsID!
+    let gradeBookSheetID = MyClass.manager.gradeBookID!
+    var assignmentGrades: AssignmentGrade?
+    var databaseReference: FIRDatabaseReference!
     
     var stopTime: String = ""
     
@@ -28,13 +38,48 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         self.navigationItem.title = "Assignments"
         self.tabBarController?.title = navigationItem.title
         
+        databaseReference = FIRDatabase.database().reference()
+        
         tableView.register(AssignmentTableViewCell.self, forCellReuseIdentifier: "AssignmentTableViewCell")
         
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        
         readAssignments()
+        startGrabbingAssignmentsData()
+    }
+    
+    func startGrabbingAssignmentsData() {
+        if User.manager.assignmentGrades == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradeBookSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    self.fetchStudentAssignmentData(data!)
+                }
+            }
+        }
+    }
+    
+    func fetchStudentAssignmentData(_ data: Data) {
+        
+        // Now that we have the number, grab that person's grades
+        if let studentID = User.manager.id {
+            if let returnedGradesData = AssignmentGrade.getStudentAssignmentGrade(from: data, for: studentID) {
+                print("\n\n\nWe've got grades for: \(returnedGradesData.id)")
+                
+                self.assignmentGrades = returnedGradesData
+                self.gradesParsed = AssignmentGrade.parseGradeString(self.assignmentGrades!.grades)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     func readAssignments() {
@@ -108,21 +153,9 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 
                 if difference < 0 {
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
-                    switch indexPath.row % 5 {
-                    case 0:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: A"
-                    case 1:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: N/A"
-                    case 2:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: A-"
-                    case 3:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: B"
-                    case 4:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: A+"
-                    default:
-                        assignmentCell.assignmentCountDownLabel.text = "Grade: N/A"
+                    if let gradeAtRow = User.manager.assignmentGrades {
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: \(gradeAtRow[indexPath.row].grade)"
                     }
-                    
                 } else {
                     let endTime = assignment.date
                     let difference = endTime.timeIntervalSinceNow
@@ -143,6 +176,7 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     //                    }
                     //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
                 }
+                
                 return cell
             }
         }

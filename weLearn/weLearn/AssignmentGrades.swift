@@ -1,18 +1,18 @@
 //
-//  TestGrade.swift
+//  AssignmentGrades.swift
 //  weLearn
 //
-//  Created by Victor Zhong on 3/8/17.
+//  Created by Victor Zhong on 3/16/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
 
 import Foundation
 
-enum TestGradeModelParseError: Error {
+enum AssignmentGradeModelParseError: Error {
     case results, parsingResults
 }
 
-class TestGrade {
+class AssignmentGrade {
     let id: String
     let grades: String
     
@@ -26,25 +26,25 @@ class TestGrade {
             let id = titleField["$t"] as? String,
             let contentField = dict["content"] as? [String : Any],
             let contentString = contentField["$t"] as? String else {
-                throw TestGradeModelParseError.parsingResults
+                throw AssignmentGradeModelParseError.parsingResults
         }
         
         self.init(id: id, grades: contentString)
     }
     
-    static func getTestGrade(from data: Data) -> [TestGrade]? {
-        var grades: [TestGrade]? = []
+    static func getAssignmentGrade(from data: Data) -> [AssignmentGrade]? {
+        var grades: [AssignmentGrade]? = []
         do {
             let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
             
             guard let result = jsonData as? [String : Any],
                 let feed = result["feed"] as? [String : Any],
                 let entries = feed["entry"] as? [[String : Any]] else {
-                    throw TestGradeModelParseError.results
+                    throw AssignmentGradeModelParseError.results
             }
             
             for entry in entries {
-                if let gradesDict = try TestGrade(from: entry) {
+                if let gradesDict = try AssignmentGrade(from: entry) {
                     grades?.append(gradesDict)
                 }
             }
@@ -57,8 +57,8 @@ class TestGrade {
         return grades
     }
     
-    static func getStudentTestGrade(from data: Data, for studentID: String) -> TestGrade? {
-        let entries = getTestGrade(from: data)
+    static func getStudentAssignmentGrade(from data: Data, for studentID: String) -> AssignmentGrade? {
+        let entries = getAssignmentGrade(from: data)
         
         for entry in entries! where entry.id == studentID {
             return entry
@@ -92,7 +92,3 @@ class TestGrade {
         return returnString
     }
 }
-
-
-
-
