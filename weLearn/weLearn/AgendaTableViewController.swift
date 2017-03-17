@@ -28,7 +28,7 @@ class AgendaTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Syllabus"
+        self.navigationItem.title = "Agenda"
         self.tabBarController?.title = navigationItem.title
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
@@ -36,14 +36,25 @@ class AgendaTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        readAgenda()
+        self.view.addSubview(activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        readAgenda()
+    }
+
     
     // MARK: - Agenda functions
     
@@ -58,6 +69,9 @@ class AgendaTableViewController: UITableViewController {
     }
     
     func readAgenda() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+
         if LessonSchedule.manager.pastAgenda == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -65,6 +79,7 @@ class AgendaTableViewController: UITableViewController {
                         print("We've got returns: \(returnedAgenda.count)")
                         self.agenda = returnedAgenda
                         DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
                             self.todaysAgenda = self.todaysSchedule()
                             self.tableView.reloadData()
                         }
@@ -74,6 +89,7 @@ class AgendaTableViewController: UITableViewController {
         }
         else {
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -169,6 +185,13 @@ class AgendaTableViewController: UITableViewController {
         }
         return cell
     }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
     
     //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     //
