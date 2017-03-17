@@ -55,12 +55,13 @@ class OldAnnouncementsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.view.bringSubview(toFront: activityIndicator)
-        activityIndicator.startAnimating()
         getAnnouncements()
     }
     
     func getAnnouncements() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(announcementSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
                 if let returnedAnnouncements = Announcement.getAnnounements(from: data!) {

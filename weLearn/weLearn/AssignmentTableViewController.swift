@@ -34,10 +34,26 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        readAssignments()
+        self.view.addSubview(activityIndicator)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        readAssignments()
+    }
+
+    
     func readAssignments() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         if User.manager.assignments == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(assignmentSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -45,11 +61,15 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                         print("We've got returns: \(returnedAssignments.count)")
                         self.assignments = returnedAssignments
                         DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
                             self.tableView.reloadData()
                         }
                     }
                 }
             }
+        } else {
+            print("error loading data!")
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -156,5 +176,12 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         
         return dateFormatter.string(from: date)
     }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
     
 }
