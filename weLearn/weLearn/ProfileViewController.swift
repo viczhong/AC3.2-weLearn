@@ -123,7 +123,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 let image = UIImage(data: data!)
                 self.profilePic.image = image
-                self.uploadImageButton.setTitle("  ", for: .normal)
+               // self.uploadImageButton.setTitle("  ", for: .normal)
             }
         }
     }
@@ -162,13 +162,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         uploadImageButton.snp.makeConstraints { (view) in
-            view.top.leading.equalTo(profileBox).offset(10)
-            view.width.height.equalTo(100)
-            view.height.equalTo(profilePic.snp.width)
+            view.top.equalTo(profilePic.snp.bottom)
+           // view.top.equalTo(profilePic.snp.bottom).offset(8)
+            view.leading.equalTo(profileBox).offset(8)
+            //view.width.height.equalTo(100)
+            //view.height.equalTo(profilePic.snp.width)
         }
         
         profilePic.snp.makeConstraints { view in
-            view.top.leading.equalTo(profileBox).offset(10)
+            //view.top.leading.equalTo(profileBox).offset(8)
+            view.top.equalTo(profileBox)
+            view.leading.equalTo(profileBox).offset(8)
             view.width.height.equalTo(100)
             view.height.equalTo(profilePic.snp.width)
         }
@@ -340,7 +344,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func uploadImageButtonWasTouched() {
         let picker = UIImagePickerController()
-        uploadImageButton.alpha = 0
+        //uploadImageButton.alpha = 0
         picker.sourceType = .photoLibrary
         picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
@@ -424,12 +428,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return collectionView
     }()
     
-    lazy var uploadImageButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .clear
-        button.setTitle("Upload A Pic", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
+    lazy var uploadImageButton: ShinyOvalButton = {
+        let button = ShinyOvalButton()
+       // button.backgroundColor = .clear
+        button.setTitle("Upload A Picture".uppercased(), for: .normal)
+//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.layer.cornerRadius = 15
+        button.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
+        button.imageView?.clipsToBounds = true
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
     }()
