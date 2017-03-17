@@ -31,7 +31,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         tableView.separatorStyle = .none
         
         self.view.addSubview(activityIndicator)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,16 +46,13 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        
-        if links.isEmpty {
-            self.getDataInfo()
-        }
+        self.getDataInfo()
     }
     
-   func getDataInfo() {
-    self.view.bringSubview(toFront: activityIndicator)
-    activityIndicator.startAnimating()
-    
+    func getDataInfo() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         databaseReference.child("links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
@@ -74,7 +71,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             self.activityIndicator.stopAnimating()
         }
     }
-
+    
     // MARK: - Button stuff
     
     func cellTapped(cell: UITableViewCell) {
@@ -126,7 +123,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         
         cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
-    
+        
         return cell
     }
     
