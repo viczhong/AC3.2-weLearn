@@ -124,7 +124,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             cell.delegate = self
         }
         
-        cell.authorLabel.text = "\(links[indexPath.row].author):"
+        cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
     
         return cell

@@ -82,6 +82,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
+        uploadImageButton.layer.borderColor = UIColor.black.cgColor
+        uploadImageButton.layer.borderWidth = 1
+        
         if gradesParsed.isEmpty {
             startGrabbingTestData()
         }
@@ -444,11 +447,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var uploadImageButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
-        button.backgroundColor = UIColor.white
         button.setTitle("Upload Pic".uppercased(), for: .normal)
-//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.imageView?.clipsToBounds = true
+        button.backgroundColor = UIColor.white
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
     }()

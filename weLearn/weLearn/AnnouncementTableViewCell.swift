@@ -69,6 +69,8 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     lazy var box: Box = {
         let button = Box()
+        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
+        button.layer.shadowOpacity = 1
         return button
     }()
     
