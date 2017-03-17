@@ -32,6 +32,12 @@ class AssignmentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        assignmentNameLabel.text = ""
+        assignmentCountDownLabel.text = ""
+        assignmentCountDownLabel.backgroundColor = UIColor.weLearnCoolWhite
+    }
+    
     // Action
     
     func didClickRepoButton(_ sender: UIButton) {
@@ -46,8 +52,8 @@ class AssignmentTableViewCell: UITableViewCell {
    //     self.contentView.addSubview(dateLabel)
         self.contentView.addSubview(topHorizontalRule)
         self.contentView.addSubview(bottomHorizontalRule)
-        self.contentView.addSubview(gradeLabel)
-       // self.contentView.addSubview(gradeSquare)
+        self.contentView.addSubview(assignmentCountDownLabel)
+       // self.contentView.addSubview(gradeLabel)
        // self.contentView.addSubview(repoLink)
     }
     
@@ -60,8 +66,14 @@ class AssignmentTableViewCell: UITableViewCell {
         }
         
         assignmentNameLabel.snp.makeConstraints { label in
-            label.top.equalTo(box).offset(10)
-            label.centerX.equalTo(box)
+            label.top.leading.equalTo(box).offset(10)
+            label.trailing.equalTo(box).inset(10)
+        }
+        
+        assignmentCountDownLabel.snp.makeConstraints { label in
+            label.top.equalTo(topHorizontalRule.snp.bottom)
+            label.leading.equalTo(box).offset(10)
+            label.trailing.equalTo(box).inset(10)
         }
         
 //        dateLabel.snp.makeConstraints { label in
@@ -69,10 +81,10 @@ class AssignmentTableViewCell: UITableViewCell {
 //            label.leading.equalTo(box).offset(10)
 //        }
         
-        gradeLabel.snp.makeConstraints { label in
-            label.top.equalTo(topHorizontalRule.snp.bottom)
-            label.centerX.equalTo(box)
-        }
+//        gradeLabel.snp.makeConstraints { label in
+//            label.top.equalTo(topHorizontalRule.snp.bottom)
+//            label.centerX.equalTo(box)
+//        }
         
 //        gradeSquare.snp.makeConstraints { view in
 //            view.height.width.equalTo(33)
@@ -98,7 +110,7 @@ class AssignmentTableViewCell: UITableViewCell {
         bottomHorizontalRule.snp.makeConstraints { view in
             view.height.equalTo(1)
             view.width.equalTo(box)
-            view.centerY.equalTo(gradeLabel.snp.bottom).inset(7)
+            view.centerY.equalTo(/*gradeLabel*/assignmentCountDownLabel.snp.bottom)
             view.centerX.equalTo(box)
             view.bottom.equalTo(box).inset(10)
         }
@@ -113,7 +125,10 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var assignmentNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Light", size: 30)
+        label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -123,24 +138,22 @@ class AssignmentTableViewCell: UITableViewCell {
 //        return label
 //    }()
     
-//    lazy var gradeSquare: UIView = {
-//        let view = UIView()
-////        view.backgroundColor = UIColor.weLearnGreen.withAlphaComponent(0.5)
-////        view.layer.borderColor = UIColor.black.cgColor
-////        view.layer.borderWidth = 1
-//        return view
+//    lazy var gradeLabel: UILabel = {
+//        let label = UILabel()
+//        label.textAlignment = .center
+//        label.textColor = UIColor.weLearnBlue
+//        label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
+//        label.font = UIFont(name: "Avenir-Black", size: 36)
+//        return label
 //    }()
     
-    lazy var gradeLabel: UILabel = {
+    lazy var assignmentCountDownLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = UIColor.weLearnBlue
-        label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-//        label.layer.shadowOffset = CGSize(width: -2, height: 3)
-//        label.layer.shadowOpacity = 1
-//        label.layer.shadowRadius = 1
-//        label.layer.masksToBounds = false
-        label.font = UIFont(name: "Avenir-Black", size: 72)
+        label.font = UIFont(name: "Avenir-Black", size: 30)
+        label.numberOfLines = 3
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
