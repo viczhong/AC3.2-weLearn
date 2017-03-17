@@ -43,7 +43,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
-    //    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -60,7 +59,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         self.time = 0.0
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
         
         // these all need the delegate set to get sound on click
         self.passwordTextField.delegate = self
