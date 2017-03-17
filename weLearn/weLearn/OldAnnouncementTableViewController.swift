@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AudioToolbox
 import FirebaseAuth
 import FirebaseStorage
 
@@ -24,12 +25,6 @@ class OldAnnouncementsTableViewController: UITableViewController {
         self.navigationItem.title = "Announcements"
         self.tabBarController?.title = navigationItem.title
         
-        // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        
-        // linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-        // let rightButton = UIBarButtonItem(customView: linksButton)
-        // navigationItem.setRightBarButton(rightButton, animated: true)
-        
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -39,11 +34,6 @@ class OldAnnouncementsTableViewController: UITableViewController {
         
         self.view.addSubview(activityIndicator)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,14 +73,14 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    //    func buttonWasPressed(button: UIButton) {
-    //        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-    //    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         AudioServicesPlaySystemSound(1306)
+    }
+
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     

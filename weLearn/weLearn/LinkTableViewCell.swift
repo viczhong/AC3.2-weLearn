@@ -54,14 +54,15 @@ class LinkTableViewCell: UITableViewCell {
         }
         
         authorLabel.snp.makeConstraints { (view) in
-            view.top.leading.equalTo(box).offset(10)
+            view.top.equalTo(descriptionLabel.snp.bottom).offset(5)
+            view.bottom.equalTo(box).inset(10)
+            view.trailing.equalTo(box).inset(10)
         }
         
         descriptionLabel.snp.makeConstraints { (lbl) in
-            lbl.top.equalTo(authorLabel.snp.bottom)
-            lbl.leading.equalTo(box).offset(10)
-            lbl.trailing.equalTo(box).inset(10)
-            lbl.bottom.equalTo(contentView).inset(20)
+            lbl.top.equalTo(box).offset(10)
+            lbl.leading.equalTo(box).offset(20)
+            lbl.trailing.equalTo(box).inset(20)
         }
     }
     
@@ -73,10 +74,10 @@ class LinkTableViewCell: UITableViewCell {
     
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor.weLearnBlue
-        lbl.font = UIFont(name: "Avenir-Black", size: 24)
-        lbl.textAlignment = .center
-        lbl.numberOfLines = 5
+        lbl.textColor = UIColor.weLearnBlack
+        lbl.font = UIFont(name: "Avenir-Light", size: 24)
+        lbl.textAlignment = .left
+        lbl.numberOfLines = 10
         lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
