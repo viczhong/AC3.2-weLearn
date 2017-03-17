@@ -55,7 +55,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         
         bar.snp.makeConstraints { (view) in
             view.leading.equalTo(box).offset(15)
-            view.width.equalTo(2)
+            view.width.equalTo(2.5)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }

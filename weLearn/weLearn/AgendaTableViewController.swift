@@ -32,10 +32,12 @@ class AgendaTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let dateInTitle = DateFormatter()
-        dateInTitle.dateFormat = "E, MMM dd"
+        dateInTitle.dateFormat = "EEEE, MMM dd"
+        let dateTitleString = dateInTitle.string(from: currentDate)
+        print("**************** \(dateTitleString) ***********************")
 
-        self.navigationItem.title = "Agenda"
-        self.tabBarController?.title = dateInTitle.string(from: currentDate)
+        self.navigationItem.title = dateTitleString
+        self.tabBarController?.title = "Agenda"
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
@@ -184,7 +186,7 @@ class AgendaTableViewController: UITableViewController {
                 case 0:
                     cell.label.text = agenda.lessonName
                     cell.bulletView.isHidden = true
-                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 16)
+                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 20)
                 case 1:
                     cell.label.text = "Stand ups"
                 case 2:
