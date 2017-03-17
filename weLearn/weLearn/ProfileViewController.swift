@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     var gradesSheetID = MyClass.manager.studentGradesID!
+    var achievementsSheetID = MyClass.manager.achievementsID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,18 +56,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
         
-        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
+        //        fakePopulate([Achievement(pic: "studentOfTheMonth", description: "Student Of The Month"), Achievement(pic: "academicExcellence", description: "Academic Excellence"), Achievement(pic: "studentOfTheMonth", description: "Great Coder"), Achievement(pic: "academicExcellence", description: "Best at Clapping"), Achievement(pic: "studentOfTheMonth", description: "Thumbs Up")])
         
         databaseReference = FIRDatabase.database().reference()
         
         if User.manager.studentKey != nil {
             getProfileImage()
+            getChievos()
         }
         
         let rightButton = UIBarButtonItem(customView: logOutButton)
         navigationItem.setRightBarButton(rightButton, animated: true)
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,7 +84,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-         startGrabbingTestData()
+        startGrabbingTestData()
+    }
+    
+    func getChievos() {
+        if achievements == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(achievementsSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    if let returnedAnnouncements = AchievementBucket.getStudentAchievementBucket(from: data!, for: User.manager.id!) {
+                        DispatchQueue.main.async {
+                            self.achievements = AchievementBucket.parseBucketString(returnedAnnouncements.contentString)
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func getProfileImage() {
@@ -194,12 +213,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Collection view stuff
     
-    func fakePopulate(_ items: [Achievement]) {
-        self.achievements = items
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
+//    func populateAchievements(_ items: [Achievement]) {
+//        self.achievements = items
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
     
     // MARK: - UIImagePicker Delegate Method
     
