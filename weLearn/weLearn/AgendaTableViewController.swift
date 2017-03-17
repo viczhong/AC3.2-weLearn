@@ -5,7 +5,9 @@
 //  Created by Karen Fuentes on 3/8/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
+
 import UIKit
+import AudioToolbox
 import SafariServices
 import FirebaseAuth
 
@@ -28,7 +30,7 @@ class AgendaTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Syllabus"
+        self.navigationItem.title = "Agenda"
         self.tabBarController?.title = navigationItem.title
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
@@ -36,14 +38,27 @@ class AgendaTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        readAgenda()
+        self.view.addSubview(activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if agenda == nil {
+            readAgenda()
+        }
+    }
+
     
     // MARK: - Agenda functions
     
@@ -58,6 +73,9 @@ class AgendaTableViewController: UITableViewController {
     }
     
     func readAgenda() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+
         if LessonSchedule.manager.pastAgenda == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -65,6 +83,7 @@ class AgendaTableViewController: UITableViewController {
                         print("We've got returns: \(returnedAgenda.count)")
                         self.agenda = returnedAgenda
                         DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
                             self.todaysAgenda = self.todaysSchedule()
                             self.tableView.reloadData()
                         }
@@ -74,6 +93,7 @@ class AgendaTableViewController: UITableViewController {
         }
         else {
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -118,7 +138,7 @@ class AgendaTableViewController: UITableViewController {
             }
         case 1:
             if agenda != nil {
-                return "Past Agenda"
+                return "Past Agendas"
             }
             else {
                 return nil
@@ -134,7 +154,7 @@ class AgendaTableViewController: UITableViewController {
         switch section {
         case 0:
             if LessonSchedule.manager.todaysAgenda != nil {
-                return 1
+                return 6
             }
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
@@ -156,12 +176,30 @@ class AgendaTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             if let agenda = LessonSchedule.manager.todaysAgenda {
-                cell.label.text = agenda.lessonName
+                switch indexPath.row {
+                case 0:
+                    cell.label.text = agenda.lessonName
+                    cell.bulletView.isHidden = true
+                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 16)
+                case 1:
+                    cell.label.text = "Stand ups"
+                case 2:
+                    cell.label.text = "Run through presentations"
+                case 3:
+                    cell.label.text = "Lunch"
+                case 4:
+                    cell.label.text = "Refactor code"
+                case 5:
+                    cell.label.text = "Get pumped for demo day!"
+                default:
+                    cell.label.text = "Go to the bar"
+                }
             }
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 let agendaAtRow = agenda[indexPath.row]
                 cell.label.text = "\(agendaAtRow.dateString) - \(agendaAtRow.lessonName)"
+                cell.bulletView.isHidden = true
             }
         default:
             break
@@ -170,13 +208,15 @@ class AgendaTableViewController: UITableViewController {
         return cell
     }
     
-    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        if let url = agenda[indexPath.row].repoURL {
-    //
-    //            let svc = SFSafariViewController(url: URL(string: url)!)
-    //            present(svc, animated: true, completion: nil)
-    //        }
-    //
-    //    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        AudioServicesPlaySystemSound(1306)
+    }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
+  
 }

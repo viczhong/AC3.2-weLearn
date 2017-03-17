@@ -32,7 +32,14 @@ class AgendaTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        self.backgroundColor = UIColor.weLearnCoolWhite
+        self.label.font = UIFont(name: "Avenir-Roman", size: 16)
+        self.bulletView.isHidden = false
+        self.bulletView.tintColor = UIColor.weLearnBlue
+        self.label.text = ""
     }
     
     func setupHierarchy() {
@@ -57,6 +64,7 @@ class AgendaTableViewCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let lbl = UILabel()
+        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
         lbl.numberOfLines = 3

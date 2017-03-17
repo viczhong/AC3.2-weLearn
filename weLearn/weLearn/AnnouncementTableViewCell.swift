@@ -76,7 +76,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 14)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()
@@ -94,7 +94,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()
