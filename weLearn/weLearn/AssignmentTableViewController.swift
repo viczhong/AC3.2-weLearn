@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 import SafariServices
 import FirebaseAuth
 import Firebase
@@ -119,6 +120,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
     }
     
     func repoButtonClicked(at index: IndexPath) {
+        AudioServicesPlaySystemSound(1105)
         if let assignments = User.manager.assignments {
             if let link = assignments[index.row].url {
                 let svc = SFSafariViewController(url: URL(string: link)!)
@@ -127,16 +129,6 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
             }
         }
     }
-    
-    /*
-     func urlButtonClicked(at index: IndexPath) {
-     let url = URL(string: links[index.row].url)!
-     let svc = SFSafariViewController(url: url)
-     
-     navigationController?.show(svc, sender: self)
-     svc.delegate = self
-     }
-     */
     
     // MARK: - Table view data source
     
@@ -155,7 +147,6 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
-        // cell.selectionStyle = .none
         
         if let assignmentCell = cell as? AssignmentTableViewCell {
             if assignmentCell.delegate == nil {
