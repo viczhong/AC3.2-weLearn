@@ -107,11 +107,23 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 let difference = endTime.timeIntervalSinceNow
                 
                 if difference < 0 {
-                    assignmentCell.assignmentNameLabel.text = convertDateToString(assignment.date)
-                    assignmentCell.gradeLabel.text = assignment.assignmentTitle
+                    assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
+                    switch indexPath.row % 5 {
+                    case 0:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: A"
+                    case 1:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: N/A"
+                    case 2:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: A-"
+                    case 3:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: B"
+                    case 4:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: A+"
+                    default:
+                        assignmentCell.assignmentCountDownLabel.text = "Grade: N/A"
+                    }
                     
-                }
-                else {
+                } else {
                     let endTime = assignment.date
                     let difference = endTime.timeIntervalSinceNow
                     var timeInSeconds = 0
@@ -121,8 +133,8 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     let hours = Int(timeInSeconds) / 3600 % 24
                     let minutes = Int(timeInSeconds) / 60 % 60
                     
-                    assignmentCell.assignmentNameLabel.text = String(format: "%i days, %i hours, %i minutes until", days, hours, minutes)
-                    assignmentCell.gradeLabel.text = assignment.assignmentTitle
+                    assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
+                    assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                     
                     //                assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
                     //                  assignmentCell.dateLabel.text = assignments[indexPath.row].date
@@ -140,38 +152,9 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     
     func convertDateToString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy"
+        dateFormatter.dateFormat = "MMMM, dd yyyy"
         
         return dateFormatter.string(from: date)
     }
     
-    // Button
-    
-    lazy var logOutButton: ShinyOvalButton = {
-        let button = ShinyOvalButton()
-        button.setTitle("Log Out".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        button.imageView?.clipsToBounds = true
-        return button
-    }()
-    
-    // MARK: - Button Action
-    
-    func logOutButtonWasPressed(selector: UIButton) {
-        if FIRAuth.auth()?.currentUser != nil {
-            do {
-                try FIRAuth.auth()?.signOut()
-                self.navigationController?.navigationBar.isHidden = true
-                selector.isHidden = true
-                self.dismiss(animated: true, completion: nil)
-                
-            }
-                
-            catch {
-                print(error)
-            }
-        }
-    }
 }
