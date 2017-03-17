@@ -76,7 +76,7 @@ class LinkTableViewCell: UITableViewCell {
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor.weLearnBlue
-        lbl.font = UIFont(name: "Avenir-Light", size: 24)
+        lbl.font = UIFont(name: "Avenir-Black", size: 24)
         lbl.textAlignment = .left
         lbl.numberOfLines = 10
         lbl.lineBreakMode = .byWordWrapping

@@ -173,6 +173,8 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                 
                 if difference < 0 {
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
+                    assignmentCell.optionalTimerLabel.isHidden = true
+                    assignmentCell.optionalTimerLabelsShadow.isHidden = true
                     if let gradeAtRow = User.manager.assignmentGrades {
                         assignmentCell.assignmentCountDownLabel.text = "Grade: \(gradeAtRow[indexPath.row].grade)"
                     }
@@ -186,6 +188,8 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                     let hours = Int(timeInSeconds) / 3600 % 24
                     let minutes = Int(timeInSeconds) / 60 % 60
                     
+                    assignmentCell.optionalTimerLabel.isHidden = false
+                    assignmentCell.optionalTimerLabelsShadow.isHidden = false
                     assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                 }

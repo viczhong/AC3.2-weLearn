@@ -35,7 +35,7 @@ class AgendaTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        self.backgroundColor = UIColor.weLearnCoolWhite
+        self.backgroundColor = UIColor.white
         self.label.font = UIFont(name: "Avenir-Roman", size: 20)
         self.bulletView.isHidden = false
         self.bulletView.tintColor = UIColor.weLearnBlue

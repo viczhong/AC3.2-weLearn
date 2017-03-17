@@ -33,11 +33,9 @@ class AgendaTableViewController: UITableViewController {
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "E, MMM dd"
-        
-        navigationController?.navigationBar.isHidden = false
-        self.tabBarController?.title = dateInTitle.string(from: currentDate)
 
         self.navigationItem.title = "Agenda"
+        self.tabBarController?.title = dateInTitle.string(from: currentDate)
         
         tableView.register(AgendaTableViewCell.self, forCellReuseIdentifier: "AgendaTableViewCell")
         
