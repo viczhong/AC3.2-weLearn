@@ -25,6 +25,7 @@ class User {
     var grades: [(assignment: String, grade: String)]?
     var assignmentGrades: [(assignment: String, grade: String)]?
     var agenda: [Agenda]?
+    var achievements: [Achievement]?
     
     static func clearSingleton() {
         var strings = [
@@ -45,6 +46,7 @@ class User {
         User.manager.assignments = nil
         User.manager.assignmentGrades = nil
         User.manager.grades = nil
+        User.manager.achievements = nil
     }
     
     static func setAssignmentsReversed(_ assignments: [Assignment]?) {
