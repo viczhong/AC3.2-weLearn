@@ -121,7 +121,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 let image = UIImage(data: data!)
                 self.profilePic.image = image
-               // self.uploadImageButton.setTitle("  ", for: .normal)
             }
         }
     }
@@ -135,7 +134,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(nameLabel)
         self.view.addSubview(emailLabel)
         self.view.addSubview(classLabel)
-        self.view.addSubview(editButton)
         self.view.addSubview(tableView)
         self.view.addSubview(collectionView)
         self.view.addSubview(uploadImageButton)
@@ -165,11 +163,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         uploadImageButton.snp.makeConstraints { (view) in
-            view.top.equalTo(profilePic.snp.bottom)
+            view.top.equalTo(profilePic.snp.bottom).offset(10)
            // view.top.equalTo(profilePic.snp.bottom).offset(8)
             view.leading.equalTo(profileBox).offset(8)
-            //view.width.height.equalTo(100)
-            //view.height.equalTo(profilePic.snp.width)
+            view.bottom.equalTo(profileBox).inset(10)
+            view.width.equalTo(100)
+            view.height.equalTo(30)
         }
         
         profilePic.snp.makeConstraints { view in
@@ -193,7 +192,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         classLabel.snp.makeConstraints { view in
             view.top.equalTo(emailLabel.snp.bottom).offset(5)
             view.trailing.equalTo(profileBox).inset(20)
-            view.bottom.equalTo(profileBox).inset(20)
         }
         
     }
@@ -353,8 +351,19 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func uploadImageButtonWasTouched() {
+        AudioServicesPlaySystemSound(1105)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.uploadImageButton.layer.shadowOpacity = 0.1
+            self.uploadImageButton.layer.shadowRadius = 1
+            self.uploadImageButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.uploadImageButton.layer.shadowOpacity = 0.25
+            self.uploadImageButton.layer.shadowRadius = 2
+            self.uploadImageButton.layer.sublayers!.remove(at: 0)
+        })
+        
         let picker = UIImagePickerController()
-        //uploadImageButton.alpha = 0
         picker.sourceType = .photoLibrary
         picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
@@ -388,7 +397,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
         label.text = User.manager.name ?? "Anon"
-        label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.font = UIFont(name: "Avenir-Light", size: 28)
         return label
     }()
     
@@ -396,7 +405,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
         label.text = User.manager.email ?? "anon@anon.com"
-        label.font = UIFont(name: "Avenir-Roman", size: 16)
+        label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
     }()
     
@@ -404,13 +413,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let label = UILabel()
         label.textColor = UIColor.weLearnCoolWhite
         label.text = User.manager.classroom ?? "No class"
-        label.font = UIFont(name: "Avenir-Roman", size: 16)
+        label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
-    }()
-    
-    lazy var editButton: UIButton = {
-        let button = UIButton()
-        return button
     }()
     
     lazy var tableView: UITableView = {
@@ -440,12 +444,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var uploadImageButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
-       // button.backgroundColor = .clear
-        button.setTitle("Upload A Picture".uppercased(), for: .normal)
+        button.backgroundColor = UIColor.white
+        button.setTitle("Upload Pic".uppercased(), for: .normal)
 //        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 12)
         button.setTitleColor(UIColor.weLearnBlue, for: .normal)
-        button.layer.cornerRadius = 15
-        button.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
         button.imageView?.clipsToBounds = true
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
