@@ -314,8 +314,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.navigationController?.navigationBar.isHidden = true
                 selector.isHidden = true
                 self.dismiss(animated: true, completion: nil)
-                User.manager.logOut()
+                User.logOut()
             }
+                
             catch {
                 print(error)
             }
