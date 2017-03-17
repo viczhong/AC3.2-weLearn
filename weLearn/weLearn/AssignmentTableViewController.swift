@@ -11,7 +11,7 @@ import SafariServices
 import FirebaseAuth
 import Firebase
 
-class AssignmentTableViewController: UITableViewController, Tappable {
+class AssignmentTableViewController: UITableViewController, SFSafariViewControllerDelegate, Tappable {
     
     var assignments: [Assignment]? {
         didSet {
@@ -122,10 +122,21 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         if let assignments = User.manager.assignments {
             if let link = assignments[index.row].url {
                 let svc = SFSafariViewController(url: URL(string: link)!)
-                present(svc, animated: true, completion: nil)
+                navigationController?.show(svc, sender: self)
+                svc.delegate = self
             }
         }
     }
+    
+    /*
+     func urlButtonClicked(at index: IndexPath) {
+     let url = URL(string: links[index.row].url)!
+     let svc = SFSafariViewController(url: url)
+     
+     navigationController?.show(svc, sender: self)
+     svc.delegate = self
+     }
+     */
     
     // MARK: - Table view data source
     

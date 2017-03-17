@@ -87,7 +87,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let svc = SFSafariViewController(url: url)
         
         navigationController?.show(svc, sender: self)
-//        present(svc, animated: true, completion: nil)
         svc.delegate = self
     }
     
