@@ -50,18 +50,18 @@ class AnnouncementTableViewCell: UITableViewCell {
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
             lbl.trailing.equalTo(box).inset(20)
-            lbl.bottom.equalTo(author.snp.top).inset(10)
-            //lbl.centerY.equalTo(contentView)
+//            lbl.bottom.equalTo(author.snp.top).inset(10)
         }
         
         bar.snp.makeConstraints { (view) in
             view.leading.equalTo(box).offset(15)
-            view.width.equalTo(5)
+            view.width.equalTo(2)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }
         
         author.snp.makeConstraints { (view) in
+            view.top.equalTo(quote.snp.bottom).offset(10)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
         }
@@ -69,6 +69,8 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     lazy var box: Box = {
         let button = Box()
+        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
+        button.layer.shadowOpacity = 1
         return button
     }()
     
@@ -76,7 +78,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 14)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()
@@ -94,7 +96,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()

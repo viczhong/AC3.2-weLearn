@@ -80,7 +80,7 @@ class StyleManager {
         
         proxyTableView.backgroundColor = UIColor.white
         proxyTableCell.backgroundColor = UIColor.weLearnBlue
-        proxySectionHeader.tintColor = UIColor.white
+        proxySectionHeader.tintColor = UIColor.weLearnCoolWhite
         
         proxyScrollView.bounces = true
         //proxyScrollView.backgroundColor = UIColor.weLearnWarmWhite

@@ -43,7 +43,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
-    //    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -60,9 +59,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         self.time = 0.0
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
         
+        // these all need the delegate set to get sound on click
         self.passwordTextField.delegate = self
+        self.emailTextField.delegate = self
+        self.classTextField.delegate = self
+        self.nameTextField.delegate = self
+        self.studentIDTextField.delegate = self
         
         viewHiearchy()
         configureConstraints()
@@ -76,7 +80,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             studentIDTextField
         ]
         
-//        self.checkLogin()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,7 +96,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,7 +104,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         hoverCloud()
     }
     
-    //MARK: - Tab loading functions
+    // MARK: - Tab loading functions
     
     func loadTabsAndEverythingElse() {
         // Tabbar guts
@@ -121,7 +123,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
         
-        //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
@@ -150,6 +151,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        AudioServicesPlaySystemSound(1104)
+    }
+    
+    
+    
     func colorTab(button1: UIButton, button2: UIButton) {
         if button1.isSelected {
             button1.backgroundColor = UIColor.white
@@ -160,7 +167,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: - Autolayout Constraints and Hierarchy
+    // MARK: - Autolayout Constraints and Hierarchy
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)

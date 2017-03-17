@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import AudioToolbox
 import SafariServices
 import FirebaseAuth
 import Firebase
 
-class AssignmentTableViewController: UITableViewController, Tappable {
+class AssignmentTableViewController: UITableViewController, SFSafariViewControllerDelegate, Tappable {
     
     var assignments: [Assignment]? {
         didSet {
@@ -46,14 +47,16 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
-        
+        self.view.addSubview(activityIndicator)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        readAssignments()
-        startGrabbingAssignmentsData()
+        if assignments == nil {
+            readAssignments()
+            startGrabbingAssignmentsData()
+        }
     }
     
     func startGrabbingAssignmentsData() {
@@ -80,9 +83,19 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                 }
             }
         }
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
     }
     
     func readAssignments() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         if User.manager.assignments == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(assignmentSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -90,11 +103,15 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                         print("We've got returns: \(returnedAssignments.count)")
                         self.assignments = returnedAssignments
                         DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
                             self.tableView.reloadData()
                         }
                     }
                 }
             }
+        } else {
+            print("error loading data!")
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -103,10 +120,26 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     }
     
     func repoButtonClicked(at index: IndexPath) {
+        let currentCell = tableView.cellForRow(at: index) as! AssignmentTableViewCell
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            currentCell.box.layer.shadowOpacity = 0.1
+            currentCell.box.layer.shadowRadius = 1
+            currentCell.box.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            currentCell.box.layer.shadowOpacity = 0.25
+            currentCell.box.layer.shadowRadius = 2
+            currentCell.box.layer.sublayers!.remove(at: 0)
+        })
+        
         if let assignments = User.manager.assignments {
             if let link = assignments[index.row].url {
+                AudioServicesPlaySystemSound(1105)
                 let svc = SFSafariViewController(url: URL(string: link)!)
-                present(svc, animated: true, completion: nil)
+                navigationController?.show(svc, sender: self)
+                svc.delegate = self
+            } else {
+                AudioServicesPlaySystemSound(1104)
             }
         }
     }
@@ -128,25 +161,12 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
-        // cell.selectionStyle = .none
         
         if let assignmentCell = cell as? AssignmentTableViewCell {
             if assignmentCell.delegate == nil {
                 assignmentCell.delegate = self
             }
             if let assignments = User.manager.assignments {
-                /*
-                 guard (assignments[indexPath.row].score?.characters.count)! < 3 else {
-                 assignmentCell.assignmentNameLabel.text = "\(assignments[indexPath.row].assignmentTitle) due in"
-                 assignmentCell.gradeLabel.font = UIFont(name: "Avenir-Black", size: 20)
-                 assignmentCell.gradeLabel.layer.shadowColor = UIColor.clear.cgColor
-                 assignmentCell.gradeLabel.text = assignments[indexPath.row].score
-                 assignmentCell.topHorizontalRule.isHidden = true
-                 assignmentCell.bottomHorizontalRule.isHidden = true
-                 //assignmentCell.repoLink.isHidden = true
-                 return cell
-                 }
-                 */
                 let assignment = assignments[indexPath.row]
                 let endTime = assignment.date
                 let difference = endTime.timeIntervalSinceNow
@@ -168,13 +188,6 @@ class AssignmentTableViewController: UITableViewController, Tappable {
                     
                     assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
-                    
-                    //                assignmentCell.assignmentNameLabel.text = assignments[indexPath.row].assignmentTitle
-                    //                  assignmentCell.dateLabel.text = assignments[indexPath.row].date
-                    //                    guard assignments[indexPath.row].url != nil else {
-                    //                        //                    assignmentCell.repoLink.isHidden = true
-                    //                    }
-                    //assignmentCell.repoLink.setTitle("Link to Repo", for: .normal)
                 }
                 
                 return cell
@@ -190,5 +203,12 @@ class AssignmentTableViewController: UITableViewController, Tappable {
         
         return dateFormatter.string(from: date)
     }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
     
 }

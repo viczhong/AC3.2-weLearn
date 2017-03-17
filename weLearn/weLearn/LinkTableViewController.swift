@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import SafariServices
+import AudioToolbox
 
 class LinkTableViewController: UITableViewController, Tappable, SFSafariViewControllerDelegate {
     
@@ -28,19 +29,33 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
+        
+        self.view.addSubview(activityIndicator)
 
-        self.getDataInfo()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+        
+        self.tabBarController?.navigationItem.hidesBackButton = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.getDataInfo()
+        super.viewDidAppear(false)
+        
+        if links.isEmpty {
+            self.getDataInfo()
+        }
     }
     
    func getDataInfo() {
+    self.view.bringSubview(toFront: activityIndicator)
+    activityIndicator.startAnimating()
+    
         databaseReference.child("links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
@@ -50,17 +65,20 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
                 linksArr.append(links)
             }
             self.links = linksArr
+            self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
             print(">>> there are \(self.links.count) links")
             
         }) { (error) in
             print(error.localizedDescription)
+            self.activityIndicator.stopAnimating()
         }
     }
 
     // MARK: - Button stuff
     
     func cellTapped(cell: UITableViewCell) {
+        AudioServicesPlaySystemSound(1105)
         self.urlButtonClicked(at: tableView.indexPath(for: cell)!)
     }
     
@@ -68,8 +86,19 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let url = URL(string: links[index.row].url)!
         let svc = SFSafariViewController(url: url)
         
+        let currentCell = tableView.cellForRow(at: index) as! LinkTableViewCell
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            currentCell.box.layer.shadowOpacity = 0.1
+            currentCell.box.layer.shadowRadius = 1
+            currentCell.box.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            currentCell.box.layer.shadowOpacity = 0.25
+            currentCell.box.layer.shadowRadius = 2
+            currentCell.box.layer.sublayers!.remove(at: 0)
+        })
+        
         navigationController?.show(svc, sender: self)
-//        present(svc, animated: true, completion: nil)
         svc.delegate = self
     }
     
@@ -95,9 +124,16 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             cell.delegate = self
         }
         
-        cell.authorLabel.text = "\(links[indexPath.row].author):"
+        cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
     
         return cell
     }
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
 }
