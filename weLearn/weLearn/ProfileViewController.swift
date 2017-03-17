@@ -20,7 +20,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
      achievements will be a cell containing a collection view or scroll view
      */
     
-    var achievements: [Achievement]?
+    var achievements: [Achievement]? {
+        didSet {
+            User.manager.achievements = achievements
+        }
+    }
     var testGrades: TestGrade?
     var databaseReference: FIRDatabaseReference!
     var gradesParsed: [(assignment: String, grade: String)] = [] {
@@ -62,7 +66,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if User.manager.studentKey != nil {
             getProfileImage()
-            getChievos()
         }
         
         let rightButton = UIBarButtonItem(customView: logOutButton)
@@ -85,20 +88,24 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidAppear(false)
         
         startGrabbingTestData()
+        getChievos()
     }
     
     func getChievos() {
-        if achievements == nil {
+        if User.manager.achievements == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(achievementsSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
                     if let returnedAnnouncements = AchievementBucket.getStudentAchievementBucket(from: data!, for: User.manager.id!) {
                         DispatchQueue.main.async {
                             self.achievements = AchievementBucket.parseBucketString(returnedAnnouncements.contentString)
-                            self.tableView.reloadData()
+                            self.collectionView.reloadData()
                         }
                     }
                 }
             }
+        }
+        else {
+            self.collectionView.reloadData()
         }
     }
     
@@ -192,6 +199,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+        self.tableView.reloadData()
     }
     
     func fetchStudentTestData(_ data: Data) {
@@ -212,13 +220,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // MARK: - Collection view stuff
-    
-//    func populateAchievements(_ items: [Achievement]) {
-//        self.achievements = items
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-//    }
     
     // MARK: - UIImagePicker Delegate Method
     
@@ -251,13 +252,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return achievements?.count ?? 0
+        return User.manager.achievements?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementCollectionViewCell", for: indexPath)
         
-        if let achievementsUnwrapped = achievements {
+        if let achievementsUnwrapped = User.manager.achievements {
             if achievementsUnwrapped.count > 0 {
                 if let achievementCell = cell as? AchievementCollectionViewCell {
                     achievementCell.achievementPic.image = UIImage(named: achievementsUnwrapped[indexPath.row].pic)
