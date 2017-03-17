@@ -120,12 +120,26 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
     }
     
     func repoButtonClicked(at index: IndexPath) {
-        AudioServicesPlaySystemSound(1105)
+        let currentCell = tableView.cellForRow(at: index) as! AssignmentTableViewCell
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            currentCell.box.layer.shadowOpacity = 0.1
+            currentCell.box.layer.shadowRadius = 1
+            currentCell.box.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            currentCell.box.layer.shadowOpacity = 0.25
+            currentCell.box.layer.shadowRadius = 2
+            currentCell.box.layer.sublayers!.remove(at: 0)
+        })
+        
         if let assignments = User.manager.assignments {
             if let link = assignments[index.row].url {
+                AudioServicesPlaySystemSound(1105)
                 let svc = SFSafariViewController(url: URL(string: link)!)
                 navigationController?.show(svc, sender: self)
                 svc.delegate = self
+            } else {
+                AudioServicesPlaySystemSound(1104)
             }
         }
     }

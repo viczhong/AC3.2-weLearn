@@ -86,6 +86,18 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let url = URL(string: links[index.row].url)!
         let svc = SFSafariViewController(url: url)
         
+        let currentCell = tableView.cellForRow(at: index) as! LinkTableViewCell
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            currentCell.box.layer.shadowOpacity = 0.1
+            currentCell.box.layer.shadowRadius = 1
+            currentCell.box.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            currentCell.box.layer.shadowOpacity = 0.25
+            currentCell.box.layer.shadowRadius = 2
+            currentCell.box.layer.sublayers!.remove(at: 0)
+        })
+        
         navigationController?.show(svc, sender: self)
         svc.delegate = self
     }
