@@ -15,11 +15,6 @@ import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    /* we shall make cells for the acheievements and grades
-     grades will be a simple cell
-     achievements will be a cell containing a collection view or scroll view
-     */
-    
     var achievements: [Achievement]?
     var testGrades: TestGrade?
     var databaseReference: FIRDatabaseReference!
@@ -81,7 +76,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        checkLoggedIn()
+        if gradesParsed.isEmpty {
+            checkLoggedIn()
+        }
     }
     
     func getProfileImage() {
@@ -104,6 +101,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Views
     
     func viewHeirarchy() {
+        self.view.addSubview(activityIndicator)
         self.view.addSubview(profileBox)
         self.view.addSubview(profilePic)
         self.view.addSubview(nameLabel)
@@ -116,6 +114,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func configureConstraints() {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { (tV) in
             tV.leading.trailing.bottom.equalToSuperview()
             tV.top.equalTo(collectionView.snp.bottom).offset(10)
@@ -167,6 +169,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - User Functions
     
     func checkLoggedIn() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         if FIRAuth.auth()?.currentUser != nil {
             startGrabbingTestData()
         }
@@ -177,6 +182,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
                     self.fetchStudentTestData(data!)
+                } else {
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
@@ -194,6 +201,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.gradesParsed = TestGrade.parseGradeString(self.testGrades!.grades)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
@@ -205,6 +213,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.achievements = items
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -427,5 +436,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         button.imageView?.clipsToBounds = true
         return button
+    }()
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
     }()
 }

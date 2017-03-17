@@ -46,7 +46,9 @@ class AssignmentTableViewController: UITableViewController, Tappable {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        readAssignments()
+        if assignments == nil {
+            readAssignments()
+        }
     }
 
     

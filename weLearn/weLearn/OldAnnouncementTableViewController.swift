@@ -55,7 +55,9 @@ class OldAnnouncementsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        getAnnouncements()
+        if announcements == nil {
+            getAnnouncements()
+        }
     }
     
     func getAnnouncements() {

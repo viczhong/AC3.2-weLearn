@@ -52,7 +52,9 @@ class AgendaTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        readAgenda()
+        if agenda == nil {
+            readAgenda()
+        }
     }
 
     
