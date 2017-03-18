@@ -41,8 +41,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationItem.title = "Profile"
         self.tabBarController?.title = navigationItem.title
         
-        self.view.backgroundColor = UIColor.weLearnBlue
-        
         viewHeirarchy()
         configureConstraints()
         
@@ -159,16 +157,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         profileBox.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(10)
+            view.top.equalToSuperview()
             view.centerX.equalToSuperview()
-            view.leading.equalToSuperview().offset(25)
-            view.trailing.equalToSuperview().inset(25)
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
         }
         
         uploadImageButton.snp.makeConstraints { (view) in
             view.top.equalTo(profilePic.snp.bottom).offset(10)
            // view.top.equalTo(profilePic.snp.bottom).offset(8)
-            view.leading.equalTo(profileBox).offset(8)
+            view.leading.equalTo(profileBox).offset(33)
             view.bottom.equalTo(profileBox).inset(10)
             view.width.equalTo(100)
             view.height.equalTo(30)
@@ -176,25 +174,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.snp.makeConstraints { view in
             //view.top.leading.equalTo(profileBox).offset(8)
-            view.top.equalTo(profileBox)
-            view.leading.equalTo(profileBox).offset(8)
+            view.top.equalTo(profileBox).offset(10)
+            view.leading.equalTo(profileBox).offset(33)
             view.width.height.equalTo(100)
             view.height.equalTo(profilePic.snp.width)
         }
         
         nameLabel.snp.makeConstraints { view in
-            view.top.equalTo(profileBox).offset(20)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.top.equalTo(profileBox).offset(30)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         emailLabel.snp.makeConstraints { view in
             view.top.equalTo(nameLabel.snp.bottom).offset(10)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         classLabel.snp.makeConstraints { view in
             view.top.equalTo(emailLabel.snp.bottom).offset(5)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
     }
@@ -380,14 +378,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Mark: - Views made here
     
-    lazy var profileBox: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
+    lazy var profileBox: UIImageView = {
+        let view = UIImageView()
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        // blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.image = #imageLiteral(resourceName: "clouds")
+        view.contentMode = .bottom
+        view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
     
@@ -395,14 +395,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
         pic.backgroundColor = UIColor.white
-        pic.contentMode = .scaleAspectFit
+        pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
         return pic
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.name ?? "Anon"
         label.font = UIFont(name: "Avenir-Light", size: 28)
         return label
@@ -410,7 +410,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.email ?? "anon@anon.com"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
@@ -418,14 +418,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var classLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView() //(frame: .zero, style: .grouped)
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -434,7 +434,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 40
+        layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 20
         layout.estimatedItemSize = CGSize(width: 50, height: 50)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)

@@ -56,7 +56,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         databaseReference = FIRDatabase.database().reference()
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnLightBlue, UIColor.weLearnCoolWhite])
         
         // these all need the delegate set to get sound on click
         self.passwordTextField.delegate = self
@@ -68,7 +68,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         viewHiearchy()
         configureConstraints()
         
-        registerTab.backgroundColor = UIColor.weLearnLightGreen
+        registerTab.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         
         toggleIsHiddenWhenTabIsChanged = [
             registerButton,
@@ -157,9 +157,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func colorTab(button1: UIButton, button2: UIButton) {
         if button1.isSelected {
             button1.backgroundColor = UIColor.white
-            button2.backgroundColor = UIColor.weLearnLightGreen
+            button2.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         } else {
-            button1.backgroundColor = UIColor.weLearnLightGreen
+            button1.backgroundColor = UIColor.white.withAlphaComponent(0.8)
             button2.backgroundColor = UIColor.white
         }
     }
@@ -666,7 +666,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var emailTextField: PaddedTextField = {
         let textField = PaddedTextField()
-        textField.placeholder = "Email"
+        textField.placeholder = "Email".uppercased()
         textField.spellCheckingType = .no
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -675,7 +675,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var passwordTextField: PaddedTextField = {
         let secondTextField = PaddedTextField()
-        secondTextField.placeholder = "Password"
+        secondTextField.placeholder = "Password".uppercased()
         secondTextField.isSecureTextEntry = true
         secondTextField.spellCheckingType = .no
         secondTextField.autocorrectionType = .no
@@ -685,12 +685,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.backgroundColor = UIColor.weLearnLightBlue
         button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("Login".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
@@ -700,12 +700,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var registerButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.backgroundColor = UIColor.weLearnLightBlue
         button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("register".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
@@ -715,7 +715,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
-        thirdTextfield.placeholder = "Preferred name"
+        thirdTextfield.placeholder = "Preferred name".uppercased()
         thirdTextfield.isSecureTextEntry = false
         thirdTextfield.spellCheckingType = .no
         thirdTextfield.autocorrectionType = .no
@@ -725,7 +725,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var classTextField: PaddedTextField = {
         let fourthTextfield = PaddedTextField()
-        fourthTextfield.placeholder = "Class"
+        fourthTextfield.placeholder = "Class".uppercased()
         fourthTextfield.isSecureTextEntry = false
         fourthTextfield.spellCheckingType = .no
         fourthTextfield.autocorrectionType = .no
@@ -735,7 +735,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
-        fifthTextfield.placeholder = "Student ID"
+        fifthTextfield.placeholder = "Student ID".uppercased()
         fifthTextfield.isSecureTextEntry = true
         fifthTextfield.spellCheckingType = .no
         fifthTextfield.autocorrectionType = .no
