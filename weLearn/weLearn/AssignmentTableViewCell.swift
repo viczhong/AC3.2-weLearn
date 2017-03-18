@@ -51,14 +51,11 @@ class AssignmentTableViewCell: UITableViewCell {
     func setupHierarchy() {
         self.contentView.addSubview(box)
         self.contentView.addSubview(assignmentNameLabel)
-   //     self.contentView.addSubview(dateLabel)
         self.contentView.addSubview(topHorizontalRule)
         self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(assignmentCountDownLabel)
         self.contentView.addSubview(optionalTimerLabelsShadow)
         self.contentView.addSubview(optionalTimerLabel)
-       // self.contentView.addSubview(gradeLabel)
-       // self.contentView.addSubview(repoLink)
     }
     
     func setupConstraints() {
@@ -156,7 +153,7 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
+
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
@@ -180,5 +177,5 @@ class AssignmentTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor.white
         return view
     }()
-
+    
 }

@@ -12,7 +12,7 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-    
+
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
@@ -66,7 +66,7 @@ class AgendaTableViewController: UITableViewController {
             readAgenda()
         }
     }
-
+    
     
     // MARK: - Agenda functions
     
@@ -83,7 +83,7 @@ class AgendaTableViewController: UITableViewController {
     func readAgenda() {
         self.view.bringSubview(toFront: activityIndicator)
         activityIndicator.startAnimating()
-
+        
         if LessonSchedule.manager.pastAgenda == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -209,5 +209,5 @@ class AgendaTableViewController: UITableViewController {
         view.color = UIColor.weLearnGreen
         return view
     }()
-  
+    
 }

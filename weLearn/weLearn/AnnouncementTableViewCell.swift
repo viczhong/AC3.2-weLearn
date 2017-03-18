@@ -10,7 +10,7 @@ import UIKit
 import  SnapKit
 
 class AnnouncementTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -18,6 +18,8 @@ class AnnouncementTableViewCell: UITableViewCell {
         
         setupToHierachy()
         setupConstraints()
+        profilePic.layer.cornerRadius = 25
+        profilePic.clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +36,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         self.contentView.addSubview(bar)
         self.contentView.addSubview(quote)
         self.contentView.addSubview(author)
+        self.contentView.addSubview(profilePic)
     }
     
     func setupConstraints() {
@@ -52,7 +55,6 @@ class AnnouncementTableViewCell: UITableViewCell {
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
             lbl.trailing.equalTo(box).inset(20)
-//            lbl.bottom.equalTo(author.snp.top).inset(10)
         }
         
         bar.snp.makeConstraints { (view) in
@@ -66,6 +68,12 @@ class AnnouncementTableViewCell: UITableViewCell {
             view.top.equalTo(quote.snp.bottom)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
+        }
+        profilePic.snp.makeConstraints { (view) in
+            view.top.equalTo(quote.snp.bottom).offset(10)
+            view.bottom.equalTo(box).inset(10)
+            view.trailing.equalTo(author.snp.leading)
+            view.width.height.equalTo(50)
         }
     }
     
@@ -106,5 +114,14 @@ class AnnouncementTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
-
+    lazy var profilePic: UIImageView = {
+        let pic = UIImageView()
+        pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
+        pic.image = #imageLiteral(resourceName: "user")
+        pic.backgroundColor = UIColor.white
+        pic.contentMode = .scaleAspectFit
+        pic.layer.borderWidth = 3
+        return pic
+    }()
+    
 }
