@@ -24,7 +24,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     var time = 0.0
     var timer: Timer!
-    var selection: String?
     
     // MARK: Tab bar properties
     
@@ -56,8 +55,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         databaseReference = FIRDatabase.database().reference()
-        
-        self.time = 0.0
         
         self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
         

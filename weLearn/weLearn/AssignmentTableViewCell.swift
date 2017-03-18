@@ -36,7 +36,7 @@ class AssignmentTableViewCell: UITableViewCell {
         assignmentCountDownLabel.text = ""
         assignmentCountDownLabel.backgroundColor = UIColor.weLearnCoolWhite
         optionalTimerLabel.isHidden = true
-        optionalTimerLabelsShadow.isHidden = true
+       // optionalTimerLabelsShadow.isHidden = true
     }
     
     // Action
@@ -54,7 +54,7 @@ class AssignmentTableViewCell: UITableViewCell {
         self.contentView.addSubview(topHorizontalRule)
         self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(assignmentCountDownLabel)
-        self.contentView.addSubview(optionalTimerLabelsShadow)
+       // self.contentView.addSubview(optionalTimerLabelsShadow)
         self.contentView.addSubview(optionalTimerLabel)
        // self.contentView.addSubview(gradeLabel)
        // self.contentView.addSubview(repoLink)
@@ -86,11 +86,17 @@ class AssignmentTableViewCell: UITableViewCell {
             view.width.height.equalTo(40)
         }
         
-        optionalTimerLabelsShadow.snp.makeConstraints { view in
-            view.centerY.equalTo(optionalTimerLabel).inset(3)
-            view.centerX.equalTo(optionalTimerLabel)
-            view.width.height.equalTo(40)
-        }
+//        optionalTimerLabel.snp.makeConstraints { view in
+//            view.centerY.equalTo(topHorizontalRule.snp.bottom)
+//            view.centerX.equalTo(box)
+//            view.width.height.equalTo(40)
+//        }
+        
+//        optionalTimerLabelsShadow.snp.makeConstraints { view in
+//            view.centerY.equalTo(optionalTimerLabel).inset(3)
+//            view.centerX.equalTo(optionalTimerLabel)
+//            view.width.height.equalTo(40)
+//        }
         
 //        dateLabel.snp.makeConstraints { label in
 //            label.top.equalTo(assignmentNameLabel.snp.bottom).offset(20)
@@ -100,20 +106,6 @@ class AssignmentTableViewCell: UITableViewCell {
 //        gradeLabel.snp.makeConstraints { label in
 //            label.top.equalTo(topHorizontalRule.snp.bottom)
 //            label.centerX.equalTo(box)
-//        }
-        
-//        gradeSquare.snp.makeConstraints { view in
-//            view.height.width.equalTo(33)
-//            view.centerY.equalTo(dateLabel)
-//            view.trailing.equalTo(box).inset(10)
-//        }
-        
-//        repoLink.snp.makeConstraints { view in
-//            view.top.equalTo(gradeLabel.snp.bottom).offset(20)
-//            view.width.equalTo(box).dividedBy(2)
-//            view.height.equalTo(44)
-//            view.centerX.equalTo(box)
-//            view.bottom.equalTo(box).inset(10)
 //        }
         
         topHorizontalRule.snp.makeConstraints { view in
@@ -154,15 +146,6 @@ class AssignmentTableViewCell: UITableViewCell {
 //        return label
 //    }()
     
-//    lazy var gradeLabel: UILabel = {
-//        let label = UILabel()
-//        label.textAlignment = .center
-//        label.textColor = UIColor.weLearnBlue
-//        label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-//        label.font = UIFont(name: "Avenir-Black", size: 36)
-//        return label
-//    }()
-    
     lazy var assignmentCountDownLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -172,18 +155,6 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
-//    lazy var repoLink: UIButton = {
-//        let button = UIButton()
-//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.backgroundColor = UIColor.weLearnBlue
-//        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
-//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        button.layer.shadowOpacity = 0.25
-//        button.layer.shadowRadius = 2
-//        return button
-//    }()
     
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
@@ -197,24 +168,8 @@ class AssignmentTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var optionalTimerLabel: UIImageView = {
-        let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "timerIcon")
-        view.contentMode = .scaleAspectFit
-        view.backgroundColor = UIColor.white
-        view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.blue.cgColor
-        view.layer.borderWidth = 3
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 1
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        return view
-    }()
-    
-    lazy var optionalTimerLabelsShadow: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.33)
-        view.layer.cornerRadius = 20
+    lazy var optionalTimerLabel: AnimatedTimer = {
+        let view = AnimatedTimer()
         return view
     }()
 

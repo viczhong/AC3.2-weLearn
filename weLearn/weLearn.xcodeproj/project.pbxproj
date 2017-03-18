@@ -56,6 +56,7 @@
 		D388A3851E71F3BB00A44EF0 /* LinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3841E71F3BB00A44EF0 /* LinkTableViewController.swift */; };
 		D388A3871E71FBF500A44EF0 /* LinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3861E71FBF500A44EF0 /* LinkTableViewCell.swift */; };
 		D388A38A1E72037C00A44EF0 /* Tappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388A3891E72037C00A44EF0 /* Tappable.swift */; };
+		D3EEBFD11E7CEA1800EB7EDA /* AnimatedTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEBFD01E7CEA1800EB7EDA /* AnimatedTimer.swift */; };
 		D3F0E6301E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */; };
 		D3F0E6311E661C2900C5E594 /* Tiresias_Infofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */; };
 		D3F0E6331E661CB500C5E594 /* Thirtysix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */; };
@@ -143,6 +144,7 @@
 		D388A3841E71F3BB00A44EF0 /* LinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewController.swift; sourceTree = "<group>"; };
 		D388A3861E71FBF500A44EF0 /* LinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkTableViewCell.swift; sourceTree = "<group>"; };
 		D388A3891E72037C00A44EF0 /* Tappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tappable.swift; sourceTree = "<group>"; };
+		D3EEBFD01E7CEA1800EB7EDA /* AnimatedTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedTimer.swift; sourceTree = "<group>"; };
 		D3F0E62E1E661C2900C5E594 /* Tiresias_Infofont_Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont_Italic.ttf; sourceTree = "<group>"; };
 		D3F0E62F1E661C2900C5E594 /* Tiresias_Infofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tiresias_Infofont.ttf; sourceTree = "<group>"; };
 		D3F0E6321E661CB500C5E594 /* Thirtysix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thirtysix.ttf; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				D337DA341E64CB9100DEE7B5 /* OutlinedText.swift */,
 				D337DA381E64CF1A00DEE7B5 /* ShinyOvalButton.swift */,
 				D337DA3C1E64DABB00DEE7B5 /* PaddedTextField.swift */,
+				D3EEBFD01E7CEA1800EB7EDA /* AnimatedTimer.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				9EECFE871E64C83D00503F7F /* AppDelegate.swift in Sources */,
 				D388A3771E706A1900A44EF0 /* Grade.swift in Sources */,
 				D343FDAF1E6B120A00DABD00 /* LinkCollectionViewCell.swift in Sources */,
+				D3EEBFD11E7CEA1800EB7EDA /* AnimatedTimer.swift in Sources */,
 				D388A3791E709ACD00A44EF0 /* Assignment.swift in Sources */,
 				9C3FE0061E64CC0900ACC778 /* HomeViewController.swift in Sources */,
 				9E8874251E7B10B100F0F966 /* Classes.swift in Sources */,

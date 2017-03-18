@@ -33,7 +33,7 @@ class AgendaTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let dateInTitle = DateFormatter()
-        dateInTitle.dateFormat = "EEEE, MMM dd"
+        dateInTitle.dateFormat = "EEEE, MMMM dd"
         let dateTitleString = dateInTitle.string(from: currentDate)
 
         self.navigationItem.title = dateTitleString
@@ -201,22 +201,6 @@ class AgendaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AudioServicesPlaySystemSound(1306)
     }
-    
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
-            if editingStyle == .delete {
-                todaysHardCodedSchedule.remove(at: indexPath.row)
-                tableView.reloadData()
-            }
-        }
-    }
-    
     
     lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)

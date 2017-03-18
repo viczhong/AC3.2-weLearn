@@ -61,7 +61,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         }
         
         author.snp.makeConstraints { (view) in
-            view.top.equalTo(quote.snp.bottom).offset(10)
+            view.top.equalTo(quote.snp.bottom)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
         }

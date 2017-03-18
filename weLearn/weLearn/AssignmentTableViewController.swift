@@ -50,6 +50,12 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
         self.view.addSubview(activityIndicator)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
@@ -82,13 +88,6 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                     self.tableView.reloadData()
                 }
             }
-        }
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        activityIndicator.snp.makeConstraints { view in
-            view.center.equalToSuperview()
         }
     }
     
@@ -174,22 +173,23 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                 if difference < 0 {
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                     assignmentCell.optionalTimerLabel.isHidden = true
-                    assignmentCell.optionalTimerLabelsShadow.isHidden = true
+                  //  assignmentCell.optionalTimerLabelsShadow.isHidden = true
                     if let gradeAtRow = User.manager.assignmentGrades {
                         assignmentCell.assignmentCountDownLabel.text = "Grade: \(gradeAtRow[indexPath.row].grade)"
                     }
                 } else {
                     let endTime = assignment.date
-                    let difference = endTime.timeIntervalSinceNow
-                    var timeInSeconds = 0
-                    timeInSeconds = Int(difference)
+                    let difference = endTime.timeIntervalSinceNow as CFTimeInterval
+                    let timeInSeconds = Int(difference)
                     
                     let days = Int(timeInSeconds) / 86400
                     let hours = Int(timeInSeconds) / 3600 % 24
                     let minutes = Int(timeInSeconds) / 60 % 60
+                    let properPercentage = (CGFloat(168 - Int(timeInSeconds)/3600)/168)
                     
                     assignmentCell.optionalTimerLabel.isHidden = false
-                    assignmentCell.optionalTimerLabelsShadow.isHidden = false
+                  //  assignmentCell.optionalTimerLabel.transform = CGAffineTransform.init(rotationAngle: 0.75)
+                    assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
                     assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                 }
