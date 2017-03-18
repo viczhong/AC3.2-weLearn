@@ -74,9 +74,9 @@ class OldAnnouncementsTableViewController: UITableViewController {
     // MARK: - Actions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1306)
     }
-
+    
     
     // MARK: - Table view data source
     
@@ -96,8 +96,6 @@ class OldAnnouncementsTableViewController: UITableViewController {
             cell.date.text = announce[indexPath.row].dateString
             cell.quote.text = announce[indexPath.row].quote
             cell.author.text = announce[indexPath.row].author
-            
-            //cell.bar.isHidden = true
         }
         return cell
     }
