@@ -14,10 +14,10 @@ class AnnouncementTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = UIColor.weLearnLightBlue
+        
         setupToHierachy()
         setupConstraints()
-        profilePic.layer.cornerRadius = 25
-        profilePic.clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,22 +63,18 @@ class AnnouncementTableViewCell: UITableViewCell {
         }
         
         author.snp.makeConstraints { (view) in
-            view.top.equalTo(quote.snp.bottom).offset(10)
+            view.top.equalTo(quote.snp.bottom)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
         }
-        profilePic.snp.makeConstraints { (view) in
-            view.top.equalTo(quote.snp.bottom).offset(10)
-            view.bottom.equalTo(box).inset(10)
-            view.trailing.equalTo(author.snp.leading)
-            view.width.height.equalTo(50)
-        }
+        
     }
     
     lazy var box: Box = {
         let button = Box()
-        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
-        button.layer.shadowOpacity = 1
+        button.layer.shadowColor = UIColor.weLearnLightBlue.cgColor
+        button.layer.borderColor = UIColor.weLearnBlue.cgColor
+        button.layer.borderWidth = 1
         return button
     }()
     
@@ -114,6 +110,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
+    
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor

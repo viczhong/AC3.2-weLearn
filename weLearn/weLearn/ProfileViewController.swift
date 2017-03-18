@@ -293,10 +293,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 1
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Grades"
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let loadedGrades = User.manager.grades {
@@ -320,7 +316,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 gradeCell.gradeLabel.text = grades.grade
                 
                 if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
-                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Black", size: 16)
+                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Roman", size: 24)
+                    gradeCell.gradeLabel.font = UIFont(name: "Avenir-Oblique", size: 24)
                 }
             }
         }
@@ -397,7 +394,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        //pic.image = #imageLiteral(resourceName: "Karen")
         pic.backgroundColor = UIColor.white
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3
@@ -438,7 +434,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 20
+        layout.minimumInteritemSpacing = 40
         layout.minimumLineSpacing = 20
         layout.estimatedItemSize = CGSize(width: 50, height: 50)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)

@@ -17,6 +17,8 @@ class AssignmentTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = UIColor.weLearnLightBlue
+        
         setupHierarchy()
         setupConstraints()
     }
@@ -27,8 +29,7 @@ class AssignmentTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
+
     }
     
     override func prepareForReuse() {
@@ -83,11 +84,28 @@ class AssignmentTableViewCell: UITableViewCell {
             view.width.height.equalTo(40)
         }
         
+//        optionalTimerLabel.snp.makeConstraints { view in
+//            view.centerY.equalTo(topHorizontalRule.snp.bottom)
+//            view.centerX.equalTo(box)
+//            view.width.height.equalTo(40)
+//        }
+        
         optionalTimerLabelsShadow.snp.makeConstraints { view in
-            view.centerY.equalTo(optionalTimerLabel).inset(3)
+            view.centerY.equalTo(optionalTimerLabel)
             view.centerX.equalTo(optionalTimerLabel)
-            view.width.height.equalTo(40)
+            view.width.height.equalTo(optionalTimerLabel).multipliedBy(1.2)
         }
+        
+//        dateLabel.snp.makeConstraints { label in
+//            label.top.equalTo(assignmentNameLabel.snp.bottom).offset(20)
+//            label.leading.equalTo(box).offset(10)
+//        }
+        
+//        gradeLabel.snp.makeConstraints { label in
+//            label.top.equalTo(topHorizontalRule.snp.bottom)
+//            label.centerX.equalTo(box)
+//        }
+        
         topHorizontalRule.snp.makeConstraints { view in
             view.height.equalTo(1)
             view.width.equalTo(box)
@@ -119,6 +137,13 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
+    
+//    lazy var dateLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: "Avenir-Light", size: 16)
+//        return label
+//    }()
+    
     lazy var assignmentCountDownLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -128,6 +153,7 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
+
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
@@ -140,24 +166,15 @@ class AssignmentTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var optionalTimerLabel: UIImageView = {
-        let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "timerIcon")
-        view.contentMode = .scaleAspectFit
-        view.backgroundColor = UIColor.white
-        view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.blue.cgColor
-        view.layer.borderWidth = 3
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 1
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+    lazy var optionalTimerLabel: AnimatedTimer = {
+        let view = AnimatedTimer()
         return view
     }()
     
     lazy var optionalTimerLabelsShadow: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.33)
         view.layer.cornerRadius = 20
+        view.backgroundColor = UIColor.white
         return view
     }()
     

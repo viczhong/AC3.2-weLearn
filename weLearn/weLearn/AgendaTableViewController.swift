@@ -12,21 +12,30 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
+
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
-    let currentDate = Date()
+
+    var todaysHardCodedSchedule = [
+        "Stand ups",
+        "Run through presentations",
+        "Lunch",
+        "Code",
+        "Get pumped for demo day!"
+    ]
     
     var agenda: [Agenda]?
     
+    let currentDate = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let dateInTitle = DateFormatter()
-        dateInTitle.dateFormat = "EEEE, MMM dd"
+        dateInTitle.dateFormat = "EEEE, MMMM dd"
         let dateTitleString = dateInTitle.string(from: currentDate)
-        print("**************** \(dateTitleString) ***********************")
-        
+
         self.navigationItem.title = dateTitleString
         self.tabBarController?.title = "Agenda"
         
@@ -44,6 +53,8 @@ class AgendaTableViewController: UITableViewController {
         activityIndicator.snp.makeConstraints { view in
             view.center.equalToSuperview()
         }
+        
+        tableView.reloadData()
         
         self.tabBarController?.navigationItem.hidesBackButton = true
     }
@@ -119,7 +130,8 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.weLearnBlue
+        header.textLabel?.textColor = UIColor.weLearnBlack
+     //   header.tintColor = UIColor.weLearnLightGreen
         header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
         header.textLabel?.textAlignment = .center
         header.textLabel?.adjustsFontSizeToFitWidth = true
@@ -129,7 +141,7 @@ class AgendaTableViewController: UITableViewController {
         switch section {
         case 0:
             if agenda != nil {
-                return "Today's Agenda"
+                return todaysAgenda?.lessonName
             }
         case 1:
             if agenda != nil {
@@ -141,6 +153,7 @@ class AgendaTableViewController: UITableViewController {
         default:
             return ""
         }
+        
         return ""
     }
     
@@ -148,9 +161,11 @@ class AgendaTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            if LessonSchedule.manager.todaysAgenda != nil {
-                return 6
-            }
+//            if LessonSchedule.manager.todaysAgenda != nil {
+//                return 1
+//            } else {
+                return todaysHardCodedSchedule.count
+            //}
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 return agenda.count
@@ -170,26 +185,7 @@ class AgendaTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            if let agenda = LessonSchedule.manager.todaysAgenda {
-                switch indexPath.row {
-                case 0:
-                    cell.label.text = agenda.lessonName
-                    cell.bulletView.isHidden = true
-                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 20)
-                case 1:
-                    cell.label.text = "Stand ups"
-                case 2:
-                    cell.label.text = "Run through presentations"
-                case 3:
-                    cell.label.text = "Lunch"
-                case 4:
-                    cell.label.text = "Refactor code"
-                case 5:
-                    cell.label.text = "Get pumped for demo day!"
-                default:
-                    cell.label.text = "Go to the bar"
-                }
-            }
+            cell.label.text = todaysHardCodedSchedule[indexPath.row]
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 let agendaAtRow = agenda[indexPath.row]

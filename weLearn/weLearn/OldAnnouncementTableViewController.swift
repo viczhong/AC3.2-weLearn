@@ -98,21 +98,8 @@ class OldAnnouncementsTableViewController: UITableViewController {
             cell.date.text = announce[indexPath.row].dateString
             cell.quote.text = announce[indexPath.row].quote
             cell.author.text = announce[indexPath.row].author
-            
-            let storage = FIRStorage.storage()
-            let storageRef = storage.reference()
-            let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
-            
-            imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    let image = UIImage(data: data!)
-                   cell.profilePic.image = image
-                }
-            }
         }
+        
         return cell
     }
     
