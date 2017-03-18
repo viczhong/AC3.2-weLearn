@@ -160,6 +160,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentTableViewCell", for: indexPath)
+        cell.selectionStyle = .none
         
         if let assignmentCell = cell as? AssignmentTableViewCell {
             if assignmentCell.delegate == nil {
@@ -173,7 +174,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                 if difference < 0 {
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                     assignmentCell.optionalTimerLabel.isHidden = true
-                  //  assignmentCell.optionalTimerLabelsShadow.isHidden = true
+                    assignmentCell.optionalTimerLabelsShadow.isHidden = true
                     if let gradeAtRow = User.manager.assignmentGrades {
                         assignmentCell.assignmentCountDownLabel.text = "Grade: \(gradeAtRow[indexPath.row].grade)"
                     }
@@ -188,6 +189,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                     let properPercentage = (CGFloat(168 - Int(timeInSeconds)/3600)/168)
                     
                     assignmentCell.optionalTimerLabel.isHidden = false
+                    assignmentCell.optionalTimerLabelsShadow.isHidden = false
                   //  assignmentCell.optionalTimerLabel.transform = CGAffineTransform.init(rotationAngle: 0.75)
                     assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
                     assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"

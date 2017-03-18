@@ -118,7 +118,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LinkTableViewCell", for: indexPath) as! LinkTableViewCell
-        // cell.selectionStyle = .none
+        cell.selectionStyle = .none
         
         if cell.delegate == nil {
             cell.delegate = self

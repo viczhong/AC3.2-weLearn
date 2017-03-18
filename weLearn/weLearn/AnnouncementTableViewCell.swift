@@ -14,6 +14,8 @@ class AnnouncementTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = UIColor.weLearnLightBlue
+        
         setupToHierachy()
         setupConstraints()
     }
@@ -69,8 +71,6 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     lazy var box: Box = {
         let button = Box()
-        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
-        button.layer.shadowOpacity = 1
         return button
     }()
     

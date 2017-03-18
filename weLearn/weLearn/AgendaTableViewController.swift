@@ -130,7 +130,8 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.weLearnBlue
+        header.textLabel?.textColor = UIColor.weLearnBlack
+     //   header.tintColor = UIColor.weLearnLightGreen
         header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
         header.textLabel?.textAlignment = .center
         header.textLabel?.adjustsFontSizeToFitWidth = true

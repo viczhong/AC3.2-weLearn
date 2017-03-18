@@ -19,7 +19,7 @@ class LinkTableViewCell: UITableViewCell {
         setupHierarchy()
         setupConstraints()
         
-        self.backgroundColor = UIColor.weLearnBlue
+        self.backgroundColor = UIColor.weLearnLightBlue
 
     }
     

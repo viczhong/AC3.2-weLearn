@@ -96,9 +96,8 @@ class OldAnnouncementsTableViewController: UITableViewController {
             cell.date.text = announce[indexPath.row].dateString
             cell.quote.text = announce[indexPath.row].quote
             cell.author.text = announce[indexPath.row].author
-            
-            //cell.bar.isHidden = true
         }
+        
         return cell
     }
     
