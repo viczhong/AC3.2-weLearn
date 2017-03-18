@@ -725,7 +725,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var classTextField: PaddedTextField = {
         let fourthTextfield = PaddedTextField()
-        fourthTextfield.placeholder = "Class"
+        fourthTextfield.placeholder = "Class".uppercased()
         fourthTextfield.isSecureTextEntry = false
         fourthTextfield.spellCheckingType = .no
         fourthTextfield.autocorrectionType = .no
@@ -735,7 +735,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
-        fifthTextfield.placeholder = "Student ID"
+        fifthTextfield.placeholder = "Student ID".uppercased()
         fifthTextfield.isSecureTextEntry = true
         fifthTextfield.spellCheckingType = .no
         fifthTextfield.autocorrectionType = .no
