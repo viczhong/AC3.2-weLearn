@@ -12,15 +12,6 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-    //    var todaysFakeSchedule: [String] = [
-    //        "DSA",
-    //        "Sprite Kit with Louis",
-    //        "Capstone",
-    //        "Lunch break",
-    //        "Talk to Tech Mentors",
-    //        "Workshop at Headquarters"
-    //    ]
-    
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
@@ -35,7 +26,7 @@ class AgendaTableViewController: UITableViewController {
         dateInTitle.dateFormat = "EEEE, MMM dd"
         let dateTitleString = dateInTitle.string(from: currentDate)
         print("**************** \(dateTitleString) ***********************")
-
+        
         self.navigationItem.title = dateTitleString
         self.tabBarController?.title = "Agenda"
         
@@ -64,7 +55,7 @@ class AgendaTableViewController: UITableViewController {
             readAgenda()
         }
     }
-
+    
     
     // MARK: - Agenda functions
     
@@ -81,7 +72,7 @@ class AgendaTableViewController: UITableViewController {
     func readAgenda() {
         self.view.bringSubview(toFront: activityIndicator)
         activityIndicator.startAnimating()
-
+        
         if LessonSchedule.manager.pastAgenda == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -136,8 +127,6 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            //        case 0:
-        //            return "March 10, 2017"
         case 0:
             if agenda != nil {
                 return "Today's Agenda"
@@ -224,5 +213,5 @@ class AgendaTableViewController: UITableViewController {
         view.color = UIColor.weLearnGreen
         return view
     }()
-  
+    
 }

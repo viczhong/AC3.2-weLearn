@@ -50,14 +50,11 @@ class AssignmentTableViewCell: UITableViewCell {
     func setupHierarchy() {
         self.contentView.addSubview(box)
         self.contentView.addSubview(assignmentNameLabel)
-   //     self.contentView.addSubview(dateLabel)
         self.contentView.addSubview(topHorizontalRule)
         self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(assignmentCountDownLabel)
         self.contentView.addSubview(optionalTimerLabelsShadow)
         self.contentView.addSubview(optionalTimerLabel)
-       // self.contentView.addSubview(gradeLabel)
-       // self.contentView.addSubview(repoLink)
     }
     
     func setupConstraints() {
@@ -91,31 +88,6 @@ class AssignmentTableViewCell: UITableViewCell {
             view.centerX.equalTo(optionalTimerLabel)
             view.width.height.equalTo(40)
         }
-        
-//        dateLabel.snp.makeConstraints { label in
-//            label.top.equalTo(assignmentNameLabel.snp.bottom).offset(20)
-//            label.leading.equalTo(box).offset(10)
-//        }
-        
-//        gradeLabel.snp.makeConstraints { label in
-//            label.top.equalTo(topHorizontalRule.snp.bottom)
-//            label.centerX.equalTo(box)
-//        }
-        
-//        gradeSquare.snp.makeConstraints { view in
-//            view.height.width.equalTo(33)
-//            view.centerY.equalTo(dateLabel)
-//            view.trailing.equalTo(box).inset(10)
-//        }
-        
-//        repoLink.snp.makeConstraints { view in
-//            view.top.equalTo(gradeLabel.snp.bottom).offset(20)
-//            view.width.equalTo(box).dividedBy(2)
-//            view.height.equalTo(44)
-//            view.centerX.equalTo(box)
-//            view.bottom.equalTo(box).inset(10)
-//        }
-        
         topHorizontalRule.snp.makeConstraints { view in
             view.height.equalTo(1)
             view.width.equalTo(box)
@@ -147,22 +119,6 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
-//    lazy var dateLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont(name: "Avenir-Light", size: 16)
-//        return label
-//    }()
-    
-//    lazy var gradeLabel: UILabel = {
-//        let label = UILabel()
-//        label.textAlignment = .center
-//        label.textColor = UIColor.weLearnBlue
-//        label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-//        label.font = UIFont(name: "Avenir-Black", size: 36)
-//        return label
-//    }()
-    
     lazy var assignmentCountDownLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -172,19 +128,6 @@ class AssignmentTableViewCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
-//    lazy var repoLink: UIButton = {
-//        let button = UIButton()
-//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.backgroundColor = UIColor.weLearnBlue
-//        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
-//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        button.layer.shadowOpacity = 0.25
-//        button.layer.shadowRadius = 2
-//        return button
-//    }()
-    
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
@@ -217,5 +160,5 @@ class AssignmentTableViewCell: UITableViewCell {
         view.layer.cornerRadius = 20
         return view
     }()
-
+    
 }

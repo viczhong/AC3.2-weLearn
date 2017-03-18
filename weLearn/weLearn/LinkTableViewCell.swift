@@ -12,7 +12,7 @@ class LinkTableViewCell: UITableViewCell {
     
     var delegate: Tappable?
     var indexPath: IndexPath!
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -20,7 +20,6 @@ class LinkTableViewCell: UITableViewCell {
         setupConstraints()
         
         self.backgroundColor = UIColor.weLearnBlue
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,7 +63,6 @@ class LinkTableViewCell: UITableViewCell {
             lbl.leading.equalTo(box).offset(20)
             lbl.trailing.equalTo(box).inset(20)
         }
-
     }
     
     lazy var box: Box = {
@@ -89,5 +87,4 @@ class LinkTableViewCell: UITableViewCell {
         lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         return lbl
     }()
-
 }

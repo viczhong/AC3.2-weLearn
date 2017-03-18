@@ -97,23 +97,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(DueDatesTableViewCell.self, forCellReuseIdentifier: dueDatesCellID)
     }
     
-    // MARK: - Functions and Methods
-    
-    //    func readAgenda() {
-    //        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-    //            if data != nil {
-    //                if let returnedAgenda = Agenda.getAgenda(from: data!) {
-    //                    print("We've got returns: \(returnedAgenda.count)")
-    //                    self.agenda = returnedAgenda
-    //                    DispatchQueue.main.async {
-    //                        self.todaysAgenda = self.todaysSchedule()
-    //                        self.tableView.reloadData()
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    
     func readAssignments() {
         APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(assignmentSheetID)/od6/public/basic?alt=json") { (data: Data?) in
             if data != nil {
@@ -176,12 +159,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 1:
             return "Announcements"
         case 0:
-            //            //            if todaysAgenda != nil {
             return "Today's Schedule"
-            //            }
-            //            else {
-            //                return nil
-        //            }
         case 2:
             return "Assignments & Events"
         default:
@@ -197,11 +175,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             //Agenda
             return todaysFakeSchedule.count
-            //            if todaysAgenda != nil {
-            //                return 1
-            //            } else {
-            //                return 0
-        //            }
         case 2:
             //DueDates
             return 1
@@ -211,17 +184,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 0
     }
     
-    //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    //        return 10
-    //    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //        the commneted out stuff below makes the section header for the top very small, so we can easily hide it under the nav bar
-        //        if section == 0 {
-        //            return 1
-        //        } else {
         return 30
-        //        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -261,26 +226,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 secondCell.selectionStyle = .none
                 secondCell.label.text = todaysFakeSchedule[indexPath.row]
                 secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
-                
-                //            if let agenda = agenda {
-                //                if let secondCell = cell as? AgendaTableViewCell {
-                //                    let agendaForCell = agenda[indexPath.row]
-                //                    secondCell.label.text = agendaForCell.lessonName
-                //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
-                //                }
-                //            }
-                //            if let today = todaysAgenda {
-                //                if let secondCell = cell as? AgendaTableViewCell {
-                //                    secondCell.label.text = "\(today.lessonName) - \(today.lessonDesc ?? "Just Keep On Keeping On!")"
-                //                    secondCell.label.font = UIFont(name: "Avenir-Roman", size: 16)
-                //                }
-                // }
-                
-                // the commented out code below makes the bold "section header" seen in the demo
-                //            if indexPath.row == 0 {
-                //                secondCell.label.font = UIFont(name: "Avenir-Black", size: 16)
-                //                secondCell.bulletView.isHidden = true
-                //                }
             }
             
         case 2:
@@ -295,10 +240,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 /* Remove the upcoming pair of stars and slashes on this line to comment out dummy timer */
                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-                    //                    guard self.timeInSeconds > 0  else {
-                    //                        self.timer.invalidate()
-                    //                        return
-                    //                    }
                     if let nextDueCountdown = self.nextDue {
                         
                         let startTime = Date()
@@ -328,7 +269,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowRadius = 3
         cell.layer.masksToBounds = false
-        
         return cell
     }
     
@@ -357,7 +297,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func profileButtonWasPressed(button: UIButton) {
         navigationController?.pushViewController(ProfileViewController(), animated: true)
     }
-    
     func linksButtonWasPressed(button: UIButton) {
         navigationController?.pushViewController(LinkTableViewController(), animated: true)
     }
@@ -367,39 +306,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     lazy var profileButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("profile".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
-        //button.backgroundColor = UIColor.weLearnBlue
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "profileIcon"), for: .normal)
-        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
-        //        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        //        button.layer.shadowOpacity = 0.25
-        //        button.layer.shadowRadius = 2
         return button
     }()
     
     lazy var linksButton: ShinyOvalButton = {
         let button = ShinyOvalButton()
         button.setTitle("links".uppercased(), for: .normal)
-        //button.backgroundColor = UIColor.weLearnBlue.withAlphaComponent(0.25)
         button.layer.cornerRadius = 15
         button.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        //button.setImage(#imageLiteral(resourceName: "logoForNavBarButton"), for: .normal)
-        //button.imageView?.contentMode = .center
         button.imageView?.clipsToBounds = true
-        //        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-        //        button.layer.shadowOpacity = 0.25
-        //        button.layer.shadowRadius = 2
         return button
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()//(frame: .zero, style: .grouped)
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
-    
 }

@@ -10,7 +10,7 @@ import UIKit
 import  SnapKit
 
 class AnnouncementTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -50,7 +50,6 @@ class AnnouncementTableViewCell: UITableViewCell {
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
             lbl.trailing.equalTo(box).inset(20)
-//            lbl.bottom.equalTo(author.snp.top).inset(10)
         }
         
         bar.snp.makeConstraints { (view) in
@@ -106,5 +105,5 @@ class AnnouncementTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
-
+    
 }
