@@ -56,7 +56,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         databaseReference = FIRDatabase.database().reference()
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnLightBlue, UIColor.weLearnCoolWhite])
         
         // these all need the delegate set to get sound on click
         self.passwordTextField.delegate = self
@@ -68,7 +68,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         viewHiearchy()
         configureConstraints()
         
-        registerTab.backgroundColor = UIColor.weLearnLightGreen
+        registerTab.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         
         toggleIsHiddenWhenTabIsChanged = [
             registerButton,
@@ -157,9 +157,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     func colorTab(button1: UIButton, button2: UIButton) {
         if button1.isSelected {
             button1.backgroundColor = UIColor.white
-            button2.backgroundColor = UIColor.weLearnLightGreen
+            button2.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         } else {
-            button1.backgroundColor = UIColor.weLearnLightGreen
+            button1.backgroundColor = UIColor.white.withAlphaComponent(0.8)
             button2.backgroundColor = UIColor.white
         }
     }
@@ -725,7 +725,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var classTextField: PaddedTextField = {
         let fourthTextfield = PaddedTextField()
-        fourthTextfield.placeholder = "Class".uppercased()
+        fourthTextfield.placeholder = "Class"
         fourthTextfield.isSecureTextEntry = false
         fourthTextfield.spellCheckingType = .no
         fourthTextfield.autocorrectionType = .no
@@ -735,7 +735,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
-        fifthTextfield.placeholder = "Student ID".uppercased()
+        fifthTextfield.placeholder = "Student ID"
         fifthTextfield.isSecureTextEntry = true
         fifthTextfield.spellCheckingType = .no
         fifthTextfield.autocorrectionType = .no
