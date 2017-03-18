@@ -157,16 +157,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         profileBox.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(10)
+            view.top.equalToSuperview()
             view.centerX.equalToSuperview()
-            view.leading.equalToSuperview().offset(25)
-            view.trailing.equalToSuperview().inset(25)
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
         }
         
         uploadImageButton.snp.makeConstraints { (view) in
             view.top.equalTo(profilePic.snp.bottom).offset(10)
            // view.top.equalTo(profilePic.snp.bottom).offset(8)
-            view.leading.equalTo(profileBox).offset(8)
+            view.leading.equalTo(profileBox).offset(33)
             view.bottom.equalTo(profileBox).inset(10)
             view.width.equalTo(100)
             view.height.equalTo(30)
@@ -174,25 +174,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.snp.makeConstraints { view in
             //view.top.leading.equalTo(profileBox).offset(8)
-            view.top.equalTo(profileBox)
-            view.leading.equalTo(profileBox).offset(8)
+            view.top.equalTo(profileBox).offset(10)
+            view.leading.equalTo(profileBox).offset(33)
             view.width.height.equalTo(100)
             view.height.equalTo(profilePic.snp.width)
         }
         
         nameLabel.snp.makeConstraints { view in
-            view.top.equalTo(profileBox).offset(20)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.top.equalTo(profileBox).offset(30)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         emailLabel.snp.makeConstraints { view in
             view.top.equalTo(nameLabel.snp.bottom).offset(10)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         classLabel.snp.makeConstraints { view in
             view.top.equalTo(emailLabel.snp.bottom).offset(5)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
     }
@@ -378,8 +378,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Mark: - Views made here
     
-    lazy var profileBox: UIView = {
-        let view = UIView()
+    lazy var profileBox: UIImageView = {
+        let view = UIImageView()
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        // blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.image = #imageLiteral(resourceName: "clouds")
+        view.contentMode = .bottom
         view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
@@ -395,7 +402,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.name ?? "Anon"
         label.font = UIFont(name: "Avenir-Light", size: 28)
         return label
@@ -403,7 +410,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.email ?? "anon@anon.com"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
@@ -411,7 +418,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var classLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label

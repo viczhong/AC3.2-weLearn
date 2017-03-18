@@ -685,12 +685,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.backgroundColor = UIColor.weLearnLightBlue
         button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("Login".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
@@ -700,12 +700,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var registerButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.weLearnCoolWhite
+        button.backgroundColor = UIColor.weLearnLightBlue
         button.layer.borderColor = UIColor.weLearnBlue.cgColor
         button.layer.borderWidth = 2
         button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
         button.setTitle("register".uppercased(), for: .normal)
-        button.setTitleColor(UIColor.weLearnBlue, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(registerButtonWasPressed), for: .touchUpInside)
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
