@@ -18,6 +18,7 @@ class Box: UIButton {
         self.layer.shadowOffset = CGSize(width: -2, height: 3)
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 3
+        self.layer.shouldRasterize = true
         self.layer.masksToBounds = false
     }
     
