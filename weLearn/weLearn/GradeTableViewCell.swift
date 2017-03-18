@@ -25,7 +25,7 @@ class GradeTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        testNameLabel.font = UIFont(name: "Avenir-Roman", size: 16)
+        testNameLabel.font = UIFont(name: "Avenir-Roman", size: 20)
         
         super.prepareForReuse()
     }
@@ -72,7 +72,7 @@ class GradeTableViewCell: UITableViewCell {
     lazy var gradeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Black", size: 20)
+        label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
     }()
 

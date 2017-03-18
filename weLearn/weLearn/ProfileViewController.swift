@@ -41,8 +41,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationItem.title = "Profile"
         self.tabBarController?.title = navigationItem.title
         
-        self.view.backgroundColor = UIColor.weLearnBlue
-        
         viewHeirarchy()
         configureConstraints()
         
@@ -382,12 +380,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var profileBox: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.clear
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
+        view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
     
@@ -395,7 +388,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
         pic.backgroundColor = UIColor.white
-        pic.contentMode = .scaleAspectFit
+        pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
         return pic
     }()
@@ -425,7 +418,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView() //(frame: .zero, style: .grouped)
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -434,7 +427,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 40
+        layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 20
         layout.estimatedItemSize = CGSize(width: 50, height: 50)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)

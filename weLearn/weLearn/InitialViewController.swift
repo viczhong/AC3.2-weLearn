@@ -666,7 +666,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var emailTextField: PaddedTextField = {
         let textField = PaddedTextField()
-        textField.placeholder = "Email"
+        textField.placeholder = "Email".uppercased()
         textField.spellCheckingType = .no
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -675,7 +675,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var passwordTextField: PaddedTextField = {
         let secondTextField = PaddedTextField()
-        secondTextField.placeholder = "Password"
+        secondTextField.placeholder = "Password".uppercased()
         secondTextField.isSecureTextEntry = true
         secondTextField.spellCheckingType = .no
         secondTextField.autocorrectionType = .no
@@ -715,7 +715,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var nameTextField: PaddedTextField = {
         let thirdTextfield = PaddedTextField()
-        thirdTextfield.placeholder = "Preferred name"
+        thirdTextfield.placeholder = "Preferred name".uppercased()
         thirdTextfield.isSecureTextEntry = false
         thirdTextfield.spellCheckingType = .no
         thirdTextfield.autocorrectionType = .no
@@ -725,7 +725,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var classTextField: PaddedTextField = {
         let fourthTextfield = PaddedTextField()
-        fourthTextfield.placeholder = "Class"
+        fourthTextfield.placeholder = "Class".uppercased()
         fourthTextfield.isSecureTextEntry = false
         fourthTextfield.spellCheckingType = .no
         fourthTextfield.autocorrectionType = .no
@@ -735,7 +735,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     lazy var studentIDTextField: PaddedTextField = {
         let fifthTextfield = PaddedTextField()
-        fifthTextfield.placeholder = "Student ID"
+        fifthTextfield.placeholder = "Student ID".uppercased()
         fifthTextfield.isSecureTextEntry = true
         fifthTextfield.spellCheckingType = .no
         fifthTextfield.autocorrectionType = .no

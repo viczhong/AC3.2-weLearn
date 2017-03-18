@@ -102,9 +102,12 @@ class LinkTableViewCell: UITableViewCell {
         pic.clipsToBounds = true
         pic.layer.cornerRadius = 25
         pic.layer.borderColor = UIColor.weLearnBlue.cgColor
-        pic.image = #imageLiteral(resourceName: "user")
+        let defaultPic = #imageLiteral(resourceName: "user")
+        let tintedDefault = defaultPic.withRenderingMode(.alwaysTemplate)
+        pic.tintColor = UIColor.weLearnBlue
+        pic.image = tintedDefault
         pic.backgroundColor = UIColor.white
-        pic.contentMode = .scaleAspectFit
+        pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
         return pic
     }()
