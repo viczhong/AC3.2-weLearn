@@ -26,6 +26,12 @@ class LinkTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        authorLabel.text = ""
+        descriptionLabel.text = ""
+        profilePic.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

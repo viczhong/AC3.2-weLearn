@@ -138,7 +138,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                 navigationController?.show(svc, sender: self)
                 svc.delegate = self
             } else {
-                AudioServicesPlaySystemSound(1104)
+                AudioServicesPlaySystemSound(1103)
             }
         }
     }

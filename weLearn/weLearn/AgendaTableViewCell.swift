@@ -39,7 +39,7 @@ class AgendaTableViewCell: UITableViewCell {
         self.label.font = UIFont(name: "Avenir-Roman", size: 20)
         self.bulletView.isHidden = false
         self.bulletView.tintColor = UIColor.weLearnBlue
-        self.label.text = ""
+        self.label.text = "M/DD/YY - Lesson Name"
     }
     
     func setupHierarchy() {

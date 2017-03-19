@@ -44,6 +44,8 @@ class AgendaTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
         
+        tableView.separatorStyle = .none
+        
         self.view.addSubview(activityIndicator)
     }
     
@@ -130,8 +132,7 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.weLearnBlack
-     //   header.tintColor = UIColor.weLearnLightGreen
+        header.textLabel?.textColor = UIColor.weLearnBlue
         header.textLabel?.font = UIFont(name: "Avenir-Light", size: 30)
         header.textLabel?.textAlignment = .center
         header.textLabel?.adjustsFontSizeToFitWidth = true
@@ -200,7 +201,7 @@ class AgendaTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1103)
     }
     
     lazy var activityIndicator: UIActivityIndicatorView = {

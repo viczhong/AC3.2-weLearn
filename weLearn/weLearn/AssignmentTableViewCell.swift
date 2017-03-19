@@ -35,7 +35,6 @@ class AssignmentTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         assignmentNameLabel.text = ""
         assignmentCountDownLabel.text = ""
-        assignmentCountDownLabel.backgroundColor = UIColor.weLearnCoolWhite
         optionalTimerLabel.isHidden = true
         optionalTimerLabelsShadow.isHidden = true
     }
@@ -132,6 +131,7 @@ class AssignmentTableViewCell: UITableViewCell {
     lazy var assignmentNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.text = "Assignment Name"
         label.numberOfLines = 3
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
