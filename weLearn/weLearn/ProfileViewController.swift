@@ -202,13 +202,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.achievementPic.snp.makeConstraints { view in
             view.top.leading.equalToSuperview().offset(10)
             view.trailing.equalToSuperview().inset(10)
-            view.width.equalTo(250)
-            view.height.equalTo(250)
+            view.width.equalTo(245)
+            view.height.equalTo(245)
         }
         
         self.achievementLabel.snp.makeConstraints { view in
             view.top.equalTo(achievementPic.snp.bottom).offset(10)
-            view.centerX.equalTo(achievementPic)
+            view.leading.trailing.equalTo(presentAchievement)
             view.bottom.equalToSuperview().inset(10)
         }
         
@@ -504,6 +504,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     lazy var achievementLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.textAlignment = .center
         return label
     }()
     
