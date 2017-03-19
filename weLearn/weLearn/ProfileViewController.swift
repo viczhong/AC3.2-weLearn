@@ -356,7 +356,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
         
         self.presentAchievement.snp.remakeConstraints { (view) in
-            view.centerX.equalToSuperview()
+            view.centerX.equalTo(collectionView)
+            view.centerY.equalTo(collectionView)
         }
         
         animator.startAnimation()
