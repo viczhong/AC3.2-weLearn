@@ -31,7 +31,11 @@ class LinkTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         authorLabel.text = ""
         descriptionLabel.text = ""
-        profilePic.image = nil
+        let defaultPic = #imageLiteral(resourceName: "user")
+        let tintedDefault = defaultPic.withRenderingMode(.alwaysTemplate)
+        profilePic.tintColor = UIColor.weLearnBlue
+        profilePic.image = tintedDefault
+        profilePic.backgroundColor = UIColor.black
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -70,6 +74,7 @@ class LinkTableViewCell: UITableViewCell {
         authorLabel.snp.makeConstraints { (view) in
             view.centerY.equalTo(profilePic)
             view.leading.equalTo(profilePic.snp.trailing).offset(5)
+            view.trailing.equalTo(box)
             view.width.equalTo(300)
         }
         
@@ -118,7 +123,7 @@ class LinkTableViewCell: UITableViewCell {
         let tintedDefault = defaultPic.withRenderingMode(.alwaysTemplate)
         pic.tintColor = UIColor.weLearnBlue
         pic.image = tintedDefault
-        pic.backgroundColor = UIColor.white
+        pic.backgroundColor = UIColor.black
         pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
         pic.isOpaque = true
