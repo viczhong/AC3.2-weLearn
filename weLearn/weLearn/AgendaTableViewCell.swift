@@ -31,11 +31,6 @@ class AgendaTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
-    
     override func prepareForReuse() {
         self.backgroundColor = UIColor.white
         self.label.font = UIFont(name: "Avenir-Roman", size: 20)
@@ -70,6 +65,8 @@ class AgendaTableViewCell: UITableViewCell {
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
         lbl.numberOfLines = 3
+        lbl.backgroundColor = UIColor.white
+        lbl.isOpaque = true
         return lbl
     }()
     

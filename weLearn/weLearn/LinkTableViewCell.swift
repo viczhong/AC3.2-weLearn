@@ -95,6 +95,8 @@ class LinkTableViewCell: UITableViewCell {
         lbl.textAlignment = .left
         lbl.numberOfLines = 10
         lbl.lineBreakMode = .byWordWrapping
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
@@ -102,6 +104,8 @@ class LinkTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor.darkGray
         lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
