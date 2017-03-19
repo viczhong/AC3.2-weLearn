@@ -716,6 +716,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     
@@ -731,6 +732,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     

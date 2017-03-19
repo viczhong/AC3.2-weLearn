@@ -127,6 +127,9 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         
         cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
+        let colors = [UIColor(red:1.00, green:0.18, blue:0.33, alpha:1.0), UIColor(red:1.00, green:0.80, blue:0.00, alpha:1.0), UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0), UIColor.weLearnLightBlue]
+        
+        cell.profilePic.tintColor = colors[indexPath.row % colors.count]
         
 //        let storage = FIRStorage.storage()
 //        let storageRef = storage.reference()

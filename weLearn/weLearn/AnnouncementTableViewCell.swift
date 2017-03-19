@@ -15,6 +15,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
         
         setupToHierachy()
         setupConstraints()
@@ -70,12 +71,13 @@ class AnnouncementTableViewCell: UITableViewCell {
         
     }
     
-    lazy var box: Box = {
-        let button = Box()
-        button.layer.shadowColor = UIColor.weLearnLightBlue.cgColor
-        button.layer.borderColor = UIColor.weLearnBlue.cgColor
-        button.layer.borderWidth = 1
-        return button
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.weLearnCoolWhite
+        view.isOpaque = true
+        view.layer.borderColor = UIColor.weLearnBlue.cgColor
+        view.layer.borderWidth = 0.75
+        return view
     }()
     
     lazy var date: UILabel = {
@@ -108,6 +110,7 @@ class AnnouncementTableViewCell: UITableViewCell {
     lazy var bar: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnBlue
+        view.isOpaque = true
         return view
     }()
     
@@ -116,6 +119,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
         pic.image = #imageLiteral(resourceName: "user")
         pic.backgroundColor = UIColor.white
+        pic.isOpaque = true
         pic.contentMode = .scaleAspectFit
         pic.layer.borderWidth = 3
         return pic

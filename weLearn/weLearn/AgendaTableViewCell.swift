@@ -21,6 +21,8 @@ class AgendaTableViewCell: UITableViewCell {
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
         self.backgroundColor = UIColor.white
+        self.isOpaque = true
+
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnBlue
     }
@@ -74,6 +76,8 @@ class AgendaTableViewCell: UITableViewCell {
     lazy var bulletView: UIImageView = {
         let pic = UIImageView()
         pic.contentMode = .center
+        pic.isOpaque = true
+
         return pic
     }()
 }

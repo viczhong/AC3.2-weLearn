@@ -23,6 +23,7 @@ class AnimatedTimer: UIView, CAAnimationDelegate {
         
         self.layer.cornerRadius = 20
         self.backgroundColor = UIColor.white
+        self.isOpaque = true
         
         self.timeToGo = CAShapeLayer()
         timeToGo.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).cgPath
@@ -31,10 +32,10 @@ class AnimatedTimer: UIView, CAAnimationDelegate {
         timeToGo.fillColor = UIColor.clear.cgColor
         timeToGo.strokeStart = 0
         timeToGo.strokeEnd = 1
+        timeToGo.shouldRasterize = true
         
         self.elapsedTime = CAShapeLayer()
         elapsedTime.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).cgPath
-        // C4Q green 
         elapsedTime.strokeColor = UIColor(red:0.42, green:0.78, blue:0.15, alpha:1.0).cgColor
         elapsedTime.lineWidth = 6
         elapsedTime.fillColor = UIColor.clear.cgColor

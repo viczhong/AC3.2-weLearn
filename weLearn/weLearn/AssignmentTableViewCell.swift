@@ -18,6 +18,7 @@ class AssignmentTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
         
         setupHierarchy()
         setupConstraints()
@@ -157,12 +158,14 @@ class AssignmentTableViewCell: UITableViewCell {
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
         return view
     }()
     
     lazy var bottomHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
         return view
     }()
     
@@ -175,6 +178,7 @@ class AssignmentTableViewCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 20
         view.backgroundColor = UIColor.white
+        view.isOpaque = true
         return view
     }()
     

@@ -20,6 +20,8 @@ class LinkTableViewCell: UITableViewCell {
         setupConstraints()
 
         self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,6 +117,7 @@ class LinkTableViewCell: UITableViewCell {
         pic.backgroundColor = UIColor.white
         pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
+        pic.isOpaque = true
         return pic
     }()
 }
