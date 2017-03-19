@@ -642,7 +642,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         let originalImage = #imageLiteral(resourceName: "logoForSplash")
         let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
         view.image = templateImage
-        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.2)
+        view.tintColor = /*UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)*/UIColor.weLearnLightBlue.withAlphaComponent(0.2)
         view.layer.masksToBounds = false
         return view
     }()
@@ -679,10 +679,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    lazy var box: Box = {
-        let button = Box()
-        button.backgroundColor = UIColor.white
-        return button
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
     }()
     
     lazy var emailTextField: PaddedTextField = {
@@ -716,6 +716,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     
@@ -731,6 +732,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     

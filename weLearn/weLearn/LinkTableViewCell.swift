@@ -20,6 +20,8 @@ class LinkTableViewCell: UITableViewCell {
         setupConstraints()
 
         self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,6 +95,8 @@ class LinkTableViewCell: UITableViewCell {
         lbl.textAlignment = .left
         lbl.numberOfLines = 10
         lbl.lineBreakMode = .byWordWrapping
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
@@ -100,6 +104,8 @@ class LinkTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor.darkGray
         lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
@@ -115,6 +121,7 @@ class LinkTableViewCell: UITableViewCell {
         pic.backgroundColor = UIColor.white
         pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
+        pic.isOpaque = true
         return pic
     }()
 }

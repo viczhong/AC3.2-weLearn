@@ -57,6 +57,7 @@ class AchievementCollectionViewCell: UICollectionViewCell {
     lazy var descriptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         lbl.textColor = UIColor.weLearnBlue
         lbl.font = UIFont(name: "Avenir-Black", size: 12)
         lbl.textAlignment = .center

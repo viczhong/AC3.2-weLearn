@@ -18,6 +18,7 @@ class AssignmentTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
         
         setupHierarchy()
         setupConstraints()
@@ -135,6 +136,8 @@ class AssignmentTableViewCell: UITableViewCell {
         label.numberOfLines = 3
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
+        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.isOpaque = true
         return label
     }()
     
@@ -151,18 +154,22 @@ class AssignmentTableViewCell: UITableViewCell {
         label.font = UIFont(name: "Avenir-Black", size: 30)
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
+        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.isOpaque = true
         return label
     }()
 
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
         return view
     }()
     
     lazy var bottomHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
         return view
     }()
     
@@ -175,6 +182,7 @@ class AssignmentTableViewCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 20
         view.backgroundColor = UIColor.white
+        view.isOpaque = true
         return view
     }()
     
