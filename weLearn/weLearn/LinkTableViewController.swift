@@ -128,19 +128,19 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
         
-        let storage = FIRStorage.storage()
-        let storageRef = storage.reference()
-        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
-        
-        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
-            if let error = error {
-                print(error)
-            }
-            else {
-                let image = UIImage(data: data!)
-                cell.profilePic.image = image
-            }
-        }
+//        let storage = FIRStorage.storage()
+//        let storageRef = storage.reference()
+//        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
+//        
+//        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
+//            if let error = error {
+//                print(error)
+//            }
+//            else {
+//                let image = UIImage(data: data!)
+//                cell.profilePic.image = image
+//            }
+//        }
     
         return cell
     }
