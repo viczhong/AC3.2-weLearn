@@ -12,29 +12,29 @@ import SafariServices
 import FirebaseAuth
 
 class AgendaTableViewController: UITableViewController {
-    //    var todaysFakeSchedule: [String] = [
-    //        "DSA",
-    //        "Sprite Kit with Louis",
-    //        "Capstone",
-    //        "Lunch break",
-    //        "Talk to Tech Mentors",
-    //        "Workshop at Headquarters"
-    //    ]
-    
+
     let agendaSheetID = MyClass.manager.lessonScheduleID!
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
-    let currentDate = Date()
+
+    var todaysHardCodedSchedule = [
+        "Stand ups",
+        "Run through presentations",
+        "Lunch",
+        "Code",
+        "Get pumped for demo day!"
+    ]
     
     var agenda: [Agenda]?
     
+    let currentDate = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let dateInTitle = DateFormatter()
-        dateInTitle.dateFormat = "EEEE, MMM dd"
+        dateInTitle.dateFormat = "EEEE, MMMM dd"
         let dateTitleString = dateInTitle.string(from: currentDate)
-        print("**************** \(dateTitleString) ***********************")
 
         self.navigationItem.title = dateTitleString
         self.tabBarController?.title = "Agenda"
@@ -43,6 +43,8 @@ class AgendaTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        
+        tableView.separatorStyle = .none
         
         self.view.addSubview(activityIndicator)
     }
@@ -54,6 +56,8 @@ class AgendaTableViewController: UITableViewController {
             view.center.equalToSuperview()
         }
         
+        tableView.reloadData()
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
     }
     
@@ -64,7 +68,7 @@ class AgendaTableViewController: UITableViewController {
             readAgenda()
         }
     }
-
+    
     
     // MARK: - Agenda functions
     
@@ -81,7 +85,7 @@ class AgendaTableViewController: UITableViewController {
     func readAgenda() {
         self.view.bringSubview(toFront: activityIndicator)
         activityIndicator.startAnimating()
-
+        
         if LessonSchedule.manager.pastAgenda == nil {
             APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(agendaSheetID)/od6/public/basic?alt=json") { (data: Data?) in
                 if data != nil {
@@ -136,11 +140,9 @@ class AgendaTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            //        case 0:
-        //            return "March 10, 2017"
         case 0:
             if agenda != nil {
-                return "Today's Agenda"
+                return todaysAgenda?.lessonName
             }
         case 1:
             if agenda != nil {
@@ -152,6 +154,7 @@ class AgendaTableViewController: UITableViewController {
         default:
             return ""
         }
+        
         return ""
     }
     
@@ -159,9 +162,11 @@ class AgendaTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            if LessonSchedule.manager.todaysAgenda != nil {
-                return 6
-            }
+//            if LessonSchedule.manager.todaysAgenda != nil {
+//                return 1
+//            } else {
+                return todaysHardCodedSchedule.count
+            //}
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 return agenda.count
@@ -181,26 +186,7 @@ class AgendaTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            if let agenda = LessonSchedule.manager.todaysAgenda {
-                switch indexPath.row {
-                case 0:
-                    cell.label.text = agenda.lessonName
-                    cell.bulletView.isHidden = true
-                    cell.label.font = UIFont(name: "Avenir-Heavy", size: 20)
-                case 1:
-                    cell.label.text = "Stand ups"
-                case 2:
-                    cell.label.text = "Run through presentations"
-                case 3:
-                    cell.label.text = "Lunch"
-                case 4:
-                    cell.label.text = "Refactor code"
-                case 5:
-                    cell.label.text = "Get pumped for demo day!"
-                default:
-                    cell.label.text = "Go to the bar"
-                }
-            }
+            cell.label.text = todaysHardCodedSchedule[indexPath.row]
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 let agendaAtRow = agenda[indexPath.row]
@@ -215,7 +201,7 @@ class AgendaTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1103)
     }
     
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -224,5 +210,5 @@ class AgendaTableViewController: UITableViewController {
         view.color = UIColor.weLearnGreen
         return view
     }()
-  
+    
 }
