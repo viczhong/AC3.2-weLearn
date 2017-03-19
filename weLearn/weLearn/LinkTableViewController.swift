@@ -127,20 +127,23 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         
         cell.authorLabel.text = links[indexPath.row].author
         cell.descriptionLabel.text = links[indexPath.row].description
+        let colors = [UIColor(red:1.00, green:0.18, blue:0.33, alpha:1.0), UIColor(red:1.00, green:0.80, blue:0.00, alpha:1.0), UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0), UIColor.weLearnLightBlue]
         
-        let storage = FIRStorage.storage()
-        let storageRef = storage.reference()
-        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
+        cell.profilePic.tintColor = colors[indexPath.row % colors.count]
         
-        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
-            if let error = error {
-                print(error)
-            }
-            else {
-                let image = UIImage(data: data!)
-                cell.profilePic.image = image
-            }
-        }
+//        let storage = FIRStorage.storage()
+//        let storageRef = storage.reference()
+//        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
+//        
+//        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
+//            if let error = error {
+//                print(error)
+//            }
+//            else {
+//                let image = UIImage(data: data!)
+//                cell.profilePic.image = image
+//            }
+//        }
     
         return cell
     }

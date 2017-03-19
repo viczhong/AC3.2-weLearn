@@ -18,6 +18,8 @@ class PaddedTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.isOpaque = true
+        
         self.stripe = UIView()
         self.bar = UIView()
         

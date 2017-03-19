@@ -25,9 +25,12 @@ class GradeTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        testNameLabel.font = UIFont(name: "Avenir-Roman", size: 20)
-        
         super.prepareForReuse()
+        
+        testNameLabel.font = UIFont(name: "Avenir-Roman", size: 20)
+        testNameLabel.text = ""
+        gradeLabel.text = ""
+        gradeLabel.font = UIFont(name: "Avenir-Roman", size: 20)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -61,6 +64,8 @@ class GradeTableViewCell: UITableViewCell {
     lazy var testNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Roman", size: 20)
+        label.backgroundColor = UIColor.white
+        label.isOpaque = true
         return label
     }()
     
@@ -73,6 +78,8 @@ class GradeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont(name: "Avenir-Roman", size: 20)
+        label.backgroundColor = UIColor.white
+        label.isOpaque = true
         return label
     }()
 

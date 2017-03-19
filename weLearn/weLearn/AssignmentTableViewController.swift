@@ -138,7 +138,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                 navigationController?.show(svc, sender: self)
                 svc.delegate = self
             } else {
-                AudioServicesPlaySystemSound(1104)
+                AudioServicesPlaySystemSound(1103)
             }
         }
     }
@@ -190,7 +190,6 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                     
                     assignmentCell.optionalTimerLabel.isHidden = false
                     assignmentCell.optionalTimerLabelsShadow.isHidden = false
-                  //  assignmentCell.optionalTimerLabel.transform = CGAffineTransform.init(rotationAngle: 0.75)
                     assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
                     assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle

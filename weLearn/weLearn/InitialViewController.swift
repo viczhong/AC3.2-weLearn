@@ -84,6 +84,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         loginTabWasPressed()
         activityIndicator.isHidden = true
+        activityIndicatorLabel.isHidden = true
+        loadingOverlay.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -152,8 +154,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         AudioServicesPlaySystemSound(1104)
     }
     
-    
-    
     func colorTab(button1: UIButton, button2: UIButton) {
         if button1.isSelected {
             button1.backgroundColor = UIColor.white
@@ -182,6 +182,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(loginButton)
         self.view.addSubview(registerButton)
         self.view.addSubview(activityIndicator)
+        self.view.addSubview(activityIndicatorLabel)
+        self.view.addSubview(loadingOverlay)
     }
     
     func configureConstraints() {
@@ -230,6 +232,16 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         activityIndicator.snp.makeConstraints { view in
             view.center.equalTo(box)
+        }
+        
+        activityIndicatorLabel.snp.makeConstraints { view in
+            view.centerX.equalTo(activityIndicator)
+            view.bottom.equalTo(activityIndicator.snp.top)
+        }
+        
+        loadingOverlay.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+            view.height.width.equalToSuperview()
         }
         
         // visible on login & registration tab
@@ -460,6 +472,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
+        activityIndicatorLabel.isHidden = false
+        loadingOverlay.isHidden = false
         activityIndicator.startAnimating()
         
         FIRAuth.auth()?.signIn(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
@@ -479,6 +493,8 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             if let error = error {
                 self.showAlert(title: "Login error", error.localizedDescription)
                 self.activityIndicator.stopAnimating()
+                self.activityIndicatorLabel.isHidden = true
+                self.loadingOverlay.isHidden = true
             }
         })
         
@@ -499,7 +515,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
+        activityIndicatorLabel.isHidden = false
+        loadingOverlay.isHidden = false
+        activityIndicator.startAnimating()
         
         FIRAuth.auth()?.createUser(withEmail: credentials.email, password: credentials.password, completion: { (user, error) in
             if error == nil {
@@ -534,6 +552,9 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.loginButton.isEnabled = false
                 
                 self.activityIndicator.stopAnimating()
+                self.activityIndicatorLabel.isHidden = true
+                self.activityIndicatorLabel.isHidden = true
+                self.loadingOverlay.isHidden = true
             }
         })
     }
@@ -621,7 +642,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         let originalImage = #imageLiteral(resourceName: "logoForSplash")
         let templateImage = originalImage.withRenderingMode(.alwaysTemplate)
         view.image = templateImage
-        view.tintColor = UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0).withAlphaComponent(0.2)
+        view.tintColor = /*UIColor(red:0.30, green:0.51, blue:0.69, alpha:1.0)*/UIColor.weLearnLightBlue.withAlphaComponent(0.2)
         view.layer.masksToBounds = false
         return view
     }()
@@ -658,10 +679,10 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    lazy var box: Box = {
-        let button = Box()
-        button.backgroundColor = UIColor.white
-        return button
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
     }()
     
     lazy var emailTextField: PaddedTextField = {
@@ -695,6 +716,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     
@@ -710,6 +732,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 2
+        button.layer.shouldRasterize = true
         return button
     }()
     
@@ -741,6 +764,20 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         fifthTextfield.autocorrectionType = .no
         fifthTextfield.autocapitalizationType = .none
         return fifthTextfield
+    }()
+    
+    lazy var activityIndicatorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Validating Account..."
+        label.font = UIFont(name: "Avenir-LightOblique", size: 36)
+        label.textColor = UIColor.weLearnBlack
+        return label
+    }()
+    
+    lazy var loadingOverlay: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        return view
     }()
     
 }

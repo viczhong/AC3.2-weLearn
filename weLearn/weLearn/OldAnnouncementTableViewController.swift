@@ -76,9 +76,8 @@ class OldAnnouncementsTableViewController: UITableViewController {
     // MARK: - Actions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1103)
     }
-    
     
     // MARK: - Table view data source
     

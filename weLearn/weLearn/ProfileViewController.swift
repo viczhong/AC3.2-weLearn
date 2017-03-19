@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             User.manager.achievements = achievements
         }
     }
-
+    
     var testGrades: TestGrade?
     var databaseReference: FIRDatabaseReference!
     var gradesParsed: [(assignment: String, grade: String)] = [] {
@@ -50,6 +50,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        tableView.separatorStyle = .none
         
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
@@ -65,16 +66,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         getChievos()
-
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        
-        if profilePic.image == nil {
-            uploadImageButton.isHidden = false
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,6 +134,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(tableView)
         self.view.addSubview(collectionView)
         self.view.addSubview(uploadImageButton)
+        self.view.addSubview(presentAchievement)
+        self.presentAchievement.addSubview(achievementPic)
+        self.presentAchievement.addSubview(achievementLabel)
     }
     
     func configureConstraints() {
@@ -165,7 +164,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         uploadImageButton.snp.makeConstraints { (view) in
             view.top.equalTo(profilePic.snp.bottom).offset(10)
-           // view.top.equalTo(profilePic.snp.bottom).offset(8)
+            // view.top.equalTo(profilePic.snp.bottom).offset(8)
             view.leading.equalTo(profileBox).offset(33)
             view.bottom.equalTo(profileBox).inset(10)
             view.width.equalTo(100)
@@ -193,6 +192,24 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         classLabel.snp.makeConstraints { view in
             view.top.equalTo(emailLabel.snp.bottom).offset(5)
             view.trailing.equalTo(profileBox).inset(45)
+        }
+        
+        self.presentAchievement.snp.makeConstraints { view in
+            view.leading.equalTo(collectionView.snp.trailing)
+            view.bottom.equalTo(collectionView)
+        }
+        
+        self.achievementPic.snp.makeConstraints { view in
+            view.top.leading.equalToSuperview().offset(10)
+            view.trailing.equalToSuperview().inset(10)
+            view.width.equalTo(245)
+            view.height.equalTo(245)
+        }
+        
+        self.achievementLabel.snp.makeConstraints { view in
+            view.top.equalTo(achievementPic.snp.bottom).offset(10)
+            view.leading.trailing.equalTo(presentAchievement)
+            view.bottom.equalToSuperview().inset(10)
         }
         
     }
@@ -233,7 +250,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-
+    
     // MARK: - UIImagePicker Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -304,7 +321,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var cell = UITableViewCell()
         cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
-        
         cell.selectionStyle = .none
         
         if let loadedGrades = User.manager.grades {
@@ -320,21 +336,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-        cell.selectionStyle = .none
-        cell.layer.shadowOffset = CGSize(width: 2, height: 3)
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowRadius = 3
-        cell.layer.masksToBounds = false
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1103)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AudioServicesPlaySystemSound(1306)
+        AudioServicesPlaySystemSound(1104)
+        
+        let currentCell = collectionView.cellForItem(at: indexPath) as! AchievementCollectionViewCell
+        
+        achievementPic.image = currentCell.achievementPic.image
+        achievementLabel.text = currentCell.descriptionLabel.text
+        
+        let animator = UIViewPropertyAnimator(duration: 1, dampingRatio: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+        self.presentAchievement.snp.remakeConstraints { (view) in
+            view.centerX.equalTo(collectionView)
+            view.centerY.equalTo(collectionView)
+        }
+        
+        animator.startAnimation()
     }
     
     //Mark: - Button Functions
@@ -357,7 +383,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func uploadImageButtonWasTouched() {
-        AudioServicesPlaySystemSound(1105)
+        AudioServicesPlaySystemSound(1104)
         
         UIView.animate(withDuration: 0.5, animations: {
             self.uploadImageButton.layer.shadowOpacity = 0.1
@@ -374,6 +400,19 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         picker.mediaTypes = [String(kUTTypeImage)]
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
+    }
+    
+    func presentAchievementWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        let animator = UIViewPropertyAnimator(duration: 1, dampingRatio: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+        self.presentAchievement.snp.remakeConstraints { (view) in
+            view.trailing.equalTo(collectionView.snp.leading)
+        }
+        
+        animator.startAnimation()
     }
     
     // Mark: - Views made here
@@ -455,6 +494,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.backgroundColor = UIColor.white
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var presentAchievement: Box = {
+        let view = Box()
+        view.addTarget(self, action: #selector(presentAchievementWasPressed), for: .touchUpInside)
+        return view
+    }()
+    
+    lazy var achievementLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let achievementPic: UIImageView = {
+        let pic = UIImageView()
+        pic.contentMode = .scaleAspectFit
+        return pic
     }()
     
     lazy var logOutButton: ShinyOvalButton = {
