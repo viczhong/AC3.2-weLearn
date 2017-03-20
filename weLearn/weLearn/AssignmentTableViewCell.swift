@@ -131,6 +131,7 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var assignmentNameLabel: UILabel = {
         let label = UILabel()
+        label.text = ""
         label.font = UIFont(name: "Avenir-Light", size: 24)
         label.text = "Assignment Name"
         label.numberOfLines = 3
@@ -149,6 +150,7 @@ class AssignmentTableViewCell: UITableViewCell {
     
     lazy var assignmentCountDownLabel: UILabel = {
         let label = UILabel()
+        label.text = ""
         label.textAlignment = .center
         label.textColor = UIColor.weLearnBlue
         label.font = UIFont(name: "Avenir-Black", size: 30)
