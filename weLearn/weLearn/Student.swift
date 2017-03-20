@@ -26,6 +26,7 @@ class User {
     var assignmentGrades: [(assignment: String, grade: String)]?
     var agenda: [Agenda]?
     var achievements: [Achievement]?
+    var toDoList: [String]?
     
     static func clearSingleton() {
         var strings = [

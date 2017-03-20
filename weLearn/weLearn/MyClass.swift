@@ -19,6 +19,7 @@ class MyClass {
     var announcementsID: String?
     var gradeBookID: String?
     var achievementsID: String?
+    var toDoListID = "1jCFyhGKH83yEJawdBeyHFIGrYYwqH1xgZmhSn59O9v8"
     
     static func clearSingleton() {
         var strings = [
@@ -27,7 +28,8 @@ class MyClass {
             MyClass.manager.lessonScheduleID,
             MyClass.manager.announcementsID,
             MyClass.manager.achievementsID,
-            MyClass.manager.gradeBookID
+            MyClass.manager.gradeBookID,
+//            MyClass.manager.toDoListID
         ]
         
         // Clear strings
