@@ -17,9 +17,11 @@ class AssignmentTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
+        
         setupHierarchy()
         setupConstraints()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,14 +30,14 @@ class AssignmentTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
+
     }
     
     override func prepareForReuse() {
         assignmentNameLabel.text = ""
         assignmentCountDownLabel.text = ""
-        assignmentCountDownLabel.backgroundColor = UIColor.weLearnCoolWhite
+        optionalTimerLabel.isHidden = true
+        optionalTimerLabelsShadow.isHidden = true
     }
     
     // Action
@@ -49,12 +51,11 @@ class AssignmentTableViewCell: UITableViewCell {
     func setupHierarchy() {
         self.contentView.addSubview(box)
         self.contentView.addSubview(assignmentNameLabel)
-   //     self.contentView.addSubview(dateLabel)
         self.contentView.addSubview(topHorizontalRule)
         self.contentView.addSubview(bottomHorizontalRule)
         self.contentView.addSubview(assignmentCountDownLabel)
-       // self.contentView.addSubview(gradeLabel)
-       // self.contentView.addSubview(repoLink)
+        self.contentView.addSubview(optionalTimerLabelsShadow)
+        self.contentView.addSubview(optionalTimerLabel)
     }
     
     func setupConstraints() {
@@ -66,14 +67,33 @@ class AssignmentTableViewCell: UITableViewCell {
         }
         
         assignmentNameLabel.snp.makeConstraints { label in
-            label.top.leading.equalTo(box).offset(10)
-            label.trailing.equalTo(box).inset(10)
+            label.top.equalTo(box).offset(10)
+            label.leading.equalTo(20)
+            label.trailing.equalTo(box).inset(20)
         }
         
         assignmentCountDownLabel.snp.makeConstraints { label in
             label.top.equalTo(topHorizontalRule.snp.bottom)
             label.leading.equalTo(box).offset(10)
             label.trailing.equalTo(box).inset(10)
+        }
+        
+        optionalTimerLabel.snp.makeConstraints { view in
+            view.centerY.equalTo(box.snp.top).offset(10)
+            view.centerX.equalTo(box.snp.leading).offset(10)
+            view.width.height.equalTo(40)
+        }
+        
+//        optionalTimerLabel.snp.makeConstraints { view in
+//            view.centerY.equalTo(topHorizontalRule.snp.bottom)
+//            view.centerX.equalTo(box)
+//            view.width.height.equalTo(40)
+//        }
+        
+        optionalTimerLabelsShadow.snp.makeConstraints { view in
+            view.centerY.equalTo(optionalTimerLabel)
+            view.centerX.equalTo(optionalTimerLabel)
+            view.width.height.equalTo(optionalTimerLabel).multipliedBy(1.2)
         }
         
 //        dateLabel.snp.makeConstraints { label in
@@ -84,20 +104,6 @@ class AssignmentTableViewCell: UITableViewCell {
 //        gradeLabel.snp.makeConstraints { label in
 //            label.top.equalTo(topHorizontalRule.snp.bottom)
 //            label.centerX.equalTo(box)
-//        }
-        
-//        gradeSquare.snp.makeConstraints { view in
-//            view.height.width.equalTo(33)
-//            view.centerY.equalTo(dateLabel)
-//            view.trailing.equalTo(box).inset(10)
-//        }
-        
-//        repoLink.snp.makeConstraints { view in
-//            view.top.equalTo(gradeLabel.snp.bottom).offset(20)
-//            view.width.equalTo(box).dividedBy(2)
-//            view.height.equalTo(44)
-//            view.centerX.equalTo(box)
-//            view.bottom.equalTo(box).inset(10)
 //        }
         
         topHorizontalRule.snp.makeConstraints { view in
@@ -126,24 +132,18 @@ class AssignmentTableViewCell: UITableViewCell {
     lazy var assignmentNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.text = "Assignment Name"
         label.numberOfLines = 3
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
+        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.isOpaque = true
         return label
     }()
     
 //    lazy var dateLabel: UILabel = {
 //        let label = UILabel()
 //        label.font = UIFont(name: "Avenir-Light", size: 16)
-//        return label
-//    }()
-    
-//    lazy var gradeLabel: UILabel = {
-//        let label = UILabel()
-//        label.textAlignment = .center
-//        label.textColor = UIColor.weLearnBlue
-//        label.layer.shadowColor = UIColor.weLearnBlue.withAlphaComponent(0.75).cgColor
-//        label.font = UIFont(name: "Avenir-Black", size: 36)
 //        return label
 //    }()
     
@@ -154,30 +154,35 @@ class AssignmentTableViewCell: UITableViewCell {
         label.font = UIFont(name: "Avenir-Black", size: 30)
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
+        label.backgroundColor = UIColor.weLearnCoolWhite
+        label.isOpaque = true
         return label
     }()
-    
-//    lazy var repoLink: UIButton = {
-//        let button = UIButton()
-//        button.titleLabel?.font = UIFont(name: "Avenir-Black", size: 20)
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.backgroundColor = UIColor.weLearnBlue
-//        button.addTarget(self, action: #selector(didClickRepoButton(_:)), for: .touchUpInside)
-//        button.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        button.layer.shadowOpacity = 0.25
-//        button.layer.shadowRadius = 2
-//        return button
-//    }()
-    
+
     lazy var topHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
         return view
     }()
     
     lazy var bottomHorizontalRule: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnGrey
+        view.isOpaque = true
+        return view
+    }()
+    
+    lazy var optionalTimerLabel: AnimatedTimer = {
+        let view = AnimatedTimer()
+        return view
+    }()
+    
+    lazy var optionalTimerLabelsShadow: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 20
+        view.backgroundColor = UIColor.white
+        view.isOpaque = true
         return view
     }()
     

@@ -14,11 +14,16 @@ class Box: UIButton {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.weLearnCoolWhite
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: -2, height: 3)
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowRadius = 3
+        self.isOpaque = true
+    }
+    
+    override func layoutSubviews() {
         self.layer.masksToBounds = false
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shadowColor = UIColor.weLearnBlue.cgColor
+        self.layer.shadowOffset = CGSize(width: -2, height: 3)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 3
     }
     
     required init?(coder aDecoder: NSCoder) {

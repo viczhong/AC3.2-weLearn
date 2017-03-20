@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             User.manager.achievements = achievements
         }
     }
-
+    
     var testGrades: TestGrade?
     var databaseReference: FIRDatabaseReference!
     var gradesParsed: [(assignment: String, grade: String)] = [] {
@@ -41,8 +41,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationItem.title = "Profile"
         self.tabBarController?.title = navigationItem.title
         
-        self.view.backgroundColor = UIColor.weLearnBlue
-        
         viewHeirarchy()
         configureConstraints()
         
@@ -52,6 +50,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 268.0
+        tableView.separatorStyle = .none
         
         profilePic.layer.cornerRadius = 50
         profilePic.clipsToBounds = true
@@ -67,16 +66,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         logOutButton.addTarget(self, action: #selector(logOutButtonWasPressed(selector:)), for: .touchUpInside)
         getChievos()
-
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        
-        if profilePic.image == nil {
-            uploadImageButton.isHidden = false
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -140,6 +134,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(tableView)
         self.view.addSubview(collectionView)
         self.view.addSubview(uploadImageButton)
+        self.view.addSubview(presentAchievement)
+        self.presentAchievement.addSubview(achievementPic)
+        self.presentAchievement.addSubview(achievementLabel)
     }
     
     func configureConstraints() {
@@ -159,16 +156,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         profileBox.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(10)
+            view.top.equalToSuperview()
             view.centerX.equalToSuperview()
-            view.leading.equalToSuperview().offset(25)
-            view.trailing.equalToSuperview().inset(25)
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
         }
         
         uploadImageButton.snp.makeConstraints { (view) in
             view.top.equalTo(profilePic.snp.bottom).offset(10)
-           // view.top.equalTo(profilePic.snp.bottom).offset(8)
-            view.leading.equalTo(profileBox).offset(8)
+            // view.top.equalTo(profilePic.snp.bottom).offset(8)
+            view.leading.equalTo(profileBox).offset(33)
             view.bottom.equalTo(profileBox).inset(10)
             view.width.equalTo(100)
             view.height.equalTo(30)
@@ -176,25 +173,43 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         profilePic.snp.makeConstraints { view in
             //view.top.leading.equalTo(profileBox).offset(8)
-            view.top.equalTo(profileBox)
-            view.leading.equalTo(profileBox).offset(8)
+            view.top.equalTo(profileBox).offset(10)
+            view.leading.equalTo(profileBox).offset(33)
             view.width.height.equalTo(100)
             view.height.equalTo(profilePic.snp.width)
         }
         
         nameLabel.snp.makeConstraints { view in
-            view.top.equalTo(profileBox).offset(20)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.top.equalTo(profileBox).offset(30)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         emailLabel.snp.makeConstraints { view in
             view.top.equalTo(nameLabel.snp.bottom).offset(10)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
         }
         
         classLabel.snp.makeConstraints { view in
             view.top.equalTo(emailLabel.snp.bottom).offset(5)
-            view.trailing.equalTo(profileBox).inset(20)
+            view.trailing.equalTo(profileBox).inset(45)
+        }
+        
+        self.presentAchievement.snp.makeConstraints { view in
+            view.leading.equalTo(collectionView.snp.trailing)
+            view.bottom.equalTo(collectionView)
+        }
+        
+        self.achievementPic.snp.makeConstraints { view in
+            view.top.leading.equalToSuperview().offset(10)
+            view.trailing.equalToSuperview().inset(10)
+            view.width.equalTo(245)
+            view.height.equalTo(245)
+        }
+        
+        self.achievementLabel.snp.makeConstraints { view in
+            view.top.equalTo(achievementPic.snp.bottom).offset(10)
+            view.leading.trailing.equalTo(presentAchievement)
+            view.bottom.equalToSuperview().inset(10)
         }
         
     }
@@ -235,7 +250,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-
+    
     // MARK: - UIImagePicker Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -293,10 +308,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 1
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Grades"
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let loadedGrades = User.manager.grades {
@@ -310,8 +321,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var cell = UITableViewCell()
         cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
-        
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.selectionStyle = .none
         
         if let loadedGrades = User.manager.grades {
             if let gradeCell = cell as? GradeTableViewCell {
@@ -320,18 +330,37 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 gradeCell.gradeLabel.text = grades.grade
                 
                 if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
-                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Black", size: 16)
+                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Roman", size: 24)
+                    gradeCell.gradeLabel.font = UIFont(name: "Avenir-Oblique", size: 24)
                 }
             }
         }
         
-        cell.selectionStyle = .none
-        cell.layer.shadowOffset = CGSize(width: 2, height: 3)
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowRadius = 3
-        cell.layer.masksToBounds = false
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        AudioServicesPlaySystemSound(1103)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        AudioServicesPlaySystemSound(1104)
+        
+        let currentCell = collectionView.cellForItem(at: indexPath) as! AchievementCollectionViewCell
+        
+        achievementPic.image = currentCell.achievementPic.image
+        achievementLabel.text = currentCell.descriptionLabel.text
+        
+        let animator = UIViewPropertyAnimator(duration: 1, dampingRatio: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+        self.presentAchievement.snp.remakeConstraints { (view) in
+            view.centerX.equalTo(collectionView)
+            view.centerY.equalTo(collectionView)
+        }
+        
+        animator.startAnimation()
     }
     
     //Mark: - Button Functions
@@ -354,7 +383,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func uploadImageButtonWasTouched() {
-        AudioServicesPlaySystemSound(1105)
+        AudioServicesPlaySystemSound(1104)
         
         UIView.animate(withDuration: 0.5, animations: {
             self.uploadImageButton.layer.shadowOpacity = 0.1
@@ -373,32 +402,46 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.present(picker, animated: true, completion: nil)
     }
     
+    func presentAchievementWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        let animator = UIViewPropertyAnimator(duration: 1, dampingRatio: 0.7, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+        self.presentAchievement.snp.remakeConstraints { (view) in
+            view.trailing.equalTo(collectionView.snp.leading)
+        }
+        
+        animator.startAnimation()
+    }
+    
     // Mark: - Views made here
     
-    lazy var profileBox: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: -2, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 3
-        view.layer.masksToBounds = false
+    lazy var profileBox: UIImageView = {
+        let view = UIImageView()
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        // blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.image = #imageLiteral(resourceName: "clouds")
+        view.contentMode = .bottom
+        view.backgroundColor = UIColor.weLearnBlue
         return view
     }()
     
     lazy var profilePic: UIImageView = {
         let pic = UIImageView()
         pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
-        //pic.image = #imageLiteral(resourceName: "Karen")
         pic.backgroundColor = UIColor.white
-        pic.contentMode = .scaleAspectFit
+        pic.contentMode = .scaleAspectFill
         pic.layer.borderWidth = 3
         return pic
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.name ?? "Anon"
         label.font = UIFont(name: "Avenir-Light", size: 28)
         return label
@@ -406,7 +449,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.email ?? "anon@anon.com"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
@@ -414,14 +457,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     lazy var classLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.weLearnCoolWhite
+        label.textColor = UIColor.weLearnBlack
         label.text = User.manager.classroom ?? "No class"
         label.font = UIFont(name: "Avenir-Roman", size: 20)
         return label
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView() //(frame: .zero, style: .grouped)
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -451,6 +494,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.backgroundColor = UIColor.white
         button.addTarget(self, action: #selector(uploadImageButtonWasTouched), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var presentAchievement: Box = {
+        let view = Box()
+        view.addTarget(self, action: #selector(presentAchievementWasPressed), for: .touchUpInside)
+        return view
+    }()
+    
+    lazy var achievementLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Light", size: 24)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let achievementPic: UIImageView = {
+        let pic = UIImageView()
+        pic.contentMode = .scaleAspectFit
+        return pic
     }()
     
     lazy var logOutButton: ShinyOvalButton = {

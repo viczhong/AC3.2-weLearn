@@ -20,7 +20,9 @@ class AgendaTableViewCell: UITableViewCell {
         let plainBullet = #imageLiteral(resourceName: "bullet")
         let tintedBullet = plainBullet.withRenderingMode(.alwaysTemplate)
         
-        self.backgroundColor = UIColor.weLearnCoolWhite
+        self.backgroundColor = UIColor.white
+        self.isOpaque = true
+
         self.bulletView.image = tintedBullet
         self.bulletView.tintColor = UIColor.weLearnBlue
     }
@@ -29,17 +31,12 @@ class AgendaTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
-    
     override func prepareForReuse() {
-        self.backgroundColor = UIColor.weLearnCoolWhite
-        self.label.font = UIFont(name: "Avenir-Roman", size: 16)
+        self.backgroundColor = UIColor.white
+        self.label.font = UIFont(name: "Avenir-Roman", size: 20)
         self.bulletView.isHidden = false
         self.bulletView.tintColor = UIColor.weLearnBlue
-        self.label.text = ""
+        self.label.text = "M/DD/YY - Lesson Name"
     }
     
     func setupHierarchy() {
@@ -64,16 +61,20 @@ class AgendaTableViewCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Avenir-Roman", size: 16)
+        lbl.font = UIFont(name: "Avenir-Roman", size: 20)
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
         lbl.numberOfLines = 3
+        lbl.backgroundColor = UIColor.white
+        lbl.isOpaque = true
         return lbl
     }()
     
     lazy var bulletView: UIImageView = {
         let pic = UIImageView()
         pic.contentMode = .center
+        pic.isOpaque = true
+
         return pic
     }()
 }

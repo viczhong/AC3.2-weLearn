@@ -10,9 +10,12 @@ import UIKit
 import  SnapKit
 
 class AnnouncementTableViewCell: UITableViewCell {
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.backgroundColor = UIColor.weLearnLightBlue
+        self.isOpaque = true
         
         setupToHierachy()
         setupConstraints()
@@ -32,6 +35,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         self.contentView.addSubview(bar)
         self.contentView.addSubview(quote)
         self.contentView.addSubview(author)
+        self.contentView.addSubview(profilePic)
     }
     
     func setupConstraints() {
@@ -50,28 +54,30 @@ class AnnouncementTableViewCell: UITableViewCell {
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
             lbl.trailing.equalTo(box).inset(20)
-            lbl.bottom.equalTo(author.snp.top).inset(10)
-            //lbl.centerY.equalTo(contentView)
         }
         
         bar.snp.makeConstraints { (view) in
             view.leading.equalTo(box).offset(15)
-            view.width.equalTo(5)
+            view.width.equalTo(2.5)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }
         
         author.snp.makeConstraints { (view) in
+            view.top.equalTo(quote.snp.bottom)
             view.bottom.equalTo(box).inset(10)
             view.trailing.equalTo(box).inset(10)
         }
+        
     }
     
-    lazy var box: Box = {
-        let button = Box()
-        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
-        button.layer.shadowOpacity = 1
-        return button
+    lazy var box: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.weLearnCoolWhite
+        view.isOpaque = true
+        view.layer.borderColor = UIColor.weLearnBlue.cgColor
+        view.layer.borderWidth = 0.75
+        return view
     }()
     
     lazy var date: UILabel = {
@@ -80,6 +86,8 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.lineBreakMode = .byTruncatingTail
         lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
@@ -89,6 +97,8 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.textAlignment = .left
         lbl.lineBreakMode = .byWordWrapping
         lbl.font = UIFont(name: "Avenir-Light", size: 24)
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
@@ -98,13 +108,27 @@ class AnnouncementTableViewCell: UITableViewCell {
         lbl.lineBreakMode = .byTruncatingTail
         lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
+        lbl.backgroundColor = UIColor.weLearnCoolWhite
+        lbl.isOpaque = true
         return lbl
     }()
     
     lazy var bar: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.weLearnBlue
+        view.isOpaque = true
         return view
     }()
-
+    
+    lazy var profilePic: UIImageView = {
+        let pic = UIImageView()
+        pic.layer.borderColor = UIColor.weLearnCoolWhite.cgColor
+        pic.image = #imageLiteral(resourceName: "user")
+        pic.backgroundColor = UIColor.white
+        pic.isOpaque = true
+        pic.contentMode = .scaleAspectFit
+        pic.layer.borderWidth = 3
+        return pic
+    }()
+    
 }

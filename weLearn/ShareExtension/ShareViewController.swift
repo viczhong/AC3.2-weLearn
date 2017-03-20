@@ -148,7 +148,7 @@ class ShareViewController: SLComposeServiceViewController {
     
     
     func getUserIDFromUserDefaults() -> String? {
-        guard let userDefaults = UserDefaults(suiteName: "group.com.welearn.app"),
+        guard let userDefaults = UserDefaults(suiteName: "group.nyc.c4q.ac32.weLearn"),
             let userUID = userDefaults.object(forKey: "studentInfo") as? String else { return nil }
         return userUID
     }
