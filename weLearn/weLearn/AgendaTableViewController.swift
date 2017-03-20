@@ -22,7 +22,8 @@ class AgendaTableViewController: UITableViewController {
         "Register account",
         "Check a prior lesson",
         "Share a good link",
-        "Check for new announcements"
+        "Check for new announcements",
+        "Check grades"
     ]
     
     var agenda: [Agenda]?
