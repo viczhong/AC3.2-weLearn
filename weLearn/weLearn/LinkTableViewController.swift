@@ -156,7 +156,12 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let colors = [UIColor(red:1.00, green:0.18, blue:0.33, alpha:1.0), UIColor(red:1.00, green:0.80, blue:0.00, alpha:1.0), UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0), UIColor.weLearnLightBlue]
         
         cell.profilePic.tintColor = colors[indexPath.row % colors.count]
-        cell.profilePic.image = checkForImage(linkAtRow.studentKey) ?? UIImage(named: "user")
+        
+        let userImage: UIImage? = checkForImage(linkAtRow.studentKey)
+        
+        if let profileImage = userImage {
+            cell.profilePic.image = profileImage
+        }
         
         return cell
     }

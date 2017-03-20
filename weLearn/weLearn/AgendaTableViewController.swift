@@ -19,11 +19,10 @@ class AgendaTableViewController: UITableViewController {
     var checkedOff = [Int]()
     
     var todaysHardCodedSchedule = [
-        "Stand ups",
-        "Run through presentations",
-        "Lunch",
-        "Code",
-        "Get pumped for demo day!"
+        "Register account",
+        "Check a prior lesson",
+        "Share a good link",
+        "Check for new announcements"
     ]
     
     var agenda: [Agenda]?
