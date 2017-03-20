@@ -70,9 +70,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(false)
+    //    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
@@ -80,31 +80,34 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         uploadImageButton.layer.borderColor = UIColor.black.cgColor
         uploadImageButton.layer.borderWidth = 1
         
-        if gradesParsed.isEmpty {
-            startGrabbingTestData()
-        }
+        //        if gradesParsed.isEmpty {
+        startGrabbingTestData()
+        //        }
         
-        if achievements == nil {
-            getChievos()
+        //        if achievements == nil {
+        getChievos()
+        //        }
+        if User.manager.studentKey != nil {
+            getProfileImage()
         }
     }
     
     func getChievos() {
-        if User.manager.achievements == nil {
-            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(achievementsSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-                if data != nil {
-                    if let returnedAnnouncements = AchievementBucket.getStudentAchievementBucket(from: data!, for: User.manager.id!) {
-                        DispatchQueue.main.async {
-                            self.achievements = AchievementBucket.parseBucketString(returnedAnnouncements.contentString)
-                            self.collectionView.reloadData()
-                        }
+        //        if User.manager.achievements == nil {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(achievementsSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                if let returnedAnnouncements = AchievementBucket.getStudentAchievementBucket(from: data!, for: User.manager.id!) {
+                    DispatchQueue.main.async {
+                        self.achievements = AchievementBucket.parseBucketString(returnedAnnouncements.contentString)
+                        self.collectionView.reloadData()
                     }
                 }
             }
         }
-        else {
-            self.collectionView.reloadData()
-        }
+        //        }
+//        else {
+//            self.collectionView.reloadData()
+//        }
     }
     
     func getProfileImage() {
@@ -112,7 +115,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let storageRef = storage.reference()
         let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
         
-        imageRef.data(withMaxSize: 1*25*25) { (data, error) in
+        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
             if let error = error {
                 print(error)
             }
@@ -221,15 +224,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.bringSubview(toFront: activityIndicator)
         activityIndicator.startAnimating()
         
-        if User.manager.grades == nil {
-            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
-                if data != nil {
-                    self.fetchStudentTestData(data!)
-                } else {
-                    self.activityIndicator.stopAnimating()
-                }
+        //        if User.manager.grades == nil {
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(gradesSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                self.fetchStudentTestData(data!)
+            } else {
+                self.activityIndicator.stopAnimating()
             }
         }
+        //        }
         self.tableView.reloadData()
         self.activityIndicator.stopAnimating()
     }
@@ -324,16 +327,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell = tableView.dequeueReusableCell(withIdentifier: "GradeTableViewCell", for: indexPath)
         cell.selectionStyle = .none
         
-        if let loadedGrades = User.manager.grades {
-            if let gradeCell = cell as? GradeTableViewCell {
-                let grades = loadedGrades[indexPath.row]
-                gradeCell.testNameLabel.text = grades.assignment
-                gradeCell.gradeLabel.text = grades.grade
-                
-                if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
-                    gradeCell.testNameLabel.font = UIFont(name: "Avenir-Roman", size: 24)
-                    gradeCell.gradeLabel.font = UIFont(name: "Avenir-Oblique", size: 24)
-                }
+        /*
+         if let loadedGrades = User.manager.grades {
+         if let gradeCell = cell as? GradeTableViewCell {
+         let grades = loadedGrades[indexPath.row]
+         gradeCell.testNameLabel.text = grades.assignment
+         gradeCell.gradeLabel.text = grades.grade
+         */
+        
+        if let gradeCell = cell as? GradeTableViewCell {
+            let grades = gradesParsed[indexPath.row]
+            gradeCell.testNameLabel.text = grades.assignment
+            gradeCell.gradeLabel.text = grades.grade
+            
+            if (gradeCell.testNameLabel.text?.lowercased().contains("average"))! {
+                gradeCell.testNameLabel.font = UIFont(name: "Avenir-Roman", size: 24)
+                gradeCell.gradeLabel.font = UIFont(name: "Avenir-Oblique", size: 24)
             }
         }
         

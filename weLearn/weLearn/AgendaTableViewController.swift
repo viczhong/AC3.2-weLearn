@@ -19,7 +19,7 @@ class AgendaTableViewController: UITableViewController {
     var checkedOff = [Int]()
     
     var todaysHardCodedSchedule = [
-        "Register account",
+        "Login",
         "Check a prior lesson",
         "Share a good link",
         "Check for new announcements",
