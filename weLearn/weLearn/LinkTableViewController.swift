@@ -17,6 +17,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     
     let databaseReference = FIRDatabase.database().reference()
     var links: [Link]! = []
+    var imageDict = [String : UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         tableView.separatorStyle = .none
         
         self.view.addSubview(activityIndicator)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,15 +49,13 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-//        if links.isEmpty {
-            self.getDataInfo()
-//        }
+        self.getDataInfo()
     }
     
-   func getDataInfo() {
-    self.view.bringSubview(toFront: activityIndicator)
-    activityIndicator.startAnimating()
-    
+    func getDataInfo() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
         databaseReference.child("links").child(User.manager.classDatabaseKey!).observeSingleEvent(of: .value, with: { (snapShot) in
             guard let value = snapShot.value as? [String : Any] else { return }
             var linksArr = [Link]()
@@ -74,7 +73,34 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             self.activityIndicator.stopAnimating()
         }
     }
-
+    
+    func getProfileImage(_ id: String) -> UIImage? {
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference()
+        let imageRef = storageRef.child("profileImage/\(id)")
+        
+        imageRef.data(withMaxSize: 1*100*100) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                let image = UIImage(data: data!)
+                self.imageDict[id] = image
+            }
+        }
+        
+        return self.imageDict[id] ?? nil
+    }
+    
+    func checkForImage(_ id: String) -> UIImage? {
+        if imageDict[id] != nil {
+            return imageDict[id]
+        }
+        else {
+            return getProfileImage(id)
+        }
+    }
+    
     // MARK: - Button stuff
     
     func cellTapped(cell: UITableViewCell) {
@@ -124,26 +150,14 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             cell.delegate = self
         }
         
-        cell.authorLabel.text = links[indexPath.row].author
-        cell.descriptionLabel.text = links[indexPath.row].description
+        let linkAtRow = links[indexPath.row]
+        cell.authorLabel.text = linkAtRow.author
+        cell.descriptionLabel.text = linkAtRow.description
         let colors = [UIColor(red:1.00, green:0.18, blue:0.33, alpha:1.0), UIColor(red:1.00, green:0.80, blue:0.00, alpha:1.0), UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0), UIColor.weLearnLightBlue]
         
         cell.profilePic.tintColor = colors[indexPath.row % colors.count]
+        cell.profilePic.image = checkForImage(linkAtRow.studentKey) ?? UIImage(named: "user")
         
-//        let storage = FIRStorage.storage()
-//        let storageRef = storage.reference()
-//        let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
-//        
-//        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
-//            if let error = error {
-//                print(error)
-//            }
-//            else {
-//                let image = UIImage(data: data!)
-//                cell.profilePic.image = image
-//            }
-//        }
-    
         return cell
     }
     
