@@ -79,7 +79,7 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
         let storageRef = storage.reference()
         let imageRef = storageRef.child("profileImage/\(id)")
         
-        imageRef.data(withMaxSize: 1*100*100) { (data, error) in
+        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
             if let error = error {
                 print(error)
             }
