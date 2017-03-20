@@ -191,7 +191,6 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                         let endTime = assignment.date
                         let difference = endTime.timeIntervalSinceNow as CFTimeInterval
                         self.timeInSeconds = Int(difference)
-                    
                         self.timeInSeconds -= 1
                         
                         let days = Int(self.timeInSeconds) / 86400
@@ -206,7 +205,9 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                     
                     timer.fire()
                     
-                    var properPercentage = (CGFloat(168 - Int(self.timeInSeconds)/3600)/168)
+                    
+                    var properPercentage = (CGFloat(2016 - Int(self.timeInSeconds)/3600)/168)
+                     print("\(properPercentage)  \(assignmentCell.assignmentNameLabel.text)")
                     assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                 }
