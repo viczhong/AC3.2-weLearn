@@ -8,7 +8,6 @@
 
 import Foundation
 
-// *** Work in Progress!!
 class Link {
     
     var url: String
@@ -16,9 +15,10 @@ class Link {
     
     // meta data - this way we track who made what link, and when
     var author: String
+    var studentKey: String
     var date: String
     
-    init?(url: String, author: String, description: String) {
+    init?(url: String, author: String, studentKey: String, description: String) {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
@@ -27,6 +27,7 @@ class Link {
         self.description = description
         self.url = url
         self.author = author
+        self.studentKey = studentKey
         self.date = dateFormatter.string(from: currentDate)
         
     }
@@ -34,8 +35,9 @@ class Link {
     convenience init?(fromDict: [String : Any]) {
         guard let url = fromDict["url"] as? String,
             let name = fromDict["studentName"] as? String,
+            let key = fromDict["studentKey"] as? String,
             let description = fromDict["urlDescription"] as? String else { return nil }
-        self.init(url: url, author: name, description: description)
+        self.init(url: url, author: name, studentKey: key, description: description)
     }
     
     func blame() {

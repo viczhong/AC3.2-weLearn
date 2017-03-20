@@ -199,7 +199,7 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                         let minutes = Int(self.timeInSeconds) / 60 % 60
                         let seconds = Int(self.timeInSeconds) % 60
                         
-                        if assignmentCell.assignmentCountDownLabel.text == "" {
+                        if assignmentCell.assignmentCountDownLabel.text == ""  || assignmentCell.assignmentCountDownLabel.text?.characters.last == "e" {
                             assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, %i minutes & %i seconds until ", days, hours, minutes, seconds) + "deadline"
                             assignmentCell.optionalTimerLabel.isHidden = false
                             assignmentCell.optionalTimerLabelsShadow.isHidden = false
