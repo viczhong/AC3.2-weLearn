@@ -487,7 +487,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             }
             
             let userID = FIRAuth.auth()?.currentUser?.uid
-            let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+            let userDefaults = UserDefaults(suiteName: "group.nyc.c4q.ac32.weLearn")
             userDefaults?.setValue(userID, forKey: "studentInfo")
             
             if let error = error {
@@ -539,7 +539,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 let userID = user?.uid
-                let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
+                let userDefaults = UserDefaults(suiteName: "group.nyc.c4q.ac32.weLearn")
                 userDefaults?.setValue(userID, forKey: "studentInfo")
             }
             

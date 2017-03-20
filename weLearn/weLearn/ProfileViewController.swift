@@ -11,6 +11,7 @@ import SnapKit
 import Firebase
 import AudioToolbox
 import FirebaseDatabase
+import FirebaseStorage
 import MobileCoreServices
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {

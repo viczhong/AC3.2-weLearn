@@ -26,6 +26,9 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
         }
     }
     
+    var timeInSeconds = 1
+    var timer: Timer!
+    
     let assignmentSheetID = MyClass.manager.assignmentsID!
     let gradeBookSheetID = MyClass.manager.gradeBookID!
     var assignmentGrades: AssignmentGrade?
@@ -179,19 +182,33 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                         assignmentCell.assignmentCountDownLabel.text = "Grade: \(gradeAtRow[indexPath.row].grade)"
                     }
                 } else {
-                    let endTime = assignment.date
-                    let difference = endTime.timeIntervalSinceNow as CFTimeInterval
-                    let timeInSeconds = Int(difference)
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+                        guard self.timeInSeconds > 0  else {
+                            self.timer.invalidate()
+                            return
+                        }
+                        
+                        let endTime = assignment.date
+                        let difference = endTime.timeIntervalSinceNow as CFTimeInterval
+                        self.timeInSeconds = Int(difference)
+                        self.timeInSeconds -= 1
+                        
+                        let days = Int(self.timeInSeconds) / 86400
+                        let hours = Int(self.timeInSeconds) / 3600 % 24
+                        let minutes = Int(self.timeInSeconds) / 60 % 60
+                        let seconds = Int(self.timeInSeconds) % 60
                     
-                    let days = Int(timeInSeconds) / 86400
-                    let hours = Int(timeInSeconds) / 3600 % 24
-                    let minutes = Int(timeInSeconds) / 60 % 60
-                    let properPercentage = (CGFloat(168 - Int(timeInSeconds)/3600)/168)
+                        assignmentCell.optionalTimerLabel.isHidden = false
+                        assignmentCell.optionalTimerLabelsShadow.isHidden = false
+                        assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, %i minutes & %i seconds until ", days, hours, minutes, seconds) + "deadline"
+                    }
                     
-                    assignmentCell.optionalTimerLabel.isHidden = false
-                    assignmentCell.optionalTimerLabelsShadow.isHidden = false
+                    timer.fire()
+                    
+                    
+                    var properPercentage = (CGFloat(2016 - Int(self.timeInSeconds)/3600)/168)
+                     print("\(properPercentage)  \(assignmentCell.assignmentNameLabel.text)")
                     assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
-                    assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, & %i minutes until ", days, hours, minutes) + "deadline"
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                 }
                 
