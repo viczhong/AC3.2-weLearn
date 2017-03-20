@@ -200,8 +200,12 @@ class AgendaTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 0 else {
+            AudioServicesPlaySystemSound(1103)
+            return
+        }
+        
         AudioServicesPlaySystemSound(1104)
-        guard indexPath.section == 0 else { return }
         
         if let cell = tableView.cellForRow(at: indexPath) {
             

@@ -48,9 +48,9 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        if links.isEmpty {
+//        if links.isEmpty {
             self.getDataInfo()
-        }
+//        }
     }
     
    func getDataInfo() {
@@ -69,7 +69,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
             print(">>> there are \(self.links.count) links")
-            
         }) { (error) in
             print(error.localizedDescription)
             self.activityIndicator.stopAnimating()

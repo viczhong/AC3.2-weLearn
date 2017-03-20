@@ -12,6 +12,7 @@ import MobileCoreServices
 class ShareViewController: SLComposeServiceViewController {
     
     private var urlString: String?
+    private var urlImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +24,14 @@ class ShareViewController: SLComposeServiceViewController {
         
         let propertyList = String(kUTTypeURL)
         
+        itemProvider.loadPreviewImage(options: [:]) { (secureCoding: NSSecureCoding?, error: Error!) in
+            if let img = secureCoding as? UIImage {
+                self.urlImage = img
+            }
+        }
+        
         if itemProvider.hasItemConformingToTypeIdentifier(propertyList) {
             itemProvider.loadItem(forTypeIdentifier: propertyList, options: nil, completionHandler: { (item, error) -> Void in
-                
                 guard let url = item else { return }
                 let urlString = String(describing: url)
                 self.urlString = urlString
@@ -44,9 +50,8 @@ class ShareViewController: SLComposeServiceViewController {
         navigationController?.navigationBar.topItem?.titleView = imageView
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.backgroundColor = UIColor(red:0.46, green:0.75, blue:0.75, alpha:1.0)
-        
     }
-    
+
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
@@ -72,6 +77,8 @@ class ShareViewController: SLComposeServiceViewController {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yy'T'HH:mmZZZZZ"
                 let dateString = dateFormatter.string(from: now)
+                
+//                self.handleImage(uniqueID: uniqueID)
                 
                 guard let validURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                     let validURL = URL(string: validURLString) else { return }
@@ -106,12 +113,39 @@ class ShareViewController: SLComposeServiceViewController {
                         print(error)
                     }
                 }).resume()
-                
             }
-            
         }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
+    
+//    func handleImage(uniqueID: String) {
+//        guard let validImage = urlImage,
+//        let jpeg = UIImageJPEGRepresentation(validImage, 0.70) else { return }
+//
+//      let storageURL = "https://welearn-a2b14.appspot.com/images/\(uniqueID).json"
+//
+////        guard let validURLString = storageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+//            guard let validURL = URL(string: storageURL) else { return }
+//        var request = URLRequest(url: validURL)
+//        let session = URLSession(configuration: .default)
+//        request.httpMethod = "POST"
+//        request.addValue("image/jpeg", forHTTPHeaderField: "Content-Type")
+//        request.httpBody = jpeg
+//
+//        session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+//            if let data = data {
+//                print(data)
+//            }
+//            if let response = response {
+//                print(response)
+//            }
+//            if let error = error {
+//                print(error)
+//            }
+//        }).resume()
+//        
+//    }
+    
     
     func getUserIDFromUserDefaults() -> String? {
         guard let userDefaults = UserDefaults(suiteName: "group.nyc.c4q.ac32.weLearn"),
