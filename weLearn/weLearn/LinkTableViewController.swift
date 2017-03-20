@@ -48,9 +48,9 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         
-        if links.isEmpty {
+//        if links.isEmpty {
             self.getDataInfo()
-        }
+//        }
     }
     
    func getDataInfo() {
