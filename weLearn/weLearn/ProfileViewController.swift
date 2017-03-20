@@ -112,7 +112,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let storageRef = storage.reference()
         let imageRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
         
-        imageRef.data(withMaxSize: 1*1024*1024) { (data, error) in
+        imageRef.data(withMaxSize: 1*25*25) { (data, error) in
             if let error = error {
                 print(error)
             }
@@ -263,7 +263,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             let storageRef = storage.reference(forURL: "gs://welearn-a2b14.appspot.com/")
             let spaceRef = storageRef.child("profileImage/\(User.manager.studentKey!)")
             
-            let data = UIImageJPEGRepresentation(image, 0.5)
+            let data = UIImageJPEGRepresentation(image, 0.25)
             let metaData = FIRStorageMetadata()
             metaData.cacheControl = "public,max-age=300";
             metaData.contentType = "image/jpeg";
