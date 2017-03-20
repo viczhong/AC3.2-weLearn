@@ -82,16 +82,17 @@ class TestGrade {
         
         return returnArray
     }
+    
+    static func removeHypensAndCapitalize(_ string: String) -> String {
+        let stringArray = string.components(separatedBy: "-")
+        var returnString = ""
+        for word in stringArray {
+            returnString += "\(word.capitalizingFirstLetter()) "
+        }
+        return returnString
+    }
 }
 
-func removeHypensAndCapitalize(_ string: String) -> String {
-    let stringArray = string.components(separatedBy: "-")
-    var returnString = ""
-    for word in stringArray {
-        returnString += "\(word.capitalizingFirstLetter()) "
-    }
-    return returnString
-}
 
 
 

@@ -17,6 +17,7 @@ class MyClass {
     var assignmentsID: String?
     var lessonScheduleID: String?
     var announcementsID: String?
+    var gradeBookID: String?
     var achievementsID: String?
     
     static func clearSingleton() {
@@ -25,7 +26,8 @@ class MyClass {
             MyClass.manager.assignmentsID,
             MyClass.manager.lessonScheduleID,
             MyClass.manager.announcementsID,
-            MyClass.manager.achievementsID
+            MyClass.manager.achievementsID,
+            MyClass.manager.gradeBookID
         ]
         
         // Clear strings
@@ -33,5 +35,4 @@ class MyClass {
             strings[index] = nil
         }
     }
-    
 }

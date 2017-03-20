@@ -23,14 +23,15 @@ class User {
     var studentKey: String? 
     var assignments: [Assignment]?
     var grades: [(assignment: String, grade: String)]?
+    var assignmentGrades: [(assignment: String, grade: String)]?
     var agenda: [Agenda]?
+    var achievements: [Achievement]?
     
     static func clearSingleton() {
         var strings = [
             User.manager.name,
             User.manager.email,
             User.manager.id,
-            User.manager.classDatabaseKey,
             User.manager.classDatabaseKey,
             User.manager.image,
             User.manager.studentKey
@@ -43,6 +44,23 @@ class User {
         
         // Clear the rest
         User.manager.assignments = nil
+        User.manager.assignmentGrades = nil
         User.manager.grades = nil
+        User.manager.achievements = nil
     }
+    
+    static func setAssignmentsReversed(_ assignments: [Assignment]?) {
+        if let assign = assignments {
+            User.manager.assignments = assign.reversed()
+        }
+    }
+    
+    // Clears the singletons
+    static func logOut() {
+        User.clearSingleton()
+        MyClass.clearSingleton()
+        LessonSchedule.clearSchedule()
+    }
+
 }
+

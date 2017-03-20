@@ -18,15 +18,24 @@ class ClassFromSheet {
     let studentGradesID: String?
     let assignmentsID: String?
     let lessonScheduleID: String?
+    let achievementsID: String?
+    let announcementsID: String?
+    let gradeBookID: String?
     
     init(className: String,
          studentGradesID: String?,
          assignmentsID: String?,
-         lessonScheduleID: String?) {
+         lessonScheduleID: String?,
+         achievementsID: String?,
+         announcementsID: String?,
+         gradeBookID: String?) {
         self.className = className
         self.studentGradesID = studentGradesID
         self.assignmentsID = assignmentsID
         self.lessonScheduleID = lessonScheduleID
+        self.achievementsID = achievementsID
+        self.announcementsID = announcementsID
+        self.gradeBookID = gradeBookID
     }
     
     convenience init?(from dict: [String : Any]) throws {
@@ -42,7 +51,11 @@ class ClassFromSheet {
         self.init(className: className,
                   studentGradesID: dict["studentgradesid"],
                   assignmentsID: dict["assignmentsid"],
-                  lessonScheduleID: dict["lessonscheduleid"])
+                  lessonScheduleID: dict["lessonscheduleid"],
+                  achievementsID: dict["achievementsid"],
+                  announcementsID: dict["announcementsid"],
+                  gradeBookID: dict["gradebookid"]
+                  )
     }
     
     static func getClasses(from data: Data) -> [ClassFromSheet]? {
@@ -69,7 +82,7 @@ class ClassFromSheet {
         
         return classesParsed
     }
-
+    
     static func postClassInfoToDatabase(_ classes: [ClassFromSheet]) {
         let classBuckets = FIRDatabase.database().reference().child("classes")
         var classDict: [String : String] = [:]
@@ -90,7 +103,10 @@ class ClassFromSheet {
                         "name" : element.className,
                         "studentGradesID" : element.studentGradesID,
                         "assignmentsID" : element.assignmentsID,
-                        "lessonScheduleID" : element.lessonScheduleID
+                        "lessonScheduleID" : element.lessonScheduleID,
+                        "announcementsID" : element.announcementsID,
+                        "gradeBookID" : element.gradeBookID,
+                        "achievementsID" : element.achievementsID
                     ]
                     
                     if classDict.keys.contains(element.className) {
@@ -101,7 +117,6 @@ class ClassFromSheet {
                         let newClassRef = classBuckets.childByAutoId()
                         
                         newClassRef.setValue(classInfo)
-                        
                     }
                 }
             }

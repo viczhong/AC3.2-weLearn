@@ -36,39 +36,41 @@ class AnnouncementTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         box.snp.makeConstraints { (view) in
-            view.leading.equalTo(contentView).offset(7)
-            view.top.equalTo(contentView).offset(7)
-            view.trailing.equalTo(contentView).inset(7)
-            view.bottom.equalTo(contentView).inset(7)
+            view.leading.equalTo(contentView).offset(14)
+            view.top.equalTo(contentView).offset(14)
+            view.trailing.equalTo(contentView).inset(14)
+            view.bottom.equalTo(contentView).inset(14)
         }
         
         date.snp.makeConstraints { (lbl) in
-            lbl.top.leading.equalTo(contentView).offset(10)
+            lbl.top.leading.equalTo(box).offset(10)
         }
         
         quote.snp.makeConstraints { (lbl) in
             lbl.leading.equalTo(bar.snp.trailing).offset(10)
             lbl.top.equalTo(date.snp.bottom).offset(10)
-            lbl.trailing.equalTo(contentView).inset(20)
+            lbl.trailing.equalTo(box).inset(20)
             lbl.bottom.equalTo(author.snp.top).inset(10)
             //lbl.centerY.equalTo(contentView)
         }
         
         bar.snp.makeConstraints { (view) in
-            view.leading.equalTo(contentView).offset(15)
+            view.leading.equalTo(box).offset(15)
             view.width.equalTo(5)
             view.height.equalTo(quote)
             view.top.equalTo(quote)
         }
         
         author.snp.makeConstraints { (view) in
-            view.bottom.equalTo(contentView).inset(10)
-            view.trailing.equalTo(contentView).inset(10)
+            view.bottom.equalTo(box).inset(10)
+            view.trailing.equalTo(box).inset(10)
         }
     }
     
     lazy var box: Box = {
         let button = Box()
+        button.layer.shadowColor = UIColor.weLearnBlue.cgColor
+        button.layer.shadowOpacity = 1
         return button
     }()
     
@@ -76,7 +78,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 14)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()
@@ -94,7 +96,7 @@ class AnnouncementTableViewCell: UITableViewCell {
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.lineBreakMode = .byTruncatingTail
-        lbl.font = UIFont(name: "Avenir-Heavy", size: 16)
+        lbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         lbl.textColor = UIColor.darkGray
         return lbl
     }()

@@ -1,34 +1,24 @@
 //
-//  Achievement.swift
+//  AssignmentGrades.swift
 //  weLearn
 //
-//  Created by Marty Avedon on 3/8/17.
+//  Created by Victor Zhong on 3/16/17.
 //  Copyright © 2017 Victor Zhong. All rights reserved.
 //
 
 import Foundation
 
-enum AchievementModelParseError: Error {
+enum AssignmentGradeModelParseError: Error {
     case results, parsingResults
 }
 
-class Achievement {
-    let pic: String
-    let description: String
-    
-    init (description: String) {
-        self.pic = randomPic()
-        self.description = description
-    }
-}
-
-class AchievementBucket {
+class AssignmentGrade {
     let id: String
-    let contentString: String
+    let grades: String
     
-    init(id: String, contentString: String) {
+    init (id: String, grades: String) {
         self.id = id
-        self.contentString = contentString
+        self.grades = grades
     }
     
     convenience init?(from dict: [String:Any]) throws {
@@ -36,39 +26,39 @@ class AchievementBucket {
             let id = titleField["$t"] as? String,
             let contentField = dict["content"] as? [String : Any],
             let contentString = contentField["$t"] as? String else {
-                throw AchievementModelParseError.parsingResults
+                throw AssignmentGradeModelParseError.parsingResults
         }
         
-        self.init(id: id, contentString: contentString)
+        self.init(id: id, grades: contentString)
     }
     
-    static func getAchievementBucket(from data: Data) -> [AchievementBucket]? {
-        var bucket: [AchievementBucket]? = []
+    static func getAssignmentGrade(from data: Data) -> [AssignmentGrade]? {
+        var grades: [AssignmentGrade]? = []
         do {
             let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
             
             guard let result = jsonData as? [String : Any],
                 let feed = result["feed"] as? [String : Any],
                 let entries = feed["entry"] as? [[String : Any]] else {
-                    throw AchievementModelParseError.results
+                    throw AssignmentGradeModelParseError.results
             }
             
             for entry in entries {
-                if let chievoDict = try AchievementBucket(from: entry) {
-                    bucket?.append(chievoDict)
+                if let gradesDict = try AssignmentGrade(from: entry) {
+                    grades?.append(gradesDict)
                 }
             }
         }
-        
+            
         catch {
             print("You got an error: \(error)")
         }
         
-        return bucket
+        return grades
     }
     
-    static func getStudentAchievementBucket(from data: Data, for studentID: String) -> AchievementBucket? {
-        let entries = getAchievementBucket(from: data)
+    static func getStudentAssignmentGrade(from data: Data, for studentID: String) -> AssignmentGrade? {
+        let entries = getAssignmentGrade(from: data)
         
         for entry in entries! where entry.id == studentID {
             return entry
@@ -77,16 +67,16 @@ class AchievementBucket {
         return nil
     }
     
-    
-    static func parseBucketString(_ string: String) -> [Achievement] {
-        var returnArray = [Achievement]()
+    static func parseGradeString(_ string: String) -> [(assignment: String, grade: String)] {
+        var returnArray = [(assignment: String, grade: String)]()
         
         let weirdArr = string.components(separatedBy: ", ")
         
         for all in weirdArr {
             let this = all.components(separatedBy: ": ")
             if this[0] != "name" {
-                returnArray.append(Achievement(description: removeHypensAndCapitalize(this[0])))
+                
+                returnArray.append((assignment: removeHypensAndCapitalize(this[0]), grade: this[1]))
             }
         }
         
@@ -99,17 +89,6 @@ class AchievementBucket {
         for word in stringArray {
             returnString += "\(word.capitalizingFirstLetter()) "
         }
-        
         return returnString
     }
-}
-
-
-func randomPic() -> String {
-    let picArray = [
-        "academicExcellence",
-        "studentOfTheMonth"
-    ]
-    
-    return picArray[Int(arc4random_uniform(UInt32(picArray.count)))]
 }

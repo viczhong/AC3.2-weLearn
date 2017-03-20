@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import AudioToolbox
 import FirebaseDatabase
 
 class InitialViewController: UIViewController, UITextFieldDelegate {
@@ -42,7 +43,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     var navControllerAssignments = UINavigationController()
     
     var viewControllers = [UINavigationController]()
-//    var viewControllers = [UIViewController]()
     
     var tabAgendaImage = #imageLiteral(resourceName: "agendaIcon")
     var tabLinksImage = #imageLiteral(resourceName: "linkIcon")
@@ -55,11 +55,18 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        databaseReference = FIRDatabase.database().reference()
+        
         self.time = 0.0
         
-        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.white.withAlphaComponent(0.25)])
+        self.view.apply(gradient: [UIColor.weLearnBlue, UIColor.weLearnCoolWhite])
         
+        // these all need the delegate set to get sound on click
         self.passwordTextField.delegate = self
+        self.emailTextField.delegate = self
+        self.classTextField.delegate = self
+        self.nameTextField.delegate = self
+        self.studentIDTextField.delegate = self
         
         viewHiearchy()
         configureConstraints()
@@ -73,7 +80,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
             studentIDTextField
         ]
         
-        databaseReference = FIRDatabase.database().reference()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +87,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         loginTabWasPressed()
         activityIndicator.isHidden = true
-        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,7 +96,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         logoPic.transform = .identity
         logoOverlay.transform = .identity
         logoOverlay.alpha = 1
-        // self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,7 +104,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         hoverCloud()
     }
     
-    //MARK: - Tab loading functions
+    // MARK: - Tab loading functions
     
     func loadTabsAndEverythingElse() {
         // Tabbar guts
@@ -119,7 +123,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         
         viewControllers = [navControllerAgenda, navControllerLinks, navControllerAnnouncements, navControllerAssignments, navControllerProfile]
         
-      //  viewControllers = [tabAgenda, tabLinks, tabAnnouncements, tabAssignments, tabProfile]
         TabViewController.viewControllers = viewControllers
         
         tabAgenda.tabBarItem = UITabBarItem(title: "Agenda", image: tabAgendaImage, tag: 1)
@@ -148,6 +151,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        AudioServicesPlaySystemSound(1104)
+    }
+    
+    
+    
     func colorTab(button1: UIButton, button2: UIButton) {
         if button1.isSelected {
             button1.backgroundColor = UIColor.white
@@ -158,7 +167,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: - Autolayout Constraints and Hierarchy
+    // MARK: - Autolayout Constraints and Hierarchy
     
     func viewHiearchy() {
         self.view.addSubview(logoPic)
@@ -305,8 +314,11 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Button Actions and Functions
     
     func checkLogin() {
-        if FIRAuth.auth()?.currentUser != nil {
-            self.present(TabViewController, animated: true)
+        if let currentUser = FIRAuth.auth()?.currentUser {
+            //            self.present(TabViewController, animated: true)
+            self.fillInSingleton(currentUser.uid)
+            self.present(self.TabViewController, animated: true)
+            self.navigationController?.navigationBar.isHidden = false
         }
     }
     
@@ -409,13 +421,45 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 
                 DispatchQueue.main.async {
                     // Load tab bar now!
-                    self.loadTabsAndEverythingElse()
+                    self.fillInClassSingleton(user.classDatabaseKey)
                 }
             }
         })
     }
     
+    func fillInClassSingleton(_ classKey: String?) {
+        if let key = classKey {
+            let classRef = databaseReference.child("classes").child(key)
+            classRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let valueDict = snapshot.value as? [String : Any] {
+                    let thisClass = MyClass.manager
+                    thisClass.studentGradesID = valueDict["studentGradesID"] as? String
+                    thisClass.gradeBookID = valueDict["gradeBookID"] as? String
+                    thisClass.lessonScheduleID = valueDict["lessonScheduleID"] as? String
+                    thisClass.announcementsID = valueDict["announcementsID"] as? String
+                    thisClass.assignmentsID = valueDict["assignmentsID"] as? String
+                    thisClass.achievementsID = valueDict["achievementsID"] as? String
+                    
+                    DispatchQueue.main.async {
+                        self.loadTabsAndEverythingElse()
+                    }
+                }
+            })
+        }
+    }
+    
     func loginButtonWasPressed() {
+        AudioServicesPlaySystemSound(1105)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loginButton.layer.shadowOpacity = 0.1
+            self.loginButton.layer.shadowRadius = 1
+            self.loginButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.loginButton.layer.shadowOpacity = 0.25
+            self.loginButton.layer.shadowRadius = 2
+            self.loginButton.layer.sublayers!.remove(at: 0)
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -444,6 +488,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerButtonWasPressed() {
+        AudioServicesPlaySystemSound(1105)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.registerButton.layer.shadowOpacity = 0.1
+            self.registerButton.layer.shadowRadius = 1
+            self.registerButton.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.1), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.registerButton.layer.shadowOpacity = 0.25
+            self.registerButton.layer.shadowRadius = 2
+            self.registerButton.layer.sublayers!.remove(at: 0)
+        })
+        
         guard let credentials = signInCredentials() else { return }
         
         activityIndicator.isHidden = false
@@ -468,7 +523,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                     self.loginButton.isEnabled = true
                 }
                 
-                
                 let userID = user?.uid
                 let userDefaults = UserDefaults(suiteName: "group.com.welearn.app")
                 userDefaults?.setValue(userID, forKey: "studentInfo")
@@ -483,7 +537,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
                 self.loginButton.isEnabled = false
                 
                 self.activityIndicator.stopAnimating()
-
             }
         })
     }
@@ -498,6 +551,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerTabWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.registerTab.layer.shadowOpacity = 0.1
+            self.registerTab.layer.shadowRadius = 1
+            self.registerTab.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.2), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.registerTab.layer.shadowOpacity = 0.25
+            self.registerTab.layer.shadowRadius = 2
+            self.registerTab.layer.sublayers!.remove(at: 0)
+        })
+        
         registerTab.isSelected = true
         loginTab.isSelected = false
         colorTab(button1: registerTab, button2: loginTab)
@@ -509,6 +573,17 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loginTabWasPressed() {
+        AudioServicesPlaySystemSound(1104)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loginTab.layer.shadowOpacity = 0.1
+            self.loginTab.layer.shadowRadius = 1
+            self.loginTab.apply(gradient: [UIColor.weLearnGrey.withAlphaComponent(0.2), UIColor.weLearnCoolWhite])
+        }, completion: { finish in
+            self.loginTab.layer.shadowOpacity = 0.25
+            self.loginTab.layer.shadowRadius = 2
+            self.loginTab.layer.sublayers!.remove(at: 0)
+        })
+        
         loginTab.isSelected = true
         registerTab.isSelected = false
         colorTab(button1: loginTab, button2: registerTab)

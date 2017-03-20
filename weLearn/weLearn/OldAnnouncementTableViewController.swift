@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SnapKit
+import AudioToolbox
 import FirebaseAuth
 import FirebaseStorage
 
@@ -14,28 +16,14 @@ class OldAnnouncementsTableViewController: UITableViewController {
     
     fileprivate let reuseIdentifier = "AnnouncementCell"
     
+    let announcementSheetID = MyClass.manager.announcementsID!
     var announcements: [Announcement]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        announcements = [
-            Announcement(quote: "You all got A's! Wow!", author: "Ben"),
-            Announcement(quote: "TGIF", author: "Jason"),
-            Announcement(quote: "Human beings evolved from a common ancestor of the chimpanzee.", author: "Darwin"),
-            Announcement(quote: "I love cats", author: "Louis"),
-            Announcement(quote: "We bought a fridge", author: "Rina"),
-            Announcement(quote: "Hacked!", author: "Evan")
-        ]
-        
         self.navigationItem.title = "Announcements"
         self.tabBarController?.title = navigationItem.title
-        
-       // navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        
-       // linksButton.addTarget(self, action: #selector(buttonWasPressed(button:)), for: .touchUpInside)
-       // let rightButton = UIBarButtonItem(customView: linksButton)
-       // navigationItem.setRightBarButton(rightButton, animated: true)
         
         tableView.register(AnnouncementTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
@@ -43,24 +31,56 @@ class OldAnnouncementsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 268.0
         
         tableView.separatorStyle = .none
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.view.addSubview(activityIndicator)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.snp.makeConstraints { view in
+            view.center.equalToSuperview()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if announcements == nil {
+            getAnnouncements()
+        }
+    }
+    
+    func getAnnouncements() {
+        self.view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
+        
+        APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(announcementSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+            if data != nil {
+                if let returnedAnnouncements = Announcement.getAnnouncements(from: data!) {
+                    print("We've got returns: \(returnedAnnouncements.count)")
+                    self.announcements = returnedAnnouncements.sorted(by: { $0.date > $1.date })
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        self.tableView.reloadData()
+                    }
+                }
+            } else {
+                print("error loading data!")
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
     
     // MARK: - Actions
     
-//    func buttonWasPressed(button: UIButton) {
-//        //    navigationController?.pushViewController(LinksCollectionViewController(), animated: true)
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         AudioServicesPlaySystemSound(1306)
+    }
+
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -69,19 +89,25 @@ class OldAnnouncementsTableViewController: UITableViewController {
         return announcements?.count ?? 0
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! AnnouncementTableViewCell
         cell.selectionStyle = .none
         // Configure the cell...
         
-        cell.date.text = announcements![indexPath.row].date
-        cell.quote.text = announcements![indexPath.row].quote
-        cell.author.text = announcements![indexPath.row].author
-        
-        cell.bar.isHidden = true
-        
+        if let announce = announcements {
+            cell.date.text = announce[indexPath.row].dateString
+            cell.quote.text = announce[indexPath.row].quote
+            cell.author.text = announce[indexPath.row].author
+            
+            cell.bar.isHidden = true
+        }
         return cell
     }
     
- }
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        view.color = UIColor.weLearnGreen
+        return view
+    }()
+}
