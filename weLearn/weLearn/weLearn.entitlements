@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.welearn.app</string>
+		<string>group.nyc.c4q.ac32.weLearn</string>
 	</array>
 </dict>
 </plist>
