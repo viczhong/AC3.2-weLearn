@@ -69,7 +69,6 @@ class LinkTableViewController: UITableViewController, Tappable, SFSafariViewCont
             self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
             print(">>> there are \(self.links.count) links")
-            
         }) { (error) in
             print(error.localizedDescription)
             self.activityIndicator.stopAnimating()
