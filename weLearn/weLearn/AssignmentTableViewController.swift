@@ -191,23 +191,24 @@ class AssignmentTableViewController: UITableViewController, SFSafariViewControll
                         let endTime = assignment.date
                         let difference = endTime.timeIntervalSinceNow as CFTimeInterval
                         self.timeInSeconds = Int(difference)
+                        
                         self.timeInSeconds -= 1
                         
                         let days = Int(self.timeInSeconds) / 86400
                         let hours = Int(self.timeInSeconds) / 3600 % 24
                         let minutes = Int(self.timeInSeconds) / 60 % 60
                         let seconds = Int(self.timeInSeconds) % 60
-                    
-                        assignmentCell.optionalTimerLabel.isHidden = false
-                        assignmentCell.optionalTimerLabelsShadow.isHidden = false
-                        assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, %i minutes & %i seconds until ", days, hours, minutes, seconds) + "deadline"
+                        
+                        if assignmentCell.assignmentCountDownLabel.text == "" {
+                            assignmentCell.assignmentCountDownLabel.text = String(format: "%i days, %i hours, %i minutes & %i seconds until ", days, hours, minutes, seconds) + "deadline"
+                            assignmentCell.optionalTimerLabel.isHidden = false
+                            assignmentCell.optionalTimerLabelsShadow.isHidden = false
+                        }
                     }
                     
                     timer.fire()
                     
-                    
-                    var properPercentage = (CGFloat(2016 - Int(self.timeInSeconds)/3600)/168)
-                     print("\(properPercentage)  \(assignmentCell.assignmentNameLabel.text)")
+                    let properPercentage = (CGFloat(2016 - Int(self.timeInSeconds)/3600)/168)
                     assignmentCell.optionalTimerLabel.animate(towardsDeadline: properPercentage, forDuration: 1)
                     assignmentCell.assignmentNameLabel.text = assignment.assignmentTitle
                 }
