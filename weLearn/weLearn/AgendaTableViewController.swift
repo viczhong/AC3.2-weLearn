@@ -247,7 +247,7 @@ class AgendaTableViewController: UITableViewController {
     }
     
     func checkTime () {
-        if self.time >= 2.7  {
+        if self.time >= 2.6  {
             fanfareLabel.alpha = 0
             
             UIView.animate(withDuration: 1, animations: {
