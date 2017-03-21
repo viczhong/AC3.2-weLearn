@@ -76,12 +76,14 @@ class ToDoList {
     
     static func generateCheckList(_ list: ToDoList?) -> [String] {
         if let list = list {
-            return parseContentString(list.contentString) ?? ["Do your best", "Study hard", "Get sleep"]
+            return parseContentString(list.contentString)
         }
-        return ["Do your best", "Study hard", "Get sleep"]
+        else {
+            return ["Do your best", "Study hard", "Get sleep"]
+        }
     }
     
-    static func parseContentString(_ string: String) -> [String]? {
+    static func parseContentString(_ string: String) -> [String] {
         let weirdArr = string.components(separatedBy: ": ")
         return weirdArr[1].components(separatedBy: ", ")
     }
