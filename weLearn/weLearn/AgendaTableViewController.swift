@@ -17,20 +17,12 @@ class AgendaTableViewController: UITableViewController {
     let toDoListSheetID = MyClass.manager.toDoListID
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
-    var toDoList: [String]? {
+    var toDoList: [String]? = ["Do your best", "Study hard", "Get sleep"] {
         didSet {
             User.manager.toDoList = toDoList
         }
     }
     var checkedOff = [Int]()
-    
-    var todaysHardCodedSchedule = [
-        "Login",
-        "Check a prior lesson",
-        "Share a good link",
-        "Check for new announcements",
-        "Check grades"
-    ]
     
     var agenda: [Agenda]?
     
@@ -203,7 +195,7 @@ class AgendaTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            if let toDo = User.manager.toDoList {
+            if let toDo = toDoList {
                 cell.label.text = toDo[indexPath.row]
             }
             
