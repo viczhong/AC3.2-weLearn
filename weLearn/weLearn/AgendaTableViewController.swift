@@ -14,8 +14,14 @@ import FirebaseAuth
 class AgendaTableViewController: UITableViewController {
     
     let agendaSheetID = MyClass.manager.lessonScheduleID!
+    let toDoListSheetID = MyClass.manager.toDoListID
     let assignmentSheetID = MyClass.manager.assignmentsID!
     var todaysAgenda: Agenda?
+    var toDoList: [String]? {
+        didSet {
+            User.manager.toDoList = toDoList
+        }
+    }
     var checkedOff = [Int]()
     
     var todaysHardCodedSchedule = [
@@ -35,6 +41,7 @@ class AgendaTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        grabToDoList()
         
         let dateInTitle = DateFormatter()
         dateInTitle.dateFormat = "EEEE, MMMM dd"
@@ -51,6 +58,8 @@ class AgendaTableViewController: UITableViewController {
         tableView.separatorStyle = .none
         
         self.view.addSubview(activityIndicator)
+        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +80,8 @@ class AgendaTableViewController: UITableViewController {
         if agenda == nil {
             readAgenda()
         }
+        
+        grabToDoList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,6 +92,23 @@ class AgendaTableViewController: UITableViewController {
     }
     
     // MARK: - Agenda functions
+    
+    func grabToDoList() {
+        if User.manager.toDoList == nil {
+            APIRequestManager.manager.getData(endPoint: "https://spreadsheets.google.com/feeds/list/\(toDoListSheetID)/od6/public/basic?alt=json") { (data: Data?) in
+                if data != nil {
+                    if let returnedList = ToDoList.getTodaysList(from: data!) {
+                        self.toDoList = returnedList
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        self.tableView.reloadData()
+    }
     
     func todaysSchedule() -> Agenda? {
         if let agenda = agenda {
@@ -155,11 +183,7 @@ class AgendaTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            //            if LessonSchedule.manager.todaysAgenda != nil {
-            //                return 1
-            //            } else {
-            return todaysHardCodedSchedule.count
-        //}
+            return toDoList?.count ?? 0
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 return agenda.count
@@ -179,13 +203,16 @@ class AgendaTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            cell.label.text = todaysHardCodedSchedule[indexPath.row]
+            if let toDo = User.manager.toDoList {
+                cell.label.text = toDo[indexPath.row]
+            }
             
             if checkedOff.contains(indexPath.row) {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
+            
         case 1:
             if let agenda = LessonSchedule.manager.pastAgenda {
                 let agendaAtRow = agenda[indexPath.row]
@@ -219,7 +246,7 @@ class AgendaTableViewController: UITableViewController {
                 }
             }
             
-            if checkedOff.count == todaysHardCodedSchedule.count {
+            if checkedOff.count == toDoList?.count {
                 
                 if !self.view.subviews.contains(fanfare) {
                     self.view.addSubview(fanfareLabel)
@@ -257,8 +284,8 @@ class AgendaTableViewController: UITableViewController {
             UIView.animate(withDuration: 1, animations: {
                 self.fanfare.alpha = 0
             })
-                
-                timer.invalidate()
+            
+            timer.invalidate()
         }
         
         self.time += 0.1
