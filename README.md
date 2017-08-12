@@ -1,12 +1,20 @@
 # AC3.2-weLearn
 
-WeLearn! WeLearn is a clutter-free resource management app that allows instructors to easily set up a lesson plan and students to share resources. Each class is powered under the hood by a template of 7 Google Sheets (ranging from Student Roster to Lesson Schedule w/ Github links), and weLearn distills that info to every student in real time.
+When weLearn, everyone wins!
+
+WeLearn is a clutter-free resource management app that allows instructors to easily set up a lesson plan and students to share resources. Each class is powered under the hood by a template of 7 Google Sheets (ranging from Student Roster to Lesson Schedule w/ Github links), and weLearn distills that info to every student in real time.
+
+We designed weLearn as a mobile learning management system (LMS), to directly address our needs as students in a tech fellowship. At C4Q, we use email and Slack to keep connected. Slack is an amazing piece of technology, but the chat-room format makes it so easy for important links, grades, and announcements to get lost in the mix. weLearn is here to help!
+
+On the backend, instructors use Google Sheets templates to upload grades, assignments, and announcements. They can even reward students with special achievement badges. This fosters a lively classroom culture and encourages students to strive.
+
+In the future, we hope to implement push notifications, so students can be updated on the go, annotated audio/video recording of lessons similar to Soundcloud's format, and a fully integrated instructor-facing UI.
+
+## Problems & Solutions
 
 ![The Problem](https://github.com/viczhong/AC3.2-weLearn/blob/master/readmeImages/Problem.png "The Problem")
 
 ![The Solution](https://github.com/viczhong/AC3.2-weLearn/blob/master/readmeImages/Solution.png "The Solution")
-
-By using the familiar Google Spreadsheet environment, teachers can input lesson, student, and assignment into templated sheets and share this info privately with individual students. 
 
 ## App Flow
 
